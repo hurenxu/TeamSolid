@@ -10,4 +10,4 @@ echo "Running pre-commit hook"
 #fi
 
 echo "testing!!"
-exit 1
+exit 0
