@@ -16,8 +16,8 @@ Official website: https://nodejs.org/en/download/package-manager/
 
 Install curl by running `sudo apt-get install curl`
 
-Run `curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-sudo apt-get install -y nodejs` to install Node.js and npm
+Run `curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash - `
+To install Node.js and npm, run `sudo apt-get install -y nodejs`  
 
 ## 3. Intalling Dependencies
 Go to the folder that contains all the source code.
