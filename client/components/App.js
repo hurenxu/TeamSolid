@@ -7,9 +7,10 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Hello Team Solid</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <form action="/insert" className="form" method="post">
+          <input type="text" name="name" />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }

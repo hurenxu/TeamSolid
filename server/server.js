@@ -1,5 +1,6 @@
 var express = require('express');
-var router = require('./routes/routes.js')
+var router = require('./routes/routes.js');
+var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
 
@@ -16,6 +17,8 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 app.use(express.static(path.join(__dirname, '../client')));
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use('/', router);
 
 module.exports=app;
