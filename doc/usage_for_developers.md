@@ -53,3 +53,4 @@ It's more clear to use the database visually, so we also have this tutorial to v
 3. Start MongoDB Compass by running `mongodb-compass`. You might prefer to lock it to launcher for quick access.
 
 4. Connect to host. The default setting (port 27017) should work at this stage, but you should change port after you change the configuration of the server.
+
