@@ -29,7 +29,7 @@ router.post('/insert', function (req, res, next) {
             })*/
             cl.find({}).toArray(function(err,list){
                 if (err) throw err;
-                res.send(JSON.stringify(list));
+                res.send(JSON.stringify(list)); 
             });
         });
     });
