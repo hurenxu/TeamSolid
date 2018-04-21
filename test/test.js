@@ -16,6 +16,13 @@ describe('Login Component', () => {
         expect(wrapper.props().password).to.isDefined();
     });
 
+    it('should simulates click events', ()=> {
+        const onButtonClick = sinon.spy();
+        const wrapper = shallow(<Foo onButtonClick={onButtonClick} />);
+        wrapper.find('LoginButton').simulate('click');
+        assert(onButtonClick.calledOnce);
+    });
+
     // within the Login components describe function
     it('renders a email input', () => {
         expect(shallow(<App />).find('#email').length).to.equal(1);
