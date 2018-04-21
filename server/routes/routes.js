@@ -28,7 +28,7 @@ router.post('/insert', function (req, res, next) {
                 res.send(JSON.stringify({tmp: count}));
             })*/
             cl.find({}).toArray(function(err,list){
-                if (err) throw err;
+                if (err) throw err; 
                 res.send(JSON.stringify(list));
             });
         });
