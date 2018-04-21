@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ReactDOM from 'react-dom';
 
 export default class NameForm extends React.Component {
   constructor(props) {
@@ -17,8 +18,14 @@ export default class NameForm extends React.Component {
   handleSubmit(event) {
     axios.post(`/insert`, { name: this.state.value })
     .then(res => {
-      console.log(res)
-      this.setState({name: res.data.tmp});
+      console.log(res.data);
+      this.setState({name: res.data.length});
+      var content=(
+        <ul>
+            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}
+        </ul>
+      );
+      ReactDOM.render(content,document.getElementById("root"));
     })
 
     event.preventDefault();
@@ -26,7 +33,7 @@ export default class NameForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="root">
       <form onSubmit={this.handleSubmit}>
         <label>
           Name:
