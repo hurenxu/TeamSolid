@@ -16,11 +16,6 @@ pipeline {
                 sh 'npm test' 
             }
         }
-        stage('Documentation') {
-             steps {
-                sh './node_modules/.bin/esdoc' 
-            }
-        }
         stage('Deliever') {
              steps {
                 sh 'npm start' 
