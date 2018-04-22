@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'npm install' 
+                sh 'npm install babel-cli -S' 
+                sh 'npm install'
             }
         }
         stage('Test') {
