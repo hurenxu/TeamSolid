@@ -55,5 +55,5 @@ It's more clear to use the database visually, so we also have this tutorial to v
 4. Connect to host. The default setting (port 27017) should work at this stage, but you should change port after you change the configuration of the server.
 
 ### 5.4 turn on/down server
-Turn on: sudo systemctl restart nginx
-Turn down: sudo systemctl stop nginx
+1. Turn on: sudo systemctl restart nginx
+2. Turn down: sudo systemctl stop nginx
