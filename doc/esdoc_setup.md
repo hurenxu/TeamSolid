@@ -15,6 +15,10 @@ First move into the working directory , run `cd TeamSolid`
 
 Next to install the ESDoc and the standard plugin, run `npm install esdoc esdoc-standard-plugin`
 
+###ESDoc ECMAScript Proposal Plugin
+
+Next to install the ECMAScript Proposal Plugin run `npm install esdoc-ecmascript-proposal-plugin`
+
 ###ESDoc JSX Plugin
 
 Next to install the ESDoc JSX Plugin , run `npm install esdoc-jsx-plugin`
