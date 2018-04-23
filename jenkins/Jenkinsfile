@@ -29,7 +29,7 @@ pipeline {
         stage('Deliver') {
             agent any
 	    steps {
-		sh 'echo "success!"'
+		sh 'sudo touch ~/a.txt'
             }
         }
     }
