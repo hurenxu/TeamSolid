@@ -23,6 +23,7 @@ pipeline {
                 }
             }
 	    steps {
+		sh 'chmod 777 ./jenkins/scripts/test.sh'
                 sh './jenkins/scripts/test.sh'
             }
         }
