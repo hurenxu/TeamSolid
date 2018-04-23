@@ -20,7 +20,7 @@
   },
   "scripts": {
     "webpack": "webpack",
-    "start": "npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www"
+    "start": "PORT=3000 npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www"
   },
   "devDependencies": {
     "webpack": "^3.4.1",
