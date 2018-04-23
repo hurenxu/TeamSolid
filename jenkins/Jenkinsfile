@@ -30,7 +30,8 @@ pipeline {
         stage('Deliver') {
             agent any
 	    steps {
-		sh 'sudo touch ~/a.txt'
+		sh 'cd /home/dev/web'
+		sh 'sudo npm start'
             }
         }
     }
