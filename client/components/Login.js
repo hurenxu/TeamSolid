@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Button} from 'semantic-ui-react'
+import {Button, Grid} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import '../css/login.css'
 
@@ -13,10 +13,12 @@ class Login extends Component {
         this.state =
             {
                 email: '',
-                password: ''
+                password: '',
+                buttonText: 'Login',
             };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     handleChange(event) {
@@ -35,8 +37,16 @@ class Login extends Component {
             return re.test(String(email).toLowerCase());
         }
 
-        if (validateEmail(this.state.email)) {
+        if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Login') {
             //Submit to somewhere
+            console.log("Try to login")
+        }
+        else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Register') {
+            //Submit to somewhere
+            console.log("Try to register")
+        }
+        else if (this.state.password == ''){
+            alert('Password cannot be empty');
         }
         else {
             alert('Invalid email address');
@@ -46,13 +56,20 @@ class Login extends Component {
         });
     }
 
+    handleClick(event) {
+        //Register
+        this.setState({
+            buttonText: 'Sign Up'
+        });
+    }
+
     render() {
         const Mobile = props => <Responsive {...props} maxWidth={767}/>;
         const Default = props => <Responsive {...props} minWidth={768}/>;
 
         return (
-            <div style={{marginTop: '10%'}} className="ui four wide column centered grid login_box">
-                <div className="ui four wide column login_login">
+            <Grid columns={16} centered>
+                <Grid.Column mobile={14} computer={4} className="login_box">
                     <h2 className="ui image header centered">
                         <div className="content">
                             Log-in to your account
@@ -64,7 +81,7 @@ class Login extends Component {
                                 <div className="ui left icon input">
                                     <i className="user icon"/>
                                     <input type="text" value={this.state.email} onChange={this.handleChange}
-                                           name="email"/>
+                                           name="email" placeholder="E-mail"/>
                                 </div>
                             </div>
                             <div className="field">
@@ -72,19 +89,19 @@ class Login extends Component {
                                     <i className="lock icon"/>
                                     <input type="password" value={this.state.password}
                                            onChange={this.handleChange}
-                                           name="password"/>
+                                           name="password" placeholder="Password"/>
                                 </div>
                             </div>
-                            <Button type='submit' className="ui fluid large teal" value='Login'
-                                    secondary>Login</Button>
+                            <Button type='submit' className="ui fluid large teal"
+                                    secondary>{this.state.buttonText}</Button>
                         </div>
                         <div className="ui error message"/>
                     </form>
                     <div className="ui message">
-                        New to us? <a href="https://s.codepen.io/voltron2112/debug/PqrEPM?">Register</a>
+                        New to us? <a href="#" onClick={this.handleClick}>Sign Up</a>
                     </div>
-                </div>
-            </div>
+                </Grid.Column>
+            </Grid>
         );
     }
 }
