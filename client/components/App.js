@@ -8,13 +8,28 @@ class App extends Component {
     super(props);
     this.state =
         {
-            isLoginPage: true
+            isLoginPage: true,
+            email: "",
+            password: ""
+
         };
 
     this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);
+    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);
   }
 
-  handleLoginCrudSwap() {
+  handleLoginCrudSwap(in_email, in_password) {
+    this.setState((prevState, props) => ({
+        email: in_email,
+        password: in_password
+    }));
+
+    this.setState((prevState, props) => ({
+        isLoginPage: !prevState.isLoginPage
+    }));
+  }
+
+  handleCrudLoginSwap() {
     this.setState((prevState, props) => ({
         isLoginPage: !prevState.isLoginPage
     }));
@@ -23,7 +38,7 @@ class App extends Component {
 
   render() {
     const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;
-    const crudPage = <Crud onBackClicked={this.handleLoginCrudSwap}/>;
+    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;
 
     return (
       <div className="App">
