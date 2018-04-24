@@ -20,7 +20,7 @@ then
     printf "\n\n${RED}Eslint not passed! ${NC}Please fix the error(s) above and commit again!\n"
     exit 1
 else
-    printf "\n\n${GR}Eslint passed!\n"
+    printf "\n\n${GR}Eslint passed! ${NC}\n"
 fi
 
 exit 0
