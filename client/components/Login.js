@@ -1,6 +1,6 @@
 /**
- * Created by Wanhui on 4/20/18.
- */
+* Created by Wanhui on 4/20/18.
+*/
 
 import React, {Component} from 'react';
 import {Button, Grid} from 'semantic-ui-react'

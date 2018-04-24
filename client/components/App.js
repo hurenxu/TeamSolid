@@ -7,12 +7,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state =
-        {
-            isLoginPage: true,
-            email: "",
-            password: ""
+      {
+        isLoginPage: true,
+        email: "",
+        password: ""
 
-        };
+      };
 
     this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);
     this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);
@@ -20,18 +20,18 @@ class App extends Component {
 
   handleLoginCrudSwap(in_email, in_password) {
     this.setState((prevState) => ({
-        email: in_email,
-        password: in_password
+      email: in_email,
+      password: in_password
     }));
 
     this.setState((prevState) => ({
-        isLoginPage: !prevState.isLoginPage
+      isLoginPage: !prevState.isLoginPage
     }));
   }
 
   handleCrudLoginSwap() {
     this.setState((prevState) => ({
-        isLoginPage: !prevState.isLoginPage
+      isLoginPage: !prevState.isLoginPage
     }));
   }
 
@@ -45,7 +45,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Hello Team Solid</h1>
         </header>
-          { this.state.isLoginPage? (loginPage): (crudPage)}
+          {this.state.isLoginPage? (loginPage): (crudPage)}
       </div>
     );
   }
