@@ -20,5 +20,9 @@
         "plugin:react/recommended"
     ],    
     "rules": {
+        "no-unused-vars": 0,
+        "no-console": "off",
+        "react/prop-types": [0],
+        "no-useless-escape": "off"
     }
 }
