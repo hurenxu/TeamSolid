@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="48d8e34d-973a-42f7-872a-6bd3f56bcff8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/doc/esdoc_setup.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/esdoc_setup.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/esdoc_style_enforcement.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/esdoc_style_enforcement.md" afterDir="false" />
-    </list>
+    <list default="true" id="48d8e34d-973a-42f7-872a-6bd3f56bcff8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -21,7 +18,7 @@
         <entry file="file://$PROJECT_DIR$/doc/esdoc_setup.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="438">
+              <first_editor relative-caret-position="909">
                 <caret line="66" column="3" selection-start-line="66" selection-start-column="3" selection-end-line="66" selection-end-column="3" />
               </first_editor>
               <second_editor />
@@ -174,18 +171,17 @@
       <option name="presentableId" value="Default" />
       <updated>1524367047298</updated>
       <workItem from="1524367049094" duration="5344000" />
-      <workItem from="1524456509775" duration="5333000" />
+      <workItem from="1524456509775" duration="5746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10677000" />
+    <option name="totallyTimeSpent" value="11090000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.24982357" />
+      <window_info content_ui="combo" id="Project" order="3" visible="true" weight="0.24982357" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
@@ -193,7 +189,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32911393" />
       <window_info id="npm" order="0" side_tool="true" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.2249691" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.2249691" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -327,7 +323,7 @@
     <entry file="file://$PROJECT_DIR$/doc/esdoc_setup.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="438">
+          <first_editor relative-caret-position="909">
             <caret line="66" column="3" selection-start-line="66" selection-start-column="3" selection-end-line="66" selection-end-column="3" />
           </first_editor>
           <second_editor />
