@@ -19,18 +19,18 @@ class App extends Component {
   }
 
   handleLoginCrudSwap(in_email, in_password) {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
         email: in_email,
         password: in_password
     }));
 
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
         isLoginPage: !prevState.isLoginPage
     }));
   }
 
   handleCrudLoginSwap() {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
         isLoginPage: !prevState.isLoginPage
     }));
   }

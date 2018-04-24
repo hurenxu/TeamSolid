@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Header, Button, Table} from "semantic-ui-react";
+import {Button, Table} from "semantic-ui-react";
 
 
 class CrudRow extends Component {
