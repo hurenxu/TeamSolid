@@ -11,6 +11,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
+    "concat-with-sourcemaps": "^1.0.5",
     "ejs": "^2.5.8",
     "enzyme": "latest",
     "express": "^4.16.3",
@@ -22,7 +23,9 @@
     "react-dom": "^16.3.2",
     "react-modal": "^3.4.1",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "semantic-ui": "^2.3.1",
+    "semantic-ui-react": "^0.79.1"
   },
   "scripts": {
     "test": "mocha ./test/*.js --compilers js:babel-core/register --recursive  --require ignore-styles",
