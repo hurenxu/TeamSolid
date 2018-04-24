@@ -6,12 +6,15 @@ import React, {Component} from 'react';
 import {Button, Grid} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import '../css/login.css'
+import axios from 'axios';
+import ReactDOM from "react-dom";
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state =
             {
+                id: -1,
                 email: '',
                 password: '',
                 buttonText: 'Login',
@@ -41,7 +44,17 @@ class Login extends Component {
         if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Login') {
             //Submit to somewhere
             this.props.onSubmitClicked();
-            console.log("Try to login")
+            axios.post(`/insert`, { email: this.state.email, password: this.state.password})
+                .then(res => {
+                    console.log(res.data);
+                    var content=(
+                        <ul>
+                            {res.data.map((item)=><li key={item.id}>id: {item._id} email: {item.userEmail}  password: {item.password}</li>)}
+                        </ul>
+                    );
+                    ReactDOM.render(content,document.getElementById("root"));
+                })
+            console.log("Try to login");
         }
         else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Register') {
             //Submit to somewhere
@@ -56,6 +69,7 @@ class Login extends Component {
         this.setState({
             email: ''
         });
+
     }
 
     handleClick(event) {

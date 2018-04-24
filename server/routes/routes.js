@@ -16,20 +16,20 @@ router.get('/', function (req, res) {
 
 // insert operation
 router.post('/insert', function (req, res, next) {
-    var name = req.body.name;
+    var email = req.body.email;
+    var passwd = req.body.password;
 
     MongoClient.connect(url, function (err, client) {
         const db = client.db(dbName);
-        var cl = db.collection('userName');
-
-        // Insert a single document
-        cl.insertOne({ userName: name }, function (err, r) {
-            /*cl.count(function(err, count) {
-                res.send(JSON.stringify({tmp: count}));
-            })*/
-            cl.find({}).toArray(function(err,list){
-                if (err) throw err; 
-                res.send(JSON.stringify(list));
+        var cl = db.collection('userTable');
+        var count;
+        cl.count(function(err, num) {
+            count=num;
+            cl.insertOne({ _id:(count+1), userEmail: email, password: passwd}, function () {
+                cl.find({}).toArray(function(err,list){
+                    if (err) throw err;
+                    res.send(JSON.stringify(list));
+                });
             });
         });
     });
