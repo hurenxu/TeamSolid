@@ -9,17 +9,22 @@ module.exports = {
     publicPath: '/'
   },
   module: {
-    loaders: [{
-      test: /.jsx?$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: {
-        presets: ['es2015', 'react']
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react']
+          }
+        }
+      }, 
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
       }
-    },
-    {
-      test: /\.css$/,
-      loader: "style-loader!css-loader"
-    }]
-  }
+    ]
+  },
+  mode: 'production'
 }
