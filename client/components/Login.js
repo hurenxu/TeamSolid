@@ -1,6 +1,6 @@
 /**
- * Created by Wanhui on 4/20/18.
- */
+* Created by Wanhui on 4/20/18.
+*/
 
 import React, {Component} from 'react';
 import {Button, Grid} from 'semantic-ui-react'
@@ -18,6 +18,8 @@ class Login extends Component {
                 email: '',
                 password: '',
                 buttonText: 'Login',
+                msg_show: 'New to us?',
+                msg_link: 'Sign Up',
             };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,9 +49,9 @@ class Login extends Component {
             axios.post(`/insert`, { email: this.state.email, password: this.state.password})
 
         }
-        else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Register') {
+        else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Sign Up') {
             //Submit to somewhere
-            console.log("Try to register")
+            console.log("Try to sign up")
         }
         else if (this.state.password == ''){
             alert('Password cannot be empty');
@@ -65,9 +67,20 @@ class Login extends Component {
 
     handleClick(event) {
         //Register
-        this.setState({
-            buttonText: 'Sign Up'
-        });
+        if(this.state.buttonText === 'Sign Up'){
+            this.setState({
+                buttonText: 'Login',
+                msg_show: 'New to Us?',
+                msg_link: 'Sign Up',
+            });
+        }
+        else{
+            this.setState({
+                buttonText: 'Sign Up',
+                msg_show: 'Already have an account?',
+                msg_link: 'Sign In'
+            });
+        }
     }
 
     render() {
@@ -105,7 +118,7 @@ class Login extends Component {
                         <div className="ui error message"/>
                     </form>
                     <div className="ui message">
-                        New to us? <a href="#" onClick={this.handleClick}>Sign Up</a>
+                        {this.state.msg_show} <a href="#" onClick={this.handleClick}>{this.state.msg_link}</a>
                     </div>
                 </Grid.Column>
             </Grid>
