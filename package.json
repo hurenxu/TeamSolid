@@ -26,9 +26,14 @@
   },
   "scripts": {
     "webpack": "webpack",
-    "start": "npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www"
+    "start": "npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www",
+    "lint": "esw --ignore-path .gitignore --color .",
+    "lint-watch": "npm run lint -- --watch"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-watch": "^3.1.4",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.15",
     "webpack-dev-middleware": "^2.0.6",
