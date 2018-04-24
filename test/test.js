@@ -1,13 +1,19 @@
-let React = require('react');
-let chai = require('chai');
-let expect = chai.should;
-let shallow = require('enzyme').shallow;
-let App = require('../client/components/App');
+import React from 'react';
+//import chai from 'chai';
+import {expect} from 'chai';
+import {shallow} from 'enzyme';
+
+import Login from '../client/components/Login';
 // TODO: change email to username
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+Enzyme.configure({ adapter: new Adapter() })
 
 describe('Login Component', () => {
     it('should allow users to login', () => {
-        expect(shallow(<App />).exists(<form className='login'> </form>)).to.isTrue();
+        const wrapper = shallow(<Login />);
+        expect(wrapper.find('input')).to.have.length(2);
     });
 
     it('should have props for email and password', function () {
