@@ -31,6 +31,7 @@
   },
   "scripts": {
     "webpack": "webpack",
+    "test": "mocha ./test/*.js --compilers js:babel-core/register --recursive  --require ignore-styles",
     "start": "npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www",
     "lint": "esw --ignore-path .gitignore --color .",
     "lint-watch": "npm run lint -- --watch"
