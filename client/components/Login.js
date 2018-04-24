@@ -19,6 +19,7 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
+
     }
 
     handleChange(event) {
@@ -39,6 +40,7 @@ class Login extends Component {
 
         if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Login') {
             //Submit to somewhere
+            this.props.onSubmitClicked();
             console.log("Try to login")
         }
         else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Register') {
