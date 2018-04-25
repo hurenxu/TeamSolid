@@ -40,6 +40,8 @@
   },
   "build": "babel server --out-dir build --presets=es2015 && webpack",
   "devDependencies": {
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0",
     "bell-on-bundler-error-plugin": "^1.0.8",
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.8.0",

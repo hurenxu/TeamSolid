@@ -1,7 +1,8 @@
-# Enviroment Set Up 
-This brief description will assist developers in setting up the enviroment.
+# Environment Set Up 
+This brief description will assist developers in setting up the environment.
 
 All the instructions are tested in Ubuntu 16.04
+
 Ubuntu: `https://www.ubuntu.com/download/desktop`
 
 ## 1. Getting source files from GitHub
@@ -17,9 +18,10 @@ Official website: https://nodejs.org/en/download/package-manager/
 Install curl by running `sudo apt-get install curl`
 
 Run `curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash - `
+
 To install Node.js and npm, run `sudo apt-get install -y nodejs`  
 
-## 3. Intalling Dependencies
+## 3. Installing Dependencies
 Go to the folder that contains all the source code.
 Run `sudo npm install` to install all the dependencies needed for developing.
 
