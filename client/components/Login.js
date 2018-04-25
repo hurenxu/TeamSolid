@@ -45,9 +45,7 @@ class Login extends Component {
 
         if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Login') {
             //Submit to somewhere
-            this.props.onSubmitClicked();
-            axios.post(`/insert`, { email: this.state.email, password: this.state.password})
-
+            this.props.onSubmitClicked(this.state.email, this.state.password);
         }
         else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Sign Up') {
             //Submit to somewhere
