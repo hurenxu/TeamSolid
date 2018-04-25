@@ -28,10 +28,17 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
+	stage('Document') {
+	    agent any
+	    steps {
+		sh './node_modules/.bin/esdoc'
+	    }
+	}
         stage('Deliver') {
             agent any
             steps {
                     sh 'cd /home/dev/web'
+		    sh 'sudo service mongod start'
                     sh 'chmod 777 ./jenkins/scripts/kill.sh'
                     sh 'chmod 777 ./jenkins/scripts/deliver.sh'
                     sh './jenkins/scripts/deliver.sh'
