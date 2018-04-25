@@ -31,6 +31,7 @@ pipeline {
 	stage('Document') {
 	    agent any
 	    steps {
+		sh 'cd /home/dev/web'
 		sh './node_modules/.bin/esdoc'
 	    }
 	}
