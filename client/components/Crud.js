@@ -59,7 +59,7 @@ class Crud extends Component {
     return (
       <div>
         <Button onClick={this.handleBackClicked}>Sign out</Button>
-        <Table celled padded>
+        <Table unstackable celled padded>
           <CrudHeader />
           <Table.Body>
             {rows}
