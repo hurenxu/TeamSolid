@@ -56,7 +56,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Hello Thomas</h1>
+          <h1 className="App-title">Hello Peter</h1>
         </header>
           {this.state.isLoginPage? (loginPage): (crudPage)}
       </div>
