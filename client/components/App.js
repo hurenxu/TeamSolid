@@ -1,15 +1,51 @@
 import React, { Component } from 'react';
 import Login from './Login'
+import Crud from './Crud'
 import '../css/App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state =
+      {
+        isLoginPage: true,
+        email: "",
+        password: ""
+
+      };
+
+    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);
+    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);
+  }
+
+  handleLoginCrudSwap(in_email, in_password) {
+    this.setState((prevState) => ({
+      email: in_email,
+      password: in_password
+    }));
+
+    this.setState((prevState) => ({
+      isLoginPage: !prevState.isLoginPage
+    }));
+  }
+
+  handleCrudLoginSwap() {
+    this.setState((prevState) => ({
+      isLoginPage: !prevState.isLoginPage
+    }));
+  }
+
+
   render() {
+    const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;
+    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;
+
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Hello Team Solid</h1>
         </header>
-        <Login />
+          {this.state.isLoginPage? (loginPage): (crudPage)}
       </div>
     );
   }
