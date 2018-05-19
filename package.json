@@ -16,6 +16,7 @@
     "package.json": "^2.0.1",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
+    "react-color": "^2.14.1",
     "react-dom": "^16.3.2",
     "react-modal": "^3.4.1",
     "react-responsive": "^4.1.0",
