@@ -43,7 +43,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Hello Team Solid</h1>
+          <h1 className="App-title">PeterBook</h1>
         </header>
           {this.state.isLoginPage? (loginPage): (crudPage)}
       </div>

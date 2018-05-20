@@ -15,7 +15,8 @@
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 5em;
+  margin-top: 8%;
 }
 
 .App-intro {
@@ -25,4 +26,8 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+body {
+  background-color: FloralWhite;
 }

@@ -8,6 +8,7 @@ import Responsive from 'react-responsive';
 import '../css/login.css'
 import axios from 'axios';
 import ReactDOM from "react-dom";
+import TextBox from './TextBox';
 
 class Login extends Component {
     constructor(props) {
@@ -20,6 +21,12 @@ class Login extends Component {
                 buttonText: 'Login',
                 msg_show: 'New to us?',
                 msg_link: 'Sign Up',
+                header_privacy: 'Decentralization',
+                header_security: 'Security',
+                header_freedom: 'Freedom',
+                msg_privacy: 'You choose who can see your data.',
+                msg_security: 'All data are encrypted to make them safe.',
+                msg_freedom: 'Your identity is not controlled and observed..',
             };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -88,14 +95,26 @@ class Login extends Component {
         const Default = props => <Responsive {...props} minWidth={768}/>;
 
         return (
-            <Grid columns={16} centered>
-                <Grid.Column mobile={14} computer={4} className="login_box">
-                    <h2 className="ui image header centered">
-                        <div className="content">
-                            Log-in to your account
+        <Grid columns={16} divided='vertically' className="text_board">
+                <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>
+                    <Grid.Row className ='text_box'>
+                        <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>
+                    </Grid.Row>
+                    <Grid.Row style={{height: '33%'}}>
+                        <TextBox header={this.state.header_security} text={this.state.msg_security}/>
+                    </Grid.Row>
+                    <Grid.Row style={{height: '33%'}}>
+                        <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>
+                    </Grid.Row>
+                </Grid.Column>
+
+            <Grid.Column mobile={14} computer={4}  verticalAlign='middle' className="login_box" style={{height: '50%'}}>
+                    <h2 className="ui header centered">
+                        <div className="content larg_text">
+                            <b>Log-in to your account</b>
                         </div>
                     </h2>
-                    <form onSubmit={this.handleSubmit} method="post" className="ui large form login_form">
+                    <form onSubmit={this.handleSubmit} method="post" className="ui massive form login_form">
                         <div className="ui stacked secondary  segment">
                             <div className="field">
                                 <div className="ui left icon input">
@@ -112,14 +131,15 @@ class Login extends Component {
                                            name="password" placeholder="Password"/>
                                 </div>
                             </div>
-                            <Button type='submit' className="ui fluid large teal"
+                            <Button type='submit' className="ui fluid huge teal larg_text"
                                     secondary>{this.state.buttonText}</Button>
                         </div>
                         <div className="ui error message"/>
                     </form>
-                    <div className="ui message">
+                    <div className="ui message massive">
                         {this.state.msg_show} <a href="#" onClick={this.handleClick}>{this.state.msg_link}</a>
                     </div>
+
                 </Grid.Column>
             </Grid>
         );

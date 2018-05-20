@@ -5,3 +5,16 @@
 .login_box {
     margin-top: 10%;
 }
+
+.text_board {
+    height: 100vh;
+}
+
+.text_box {
+    margin-top: 10%;
+    height:33%;
+}
+
+.larg_text {
+    font-size: xx-large;
+}
