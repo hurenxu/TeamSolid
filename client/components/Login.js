@@ -129,7 +129,7 @@ class Login extends Component {
                                     <input type="password" value={this.state.password}
                                            onChange={this.handleChange}
                                            name="password" placeholder="Password"/>
-                                </div>
+                                </div> 
                             </div>
                             <Button type='submit' className="ui fluid huge teal larg_text"
                                     secondary>{this.state.buttonText}</Button>
