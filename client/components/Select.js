@@ -14,10 +14,11 @@ class Select extends Component {
 
     return (
       <div>
-        <Menu pointing secondary vertical size='huge'>
-          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-          <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick} />
+        <Menu style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
+          <Menu.Item name='family' active={activeItem === 'family'} onClick={this.handleItemClick} />
+          <Menu.Item name='acquaintance' active={activeItem === 'acquaintance'} onClick={this.handleItemClick} />
           <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick} />
+          <Menu.Item name='work' active={activeItem === 'work'} onClick={this.handleItemClick} />
         </Menu>
       </div>
     );
