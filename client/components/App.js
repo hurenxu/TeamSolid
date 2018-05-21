@@ -3,7 +3,6 @@ import Login from './Login'
 import Crud from './Crud'
 import Main from './Main'
 import Colorpicker from './Colorpicker'
-import '../css/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -44,11 +43,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">PeterBook</h1>
-        </header>
+        <div>
+          <header className="App-header">
+            <h1 className="App-title">PeterBook</h1>
+          </header>
+        </div>
         <Main></Main>
-        <Colorpicker/>
       </div>
     );
   }

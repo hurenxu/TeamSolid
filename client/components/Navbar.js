@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Grid, Menu,} from 'semantic-ui-react'
+import {Button, Grid, Menu, Segment, Input} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
+
+const styles = {
+};
 
 class Navbar extends Component {
   constructor(props) {
@@ -10,27 +13,28 @@ class Navbar extends Component {
       {
         activeItem: 'post',
       };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleItemClick = this.handleItemClick.bind(this);
   }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    <div>
-      <Menu pointing>
-        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-        <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick} />
-        <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick} />
-        <Menu.Menu position='right'>
-          <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-
-      <Segment>
-        <img src='/assets/images/wireframe/paragraph.png' />
-      </Segment>
-    </div>
+    return (
+      <div style={styles}>
+        <Menu pointing size='huge'>
+          <Menu.Item style={{marginLeft: '25vw'}} name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick} />
+          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick} />
+          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick} />
+          <Menu.Menu position='right'>
+            <Menu.Item>
+              <Input icon='search' placeholder='Search...' />
+            </Menu.Item>
+            <Menu.Item name='logout' active={this.state.activeItem === 'logout'} onClick={this.handleItemClick} />
+          </Menu.Menu>
+        </Menu>
+      </div>
+    );
   }
 }
+
+export default Navbar;

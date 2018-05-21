@@ -4,16 +4,25 @@ import Responsive from 'react-responsive';
 import axios from 'axios';
 import ReactDOM from "react-dom";
 import Navbar from './Navbar'
+import Select from './Select'
 
 class Main extends Component {
 
   render() {
 
     return (
-      <Navbar></Navbar>
-    )
+      <div>
+        <Navbar></Navbar>
+        <Grid>
+            <Grid.Column width={4}>
+              <Select></Select>
+            </Grid.Column>
+            <Grid.Column width={12}>
+            </Grid.Column>
+        </Grid>
+      </div>
+    );
   }
 }
-
 
 export default Main;
