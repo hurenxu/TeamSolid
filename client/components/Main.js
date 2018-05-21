@@ -5,6 +5,7 @@ import axios from 'axios';
 import ReactDOM from "react-dom";
 import Navbar from './Navbar'
 import Select from './Select'
+import MainFeed from './MainFeed'
 
 class Main extends Component {
 
@@ -18,6 +19,7 @@ class Main extends Component {
               <Select></Select>
             </Grid.Column>
             <Grid.Column width={12}>
+              <MainFeed/>
             </Grid.Column>
         </Grid>
       </div>
