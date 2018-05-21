@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Login from './Login'
 import Crud from './Crud'
+import Main from './Main'
+import Colorpicker from './Colorpicker'
 import '../css/App.css';
 
 class App extends Component {
@@ -45,7 +47,8 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">PeterBook</h1>
         </header>
-          {this.state.isLoginPage? (loginPage): (crudPage)}
+        <Main></Main>
+        <Colorpicker/>
       </div>
     );
   }

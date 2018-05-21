@@ -1,6 +1,6 @@
 /**
-* Created by Wanhui on 4/20/18.
-*/
+ * Created by Wanhui on 4/20/18.
+ */
 
 import React, {Component} from 'react';
 import {Button, Grid} from 'semantic-ui-react'
@@ -32,67 +32,66 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
     }
 
-    handleChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        this.setState({
-            [name]: value
-        });
+    if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText === 'Login') {
+      //Submit to somewhere
+      this.props.onSubmitClicked();
+      axios.post(`/insert`, {email: this.state.email, password: this.state.password})
     }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(String(email).toLowerCase());
-        }
-
-        if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Login') {
-            //Submit to somewhere
-            this.props.onSubmitClicked();
-            axios.post(`/insert`, { email: this.state.email, password: this.state.password})
-
-        }
-        else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText==='Sign Up') {
-            //Submit to somewhere
-            console.log("Try to sign up")
-        }
-        else if (this.state.password == ''){
-            alert('Password cannot be empty');
-        }
-        else {
-            alert('Invalid email address');
-        }
-        this.setState({
-            email: ''
-        });
-
+    else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText === 'Sign Up') {
+      //Submit to somewhere
+      console.log("Try to sign up")
     }
-
-    handleClick(event) {
-        //Register
-        if(this.state.buttonText === 'Sign Up'){
-            this.setState({
-                buttonText: 'Login',
-                msg_show: 'New to Us?',
-                msg_link: 'Sign Up',
-            });
-        }
-        else{
-            this.setState({
-                buttonText: 'Sign Up',
-                msg_show: 'Already have an account?',
-                msg_link: 'Sign In'
-            });
-        }
+    else if (this.state.password == '') {
+      alert('Password cannot be empty');
     }
+    else {
+      alert('Invalid email address');
+    }
+    this.setState({
+      email: ''
+    });
+  }
 
-    render() {
-        const Mobile = props => <Responsive {...props} maxWidth={767}/>;
-        const Default = props => <Responsive {...props} minWidth={768}/>;
+  handleClick(event) {
+    //Register
+    if (this.state.buttonText === 'Sign Up') {
+      this.setState({
+        buttonText: 'Login',
+        msg_show: 'New to Us?',
+        msg_link: 'Sign Up',
+      });
+    }
+    else {
+      this.setState({
+        buttonText: 'Sign Up',
+        msg_show: 'Already have an account?',
+        msg_link: 'Sign In'
+      });
+    }
+  }
+
+  render() {
+    const Mobile = props => <Responsive {...props} maxWidth={767}/>;
+    const Default = props => <Responsive {...props} minWidth={768}/>;
 
         return (
         <Grid columns={16} divided='vertically' className="text_board">
