@@ -9,7 +9,11 @@ const styles = {
 const NewPost = () => (
   <Form style={styles} reply>
     <Form.TextArea />
-    <Button content='New Post' labelPosition='left' icon='edit' primary />
+      <Button.Group>
+          <Button>Clear</Button>
+          <Button.Or />
+          <Button positive>Post</Button>
+      </Button.Group>
   </Form>
 )
 
