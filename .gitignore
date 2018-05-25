@@ -1,2 +1,4 @@
 node_modules
 client/bundle.js
+
+\.idea/
