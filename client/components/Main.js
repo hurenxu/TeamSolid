@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import Navbar from './Navbar'
 import Select from './Select'
 import MainFeed from './MainFeed'
+import ChatWindow from './ChatWindow'
 
 class Main extends Component {
 
@@ -19,7 +20,7 @@ class Main extends Component {
               <Select></Select>
             </Grid.Column>
             <Grid.Column width={8}>
-              <MainFeed/>
+              <ChatWindow/>
             </Grid.Column>
             <Grid.Column width={4}>
                 <Feed style={{marginTop: '5vh'}}>
