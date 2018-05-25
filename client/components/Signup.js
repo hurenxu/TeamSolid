@@ -48,11 +48,12 @@ class Signup extends Component {
 
     render() {
         const { dimmer } = this.state
+        console.log(this.props.open);
             return (
                 <div>
-                    <Modal dimmer={dimmer} open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
+                    <Modal size='tiny' className="scrolling" dimmer={dimmer} open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
                         <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>
-                        <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>
+                        <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>
                             <Form size='large'>
                                 <Form.Input
                                     fluid icon='user' iconPosition='left' placeholder='Username'
@@ -69,8 +70,8 @@ class Signup extends Component {
                             </Form>
                         </Container>
                         <Modal.Actions>
-                            <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={this.close} />
-                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={this.handleSubmit} />
+                            <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close; this.props.onClose()}} />
+                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit; this.props.onClose()}} />
                         </Modal.Actions>
                     </Modal>
                 </div>
