@@ -1,4 +1,8 @@
 node_modules
 client/bundle.js
+<<<<<<< HEAD
 
 \.idea/
+=======
+.idea/
+>>>>>>> front

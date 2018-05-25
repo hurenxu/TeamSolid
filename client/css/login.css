@@ -8,13 +8,39 @@
 
 .text_board {
     height: 100vh;
+    background:#2b3137 url("../assets/simple-codelines.svg");
+    color: rgba(255,255,255,0.6);
 }
-
+.loginpage_header {
+    color: #d9d9d9;
+    height: 100px;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
+    padding: 10px;
+    background-color: #24292e;
+}
+.form_header{
+    color: white;
+}
 .text_box {
     margin-top: 10%;
-    height:33%;
+    height:25%;
 }
-
+.text_font{
+    font-family:Roboto,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
+}
 .larg_text {
     font-size: xx-large;
+}
+.text_box_header{
+    font-size: 40px;
+    color:white;
+    font-weight: 300;
+}
+.text_box_content{
+    font-size: 26px;
+    color:white;
+    font-weight: 300;
+}
+.mid_text {
+    font-size: x-large;
 }
