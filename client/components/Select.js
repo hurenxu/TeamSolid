@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
-import {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'
+import {Image, Item, Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 
+
+const avatarStyle = {
+  width: '5vw',
+  paddingLeft: '1em',
+  paddingRight: '0.5em',
+  marginLeft: '0em',
+  marginRight: '1em'
+}
+
 class Select extends Component {
 
-  state = { activeItem: 'home' }
+  state = { activeIndex: 0}
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { index }) => this.setState({ activeIndex: index })
 
   render(){
-    const { activeItem } = this.state;
+    const { activeIndex } = this.state;
 
     return (
       <div>
@@ -18,24 +27,23 @@ class Select extends Component {
               <Menu.Item>
                   <Input icon='search' placeholder='Search tag...' />
               </Menu.Item>
-              <Menu.Item name='family' active={activeItem === 'family'} onClick={this.handleItemClick}>
-                  <Label color='green'>1</Label>
-                  family
+              <Menu.Item  name='0' index={0} active={activeIndex === 0} onClick={this.handleItemClick}>
+                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
+                Frank Qiao
+                <Label color='red'>1</Label>
+              </Menu.Item>
+              <Menu.Item name='1' index={1} active={activeIndex === 1} onClick={this.handleItemClick}>
+                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
+                Jack Wang
+                <Label color='red'>12</Label>
               </Menu.Item>
 
-              <Menu.Item name='acquaintance' active={activeItem === 'acquaintance'} onClick={this.handleItemClick}>
-                  <Label>51</Label>
-                  acquaintance
+              <Menu.Item name='2' index={2} active={activeIndex === 2} onClick={this.handleItemClick}>
+                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
+                John Snow
+                <Label color='red'>1</Label>
               </Menu.Item>
 
-              <Menu.Item name='friends' active={activeItem === 'friends'} onClick={this.handleItemClick}>
-                  <Label>1</Label>
-                  friends
-              </Menu.Item>
-              <Menu.Item name='work' active={activeItem === 'work'} onClick={this.handleItemClick}>
-                  <Label>1</Label>
-                  work
-              </Menu.Item>
           </Menu>
       </div>
     );
