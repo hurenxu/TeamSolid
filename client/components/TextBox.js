@@ -8,10 +8,10 @@ class TextBox extends Component {
     render() {
         return (
             <div>
-                <h1 className="larg_text">
+                <h1 className="text_box_header">
                     <b>{this.props.header}</b>
                 </h1>
-                <p className="larg_text">{this.props.text}</p>
+                <p className="text_box_content">{this.props.text}</p>
             </div>
         );
     }
