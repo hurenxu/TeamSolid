@@ -127,7 +127,7 @@ class Login extends Component {
                     </Grid.Row>
                 </Grid.Column>
 
-            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className="login_box" style={{height: '40%'}}>
+            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className="login_box" style={{height: '30%'}}>
                     <h2 className="ui form_header centered">
                         <div className="content mid_text">
                             Log-in to your account
