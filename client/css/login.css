@@ -8,8 +8,23 @@
 
 .text_board {
     height: 100vh;
+    background:#2b3137 url("../assets/simple-codelines.svg");
+    color: rgba(255,255,255,0.6);
 }
-
+.loginpage_header {
+    color: #d9d9d9;
+    height: 100px;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
+    padding: 10px;
+    background-color: #24292e;
+}
+.form_header{
+    color: #d9d9d9;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI","Oxygen","Ubuntu","Cantarell","Open Sans",sans-serif;
+    height: 60px;
+    padding: 10px;
+    background-color: #24292e;
+}
 .text_box {
     margin-top: 10%;
     height:33%;
@@ -17,4 +32,8 @@
 
 .larg_text {
     font-size: xx-large;
+}
+
+.mid_text {
+    font-size: x-large;
 }
