@@ -26,7 +26,7 @@ class Login extends Component {
                 header_freedom: 'Freedom',
                 msg_privacy: 'You choose who can see your data.',
                 msg_security: 'All data are encrypted to make them safe.',
-                msg_freedom: 'Your identity is not controlled and observed..',
+                msg_freedom: 'Your identity is not controlled and observed.',
             };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -92,8 +92,28 @@ class Login extends Component {
   render() {
     const Mobile = props => <Responsive {...props} maxWidth={767}/>;
     const Default = props => <Responsive {...props} minWidth={768}/>;
+     /* var NewComponent = React.createClass({
+          render: function() {
+              return (
 
+                  <div style="box-sizing: border-box; display: block; font-size: 16px !important;min-width: 1020px; word-wrap: break-word;
+                      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+                      line-height: 1.5;color: #24292e;background-color: #fff;">
+                      <div>
+                          <div >
+                              <div >
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              );
+          }
+      });*/
         return (
+                <div className="App">
+                    <header className="loginpage_header">
+                                 <h3 className="App-title">Hello Team Solid</h3>
+                    </header>
         <Grid columns={16} divided='vertically' className="text_board">
                 <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>
                     <Grid.Row className ='text_box'>
@@ -107,10 +127,10 @@ class Login extends Component {
                     </Grid.Row>
                 </Grid.Column>
 
-            <Grid.Column mobile={14} computer={4}  verticalAlign='middle' className="login_box" style={{height: '50%'}}>
-                    <h2 className="ui header centered">
-                        <div className="content larg_text">
-                            <b>Log-in to your account</b>
+            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className="login_box" style={{height: '30%'}}>
+                    <h2 className="ui form_header centered">
+                        <div className="content mid_text">
+                            Log-in to your account
                         </div>
                     </h2>
                     <form onSubmit={this.handleSubmit} method="post" className="ui massive form login_form">
@@ -141,6 +161,7 @@ class Login extends Component {
 
                 </Grid.Column>
             </Grid>
+                </div>
         );
     }
 }
