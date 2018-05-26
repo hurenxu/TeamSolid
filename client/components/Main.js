@@ -56,7 +56,6 @@ class Main extends Component {
             </Grid.Column>
             <Grid.Column width={4}>
                 <Feed style={{marginTop: '5vh'}}>
-
                     <Feed.Event>
                         <Feed.Label image='../assets/image/avatar/images.png' />
                         <Feed.Content content='Peter Pan post a moment on the Work Aspect Channel'/>
