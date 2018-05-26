@@ -14,12 +14,24 @@ class Navbar extends Component {
     super(props);
     this.state =
       {
-        activeItem: 'post',
+        activeItem: 'posts',
       };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick(e, { name }){
+    this.setState({ activeItem: name })
+
+      if(name === 'posts'){
+        this.props.handlePosts();
+      }
+      else if(name === 'messages'){
+        this.props.handleMessages();
+      }
+      else{
+        this.props.handleFriends();
+      }
+  }
 
   render() {
     return (

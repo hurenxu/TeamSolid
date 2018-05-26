@@ -10,17 +10,49 @@ import ChatWindow from './ChatWindow'
 
 class Main extends Component {
 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      mode: 'posts'
+    }
+    this.handlePosts = this.handlePosts.bind(this);
+    this.handleFriends = this.handleFriends.bind(this);
+    this.handleMessages = this.handleMessages.bind(this);
+  }
+
+  handlePosts(){
+    console.log("Posts!!")
+    this.setState({
+      mode: 'posts'
+    })
+  }
+
+  handleFriends(){
+    this.setState({
+      mode: 'friends'
+    })
+  }
+
+  handleMessages(){
+    this.setState({
+      mode: 'messages'
+    })
+  }
+
   render() {
+
+    const window = (this.state.mode === 'posts') ? <MainFeed/> : (this.state.mode === 'messages' ? <ChatWindow/> : <div></div>)
 
     return (
       <div>
-        <Navbar></Navbar>
+        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends} handleMessages={this.handleMessages}></Navbar>
         <Grid>
             <Grid.Column width={4}>
               <Select></Select>
             </Grid.Column>
             <Grid.Column width={8}>
-              <ChatWindow/>
+              {window}
             </Grid.Column>
             <Grid.Column width={4}>
                 <Feed style={{marginTop: '5vh'}}>
