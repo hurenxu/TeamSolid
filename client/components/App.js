@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Login from './Login'
 import Crud from './Crud'
-import '../css/App.css';
+import Main from './Main'
+import Colorpicker from './Colorpicker'
 
 class App extends Component {
   constructor(props) {
@@ -42,10 +43,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Hello Thomas</h1>
-        </header>
-          {this.state.isLoginPage? (loginPage): (crudPage)}
+        <div>
+          <header className="App-header">
+            <h1 className="App-title">PeterBook</h1>
+          </header>
+        </div>
+        <Main></Main>
       </div>
     );
   }

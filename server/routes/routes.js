@@ -101,30 +101,37 @@ router.post('/insert', function (req, res, next) {
         const db = client.db(dbName);
         var cl = db.collection('userTable');
         var count;
-        cl.count(function (err, num) {
-            count = num;
-            cl.insertOne({ _id: (count + 1), userEmail: email, password: passwd }, function () {
-                cl.find({}).toArray(function (err, list) {
+        cl.count(function(err, num) {
+            count=num;
+            cl.insertOne({ _id:(count+1), userEmail: email, password: passwd}, function (err) {
                     if (err) throw err;
-                    res.send(JSON.stringify(list));
-                });
+                    res.send("insertion success!");
             });
         });
     });
 });
 
-// insert operation
+// read operation
 router.get('/read', function (req, res) {
-    var name = req.body.name;
-
     MongoClient.connect(url, function (err, client) {
         const db = client.db(dbName);
-
-        db.collection('userName').count(function (err, count) {
-            console.log(count)
-        })
+        var cl = db.collection('userTable');
+        cl.find({}).toArray(function(err,list){
+            if (err) throw err;
+            res.send(JSON.stringify(list));
+        });
     });
 });
 
-
+router.get('/delete', function (req, res) {
+    var email = req.body.email;
+    MongoClient.connect(url, function (err, client) {
+        const db = client.db(dbName);
+        var cl = db.collection('userTable');
+        cl.deleteOne({userEmail: email}, function(err){
+            if(err) throw err;
+            res.send("deletion success!");
+        })
+    });
+});
 module.exports = router;
