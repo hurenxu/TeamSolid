@@ -18,7 +18,6 @@ class Login extends Component {
         super(props);
         this.state =
             {
-                id: -1,
                 email: '',
                 password: '',
                 buttonText: 'Login',
@@ -32,18 +31,9 @@ class Login extends Component {
                 msg_freedom: 'Your identity is not controlled and observed.',
                 open: 0
             };
-        this.handleChange = this.handleChange.bind(this);
+        //this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value
-    });
+        //this.handleClick = this.handleClick.bind(this);
   }
 
   handleSubmit(event) {
@@ -54,41 +44,16 @@ class Login extends Component {
       return re.test(String(email).toLowerCase());
     }
 
-    if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText === 'Login') {
+    if (validateEmail(this.state.email) && this.state.password != '' ) {
       //Submit to somewhere
       this.props.onSubmitClicked();
       axios.post(`/insert`, {email: this.state.email, password: this.state.password})
     }
-    else if (validateEmail(this.state.email) && this.state.password != '' && this.state.buttonText === 'Sign Up') {
-      //Submit to somewhere
-      console.log("Try to sign up")
-    }
-    else if (this.state.password == '') {
+    else if (this.state.password != '') {
       alert('Password cannot be empty');
     }
     else {
       alert('Invalid email address');
-    }
-    this.setState({
-      email: ''
-    });
-  }
-
-  handleClick(event) {
-    //Register
-    if (this.state.buttonText === 'Sign Up') {
-      this.setState({
-        buttonText: 'Login',
-        msg_show: 'New to Us?',
-        msg_link: 'Sign Up',
-      });
-    }
-    else {
-      this.setState({
-        buttonText: 'Sign Up',
-        msg_show: 'Already have an account?',
-        msg_link: 'Sign In'
-      });
     }
   }
 
@@ -125,11 +90,11 @@ class Login extends Component {
                 <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>
                     <Form size='huge'>
                         <Form.Input
-                            fluid icon='user' iconPosition='left' placeholder='Username'
-                            onChange={(e, {value})=> this.setState({username: value})}
+                            fluid icon='user' iconPosition='left' placeholder='email'
+                            onChange={(e, {value})=> this.setState({email: value})}
                         />
                         <Form.Input
-                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'
+                            fluid icon='lock' iconPosition='left' placeholder='Password'
                             onChange={(e, {value})=> this.setState({password: value})}
                         />
                     </Form>
