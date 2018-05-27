@@ -1,0 +1,15 @@
+{
+  "coverage": "0%",
+  "expectCount": 2,
+  "actualCount": 0,
+  "files": {
+    "client/components/App.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    }
+  }
+}

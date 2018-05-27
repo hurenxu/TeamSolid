@@ -17,6 +17,7 @@ class CrudRow extends Component {
   }
 
   handleDuplicate() {
+    console.log(this.props);
     this.props.onDuplicateClicked(this.state.email, this.state.password);
   }
 
