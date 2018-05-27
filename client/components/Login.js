@@ -48,11 +48,11 @@ class Login extends Component {
       //Submit to somewhere
       axios.post(`/login`, {email: this.state.email, password: this.state.password})
     }
-    else if (this.state.password != '') {
-      alert('Password cannot be empty');
+    else if (!validateEmail(this.state.email)) {
+      alert('Invalid email address');
     }
     else {
-      alert('Invalid email address');
+      alert('Password cannot be empty');
     }
   }
 
@@ -93,7 +93,7 @@ class Login extends Component {
                             onChange={(e, {value})=> this.setState({email: value})}
                         />
                         <Form.Input
-                            fluid icon='lock' iconPosition='left' placeholder='Password'
+                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'
                             onChange={(e, {value})=> this.setState({password: value})}
                         />
                     </Form>
