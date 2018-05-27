@@ -60,7 +60,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/loginpage', function (req, res) {
-    res.send('loginpage');
+    res.render('loginpage');
 });
 
 router.get('/profile',

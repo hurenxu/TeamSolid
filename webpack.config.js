@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         test: /\.(png|gif)$/,
-        loader: 'url-loader?limit=1024&name=[name]-[hash:8].[ext]!image-webpack-loader'
+        loader: 'url-loader?limit=1024&name=[name]-[hash:8].[ext]'
       },
       {
         test: /\.jpg$/,
