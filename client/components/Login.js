@@ -61,7 +61,7 @@ class Login extends Component {
         return (
             <div className="App">
                 <div>
-                <header className="App-header">
+                <header className="App-login-header">
                     <h3 className="App-title">Peterbook</h3>
                 </header>
                 </div>

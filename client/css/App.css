@@ -15,6 +15,14 @@
   background-size: contain;
 }
 
+.App-login-header {
+  height: 80px;
+  padding: 20px;
+  color: white;
+  background: #222;
+  background-size: contain;
+}
+
 .App-title {
   font-size: 3em;
   margin-top: 8%;
