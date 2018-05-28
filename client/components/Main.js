@@ -7,6 +7,7 @@ import Navbar from './Navbar'
 import Select from './Select'
 import MainFeed from './MainFeed'
 import ChatWindow from './ChatWindow'
+import FeedInfo from './FeedInfo'
 
 class Main extends Component {
 
@@ -55,20 +56,7 @@ class Main extends Component {
               {window}
             </Grid.Column>
             <Grid.Column width={4}>
-                <Feed style={{marginTop: '5vh'}}>
-                    <Feed.Event>
-                        <Feed.Label image='../assets/image/avatar/images.png' />
-                        <Feed.Content content='Peter Pan post a moment on the Work Aspect Channel'/>
-                    </Feed.Event>
-                    <Feed.Event>
-                        <Feed.Label image='../assets/image/avatar/Aha-Soft-Free-Large-Boss-Superman.ico' />
-                        <Feed.Content content='You added Renxu Hu to the aspect Family' />
-                    </Feed.Event>
-                    <Feed.Event>
-                        <Feed.Label image='../assets/image/avatar/mom.png' />
-                        <Feed.Content content='Nimama (Aspect: Family) sent you a message' />
-                    </Feed.Event>
-                </Feed>
+                <FeedInfo />
             </Grid.Column>
         </Grid>
       </div>

@@ -13,7 +13,8 @@ class NewPost extends Component {
         super(props);
         this.state =
             {
-                open: 0
+                open: 0,
+                message: ''
             };
     }
 
@@ -21,7 +22,8 @@ class NewPost extends Component {
         return (
             <div>
             <Form style={styles} reply>
-                <TextArea  placeholder='Click to Post' style={{ minHeight: 100 }} onClick={()=>this.setState({open: 1})}/>
+                <TextArea  placeholder='Click to Post' name='mesage' value={this.state.message}
+                           style={{ minHeight: 100 }} onClick={()=>this.setState({open: 1})}/>
                 <Button.Group>
                     <Button>Clear</Button>
                     <Button.Or />

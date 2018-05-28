@@ -31,9 +31,7 @@ class Login extends Component {
                 msg_freedom: 'Your identity is not controlled and observed.',
                 open: 0
             };
-        //this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        //this.handleClick = this.handleClick.bind(this);
   }
 
   handleSubmit(event) {
@@ -67,7 +65,7 @@ class Login extends Component {
                     <h3 className="App-title">Peterbook</h3>
                 </header>
                 </div>
-        <Grid style={{marginTop: '0px'}} columns={16} divided='vertically' className="text_board">
+        <Grid style={{marginTop: '-80px'}} columns={16} divided='vertically' className="text_board">
                 <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>
                     <Grid.Row className ='text_box text_font'>
                         <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>

@@ -29,8 +29,26 @@ const textareaStyle = {
 }
 
 class ChatWindow extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: "",
+            // TODO: set id with the user
+            id: ""
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit = (event) => {
+        if(this.state.message === "") {
+            return
+        }
+        axios.post(`/sendChatMessage`, {chatMessage: this.state.message, id: this.state.id})
+        this.setState({ message: ''})
+    };
 
     render() {
+        const { message } = this.state
 
         return (
             <div>
@@ -60,8 +78,12 @@ class ChatWindow extends Component {
                         <Grid.Column width={16}>
                             <Form reply style={inputStyle}>
                                 <Grid>
-                                    <Grid.Column width={12}><Form.TextArea /></Grid.Column>
-                                    <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send' labelPosition='left' icon='send' size='big' primary /></Grid.Column>
+                                    <Grid.Column width={12}><Form.TextArea name='message' value={message}
+                                        onChange={(e, {value})=> this.setState({message: value})}/></Grid.Column>
+                                    <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'
+                                                                   labelPosition='left' icon='send' size='big'
+                                                                   primary
+                                                                   onClick={this.handleSubmit}/></Grid.Column>
                                 </Grid>
                             </Form>
                         </Grid.Column>

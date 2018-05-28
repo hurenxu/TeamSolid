@@ -8,10 +8,26 @@
 
 .text_board {
     height: 100vh;
-    background:#2b3137 url("../assets/abstract-black-and-white-curves-1954.jpg");
-    background-size:100% 100%;
-    background-repeat: no-repeat;
+    overflow: auto;
+    position: relative;
 }
+
+.text_board:before {
+    content: "";
+    position: fixed;
+    left: -5%;
+    right: -5%;
+    z-index: -1;
+
+    height: 100vh;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), #2b3137 url("../assets/bgyosemite.jpg");
+    background-size:110% 110%;
+    background-repeat: no-repeat;
+
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+}
+
 .loginpage_header {
     color: #d9d9d9;
     height: 100px;

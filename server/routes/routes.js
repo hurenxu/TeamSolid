@@ -78,6 +78,7 @@ router.post('/login',
 router.post('/register', function (req, res, next) {
     var uname = req.body.username;
     var pwd = req.body.password;
+    var eml = req.body.email;
 
     MongoClient.connect(url, function (err, client) {
         const db = client.db(dbName);
@@ -85,8 +86,8 @@ router.post('/register', function (req, res, next) {
         var count;
         cl.count(function (err, num) {
             count = num;
-            cl.insertOne({ _id: (count + 1), username: uname, password: pwd }, function () {
-                console.log('insert!' + uname + ' ' + pwd);
+            cl.insertOne({ _id: (count + 1), username: uname, password: pwd, email: eml }, function () {
+                console.log('insert!' + uname + ' ' + pwd + ' ' + eml);
             });
         });
     });

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Grid, Menu, Segment, Input} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
+import '../css/App.css';
 
 const avatarStyle = {
   width: '21.3vw',
