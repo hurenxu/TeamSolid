@@ -10,8 +10,6 @@ const url = 'mongodb://localhost';
 const dbName = 'team_solid_project';
 
 passport.serializeUser(function (user, done) {
-    console.log(user)
-
     done(null, user._id);
 });
 
@@ -22,24 +20,23 @@ passport.deserializeUser(function (id, done) {
         const col = db.collection("accounts");
 
         col.findOne({ _id: id }, function (err, user) {
-            console.log(user)
-            console.log("haha")
             done(err, user);
         });
     })
 });
 
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    },
     function (username, password, done) {
-        console.log(username)
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
 
             const col = db.collection("accounts");
 
-            col.findOne({ username: username }, function (err, user) {
+            col.findOne({ email: username }, function (err, user) {
                 if (err) { return done(err); }
-                console.log(user)
                 if (!user) {
                     return done(null, false, { message: 'Incorrect username.' });
                 }
@@ -48,6 +45,7 @@ passport.use(new LocalStrategy(
                     return done(null, false, { message: 'Incorrect password.' });
                 }
 
+                console.log(username + ' success')
                 return done(null, user);
             });
         })
@@ -55,30 +53,36 @@ passport.use(new LocalStrategy(
 ));
 
 // index
-router.get('/', function (req, res) {
-    res.render('index');
+router.get('/',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res) {
+        res.render('index');
 });
 
-router.get('/loginpage', function (req, res) {
+router.get('/login', function (req, res) {
     res.render('loginpage');
 });
 
-router.get('/profile',
+router.get('/loginsuccess', 
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
-        res.send('profile');
-    });
+        res.json(JSON.stringify({islogined: true}))
+});
 
-router.post('/login',
+router.get('/loginfail', 
+    function (req, res) {
+        res.json(JSON.stringify({islogined: false}))
+});
+
+router.post('/api/login',
     passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/loginpage'
+        successRedirect: '/loginsuccess',
+        failureRedirect: '/loginfail'
     }));
 
-router.post('/register', function (req, res, next) {
-    var uname = req.body.username;
-    var pwd = req.body.password;
+router.post('/api/signup', function (req, res, next) {
     var eml = req.body.email;
+    var pwd = req.body.password;
 
     MongoClient.connect(url, function (err, client) {
         const db = client.db(dbName);
@@ -86,12 +90,225 @@ router.post('/register', function (req, res, next) {
         var count;
         cl.count(function (err, num) {
             count = num;
-            cl.insertOne({ _id: (count + 1), username: uname, password: pwd, email: eml }, function () {
-                console.log('insert!' + uname + ' ' + pwd + ' ' + eml);
+            cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
+                console.log('insert!' + eml + ' ' + pwd);
+
+                db.collection('userinfo').insertOne({userid: (count + 1), email: eml, username: "mengnan", userIconUrl: "mengnan.jpg"}, function() {
+                    console.log('insert!' + 'userinfo');
+                })
             });
         });
     });
 });
+
+router.post('/api/switchChatTarget',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.body.sid;
+        var targetid = req.body.tid;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("messages").find({ sid: sourceid }).toArray(function (err, result1) {
+                if (err) throw err;
+                db.collection("messages").find({ tid: targetid }).toArray(function (err, result2) {
+                    if (err) throw err;
+                    res.json(JSON.stringify(result1.concat(result2)));
+                });
+            });
+        });
+    });
+
+router.post('/api/searchUser',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var key = req.body.searchKey;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
+                if (err) throw err;
+                res.json(JSON.stringify(result));
+            });
+        });
+    });
+
+router.post('/api/updateFriendList',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.user.email
+        var targetid = req.body.tid;
+        var actionType = req.body.actionType;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            if (actionType == "delete") {
+                db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends:{ $in: [targetid]}}}, function(err) {
+                    if (err) throw err;
+                    db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+                        if (err) throw err;
+                        res.json(JSON.stringify(result.friends));
+                    });
+                });
+            } else if(actionType == "add") {
+                db.collection("userinfo").update( {sid: sourceid}, {$push: {friends: targetid}}, function(err) {
+                    if (err) throw err;
+                    db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+                        if (err) throw err;
+                        res.json(JSON.stringify(result.friends));
+                    });
+                });
+            }
+
+
+        });
+    });
+
+router.post('/api/ChangeToPost',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var targetid = req.body.tid;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("posts").find({ sid: targetid }).toArray(function (err, result) {
+                if (err) throw err;
+                res.json(JSON.stringify(result));
+            });
+        });
+    });
+
+router.post('/api/ChangeToMessage',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.body.sid;
+        var targetid = req.body.tid;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("messages").find({ sid: sourceid }).toArray(function (err, result) {
+                if (err) throw err;
+                res.json(JSON.stringify(result.targetid));
+            });
+        });
+    });
+
+/*
+{
+    postid: xxx,
+    sid: xx,
+    likedUsers: [
+        ...
+        sourceid
+    ]
+    likecount:
+    messazge:...
+}
+ */
+router.post('/api/LikeAPost',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.user.email;
+        var pid = req.body.postid;
+        
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
+                if (err) throw err;
+                var users = result[0].likedUsers;
+
+                if (users.indexOf(sourceid) == -1) {
+                    res.json(JSON.stringify({result: "DUP"}));    
+                }
+            });
+
+            db.collection("posts").update( {postid: pid}, {$push: {likedUsers: sourceid}}, function(err) {
+                if (err) throw err;
+                db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
+                    if (err) throw err;
+                    var count = result[0].likecount
+
+                    db.collection("posts").update( {postid: pid}, {$set: {likecount: (count + 1)}}, function(err) {
+                        if (err) throw err;
+
+                        res.json(JSON.stringify({result: "OK", count: count + 1}));
+                    });
+                });
+            });
+        });
+    }); 
+
+router.post('/api/postMessage',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.body.sid;
+        var targetid = req.body.to;
+        var mmsg = req.body.msg;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.count(function(err, num) {
+                db.collection("messages").insertOne({ _id:(num+1), sid: sourceid, tid: targetid, msg: mmsg}, function (err) {
+                        if (err) throw err;
+                        res.send("insertion success!");
+                });
+            });
+        });
+    }); 
+
+router.post('/api/postPost',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.body.sid;
+        var pmsg = req.body.msg;
+        var pdate = req.body.date;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.count(function (err, num) {
+                db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, likedUsers: [], likecount: 0, msg: pmsg, data: pdate }, function (err) {
+                    if (err) throw err;
+
+                    db.collection("posts").find({ sid: sourceid }).toArray(function (err, result) {
+                        res.json(JSON.stringify(result));
+                    });
+                });
+            });
+        });
+    }); 
+
+router.post('/api/getPosts',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.user.email;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("posts").find({ sid: sourceid }).toArray(function (err, result) {
+                if (err) throw err;
+                res.json(JSON.stringify(result));
+            });
+        });
+    }); 
+
 
 // insert operation
 router.post('/insert', function (req, res, next) {
