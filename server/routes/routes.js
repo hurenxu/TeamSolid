@@ -88,16 +88,22 @@ router.post('/api/signup', function (req, res, next) {
         const db = client.db(dbName);
         var cl = db.collection('accounts');
         var count;
-        cl.count(function (err, num) {
-            count = num;
-            cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
-                console.log('insert!' + eml + ' ' + pwd);
-
-                db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
-                    res.json(JSON.stringify({result: "OK"}))
-                })
-            });
-        });
+        db.collection('userinfo').find({std: eml}).toArray(function(err, result) {
+            if (result.length == 0) {
+                cl.count(function (err, num) {
+                    count = num;
+                    cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
+                        console.log('insert!' + eml + ' ' + pwd);
+        
+                        db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
+                            res.json(JSON.stringify({result: "OK"}));
+                        })
+                    });
+                });
+            } else {
+                res.json(JSON.stringify({result: "DUP"}));
+            }
+        })
     });
 });
 
@@ -111,9 +117,9 @@ router.post('/api/switchChatTarget',
             if (err) throw err;
             const db = client.db(dbName);
 
-            db.collection("messages").find({ sid: sourceid }).toArray(function (err, result1) {
+            db.collection("messages").find({ sid: sourceid, tid: targetid }).toArray(function (err, result1) {
                 if (err) throw err;
-                db.collection("messages").find({ tid: targetid }).toArray(function (err, result2) {
+                db.collection("messages").find({ sid: targetid, tid: sourceid }).toArray(function (err, result2) {
                     if (err) throw err;
                     res.json(JSON.stringify(result1.concat(result2)));
                 });
@@ -132,7 +138,7 @@ router.post('/api/searchUser',
 
             db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
                 if (err) throw err;
-                res.json(JSON.stringify(result));
+                res.json(JSON.stringify(result[0]));
             });
         });
     });
@@ -153,7 +159,7 @@ router.post('/api/updateFriendList',
                     if (err) throw err;
                     db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
                         if (err) throw err;
-                        res.json(JSON.stringify(result.friends));
+                        res.json(JSON.stringify(result[0].friends));
                     });
                 });
             } else if(actionType == "add") {
@@ -206,9 +212,12 @@ router.post('/api/ChangeToMessage',
             if (err) throw err;
             const db = client.db(dbName);
 
-            db.collection("messages").find({ sid: sourceid }).toArray(function (err, result) {
+            db.collection("messages").find({ sid: sourceid, tid: targetid }).toArray(function (err, result1) {
                 if (err) throw err;
-                res.json(JSON.stringify(result.targetid));
+                db.collection("messages").find({ sid: targetid, tid: sourceid }).toArray(function (err, result2) {
+                    if (err) throw err;
+                    res.json(JSON.stringify(result1.concat(result2)));
+                });
             });
         });
     });
