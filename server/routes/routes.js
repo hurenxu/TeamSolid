@@ -93,8 +93,8 @@ router.post('/api/signup', function (req, res, next) {
             cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
                 console.log('insert!' + eml + ' ' + pwd);
 
-                db.collection('userinfo').insertOne({userid: (count + 1), email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
-                    console.log('insert!' + 'userinfo');
+                db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
+                    res.json(JSON.stringify({result: "OK"}))
                 })
             });
         });
@@ -159,9 +159,10 @@ router.post('/api/updateFriendList',
             } else if(actionType == "add") {
                 db.collection("userinfo").update( {sid: sourceid}, {$push: {friends: targetid}}, function(err) {
                     if (err) throw err;
+                    
                     db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
                         if (err) throw err;
-                        res.json(JSON.stringify(result.friends));
+                        res.json(JSON.stringify(result[0].friends));
                     });
                 });
             }
@@ -270,7 +271,7 @@ router.post('/api/postMessage',
             if (err) throw err;
             const db = client.db(dbName);
 
-            db.count(function(err, num) {
+            db.collection("posts").count(function(err, num) {
                 db.collection("messages").insertOne({ _id:(num+1), sid: sourceid, tid: targetid, msg: mmsg}, function (err) {
                         if (err) throw err;
                         res.send("insertion success!");
@@ -290,7 +291,7 @@ router.post('/api/postPost',
             if (err) throw err;
             const db = client.db(dbName);
 
-            db.count(function (err, num) {
+            db.collection("posts").count(function (err, num) {
                 db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, likedUsers: [], likecount: 0, msg: pmsg, data: pdate }, function (err) {
                     if (err) throw err;
 
