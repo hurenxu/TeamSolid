@@ -93,7 +93,7 @@ router.post('/api/signup', function (req, res, next) {
             cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
                 console.log('insert!' + eml + ' ' + pwd);
 
-                db.collection('userinfo').insertOne({userid: (count + 1), email: eml, username: "mengnan", userIconUrl: "mengnan.jpg"}, function() {
+                db.collection('userinfo').insertOne({userid: (count + 1), email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
                     console.log('insert!' + 'userinfo');
                 })
             });
@@ -173,16 +173,25 @@ router.post('/api/updateFriendList',
 router.post('/api/ChangeToPost',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var targetid = req.body.tid;
+        var sourceid = req.user.email;
 
         MongoClient.connect(url, function (err, client) {
             if (err) throw err;
             const db = client.db(dbName);
+            db.collection("userinfo").find({std: sourceid}).toArray(function(err, result) {
+                var friends = result[0].friends;
 
-            db.collection("posts").find({ sid: targetid }).toArray(function (err, result) {
-                if (err) throw err;
-                res.json(JSON.stringify(result));
-            });
+                var ret = []
+
+                for (var targetid in friends) {
+                    db.collection("posts").find({ sid: targetid }).toArray(function (err, result) {
+                        if (err) throw err;
+                        ret.concat(result)
+                    });
+                }
+
+                res.json(JSON.stringify(ret));
+            })
         });
     });
 
