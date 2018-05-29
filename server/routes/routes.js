@@ -263,7 +263,7 @@ router.post('/api/LikeAPost',
 router.post('/api/postMessage',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.body.sid;
+        var sourceid = req.user.email;
         var targetid = req.body.to;
         var mmsg = req.body.msg;
 
@@ -272,7 +272,7 @@ router.post('/api/postMessage',
             const db = client.db(dbName);
 
             db.collection("posts").count(function(err, num) {
-                db.collection("messages").insertOne({ _id:(num+1), sid: sourceid, tid: targetid, msg: mmsg}, function (err) {
+                db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg}, function (err) {
                         if (err) throw err;
                         res.send("insertion success!");
                 });
