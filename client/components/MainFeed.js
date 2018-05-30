@@ -7,10 +7,13 @@ class MainFeed extends Component {
 
   constructor(props) {
     super(props);
+    this.handle = this.handle.bind(this);
   }
-    handle(response){
+
+  handle(response){
       console.log(response);
-    }
+  }
+
   render() {
       axios.post('/api/getPosts').then((response)=> this.handle(response));
 
