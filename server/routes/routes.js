@@ -74,11 +74,18 @@ router.get('/loginfail',
         res.json(JSON.stringify({islogined: false}))
 });
 
+router.post('/api/logout', function(req, res){
+    req.logout();
+    res.redirect('/login');
+  });
+
 router.post('/api/login',
     passport.authenticate('local', {
         successRedirect: '/loginsuccess',
         failureRedirect: '/loginfail'
     }));
+
+
 
 router.post('/api/signup', function (req, res, next) {
     var eml = req.body.email;
@@ -110,7 +117,7 @@ router.post('/api/signup', function (req, res, next) {
 router.post('/api/switchChatTarget',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.body.sid;
+        var sourceid = req.user.email;
         var targetid = req.body.tid;
 
         MongoClient.connect(url, function (err, client) {
@@ -174,6 +181,22 @@ router.post('/api/updateFriendList',
             }
 
 
+        });
+    });
+
+router.post('/api/getFriendList',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var key = req.body.searchKey;
+
+        MongoClient.connect(url, function (err, client) {
+            if (err) throw err;
+            const db = client.db(dbName);
+
+            db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
+                if (err) throw err;
+                res.json(JSON.stringify(result[0].friends));
+            });
         });
     });
 
