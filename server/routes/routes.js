@@ -167,7 +167,7 @@ router.post('/api/searchUser',
 router.post('/api/updateFriendList',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.user.email
+        var sourceid = req.user.email;
         var targetid = req.body.tid;
         var actionType = req.body.actionType;
 
