@@ -17,7 +17,8 @@ class Main extends Component {
     this.state = {
       mode: 'posts',
       targetUserID: "",
-      aspect: 'Others'
+      aspect: 'Others',
+      friendList: []
     }
 
     this.handlePosts = this.handlePosts.bind(this);
@@ -50,8 +51,6 @@ class Main extends Component {
       aspect: aspect
     });
     this.state.aspect = aspect;
-    // post for target user change
-    // axios.post('/api/switchChatTarget', {tid: inputID}).then((response) => {});
   }
 
   render() {

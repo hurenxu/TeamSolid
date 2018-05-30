@@ -19,7 +19,7 @@ class ChatCell extends Component {
             <img className="ui avatar image" src="../assets/avatar.jpg"/>
           </Grid.Column>
           <Grid.Column width={14} textAlign='left'>
-            <Message compact>
+            <Message compact color='green'>
               {this.props.msg}
             </Message>
           </Grid.Column>
