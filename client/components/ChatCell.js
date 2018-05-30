@@ -19,7 +19,7 @@ class ChatCell extends Component {
                     </Grid.Column>
                     <Grid.Column width={14} textAlign='left'>
                         <Message compact>
-                          {this.props.text}
+                          {this.props.msg}
                         </Message>
                     </Grid.Column>
                 </Grid>
@@ -28,7 +28,7 @@ class ChatCell extends Component {
                 <Grid>
                     <Grid.Column width={14} textAlign='right'>
                         <Message compact>
-                          {this.props.text}
+                          {this.props.msg}
                         </Message>
                     </Grid.Column>
                     <Grid.Column width={2}>
