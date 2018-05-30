@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'
 import axios from "axios/index";
+import App from './App';
 
 let initialState = {
     username: "",
@@ -18,13 +19,13 @@ class Signup extends Component {
         super(props);
         this.state = initialState;
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.redirPage = this.redirPage.bind(this);
     }
 
     show = dimmer => () => this.setState({ dimmer, open: true })
     close = () => this.setState({ open, dimmer: false })
 
     handleSubmit = (event) => {
-        console.log("signing up1"+this.state);
         let message = [];
         if(this.state.username === "") {
             message.push("Username can't be empty!");
@@ -46,13 +47,19 @@ class Signup extends Component {
             this.setState({message: message});
             return
         }
-        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email})
+        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email}).then((response)=> this.redirPage(response));
         this.setState({open: false});
         this.setState({dimmer: false});
     };
+    redirPage(response) {
 
+            if(JSON.parse(response.data).result==="OK"){
+                this.props.redirect = true;
+        }
+    }
     render() {
         const { dimmer } = this.state
+
             return (
                 <div>
                     <Modal size='tiny' className="scrolling" style={{height: '60%'}} dimmer={dimmer}
