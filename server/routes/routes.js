@@ -205,25 +205,49 @@ router.post('/api/updateFriendList',
         });
     });
 
+// previous getFriendList
+// router.post('/api/getFriendList',
+//     require('connect-ensure-login').ensureLoggedIn(),
+//     function (req, res, next) {
+//         var key = req.body.searchKey;
+//
+//         MongoClient.connect(url, function (err, client) {
+//             if (err) {
+//                 console.log(err);
+//             }
+//             const db = client.db(dbName);
+//
+//             db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 res.json(JSON.stringify(result[0].friends));
+//             });
+//         });
+//     });
+
+// post that get the friend list of current user
 router.post('/api/getFriendList',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res, next) {
-        var key = req.body.searchKey;
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var sourceid = req.user.email;
 
-        MongoClient.connect(url, function (err, client) {
-            if (err) {
-                console.log(err);
-            }
-            const db = client.db(dbName);
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+      const db = client.db(dbName);
 
-            db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                res.json(JSON.stringify(result[0].friends));
-            });
-        });
+      db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+        res.json(JSON.stringify(result[0].friends));
+      });
     });
+  });
+
+
 
 router.post('/api/ChangeToPost',
     require('connect-ensure-login').ensureLoggedIn(),

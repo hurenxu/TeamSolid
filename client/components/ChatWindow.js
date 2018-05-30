@@ -68,7 +68,7 @@ class ChatWindow extends Component {
 
     var currentDate = new Date()
 
-    axios.post(`/api/postMessage`, {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {
+    axios.post('/api/postMessage', {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {
       this.loadMessage(this.state.targetID)
     })
 
@@ -79,7 +79,7 @@ class ChatWindow extends Component {
     const {message} = this.state;
 
     const chatcells = this.state.chatHistory.map((message) =>
-      <ChatCell me={message.tid != this.state.targetID} msg={message.msg} img={'../assets/avatar3.jpg'}/>);
+      <ChatCell me={message.tid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);
 
     return (
       <div>
