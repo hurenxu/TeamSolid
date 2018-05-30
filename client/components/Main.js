@@ -8,7 +8,6 @@ import Select from './Select'
 import MainFeed from './MainFeed'
 import ChatWindow from './ChatWindow'
 import FeedInfo from './FeedInfo'
-import axios from 'axios';
 
 const message0 = {
   messages: [
