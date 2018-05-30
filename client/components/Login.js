@@ -30,9 +30,12 @@ class Login extends Component {
                 msg_security: 'All data are encrypted to make them safe.',
                 msg_freedom: 'Your identity is not controlled and observed.',
                 open: 0,
+                redirect:false
             };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.redirPage = this.redirPage.bind(this);
+        this.onclose = this.onclose.bind(this);
+        this.state.redirPage=this.props.redirPage;
   }
 
   handleSubmit(event) {
@@ -56,16 +59,23 @@ class Login extends Component {
 
     redirPage(response) {
         if(JSON.parse(response.data).islogined){
-            this.props.redirect = true;
+            this.state.redirect = true;
             this.setState(this.state);
+        }else{
+            alert('Incorrect email or password!');
         }
+    }
+
+    onclose(event) {
+        this.state.redirect = true;
+        this.setState({redirect: true});
     }
 
   render() {
     const Mobile = props => <Responsive {...props} maxWidth={767}/>;
     const Default = props => <Responsive {...props} minWidth={768}/>;
 
-        if(this.props.redirect){
+        if(this.state.redirect){
             return <App />;
         }
 
@@ -111,7 +121,7 @@ class Login extends Component {
                     <Button color='grey' icon='genderless' labelPosition='right' content='Sign up' onClick={()=>this.setState({open: 1})} />
             </Grid.Column>
             </Grid>
-                <SignUp redirect={false} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>
+                <SignUp onclose={()=> this.onclose()} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>
             </div>
         );
     }

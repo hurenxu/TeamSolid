@@ -28,22 +28,22 @@ class Signup extends Component {
     handleSubmit = (event) => {
         let message = [];
         if(this.state.username === "") {
-            message.push("Username can't be empty!");
+            alert("Username can't be empty!");
             this.setState({message: message});
             return
         }
         if(this.state.password === "") {
-            message.push("Password can't be empty!");
+            alert("Password can't be empty!");
             this.setState({message: message});
             return
         }
         if(this.state.repeat === "") {
-            message.push("Please enter your password again!");
+            alert("Please enter your password again!");
             this.setState({message: message});
             return
         }
         if(this.state.password !== this.state.repeat) {
-            message.push("Password is not matching!");
+            alert("Password is not matching!");
             this.setState({message: message});
             return
         }
@@ -52,10 +52,11 @@ class Signup extends Component {
         this.setState({dimmer: false});
     };
     redirPage(response) {
-
             if(JSON.parse(response.data).result==="OK"){
-                this.props.redirect = true;
-        }
+                this.props.onclose();
+            }else{
+                alert(Signup fail!);
+            }
     }
     render() {
         const { dimmer } = this.state
@@ -87,7 +88,7 @@ class Signup extends Component {
                         </Container>
                         <Modal.Actions>
                             <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />
-                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit(); this.props.onClose()}} />
+                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />
                         </Modal.Actions>
                     </Modal>
                 </div>
