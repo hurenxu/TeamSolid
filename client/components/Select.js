@@ -12,8 +12,6 @@ const avatarStyle = {
   marginRight: '1em'
 }
 
-const userName = ["friend1", "friend2", "friend3"];
-
 class Select extends Component {
 
   constructor(props) {
@@ -32,14 +30,25 @@ class Select extends Component {
 
   handleItemClick(e, {index}) {
     this.setState({activeIndex: index});
-    this.props.handleMessages(this.state.friendList[index]);
+    this.props.handleMessages(this.state.friendList[index].sid);
   }
 
   loadFriendList() {
     axios.post('/api/getFriendList').then((response) => {
-      this.setState({
-        friendList: JSON.parse(response.data)
-      });
+      // this.setState({
+      //   friendList: JSON.parse(response.data)
+      // });
+
+      const friendIDs = JSON.parse(response.data)
+
+      axios.all(friendIDs.map(friendID => axios.post('/api/searchUser', {searchKey: friendID})))
+        .then(axios.spread((...results) => {
+          // all requests are now complete
+          const friendDetails = results.map(res => JSON.parse(res.data))
+          this.setState({
+            friendList: friendDetails
+          })
+        }));
     })
   }
 
@@ -48,9 +57,9 @@ class Select extends Component {
     var menuItems = []
     for (var i = 0; i < this.state.friendList.length; i++) {
       menuItems.push(
-        <Menu.Item name={this.state.friendList[i]} index={i} active={activeIndex == i} onClick={this.handleItemClick}>
+        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i} onClick={this.handleItemClick}>
           <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-          {this.state.friendList[i]}
+          {this.state.friendList[i].username}
           <Label color='red'>1</Label>
         </Menu.Item>
       )

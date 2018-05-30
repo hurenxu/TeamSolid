@@ -8,7 +8,9 @@ class MainFeed extends Component {
 
   constructor(props) {
     super(props);
+    this.handle = this.handle.bind(this);
   }
+
 
   handle(response) {
     console.log(response);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'
 import axios from "axios/index";
+import moment from "moment";
 
 let initialState = {
     message: "",
@@ -24,8 +25,8 @@ class Signup extends Component {
         if(this.state.message === "") {
             return
         }
-
-        axios.post(`/api/postMessage`, {postMessage: this.state.message, aspect: this.state.aspect});
+        const date = moment().format();
+        axios.post(`/api/postPost`, {msg: this.state.message, date: date});
         this.setState({dimmer: false, open: false, message: ''});
     };
 
@@ -44,7 +45,7 @@ class Signup extends Component {
                             <Button.Group style={{float: 'right', marginRight: '10%'}}>
                                 <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>
                                 <Button.Or />
-                                <Button positive onClick={()=> {this.handleSubmit(); this.props.onClose()}}>Post</Button>
+                                <Button positive onClick={()=> { this.handleSubmit(); this.props.onClose()}}>Post</Button>
                             </Button.Group>
                         </Form>
                     </Container>

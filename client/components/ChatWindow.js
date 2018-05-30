@@ -57,8 +57,13 @@ class ChatWindow extends Component {
 
   loadMessage(targetID) {
     axios.post('/api/switchChatTarget', {tid: targetID}).then((response) => {
+      var messages = JSON.parse(response.data)
+      messages.sort(function(a,b) {
+        return new Date(a.date) - new Date(b.date)
+      })
+
       this.setState({
-        chatHistory: JSON.parse(response.data)
+        chatHistory: messages
       });
     });
   }
@@ -79,7 +84,7 @@ class ChatWindow extends Component {
     const {message} = this.state;
 
     const chatcells = this.state.chatHistory.map((message) =>
-      <ChatCell me={message.tid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);
+      <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);
 
     return (
       <div>
