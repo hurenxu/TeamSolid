@@ -3,7 +3,6 @@ import {Image, Item, Button, Grid, Menu, Segment, Input, Label} from 'semantic-u
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 
-
 const avatarStyle = {
   width: '5vw',
   paddingLeft: '1em',
@@ -14,9 +13,21 @@ const avatarStyle = {
 
 class Select extends Component {
 
-  state = { activeIndex: 0}
+  constructor(props) {
+    super(props);
+    this.state = {activeIndex: 0}
 
-  handleItemClick = (e, { index }) => this.setState({ activeIndex: index })
+    this.handleItemClick = this.handleItemClick.bind(this);
+
+  }
+
+  handleItemClick(e, {index}) {
+    this.setState({activeIndex: index});
+    this.props.handleMessages(index);
+  }
+
+  //handleItemClick = (e, { index }) => this.setState({ activeIndex: {index} })
+
 
   render(){
     const { activeIndex } = this.state;

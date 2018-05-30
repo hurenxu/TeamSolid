@@ -6,6 +6,7 @@
 .idea/**/tasks.xml
 .idea/**/dictionaries
 .idea/**/shelf
+client/bundle.js
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
