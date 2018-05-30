@@ -24,6 +24,7 @@ class Signup extends Component {
     close = () => this.setState({ open, dimmer: false })
 
     handleSubmit = (event) => {
+        console.log("signing up1"+this.state);
         let message = [];
         if(this.state.username === "") {
             message.push("Username can't be empty!");
@@ -45,14 +46,13 @@ class Signup extends Component {
             this.setState({message: message});
             return
         }
-        axios.post(`/register`, {username: this.state.username, password: this.state.password, email: this.state.email})
+        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email})
         this.setState({open: false});
         this.setState({dimmer: false});
     };
 
     render() {
         const { dimmer } = this.state
-        console.log(this.props.open);
             return (
                 <div>
                     <Modal size='tiny' className="scrolling" style={{height: '60%'}} dimmer={dimmer}
@@ -79,8 +79,8 @@ class Signup extends Component {
                             </Form>
                         </Container>
                         <Modal.Actions>
-                            <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close; this.props.onClose()}} />
-                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit; this.props.onClose()}} />
+                            <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />
+                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit(); this.props.onClose()}} />
                         </Modal.Actions>
                     </Modal>
                 </div>

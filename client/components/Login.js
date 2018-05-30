@@ -12,6 +12,7 @@ import TextBox from './TextBox';
 import Navbar from './Navbar';
 import { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'
 import SignUp from './Signup';
+import App from './App';
 
 class Login extends Component {
     constructor(props) {
@@ -21,7 +22,6 @@ class Login extends Component {
                 email: '',
                 password: '',
                 buttonText: 'Login',
-                msg_show: 'New to us?',
                 msg_link: 'Sign Up',
                 header_privacy: 'Decentralization',
                 header_security: 'Security',
@@ -29,14 +29,15 @@ class Login extends Component {
                 msg_privacy: 'You choose who can see your data.',
                 msg_security: 'All data are encrypted to make them safe.',
                 msg_freedom: 'Your identity is not controlled and observed.',
-                open: 0
+                open: 0,
+                redirect: false
             };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.rediPage = this.rediPage.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
     function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(email).toLowerCase());
@@ -44,7 +45,7 @@ class Login extends Component {
 
     if (validateEmail(this.state.email) && this.state.password != '' ) {
       //Submit to somewhere
-      axios.post('/api/login', {email: this.state.email, password: this.state.password})
+      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> rediPage(response));
     }
     else if (!validateEmail(this.state.email)) {
       alert('Invalid email address');
@@ -54,9 +55,22 @@ class Login extends Component {
     }
   }
 
+    rediPage(response) {
+        console.log(JSON.parse(response.data).islogined);
+        if(JSON.parse(response.data).islogined){
+            this.state.redirect = true;
+            console.log(this);
+            this.setState(this.state);
+        }
+    }
+
   render() {
     const Mobile = props => <Responsive {...props} maxWidth={767}/>;
     const Default = props => <Responsive {...props} minWidth={768}/>;
+
+        if(this.state.redirect){
+            return <App />;
+        }
 
         return (
             <div className="App">
