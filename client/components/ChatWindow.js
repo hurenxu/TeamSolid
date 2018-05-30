@@ -48,9 +48,16 @@ class ChatWindow extends Component {
     };
 
     render() {
-        const { message } = this.state
+        const { message } = this.state;
 
-        return (
+
+      const chatcells = this.props.messageJson.messages.map((message) =>
+            <ChatCell me={message.me} text={message.text} img={'../assets/avatar3.jpg'}/>);
+
+      // console.log(chatcells);
+      // console.log(this.props.messageJson.messages);
+
+      return (
             <div>
                 <Grid style={overallStyle}>
                     <Grid.Row style={headerStyle}>
@@ -63,15 +70,11 @@ class ChatWindow extends Component {
                     </Grid.Row>
                     <Grid.Row style={messageStyle}>
                         <Grid.Column>
-                            <ChatCell me={false} img={'../assets/avatar3.jpg'}/>
-                            <ChatCell me={true} img={'../assets/avatar.jpg'}/>
-                            <ChatCell me={false} img={'../assets/avatar3.jpg'}/>
-                            <ChatCell me={false} img={'../assets/avatar3.jpg'}/>
-                            <ChatCell me={true} img={'../assets/avatar.jpg'}/>
-                            <ChatCell me={false} img={'../assets/avatar.jpg'}/>
-                            <ChatCell me={true} img={'../assets/avatar.jpg'}/>
-                            <ChatCell me={true} img={'../assets/avatar.jpg'}/>
-                            <ChatCell me={true} img={'../assets/avatar.jpg'}/>
+                          {chatcells}
+                            {/*<ChatCell me={false} text="Hello" img={'../assets/avatar3.jpg'}/>*/}
+                            {/*<ChatCell me={true} text="Hey" img={'../assets/avatar.jpg'}/>*/}
+                            {/*<ChatCell me={false} text="Where are you from" img={'../assets/avatar3.jpg'}/>*/}
+                            {/*<ChatCell me={false} text="San Diego" img={'../assets/avatar3.jpg'}/>*/}
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row style={textareaStyle}>

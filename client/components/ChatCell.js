@@ -6,8 +6,11 @@ import ReactDOM from "react-dom";
 
 class ChatCell extends Component {
 
+    constructor(props){
+      super(props);
+    }
     render() {
-        var currMessage;
+        var currMessage = ""
         if (this.props.me) {
             currMessage =
                 <Grid>
@@ -16,7 +19,7 @@ class ChatCell extends Component {
                     </Grid.Column>
                     <Grid.Column width={14} textAlign='left'>
                         <Message compact>
-                            I am fine thank you.
+                          {this.props.text}
                         </Message>
                     </Grid.Column>
                 </Grid>
@@ -25,7 +28,7 @@ class ChatCell extends Component {
                 <Grid>
                     <Grid.Column width={14} textAlign='right'>
                         <Message compact>
-                            How are you?
+                          {this.props.text}
                         </Message>
                     </Grid.Column>
                     <Grid.Column width={2}>
