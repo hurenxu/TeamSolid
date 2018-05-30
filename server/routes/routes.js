@@ -88,7 +88,7 @@ router.post('/api/login',
 router.post('/api/getUserName',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        res.json(JSON({"username": req.user.email}));
+        res.json(JSON.stringify({"username": req.user.email}));
     });
 
 router.post('/api/signup', function (req, res, next) {
@@ -125,13 +125,17 @@ router.post('/api/switchChatTarget',
         var targetid = req.body.tid;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
             const db = client.db(dbName);
 
             db.collection("messages").find({ sid: sourceid, tid: targetid }).toArray(function (err, result1) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
+
                 db.collection("messages").find({ sid: targetid, tid: sourceid }).toArray(function (err, result2) {
-                    if (err) throw err;
+                    if (err) {
+                        console.log(err);
+                    }
                     res.json(JSON.stringify(result1.concat(result2)));
                 });
             });
@@ -144,11 +148,17 @@ router.post('/api/searchUser',
         var key = req.body.searchKey;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
+
             const db = client.db(dbName);
 
             db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
+
                 res.json(JSON.stringify(result[0]));
             });
         });
@@ -157,28 +167,35 @@ router.post('/api/searchUser',
 router.post('/api/updateFriendList',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.user.email
+        var sourceid = req.user.email;
         var targetid = req.body.tid;
         var actionType = req.body.actionType;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
             const db = client.db(dbName);
 
             if (actionType == "delete") {
                 db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends:{ $in: [targetid]}}}, function(err) {
-                    if (err) throw err;
+                    if (err) {
+                        console.log(err);
+                    }
                     db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
-                        if (err) throw err;
+                        if (err) {
+                            console.log(err);
+                        }
                         res.json(JSON.stringify(result[0].friends));
                     });
                 });
             } else if(actionType == "add") {
                 db.collection("userinfo").update( {sid: sourceid}, {$push: {friends: targetid}}, function(err) {
-                    if (err) throw err;
+                    if (err) {
+                        console.log(err);
+                    }
                     
                     db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
-                        if (err) throw err;
+                        if (err) {
+                            console.log(err);
+                        }
                         res.json(JSON.stringify(result[0].friends));
                     });
                 });
@@ -191,14 +208,18 @@ router.post('/api/updateFriendList',
 router.post('/api/getFriendList',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var key = req.body.searchKey;
+        var key = req.req.user.email;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             const db = client.db(dbName);
 
             db.collection("userinfo").find({ sid: key }).toArray(function (err, result) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
                 res.json(JSON.stringify(result[0].friends));
             });
         });
@@ -210,7 +231,9 @@ router.post('/api/ChangeToPost',
         var sourceid = req.user.email;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             const db = client.db(dbName);
             db.collection("userinfo").find({std: sourceid}).toArray(function(err, result) {
                 var friends = result[0].friends;
@@ -219,7 +242,9 @@ router.post('/api/ChangeToPost',
 
                 for (var targetid in friends) {
                     db.collection("posts").find({ sid: targetid }).toArray(function (err, result) {
-                        if (err) throw err;
+                        if (err) {
+                            console.log(err);
+                        }
                         ret.concat(result)
                     });
                 }
@@ -236,13 +261,16 @@ router.post('/api/ChangeToMessage',
         var targetid = req.body.tid;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
             const db = client.db(dbName);
 
             db.collection("messages").find({ sid: sourceid, tid: targetid }).toArray(function (err, result1) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
                 db.collection("messages").find({ sid: targetid, tid: sourceid }).toArray(function (err, result2) {
-                    if (err) throw err;
+                    if (err) {
+                        console.log(err);
+                    }
                     res.json(JSON.stringify(result1.concat(result2)));
                 });
             });
@@ -268,11 +296,12 @@ router.post('/api/LikeAPost',
         var pid = req.body.postid;
         
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
             const db = client.db(dbName);
 
             db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
                 var users = result[0].likedUsers;
 
                 if (users.indexOf(sourceid) == -1) {
@@ -281,13 +310,19 @@ router.post('/api/LikeAPost',
             });
 
             db.collection("posts").update( {postid: pid}, {$push: {likedUsers: sourceid}}, function(err) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
                 db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
-                    if (err) throw err;
+                    if (err) {
+                        console.log(err);
+                    }
                     var count = result[0].likecount
 
                     db.collection("posts").update( {postid: pid}, {$set: {likecount: (count + 1)}}, function(err) {
-                        if (err) throw err;
+                        if (err) {
+                            console.log(err);
+                        }
 
                         res.json(JSON.stringify({result: "OK", count: count + 1}));
                     });
@@ -302,15 +337,21 @@ router.post('/api/postMessage',
         var sourceid = req.user.email;
         var targetid = req.body.to;
         var mmsg = req.body.msg;
+        var mdate = req.body.date;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             const db = client.db(dbName);
 
             db.collection("posts").count(function(err, num) {
-                db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg}, function (err) {
-                        if (err) throw err;
-                        res.send("insertion success!");
+                db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+
+                    res.json(JSON.stringify({result: "OK"}));
                 });
             });
         });
@@ -319,17 +360,21 @@ router.post('/api/postMessage',
 router.post('/api/postPost',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.body.sid;
+        var sourceid = req.user.email;
         var pmsg = req.body.msg;
         var pdate = req.body.date;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             const db = client.db(dbName);
 
             db.collection("posts").count(function (err, num) {
                 db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, likedUsers: [], likecount: 0, msg: pmsg, data: pdate }, function (err) {
-                    if (err) throw err;
+                    if (err) {
+                        console.log(err);
+                    }
 
                     db.collection("posts").find({ sid: sourceid }).toArray(function (err, result) {
                         res.json(JSON.stringify(result));
@@ -345,11 +390,15 @@ router.post('/api/getPosts',
         var sourceid = req.user.email;
 
         MongoClient.connect(url, function (err, client) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             const db = client.db(dbName);
 
             db.collection("posts").find({ sid: sourceid }).toArray(function (err, result) {
-                if (err) throw err;
+                if (err) {
+                    console.log(err);
+                }
                 res.json(JSON.stringify(result));
             });
         });
