@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {Button, Grid, Menu, Feed} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
-import axios from 'axios';
 import ReactDOM from "react-dom";
 import Navbar from './Navbar'
 import Select from './Select'
 import MainFeed from './MainFeed'
 import ChatWindow from './ChatWindow'
 import FeedInfo from './FeedInfo'
+import axios from 'axios'
+import Aspect from './Aspect'
 
 const message0 = {
   messages: [
@@ -46,12 +47,14 @@ class Main extends Component {
     this.state = {
       mode: 'posts',
       targetUserID: 1,
-      message: hardcoded[1]
+      message: hardcoded[1],
+      aspect: 'Others'
     }
 
     this.handlePosts = this.handlePosts.bind(this);
     this.handleFriends = this.handleFriends.bind(this);
     this.handleMessages = this.handleMessages.bind(this);
+    this.handlePost = this.handlePost.bind(this);
   }
 
   handlePosts(){
@@ -81,17 +84,28 @@ class Main extends Component {
 
   }
 
+    handlePost(aspect){
+        this.setState({
+            aspect: aspect
+        });
+        this.state.aspect = aspect;
+        // post for target user change
+        // axios.post('/api/switchChatTarget', {tid: inputID}).then((response) => {});
+    }
+
   render() {
 
-    const window = (this.state.mode === 'posts') ? <MainFeed/> :
+    const window = (this.state.mode === 'posts') ? <MainFeed /> :
       (this.state.mode === 'messages' ? <ChatWindow messageJson={this.state.message}/> : <div></div>)
+    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
+        (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)
 
     return (
       <div>
         <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends} handleMessages={this.handleMessages}></Navbar>
         <Grid>
             <Grid.Column width={4}>
-              <Select handleMessages={this.handleMessages}></Select>
+                {aspect}
             </Grid.Column>
             <Grid.Column width={8}>
               {window}
