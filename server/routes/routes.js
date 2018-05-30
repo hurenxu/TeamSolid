@@ -208,7 +208,7 @@ router.post('/api/updateFriendList',
 router.post('/api/getFriendList',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var key = req.body.searchKey;
+        var key = req.req.user.email;
 
         MongoClient.connect(url, function (err, client) {
             if (err) {
@@ -360,7 +360,7 @@ router.post('/api/postMessage',
 router.post('/api/postPost',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.body.sid;
+        var sourceid = req.user.email;
         var pmsg = req.body.msg;
         var pdate = req.body.date;
 
