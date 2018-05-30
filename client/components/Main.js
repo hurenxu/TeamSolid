@@ -8,6 +8,7 @@ import Select from './Select'
 import MainFeed from './MainFeed'
 import ChatWindow from './ChatWindow'
 import FeedInfo from './FeedInfo'
+import axios from 'axios';
 
 const message0 = {
   messages: [
@@ -73,6 +74,12 @@ class Main extends Component {
       targetUserID: {inputID},
       message: hardcoded[inputID]
     })
+
+    // post for target user change
+    axios.post('/api/switchChatTarget', {tid: inputID}).then((response) => {
+      
+    });
+
   }
 
   render() {
