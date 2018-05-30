@@ -9,6 +9,7 @@ import ChatWindow from './ChatWindow'
 import FeedInfo from './FeedInfo'
 import axios from 'axios'
 import Aspect from './Aspect'
+import FriendManagement from './FriendManagement'
 
 const message0 = {
   messages: [
@@ -94,10 +95,11 @@ class Main extends Component {
 
   render() {
 
-    const window = (this.state.mode === 'posts') ? <MainFeed /> :
+    const window = (this.state.mode === 'posts') ? <MainFeed/> :
       (this.state.mode === 'messages' ? <ChatWindow messageJson={this.state.message}/> : <div></div>)
+
     const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
-        (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)
+      (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)
 
     return (
       <div>

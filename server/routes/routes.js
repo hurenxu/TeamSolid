@@ -85,7 +85,11 @@ router.post('/api/login',
         failureRedirect: '/loginfail'
     }));
 
-
+router.post('/api/getUserName',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        res.json(JSON({"username": req.user.email}));
+    });
 
 router.post('/api/signup', function (req, res, next) {
     var eml = req.body.email;
@@ -349,8 +353,7 @@ router.post('/api/getPosts',
                 res.json(JSON.stringify(result));
             });
         });
-    }); 
-
+    });
 
 // insert operation
 router.post('/insert', function (req, res, next) {
