@@ -257,7 +257,7 @@ router.post('/api/ChangeToPost',
 router.post('/api/ChangeToMessage',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
-        var sourceid = req.body.sid;
+        var sourceid = req.user.email;
         var targetid = req.body.tid;
 
         MongoClient.connect(url, function (err, client) {
