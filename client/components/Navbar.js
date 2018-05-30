@@ -20,18 +20,18 @@ class Navbar extends Component {
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-  handleItemClick(e, { name }){
-    this.setState({ activeItem: name })
+  handleItemClick(e, {name}) {
+    this.setState({activeItem: name})
 
-      if(name === 'posts'){
-        this.props.handlePosts();
-      }
-      else if(name === 'messages'){
-        this.props.handleMessages();
-      }
-      else{
-        this.props.handleFriends();
-      }
+    if (name === 'posts') {
+      this.props.handlePosts();
+    }
+    else if (name === 'messages') {
+      this.props.handleMessages();
+    }
+    else {
+      this.props.handleFriends();
+    }
   }
 
   render() {
@@ -43,13 +43,13 @@ class Navbar extends Component {
             <span style={{marginLeft: '1em'}}>Profile</span>
           </Menu.Item>
           <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>
-          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick} />
-          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick} />
+          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>
+          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick}/>
           <Menu.Menu position='right'>
             <Menu.Item>
-              <Input icon='search' placeholder='Search...' />
+              <Input icon='search' placeholder='Search...'/>
             </Menu.Item>
-            <Menu.Item name='logout' onClick={this.handleItemClick} />
+            <Menu.Item name='logout' onClick={this.handleItemClick}/>
           </Menu.Menu>
         </Menu>
       </div>

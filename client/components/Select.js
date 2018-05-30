@@ -28,36 +28,33 @@ class Select extends Component {
     this.props.handleMessages(userName[index]);
   }
 
-  //handleItemClick = (e, { index }) => this.setState({ activeIndex: {index} })
-
-
-  render(){
-    const { activeIndex } = this.state;
+  render() {
+    const {activeIndex} = this.state;
 
     return (
       <div>
-          <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
-              <Menu.Item>
-                  <Input icon='search' placeholder='Search tag...' />
-              </Menu.Item>
-              <Menu.Item  name='0' index={0} active={activeIndex === 0} onClick={this.handleItemClick}>
-                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-                Frank Qiao
-                <Label color='red'>1</Label>
-              </Menu.Item>
-              <Menu.Item name='1' index={1} active={activeIndex === 1} onClick={this.handleItemClick}>
-                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-                Jack Wang
-                <Label color='red'>12</Label>
-              </Menu.Item>
+        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
+          <Menu.Item>
+            <Input icon='search' placeholder='Search tag...'/>
+          </Menu.Item>
+          <Menu.Item name='0' index={0} active={activeIndex === 0} onClick={this.handleItemClick}>
+            <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
+            Frank Qiao
+            <Label color='red'>1</Label>
+          </Menu.Item>
+          <Menu.Item name='1' index={1} active={activeIndex === 1} onClick={this.handleItemClick}>
+            <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
+            Jack Wang
+            <Label color='red'>12</Label>
+          </Menu.Item>
 
-              <Menu.Item name='2' index={2} active={activeIndex === 2} onClick={this.handleItemClick}>
-                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-                John Snow
-                <Label color='red'>1</Label>
-              </Menu.Item>
+          <Menu.Item name='2' index={2} active={activeIndex === 2} onClick={this.handleItemClick}>
+            <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
+            John Snow
+            <Label color='red'>1</Label>
+          </Menu.Item>
 
-          </Menu>
+        </Menu>
       </div>
     );
   }

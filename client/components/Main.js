@@ -12,7 +12,7 @@ import FriendManagement from './FriendManagement'
 
 class Main extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       mode: 'posts',
@@ -26,33 +26,33 @@ class Main extends Component {
     this.handlePost = this.handlePost.bind(this);
   }
 
-  handlePosts(){
+  handlePosts() {
     this.setState({
       mode: 'posts'
     })
   }
 
-  handleFriends(){
+  handleFriends() {
     this.setState({
       mode: 'friends'
     })
   }
 
-  handleMessages(inputID=""){
+  handleMessages(inputID = "") {
     this.setState({
       mode: 'messages',
       targetUserID: inputID
     })
   }
 
-    handlePost(aspect){
-        this.setState({
-            aspect: aspect
-        });
-        this.state.aspect = aspect;
-        // post for target user change
-        // axios.post('/api/switchChatTarget', {tid: inputID}).then((response) => {});
-    }
+  handlePost(aspect) {
+    this.setState({
+      aspect: aspect
+    });
+    this.state.aspect = aspect;
+    // post for target user change
+    // axios.post('/api/switchChatTarget', {tid: inputID}).then((response) => {});
+  }
 
   render() {
 
@@ -65,17 +65,18 @@ class Main extends Component {
 
     return (
       <div>
-        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends} handleMessages={this.handleMessages}></Navbar>
+        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}
+                handleMessages={this.handleMessages}></Navbar>
         <Grid>
-            <Grid.Column width={4}>
-                {aspect}
-            </Grid.Column>
-            <Grid.Column width={8}>
-              {window}
-            </Grid.Column>
-            <Grid.Column width={4}>
-                <FeedInfo />
-            </Grid.Column>
+          <Grid.Column width={4}>
+            {aspect}
+          </Grid.Column>
+          <Grid.Column width={8}>
+            {window}
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <FeedInfo/>
+          </Grid.Column>
         </Grid>
       </div>
     );

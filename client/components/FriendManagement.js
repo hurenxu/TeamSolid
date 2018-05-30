@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid, Ref} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import axios from 'axios';
-import { Container, Form, Icon, Button, Header, Image, Modal, Input } from 'semantic-ui-react'
+import {Container, Form, Icon, Button, Header, Image, Modal, Input} from 'semantic-ui-react'
 
 const style = {
   marginTop: '5em',
@@ -10,7 +10,7 @@ const style = {
 
 class FriendManagement extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       targetFriend: "",

@@ -40,6 +40,7 @@ class ChatWindow extends Component {
     this.loadMessage(props.targetID)
     this.handleSubmit = this.handleSubmit.bind(this);
     this.loadMessage = this.loadMessage.bind(this);
+    this.postMessage = this.postMessage.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,13 +52,7 @@ class ChatWindow extends Component {
   }
 
   handleSubmit = (event) => {
-    if (this.state.message === "") { return }
-
-    axios.post(`/api/postMessage`, {msg: this.state.message, to: this.state.targetID}).then((response) => {
-      this.loadMessage(this.state.targetID)
-    })
-
-    this.setState({message: ''})
+    this.postMessage()
   }
 
   loadMessage(targetID) {
@@ -66,6 +61,18 @@ class ChatWindow extends Component {
         chatHistory: JSON.parse(response.data)
       });
     });
+  }
+
+  postMessage() {
+    if (this.state.message === "") { return }
+
+    var currentDate = new Date()
+
+    axios.post(`/api/postMessage`, {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {
+      this.loadMessage(this.state.targetID)
+    })
+
+    this.setState({message: ''})
   }
 
   render() {
