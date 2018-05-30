@@ -25,7 +25,7 @@ class Signup extends Component {
             return
         }
 
-        axios.post(`/postMessage`, {postMessage: this.state.message, aspect: this.state.aspect});
+        axios.post(`/api/postMessage`, {postMessage: this.state.message, aspect: this.state.aspect});
         this.setState({dimmer: false, open: false, message: ''});
     };
 

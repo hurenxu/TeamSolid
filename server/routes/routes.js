@@ -85,7 +85,11 @@ router.post('/api/login',
         failureRedirect: '/loginfail'
     }));
 
-
+router.post('/api/getUserName',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        res.json(JSON.stringify({"username": req.user.email}));
+    });
 
 router.post('/api/signup', function (req, res, next) {
     var eml = req.body.email;
@@ -298,13 +302,14 @@ router.post('/api/postMessage',
         var sourceid = req.user.email;
         var targetid = req.body.to;
         var mmsg = req.body.msg;
+        var mdate = req.body.date;
 
         MongoClient.connect(url, function (err, client) {
             if (err) throw err;
             const db = client.db(dbName);
 
             db.collection("posts").count(function(err, num) {
-                db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg}, function (err) {
+                db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
                         if (err) throw err;
                         res.send("insertion success!");
                 });
@@ -349,8 +354,7 @@ router.post('/api/getPosts',
                 res.json(JSON.stringify(result));
             });
         });
-    }); 
-
+    });
 
 // insert operation
 router.post('/insert', function (req, res, next) {
