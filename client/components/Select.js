@@ -11,6 +11,8 @@ const avatarStyle = {
   marginRight: '1em'
 }
 
+const userName = ["friend1", "friend2", "friend3"];
+
 class Select extends Component {
 
   constructor(props) {
@@ -23,7 +25,7 @@ class Select extends Component {
 
   handleItemClick(e, {index}) {
     this.setState({activeIndex: index});
-    this.props.handleMessages(index);
+    this.props.handleMessages(userName[index]);
   }
 
   //handleItemClick = (e, { index }) => this.setState({ activeIndex: {index} })

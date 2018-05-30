@@ -55,7 +55,7 @@ class Signup extends Component {
             if(JSON.parse(response.data).result==="OK"){
                 this.props.onclose();
             }else{
-                alert(Signup fail!);
+                alert('Signup fail!');
             }
     }
     render() {
