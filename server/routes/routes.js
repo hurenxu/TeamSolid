@@ -85,8 +85,6 @@ router.post('/api/login',
         failureRedirect: '/loginfail'
     }));
 
-
-
 router.post('/api/signup', function (req, res, next) {
     var eml = req.body.email;
     var pwd = req.body.password;
@@ -349,8 +347,7 @@ router.post('/api/getPosts',
                 res.json(JSON.stringify(result));
             });
         });
-    }); 
-
+    });
 
 // insert operation
 router.post('/insert', function (req, res, next) {
