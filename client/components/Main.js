@@ -97,7 +97,7 @@ class Main extends Component {
   render() {
 
     const window = (this.state.mode === 'posts') ? <MainFeed/> :
-      (this.state.mode === 'messages' ? <ChatWindow messageJson={this.state.message}/> : <div></div>)
+      (this.state.mode === 'messages' ? <ChatWindow messageJson={this.state.message}/> : <FriendManagement/>)
 
     const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
       (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)
