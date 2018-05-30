@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Feed, Icon, Grid} from 'semantic-ui-react'
+import {Feed, Icon, Grid, Header} from 'semantic-ui-react'
 
 class FeedInfo extends Component {
 
@@ -9,6 +9,13 @@ class FeedInfo extends Component {
 
   render() {
     return (
+        <div>
+        <Header as='h2' floated='left' style={{marginLeft: "1em"}}>
+            <Icon name='file text outline' />
+            <Header.Content>
+                Activties
+            </Header.Content>
+        </Header>
       <Feed style={{marginTop: '5vh'}}>
         <Feed.Event>
           <Feed.Label image='../assets/image/avatar/images.png'/>
@@ -23,6 +30,7 @@ class FeedInfo extends Component {
           <Feed.Content content='Nimama (Aspect: Family) sent you a message'/>
         </Feed.Event>
       </Feed>
+        </div>
     );
   }
 }

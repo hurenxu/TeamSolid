@@ -297,7 +297,6 @@ router.post('/api/LikeAPost',
         
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
-
             db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
                 if (err) {
                     console.log(err);

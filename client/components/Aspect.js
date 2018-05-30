@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, Item, Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'
+import {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 
@@ -38,6 +38,12 @@ class Select extends Component {
 
     return (
       <div>
+          <Header as='h2' floated='left'  style={{marginLeft: "1em"}}>
+              <Icon name='list layout' />
+              <Header.Content>
+                  Aspects
+              </Header.Content>
+          </Header>
         <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
           <Menu.Item>
             <Input icon='search' placeholder='Search tag...'/>
