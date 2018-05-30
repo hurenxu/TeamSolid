@@ -59,7 +59,6 @@ class Main extends Component {
   }
 
   handlePosts(){
-    console.log("Posts!!")
     this.setState({
       mode: 'posts'
     })
