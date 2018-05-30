@@ -26,7 +26,9 @@ class Signup extends Component {
             return
         }
         const date = moment().format();
-        axios.post(`/api/postPost`, {msg: this.state.message, date: date});
+
+        this.props.createPost({msg: this.state.message, date: date});
+        //axios.post(`/api/postPost`, {msg: this.state.message, date: date});
         this.setState({dimmer: false, open: false, message: ''});
     };
 

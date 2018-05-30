@@ -30,7 +30,7 @@ class NewPost extends Component {
             <Button positive>Post</Button>
           </Button.Group>
         </Form>
-        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})}/>
+        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>
       </div>
     )
   }

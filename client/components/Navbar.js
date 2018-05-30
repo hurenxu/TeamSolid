@@ -19,8 +19,11 @@ class Navbar extends Component {
         activeItem: 'posts',
           username: 'Profile'
       };
+
     this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
+    this.loadUsername = this.loadUsername.bind(this);
+
+    this.loadUsername()
   }
 
   handleItemClick(e, {name}) {
@@ -37,15 +40,15 @@ class Navbar extends Component {
     }
   }
 
-  handleUsername(response) {
-      this.setState(
-          { username: JSON.parse(response.data).username }
-      );
-      this.state.username = JSON.parse(response.data).username;
+  loadUsername() {
+    axios.post('/api/getUserName').then((response) => {
+      this.setState({
+        username: JSON.parse(response.data).username
+      });
+    });
   }
 
   render() {
-    axios.post('/api/getUserName').then((response) => this.handleUsername(response));
     return (
       <div>
         <Menu pointing size='huge'>
