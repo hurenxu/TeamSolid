@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
 var passport = require('passport');
-  
+
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('../webpack.config.js');

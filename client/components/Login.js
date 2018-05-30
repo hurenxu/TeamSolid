@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Grid} from 'semantic-ui-react'
+import {Grid, Ref} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import '../css/login.css'
 import axios from 'axios';
@@ -44,7 +44,7 @@ class Login extends Component {
 
     if (validateEmail(this.state.email) && this.state.password != '' ) {
       //Submit to somewhere
-      axios.post(`/login`, {email: this.state.email, password: this.state.password})
+      axios.post('/api/login', {email: this.state.email, password: this.state.password})
     }
     else if (!validateEmail(this.state.email)) {
       alert('Invalid email address');
