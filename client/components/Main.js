@@ -99,6 +99,9 @@ class Main extends Component {
     const window = (this.state.mode === 'posts') ? <MainFeed/> :
       (this.state.mode === 'messages' ? <ChatWindow messageJson={this.state.message}/> : <div></div>)
 
+    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
+      (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)
+
     return (
       <div>
         <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends} handleMessages={this.handleMessages}></Navbar>
