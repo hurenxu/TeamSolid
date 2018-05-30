@@ -9,5 +9,5 @@ var el = document.getElementById('root');
 if (el.className == 'index') {
     ReactDOM.render(<App />, document.getElementById('root'));
 } else {
-    ReactDOM.render(<Login />, document.getElementById('root'));
+    ReactDOM.render(<Login redirect={false}/>, document.getElementById('root'));
 }

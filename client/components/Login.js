@@ -30,10 +30,9 @@ class Login extends Component {
                 msg_security: 'All data are encrypted to make them safe.',
                 msg_freedom: 'Your identity is not controlled and observed.',
                 open: 0,
-                redirect: false
             };
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.rediPage = this.rediPage.bind(this);
+        this.redirPage = this.redirPage.bind(this);
   }
 
   handleSubmit(event) {
@@ -45,7 +44,7 @@ class Login extends Component {
 
     if (validateEmail(this.state.email) && this.state.password != '' ) {
       //Submit to somewhere
-      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> rediPage(response));
+      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> this.redirPage(response));
     }
     else if (!validateEmail(this.state.email)) {
       alert('Invalid email address');
@@ -55,11 +54,9 @@ class Login extends Component {
     }
   }
 
-    rediPage(response) {
-        console.log(JSON.parse(response.data).islogined);
+    redirPage(response) {
         if(JSON.parse(response.data).islogined){
-            this.state.redirect = true;
-            console.log(this);
+            this.props.redirect = true;
             this.setState(this.state);
         }
     }
@@ -68,7 +65,7 @@ class Login extends Component {
     const Mobile = props => <Responsive {...props} maxWidth={767}/>;
     const Default = props => <Responsive {...props} minWidth={768}/>;
 
-        if(this.state.redirect){
+        if(this.props.redirect){
             return <App />;
         }
 
@@ -114,7 +111,7 @@ class Login extends Component {
                     <Button color='grey' icon='genderless' labelPosition='right' content='Sign up' onClick={()=>this.setState({open: 1})} />
             </Grid.Column>
             </Grid>
-                <SignUp open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>
+                <SignUp redirect={false} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>
             </div>
         );
     }
