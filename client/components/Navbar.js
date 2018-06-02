@@ -4,6 +4,7 @@ import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 import '../css/App.css';
 import axios from "axios/index";
+import TechnicalSupport from "./TechnicalSupport"
 
 const avatarStyle = {
   width: '21.3vw',
@@ -17,7 +18,8 @@ class Navbar extends Component {
     this.state =
       {
         activeItem: 'posts',
-          username: 'Profile'
+          username: 'Profile',
+          openSupport: 0
       };
 
     this.handleItemClick = this.handleItemClick.bind(this);
@@ -35,8 +37,11 @@ class Navbar extends Component {
     else if (name === 'messages') {
       this.props.handleMessages();
     }
-    else {
+    else if (name === 'friends'){
       this.props.handleFriends();
+    }
+    else if (name === 'support'){
+      this.setState({openSupport:1});
     }
   }
 
@@ -63,9 +68,11 @@ class Navbar extends Component {
             <Menu.Item>
               <Input icon='search' placeholder='Search...'/>
             </Menu.Item>
+              <Menu.Item name='support' active={this.state.activeItem === 'support'} onClick={this.handleItemClick}/>
             <Menu.Item name='logout' onClick={this.handleItemClick}/>
           </Menu.Menu>
         </Menu>
+        <TechnicalSupport open={this.state.openSupport === 1} onClose={()=> this.setState({openSupport: 0})}/>
       </div>
     );
   }
