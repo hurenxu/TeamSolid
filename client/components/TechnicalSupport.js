@@ -4,16 +4,28 @@ import ReactDOM from "react-dom";
 import '../css/login.css'
 let initialState = {
     open: false,
-    status: "default"
+    status: "default",
+    message:""
 };
 class TechnicalSupport extends Component {
     constructor(props) {
         super(props);
         this.state = initialState;
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleSubmit(){
+        //TODO: send message to backend
+        this.setState({status: "default"});
+        alert("Success!");
+        this.setState({open:false});
     }
     render() {
         var body;
+        var button;
         if(this.state.status==="default"){
+            button=(
+                <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.setState({status: "default"}),this.props.onClose()}} />
+            );
             body= (
                 <Grid columns={2} divided>
                 <Grid.Row>
@@ -25,17 +37,28 @@ class TechnicalSupport extends Component {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-            )
+            );
         }
         else if(this.state.status==="email"){
-
+            body=(
+                <Form size='huge'>
+                    <Form.TextArea fluid placeholder='Type in your message here'
+                        onChange={(e, {value})=> this.setState({message: value})}
+                    />
+                    <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.setState({status: "default"}),this.props.onClose()}} />
+                    <Button positive icon='checkmark' content="Submit" labelPosition='right' onClick={this.handleSubmit}/>
+                </Form>
+            );
         }else if(this.state.status==="FAQ"){
+            button=(
+                <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.setState({status: "default"}),this.props.onClose()}} />
+            );
             body=(
                 <div>
                     Q:blablabla
                     A:blablabla
                 </div>
-            )
+            );
         }
         return (
             <div>
@@ -44,7 +67,7 @@ class TechnicalSupport extends Component {
                     <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>
                     {body}
                     <Modal.Actions>
-                        <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.setState({status: "default"}),this.props.onClose()}} />
+                        {button}
                     </Modal.Actions>
                 </Modal>
             </div>
