@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport')
+var nodemailer = require('nodemailer');
 var LocalStrategy = require('passport-local').Strategy;
 // Connection URL
 const url = 'mongodb://localhost';
@@ -403,7 +404,33 @@ router.post('/api/getPosts',
       });
     });
   });
+router.post('/api/sendEmail',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var nodemailer = require('nodemailer');
 
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'maoxianxianxian@gmail.com',
+                pass: '6295141.3'
+            }
+        });
+
+        var mailOptions = {
+            from: 'maoxianxianxian@gmail.com',
+            to: 'maoxianxianxian@gmail.com',
+            subject: 'Perterbook contact from user',
+            text: req.body.content
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+});
 // insert operation
 router.post('/insert', function (req, res, next) {
   var email = req.body.email;
