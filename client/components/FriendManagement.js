@@ -20,6 +20,7 @@ class FriendManagement extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -40,6 +41,14 @@ class FriendManagement extends Component {
     });
   }
 
+  handleDelete(curr_friend, e) {
+    e.preventDefault();
+    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: "delete"}).then((response) => {
+      console.log(JSON.stringify(response.data));
+      this.setState({friendList: JSON.parse(response.data)})
+    });
+  }
+
   handleSubmit(event) {
     console.log("Submit");
     console.log(this.state.targetFriend)
@@ -53,11 +62,11 @@ class FriendManagement extends Component {
         else{
           axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: "add"}).then((response) => {
             console.log(JSON.stringify(response.data));
+            this.setState({friendList: JSON.parse(response.data)})
             alert('Success');
             this.setState({value: ""});
           });
         }
-
       }
       else{
         console.log("It doesn't exist")
@@ -69,40 +78,46 @@ class FriendManagement extends Component {
 
   render(){
 
-    console.log(this.state.friendList)
-
     var currFriends = <div></div>
 
-    if(this.state.friendList){
-      currFriends = this.state.friendList.map((friend) =>
-        <Card>
-          <Card.Content>
-            {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}
-            <Card.Header>{friend}</Card.Header>
-            <Card.Meta>Friend</Card.Meta>
-            <Card.Description>
-              
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <div className='ui two buttons'>
-              <Button basic color='red'>
-                Delete
-              </Button>
-            </div>
-          </Card.Content>
-        </Card>
+    if(this.state.friendList.length != 0){
+      console.log("You have friends")
+      console.log(this.state.friendList.length)
+      currFriends = this.state.friendList.map((friend) => (
+          <Card>
+            <Card.Content>
+              {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}
+              <Card.Header>{friend}</Card.Header>
+              <Card.Meta>Friend</Card.Meta>
+              <Card.Description>
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <div className='ui two buttons'>
+                <Button basic color='red' onClick={this.handleDelete.bind(this, friend)}>
+                  Delete
+                </Button>
+              </div>
+            </Card.Content>
+          </Card>
+        )
       );
+    }
+    else{
+      currFriends = <h3>You have no friends loser</h3>
+      console.log("You have no friends")
     }
 
     return (
       <div style={style}>
+        <Header as='h2' textAlign='left'>Add a friend</Header>
         <Input icon='users' iconPosition='left' value={this.state.value}
                onChange={this.handleChange} placeholder='Search users...' />
         <Button icon labelPosition='right' onClick={this.handleSubmit}>
           Add Friend
           <Icon name='right arrow' />
         </Button>
+        <Header as='h2' textAlign='left'>Manage friends</Header>
         <Card.Group style={{marginTop: '3em'}}>
           {currFriends}
         </Card.Group>

@@ -199,7 +199,7 @@ router.post('/api/updateFriendList',
       const db = client.db(dbName);
 
       if (actionType == "delete") {
-        db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends:{ $in: [targetid]}}}, function(err) {
+        db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends: [targetid]}}, function(err) {
           if (err) {
             console.log(err);
           }
