@@ -23,7 +23,7 @@ class FriendManagement extends Component {
   }
 
   componentDidMount() {
-    axios.post('/api/getUserName').then((response) => {
+    axios.post('/api/getUserEmail').then((response) => {
       console.log(JSON.parse(response.data))
       this.setState({
         username: JSON.parse(response.data).username
