@@ -52,28 +52,33 @@ class FriendManagement extends Component {
   handleSubmit(event) {
     console.log("Submit");
     console.log(this.state.targetFriend)
-    axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {
-      const checkResult = response.data;
-      if(checkResult){
-        console.log("It exists")
-        if(this.state.targetFriend === this.state.username){
-          alert('You cannot add yourself!')
+    if(this.state.friendList.includes(this.state.targetFriend)){
+      alert('He/she is already your friend!')
+    }
+    else{
+      axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {
+        const checkResult = response.data;
+        if(checkResult){
+          console.log("It exists")
+          if(this.state.targetFriend === this.state.username){
+            alert('You cannot add yourself!')
+          }
+          else{
+            axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: "add"}).then((response) => {
+              console.log(JSON.stringify(response.data));
+              this.setState({friendList: JSON.parse(response.data)})
+              alert('Success');
+              this.setState({value: ""});
+            });
+          }
         }
         else{
-          axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: "add"}).then((response) => {
-            console.log(JSON.stringify(response.data));
-            this.setState({friendList: JSON.parse(response.data)})
-            alert('Success');
-            this.setState({value: ""});
-          });
+          console.log("It doesn't exist")
+          alert('User doesn\'t exist!');
+          this.setState({value: ""});
         }
-      }
-      else{
-        console.log("It doesn't exist")
-        alert('User doesn\'t exist!');
-        this.setState({value: ""});
-      }
-    });
+      });
+    }
   }
 
   render(){
