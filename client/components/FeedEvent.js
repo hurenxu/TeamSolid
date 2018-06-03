@@ -12,7 +12,6 @@ class FeedEvent extends Component {
   }
 
   addALike() {
-    console.log("Add a like");
     axios.post('/api/LikeAPost', {postid: this.props.postid});
   }
 

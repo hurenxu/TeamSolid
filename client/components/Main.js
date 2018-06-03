@@ -9,6 +9,7 @@ import ChatWindow from './ChatWindow'
 import FeedInfo from './FeedInfo'
 import Aspect from './Aspect'
 import FriendManagement from './FriendManagement'
+import axios from "axios/index";
 
 class Main extends Component {
 
@@ -18,13 +19,17 @@ class Main extends Component {
       mode: 'posts',
       targetUserID: "",
       aspect: 'Others',
-      friendList: []
+      friendList: [],
+        sub: false,
+        loginBack: true
     }
 
     this.handlePosts = this.handlePosts.bind(this);
     this.handleFriends = this.handleFriends.bind(this);
     this.handleMessages = this.handleMessages.bind(this);
     this.handlePost = this.handlePost.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleUnsub = this.handleUnsub.bind(this);
   }
 
   handlePosts() {
@@ -53,6 +58,28 @@ class Main extends Component {
     this.state.aspect = aspect;
   }
 
+
+    handleClick() {
+        axios.post('/api/setsub', {sub: true});
+        this.setState({
+            sub: true,
+            loginBack: true
+        });
+        this.state.sub = true;
+        this.state.loginBack = true;
+    }
+
+    handleUnsub() {
+        var boolean = !this.state.sub;
+        axios.post('/api/setsub', {sub: boolean});
+        this.setState({
+            sub: boolean,
+            loginBack: true
+        });
+        this.state.sub = boolean;
+        this.state.loginBack = true;
+    }
+
   render() {
 
     const window = (this.state.mode === 'posts') ? <MainFeed/> :
@@ -62,10 +89,20 @@ class Main extends Component {
     const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
       (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)
 
+    if(this.state.loginBack === true) {
+        axios.post('/api/getsub').then((response) => {
+            this.setState({
+                sub: JSON.parse(response.data).sub
+            });
+            this.state.sub = JSON.parse(response.data).sub;
+        });
+        this.state.loginBack = false;
+    }
+
     return (
       <div>
         <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}
-                handleMessages={this.handleMessages}></Navbar>
+                handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>
         <Grid>
           <Grid.Column width={4}>
             {aspect}
@@ -74,7 +111,8 @@ class Main extends Component {
             {window}
           </Grid.Column>
           <Grid.Column width={4}>
-            <FeedInfo/>
+              {console.log(this.state.sub)}
+            <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>
           </Grid.Column>
         </Grid>
       </div>

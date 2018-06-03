@@ -94,6 +94,7 @@ router.post('/api/getUserName',
 router.post('/api/signup', function (req, res, next) {
   var eml = req.body.email;
   var pwd = req.body.password;
+  var sub = false;
 
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
@@ -106,7 +107,7 @@ router.post('/api/signup', function (req, res, next) {
           cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
             console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
+            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: [], sub: sub}, function() {
               res.json(JSON.stringify({result: "OK"}));
             })
           });
@@ -116,6 +117,34 @@ router.post('/api/signup', function (req, res, next) {
       }
     })
   });
+});
+
+router.post('/api/getsub',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var eml = req.user.email;
+        var response = null;
+        MongoClient.connect(url, function (err, client) {
+            const db = client.db(dbName);
+            response = db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+
+                res.json(JSON.stringify({sub: result[0].sub}));
+            });
+        });
+    });
+
+router.post('/api/setsub',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+      var eml = req.user.email;
+      var sub = req.body.sub;
+      MongoClient.connect(url, function (err, client) {
+          const db = client.db(dbName);
+          db.collection('userinfo').updateOne({sid: eml}, {$set: {"sub": sub}});
+    });
 });
 
 router.post('/api/switchChatTarget',
