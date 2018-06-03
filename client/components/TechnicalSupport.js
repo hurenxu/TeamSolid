@@ -58,8 +58,14 @@ class TechnicalSupport extends Component {
             );
             body=(
                 <div>
-                    Q:blablabla
-                    A:blablabla
+                    Q:blablabla<br/>
+                    A:blablabla<br/>
+                    <br/>
+                    Q:blablabla<br/>
+                    A:blablabla<br/>
+                    <br/>
+                    Q:blablabla<br/>
+                    A:blablabla<br/>
                 </div>
             );
         }
