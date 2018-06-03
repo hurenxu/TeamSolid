@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport')
+var nodemailer = require('nodemailer');
 var LocalStrategy = require('passport-local').Strategy;
 // Connection URL
 const url = 'mongodb://localhost';
@@ -88,6 +89,28 @@ router.post('/api/login',
 router.post('/api/getUserName',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
+    var eml = req.user.email;
+
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+
+      const db = client.db(dbName);
+
+      db.collection("userinfo").find({ sid: eml }).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+
+        res.json(JSON.stringify({"username": result[0].username}));
+      });
+    });
+  });
+
+router.post('/api/getUserEmail',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
     res.json(JSON.stringify({"username": req.user.email}));
   });
 
@@ -95,6 +118,7 @@ router.post('/api/signup', function (req, res, next) {
   var eml = req.body.email;
   var pwd = req.body.password;
   var sub = false;
+  var usrname = req.body.username;
 
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
@@ -104,10 +128,10 @@ router.post('/api/signup', function (req, res, next) {
       if (result.length == 0) {
         cl.count(function (err, num) {
           count = num;
-          cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
+          cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
             console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: [], sub: sub}, function() {
+            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], sub: sub}, function() {
               res.json(JSON.stringify({result: "OK"}));
             })
           });
@@ -204,10 +228,15 @@ router.post('/api/updateFriendList',
       const db = client.db(dbName);
 
       if (actionType == "delete") {
-        db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends:{ $in: [targetid]}}}, function(err) {
+        db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends: [targetid]}}, function(err) {
           if (err) {
             console.log(err);
           }
+          db.collection("userinfo").update( {sid: targetid}, {$pullAll: {friends:{ $in: [sourceid]}}}, function(err){
+            if (err) {
+              console.log(err);
+            }
+          });
           db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
             if (err) {
               console.log(err);
@@ -221,6 +250,11 @@ router.post('/api/updateFriendList',
             console.log(err);
           }
 
+          db.collection("userinfo").update( {sid: targetid}, {$push: {friends: sourceid}}, function(err) {
+            if (err) {
+              console.log(err);
+            }
+          });
           db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
             if (err) {
               console.log(err);
@@ -432,7 +466,33 @@ router.post('/api/getPosts',
       });
     });
   });
+router.post('/api/sendEmail',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var nodemailer = require('nodemailer');
 
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'maoxianxianxian@gmail.com',
+                pass: '6295141.3'
+            }
+        });
+
+        var mailOptions = {
+            from: 'maoxianxianxian@gmail.com',
+            to: 'maoxianxianxian@gmail.com',
+            subject: 'Perterbook contact from user',
+            text: req.body.content
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+});
 // insert operation
 router.post('/insert', function (req, res, next) {
   var email = req.body.email;

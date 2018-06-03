@@ -38,6 +38,7 @@ class Select extends Component {
       // this.setState({
       //   friendList: JSON.parse(response.data)
       // });
+      console.log("Load friend list")
 
       const friendIDs = JSON.parse(response.data)
 
@@ -67,35 +68,21 @@ class Select extends Component {
 
     return (
       <div>
-          <Header as='h2' floated='left'  style={{marginLeft: "1em"}}>
+        <Grid>
+          <Grid.Row >
+            <Header as='h2' floated='left'  style={{marginLeft: "1em"}}>
               <Icon name='users' />
               <Header.Content>
-                  Friends
+                Friends
               </Header.Content>
-          </Header>
-        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
-          {/*<Menu.Item>*/}
-            {/*<Input icon='search' placeholder='Search tag...'/>*/}
-          {/*</Menu.Item>*/}
-          {/*<Menu.Item name='0' index={0} active={activeIndex === 0} onClick={this.handleItemClick}>*/}
-            {/*<img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>*/}
-            {/*Frank Qiao*/}
-            {/*<Label color='red'>1</Label>*/}
-          {/*</Menu.Item>*/}
-          {/*<Menu.Item name='1' index={1} active={activeIndex === 1} onClick={this.handleItemClick}>*/}
-            {/*<img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>*/}
-            {/*Jack Wang*/}
-            {/*<Label color='red'>12</Label>*/}
-          {/*</Menu.Item>*/}
-
-          {/*<Menu.Item name='2' index={2} active={activeIndex === 2} onClick={this.handleItemClick}>*/}
-            {/*<img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>*/}
-            {/*John Snow*/}
-            {/*<Label color='red'>1</Label>*/}
-          {/*</Menu.Item>*/}
-
-          {menuItems}
-        </Menu>
+            </Header>
+          </Grid.Row>
+          <Grid.Row>
+            <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
+              {menuItems}
+            </Menu>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }

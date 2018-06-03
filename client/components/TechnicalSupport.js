@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'
 import ReactDOM from "react-dom";
 import '../css/login.css'
+import axios from "axios/index";
 let initialState = {
     open: false,
     status: "default",
@@ -16,8 +17,10 @@ class TechnicalSupport extends Component {
     handleSubmit(){
         //TODO: send message to backend
         this.setState({status: "default"});
-        alert("Success!");
-        this.setState({open:false});
+        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {
+            alert("Success!");
+            this.setState({open: false});
+        });
     }
     render() {
         var body;
@@ -55,8 +58,14 @@ class TechnicalSupport extends Component {
             );
             body=(
                 <div>
-                    Q:blablabla
-                    A:blablabla
+                    Q:blablabla<br/>
+                    A:blablabla<br/>
+                    <br/>
+                    Q:blablabla<br/>
+                    A:blablabla<br/>
+                    <br/>
+                    Q:blablabla<br/>
+                    A:blablabla<br/>
                 </div>
             );
         }

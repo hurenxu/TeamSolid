@@ -21,6 +21,7 @@
     "moment": "^2.22.1",
     "mongodb": "^3.0.7",
     "mongoose": "^5.0.15",
+    "nodemailer": "^4.6.5",
     "nodemon": "^1.17.3",
     "package.json": "^2.0.1",
     "passport": "^0.4.0",
