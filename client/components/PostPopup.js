@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Container, Form, Popup, Button, Header, Image, Modal,Icon } from 'semantic-ui-react'
 import axios from "axios/index";
 import moment from "moment";
 
@@ -31,12 +31,15 @@ class Signup extends Component {
         //axios.post(`/api/postPost`, {msg: this.state.message, date: date});
         this.setState({dimmer: false, open: false, message: ''});
     };
-
+    uploadImage= (event) => {
+        console.log(123);
+        console.log(event.target.files[0]);
+    }
     render() {
         const { message } = this.state
         return (
             <div>
-                <Modal size='tiny' className="scrolling" style={{height: '40%'}} dimmer="blurring" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
+                <Modal size='tiny' className="scrolling" style={{height: '50%'}} dimmer="blurring" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
                     <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>
                     <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>
                         <Form size='large'>
@@ -44,6 +47,10 @@ class Signup extends Component {
                                 placeholder='What do you want to post?' name='message' value={message}
                                 onChange={(e, {value})=> this.setState({message: value})}
                             />
+                            <Icon size='big' name='picture'/>
+                            <Icon size='big' name='video camera'/>
+                            <Form.Input type="file" style={{display: 'none'}}/>
+                            <Form.Input type="file" style={{display: 'none'}} accept="image/*"/>
                             <Button.Group style={{float: 'right', marginRight: '10%'}}>
                                 <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>
                                 <Button.Or />
