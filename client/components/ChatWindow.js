@@ -43,6 +43,17 @@ class ChatWindow extends Component {
     this.postMessage = this.postMessage.bind(this);
   }
 
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.loadMessage(this.state.targetID),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       targetID: nextProps.targetID

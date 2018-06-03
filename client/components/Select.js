@@ -38,6 +38,7 @@ class Select extends Component {
       // this.setState({
       //   friendList: JSON.parse(response.data)
       // });
+      console.log("Load friend list")
 
       const friendIDs = JSON.parse(response.data)
 

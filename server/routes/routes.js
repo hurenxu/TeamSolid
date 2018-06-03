@@ -89,12 +89,35 @@ router.post('/api/login',
 router.post('/api/getUserName',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
+    var eml = req.user.email;
+
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+
+      const db = client.db(dbName);
+
+      db.collection("userinfo").find({ sid: eml }).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+
+        res.json(JSON.stringify({"username": result[0].username}));
+      });
+    });
+  });
+
+router.post('/api/getUserEmail',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
     res.json(JSON.stringify({"username": req.user.email}));
   });
 
 router.post('/api/signup', function (req, res, next) {
   var eml = req.body.email;
   var pwd = req.body.password;
+  var usrname = req.body.username;
 
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
@@ -104,10 +127,10 @@ router.post('/api/signup', function (req, res, next) {
       if (result.length == 0) {
         cl.count(function (err, num) {
           count = num;
-          cl.insertOne({ _id: (count + 1), email: eml, password: pwd}, function () {
+          cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
             console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: "mengnan", userIconUrl: "mengnan.jpg", friends: []}, function() {
+            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: []}, function() {
               res.json(JSON.stringify({result: "OK"}));
             })
           });

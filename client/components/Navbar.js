@@ -50,6 +50,9 @@ class Navbar extends Component {
       this.setState({
         username: JSON.parse(response.data).username
       });
+
+      console.log("loading user name");
+      console.log(JSON.parse(response.data).username)
     });
   }
 
