@@ -34,6 +34,7 @@ class ChatWindow extends Component {
       message: "",
       // TODO: set id with the user
       targetID: props.targetID,
+      targetUseName: "",
       chatHistory: []
     }
 
@@ -67,6 +68,15 @@ class ChatWindow extends Component {
   }
 
   loadMessage(targetID) {
+    // get user name
+    if (targetID != "") {
+      axios.post('/api/searchUser', {searchKey: targetID}).then((response) => {
+        this.setState({
+          targetUserName: JSON.parse(response.data).username
+        });
+      });
+    }
+
     axios.post('/api/switchChatTarget', {tid: targetID}).then((response) => {
       var messages = JSON.parse(response.data)
       messages.sort(function(a,b) {
@@ -104,7 +114,7 @@ class ChatWindow extends Component {
             <Grid.Column floated='left' width={5}>
               <Header size='medium'>
                 <Image circular src='../assets/avatar.jpg'/>
-                {' '}Patrick
+                {' '}{this.state.targetUserName}
               </Header>
             </Grid.Column>
           </Grid.Row>
