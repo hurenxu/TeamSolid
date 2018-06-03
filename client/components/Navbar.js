@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Grid, Menu, Segment, Input} from 'semantic-ui-react'
+import {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 import '../css/App.css';
@@ -19,7 +19,8 @@ class Navbar extends Component {
       {
         activeItem: 'posts',
           username: 'Profile',
-          openSupport: 0
+          openSupport: 0,
+          subMsg: "Not Subscribed"
       };
 
     this.handleItemClick = this.handleItemClick.bind(this);
@@ -57,12 +58,17 @@ class Navbar extends Component {
   }
 
   render() {
+    this.state.subMsg = (this.props.sub === true) ? "Subscribed" : "Not Subscribed";
+
     return (
       <div>
         <Menu pointing size='huge'>
-          <Menu.Item style={avatarStyle} name='me' onClick={this.handleItemClick}>
-            <img className="ui avatar image" src="../assets/avatar.jpg"/>
-            <span style={{marginLeft: '1em'}}>{this.state.username}</span>
+          <Menu.Item name='me' onClick={this.handleItemClick}>
+              <Label as='a' color='blue' image onClick={this.props.handleUnsub}>
+                  <img src="../assets/avatar.jpg" />
+                  {this.state.username}
+                  <Label.Detail>{this.state.subMsg}</Label.Detail>
+              </Label>
           </Menu.Item>
           <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>
           <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>

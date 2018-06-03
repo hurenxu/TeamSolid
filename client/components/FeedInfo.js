@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Feed, Icon, Grid, Header} from 'semantic-ui-react'
+import Adv from './Advertisement'
 
 class FeedInfo extends Component {
 
@@ -30,6 +31,7 @@ class FeedInfo extends Component {
           <Feed.Content content='Nimama (Aspect: Family) sent you a message'/>
         </Feed.Event>
       </Feed>
+            <Adv open={this.props.sub === false} handleClick={this.props.handleClick}/>
         </div>
     );
   }
