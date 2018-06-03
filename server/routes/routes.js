@@ -203,6 +203,11 @@ router.post('/api/updateFriendList',
           if (err) {
             console.log(err);
           }
+          db.collection("userinfo").update( {sid: targetid}, {$pullAll: {friends:{ $in: [sourceid]}}}, function(err){
+            if (err) {
+              console.log(err);
+            }
+          });
           db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
             if (err) {
               console.log(err);
@@ -216,6 +221,11 @@ router.post('/api/updateFriendList',
             console.log(err);
           }
 
+          db.collection("userinfo").update( {sid: targetid}, {$push: {friends: sourceid}}, function(err) {
+            if (err) {
+              console.log(err);
+            }
+          });
           db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
             if (err) {
               console.log(err);
