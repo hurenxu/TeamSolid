@@ -131,7 +131,7 @@ router.post('/api/signup', function (req, res, next) {
           cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
             console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], sub: sub}, function() {
+            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
               res.json(JSON.stringify({result: "OK"}));
             })
           });
@@ -232,7 +232,7 @@ router.post('/api/updateFriendList',
           if (err) {
             console.log(err);
           }
-          db.collection("userinfo").update( {sid: targetid}, {$pullAll: {friends:{ $in: [sourceid]}}}, function(err){
+          db.collection("userinfo").update( {sid: targetid}, {$pullAll: {friends:[sourceid]}}, function(err){
             if (err) {
               console.log(err);
             }
@@ -263,8 +263,6 @@ router.post('/api/updateFriendList',
           });
         });
       }
-
-
     });
   });
 
@@ -299,20 +297,16 @@ router.post('/api/ChangeToPost',
       }
       const db = client.db(dbName);
       db.collection("userinfo").find({std: sourceid}).toArray(function(err, result) {
-        var friends = result[0].friends;
+        var follows = result[0].follow;
 
-        var ret = []
 
-        for (var targetid in friends) {
-          db.collection("posts").find({ sid: targetid }).toArray(function (err, result) {
-            if (err) {
-              console.log(err);
-            }
-            ret.concat(result)
-          });
-        }
+        db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+          if (err) {
+            console.log(err);
+          }
 
-        res.json(JSON.stringify(ret));
+          res.json(JSON.stringify(result));
+        });
       })
     });
   });
@@ -441,9 +435,17 @@ router.post('/api/postPost',
             console.log(err);
           }
 
-          db.collection("posts").find({ sid: sourceid }).toArray(function (err, result) {
-            res.json(JSON.stringify(result));
-          });
+          db.collection("userinfo").find({sid: sourceid}).toArray(function(err, result) {
+            var follows = result[0].follow;
+    
+            db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+              if (err) {
+                console.log(err);
+              }
+              res.json(JSON.stringify(result));
+
+            });
+          })
         });
       });
     });
@@ -454,18 +456,24 @@ router.post('/api/getPosts',
   function (req, res, next) {
     var sourceid = req.user.email;
 
+
     MongoClient.connect(url, function (err, client) {
       if (err) {
         console.log(err);
       }
       const db = client.db(dbName);
 
-      db.collection("posts").find({ sid: sourceid }).toArray(function (err, result) {
-        if (err) {
-          console.log(err);
-        }
-        res.json(JSON.stringify(result));
-      });
+      db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+        var follows = result[0].follow;
+
+        db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+          if (err) {
+            console.log(err);
+          }
+
+          res.json(JSON.stringify(result));
+        });
+      })
     });
   });
 
@@ -496,6 +504,56 @@ router.post('/api/sendEmail',
             }
         });
 });
+
+router.post('/api/follow',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var sourceid = req.user.email;
+    var targetid = req.body.tid;
+
+    MongoClient.connect(url, function (err, client) {
+      const db = client.db(dbName);
+
+      db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+
+        if (result[0].follow.indexOf(targetid) != -1) {
+          res.json(JSON.stringify({result: "DUP"}));
+        } else {
+          db.collection("userinfo").update( {sid: sourceid}, {$push: {follow: targetid}}, function(err) {
+            if (err) {
+              res.json(JSON.stringify({result: "FAIL"}));
+            } else {
+              res.json(JSON.stringify({result: "OK"}));
+            }
+          });
+        }
+      });
+    });
+  });
+
+
+router.post('/api/unfollow',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var sourceid = req.user.email;
+    var targetid = req.body.tid;
+
+    MongoClient.connect(url, function (err, client) {
+      const db = client.db(dbName);
+
+      db.collection("userinfo").update( {sid: sourceid}, {$pullAll: { follow:[targetid]}}, function(err){
+        if (err) {
+          console.log(err)
+          res.json(JSON.stringify({result: "FAIL"}));
+        } else {
+          res.json(JSON.stringify({result: "OK"}));
+        }
+      });
+    });
+  });
 
 // insert operation
 router.post('/insert', function (req, res, next) {
