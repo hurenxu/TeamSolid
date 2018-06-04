@@ -422,6 +422,7 @@ router.post('/api/postPost',
     var sourceid = req.user.email;
     var pmsg = req.body.msg;
     var pdate = req.body.date;
+    var paspect = req.body.aspect;
 
     MongoClient.connect(url, function (err, client) {
       if (err) {
@@ -430,7 +431,7 @@ router.post('/api/postPost',
       const db = client.db(dbName);
 
       db.collection("posts").count(function (err, num) {
-        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, likedUsers: [], likecount: 0, msg: pmsg, data: pdate }, function (err) {
+        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
           if (err) {
             console.log(err);
           }
@@ -455,7 +456,7 @@ router.post('/api/getPosts',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
     var sourceid = req.user.email;
-
+    var paspect = req.body.aspect;    
 
     MongoClient.connect(url, function (err, client) {
       if (err) {
@@ -466,7 +467,7 @@ router.post('/api/getPosts',
       db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
         var follows = result[0].follow;
 
-        db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+        db.collection("posts").find({ sid: { $in: follows }, aspect: paspect }).toArray(function (err, result) {
           if (err) {
             console.log(err);
           }
@@ -474,6 +475,30 @@ router.post('/api/getPosts',
           res.json(JSON.stringify(result));
         });
       })
+    });
+  });
+
+router.post('/api/comment',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var sourceid = req.user.email;
+    var cmsg = req.body.comment;
+    var cpid = req.body.pid;
+    var cdate = req.body.date;
+
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+      const db = client.db(dbName);
+
+      db.collection("posts").update( {pid: cpid}, {$push: {comment: {msg: cmsg, cid: sourceid, date: cdate}}}, function(err) {
+        if (err) {
+          res.json(JSON.stringify({result: "FAIL"}));
+        } else {
+          res.json(JSON.stringify({result: "OK"}));
+        }
+      });
     });
   });
 
