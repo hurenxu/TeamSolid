@@ -67,6 +67,15 @@ router.get('/loginsuccess',
     res.json(JSON.stringify({islogined: true}))
   });
 
+router.post('/api/islogined', function(req, res, next) {
+  if (req.user) {
+    res.json(JSON.stringify({islogined: true}))
+  } else {
+    res.json(JSON.stringify({islogined: false}))
+  }
+});
+
+
 router.get('/loginfail',
   function (req, res) {
     res.json(JSON.stringify({islogined: false}))
