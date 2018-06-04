@@ -1,7 +1,7 @@
 var express = require('express');
 let multer  = require('multer');
 var path =require('path');
-// var multerupload = multer({ dest: 'dir/' })
+
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport')
@@ -57,17 +57,12 @@ passport.use(new LocalStrategy({
 
 // index
 router.get('/',
-  require('connect-ensure-login').ensureLoggedIn(),
   function (req, res) {
     res.render('index');
   });
 
-router.get('/login', function (req, res) {
-  res.render('loginpage');
-});
-
 router.get('/loginsuccess',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res) {
     res.json(JSON.stringify({islogined: true}))
   });
@@ -79,7 +74,7 @@ router.get('/loginfail',
 
 router.post('/api/logout', function(req, res){
   req.logout();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 router.post('/api/login',
@@ -89,7 +84,7 @@ router.post('/api/login',
   }));
 
 router.post('/api/getUserName',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var eml = req.user.email;
 
@@ -111,7 +106,7 @@ router.post('/api/getUserName',
   });
 
 router.post('/api/getUserEmail',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     res.json(JSON.stringify({"username": req.user.email}));
   });
@@ -146,7 +141,7 @@ router.post('/api/signup', function (req, res, next) {
 });
 
 router.post('/api/getsub',
-    require('connect-ensure-login').ensureLoggedIn(),
+    require('connect-ensure-login').ensureLoggedIn('/'),
     function (req, res, next) {
         var eml = req.user.email;
         var response = null;
@@ -163,7 +158,7 @@ router.post('/api/getsub',
     });
 
 router.post('/api/setsub',
-    require('connect-ensure-login').ensureLoggedIn(),
+    require('connect-ensure-login').ensureLoggedIn('/'),
     function (req, res, next) {
       var eml = req.user.email;
       var sub = req.body.sub;
@@ -174,7 +169,7 @@ router.post('/api/setsub',
 });
 
 router.post('/api/switchChatTarget',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var targetid = req.body.tid;
@@ -198,7 +193,7 @@ router.post('/api/switchChatTarget',
   });
 
 router.post('/api/searchUser',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var key = req.body.searchKey;
 
@@ -220,7 +215,7 @@ router.post('/api/searchUser',
   });
 
 router.post('/api/updateFriendList',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var targetid = req.body.tid;
@@ -269,7 +264,7 @@ router.post('/api/updateFriendList',
   });
 
 router.post('/api/getFriendList',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var key = req.user.email;
 
@@ -289,7 +284,7 @@ router.post('/api/getFriendList',
   });
 
 router.post('/api/ChangeToPost',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
 
@@ -314,7 +309,7 @@ router.post('/api/ChangeToPost',
   });
 
 router.post('/api/ChangeToMessage',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var targetid = req.body.tid;
@@ -349,7 +344,7 @@ router.post('/api/ChangeToMessage',
 }
  */
 router.post('/api/LikeAPost',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var pid = req.body.postid;
@@ -393,7 +388,7 @@ router.post('/api/LikeAPost',
   });
 
 router.post('/api/postMessage',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var targetid = req.body.to;
@@ -418,7 +413,7 @@ router.post('/api/postMessage',
     });
   });
 
-router.route('/resource/:id').post(require('connect-ensure-login').ensureLoggedIn(),
+router.route('/resource/:id').post(require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var url = req.params.id;
@@ -429,7 +424,7 @@ router.route('/resource/:id').post(require('connect-ensure-login').ensureLoggedI
   });
 
 var multerupload = multer({ dest: 'tarDirectory/' })
-router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-login').ensureLoggedIn(),
+router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var pmsg = req.body.msg;
@@ -467,7 +462,7 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
   });
 
 router.post('/api/getPosts',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var paspect = req.body.aspect;    
@@ -493,7 +488,7 @@ router.post('/api/getPosts',
   });
 
 router.post('/api/comment',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var cmsg = req.body.comment;
@@ -517,7 +512,7 @@ router.post('/api/comment',
   });
 
 router.post('/api/sendEmail',
-    require('connect-ensure-login').ensureLoggedIn(),
+    require('connect-ensure-login').ensureLoggedIn('/'),
     function (req, res, next) {
         var nodemailer = require('nodemailer');
 
@@ -545,7 +540,7 @@ router.post('/api/sendEmail',
 });
 
 router.post('/api/follow',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var targetid = req.body.tid;
@@ -575,7 +570,7 @@ router.post('/api/follow',
 
 
 router.post('/api/unfollow',
-  require('connect-ensure-login').ensureLoggedIn(),
+  require('connect-ensure-login').ensureLoggedIn('/'),
   function (req, res, next) {
     var sourceid = req.user.email;
     var targetid = req.body.tid;
