@@ -1,8 +1,9 @@
 var express = require('express');
+let multer  = require('multer');
+// var multerupload = multer({ dest: 'dir/' })
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport')
-var nodemailer = require('nodemailer');
 var LocalStrategy = require('passport-local').Strategy;
 // Connection URL
 const url = 'mongodb://localhost';
@@ -419,15 +420,15 @@ router.post('/api/postMessage',
       });
     });
   });
-
-router.post('/api/postPost',
-  require('connect-ensure-login').ensureLoggedIn(),
+var multerupload = multer({ dest: 'tarDirectory/' })
+router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
     var sourceid = req.user.email;
     var pmsg = req.body.msg;
     var pdate = req.body.date;
-
-    MongoClient.connect(url, function (err, client) {
+      console.log(req.files);
+      //TODO: add filepath to db & create directory for each user
+      MongoClient.connect(url, function (err, client) {
       if (err) {
         console.log(err);
       }
