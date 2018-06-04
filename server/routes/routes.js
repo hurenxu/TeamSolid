@@ -1,5 +1,6 @@
 var express = require('express');
 let multer  = require('multer');
+var path =require('path');
 // var multerupload = multer({ dest: 'dir/' })
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
@@ -416,6 +417,17 @@ router.post('/api/postMessage',
       });
     });
   });
+
+router.route('/resource/:id').post(require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var sourceid = req.user.email;
+    var url = req.params.id;
+
+    console.log(__dirname);
+
+    res.sendFile(path.resolve(__dirname + '/../../tarDirectory/' + url))
+  });
+
 var multerupload = multer({ dest: 'tarDirectory/' })
 router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
@@ -423,24 +435,25 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
     var pmsg = req.body.msg;
     var pdate = req.body.date;
     var paspect = req.body.aspect;
-    
-      console.log(req.files);
-      //TODO: add filepath to db & create directory for each user
-      MongoClient.connect(url, function (err, client) {
+    var pfilename = req.files[0].filename;
+
+    console.log(req.files);
+    //TODO: add filepath to db & create directory for each user
+    MongoClient.connect(url, function (err, client) {
       if (err) {
         console.log(err);
       }
       const db = client.db(dbName);
 
       db.collection("posts").count(function (err, num) {
-        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
+        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
           if (err) {
             console.log(err);
           }
 
-          db.collection("userinfo").find({sid: sourceid}).toArray(function(err, result) {
+          db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
             var follows = result[0].follow;
-    
+
             db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
               if (err) {
                 console.log(err);
