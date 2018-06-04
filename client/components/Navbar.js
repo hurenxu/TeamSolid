@@ -64,8 +64,8 @@ class Navbar extends Component {
       <div>
         <Menu pointing size='huge'>
           <Menu.Item name='me' onClick={this.handleItemClick}>
-              <Label as='a' color='blue' image onClick={this.props.handleUnsub}>
-                  <img src="../assets/avatar.jpg" />
+              <img src="../assets/avatar.jpg" />
+            <Label as='a' color='blue' onClick={this.props.handleUnsub}>
                   {this.state.username}
                   <Label.Detail>{this.state.subMsg}</Label.Detail>
               </Label>
