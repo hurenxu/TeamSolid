@@ -20,8 +20,13 @@ class Signup extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    show = dimmer => () => this.setState({ dimmer, open: true })
-    close = () => this.setState({ open, dimmer: false })
+    show = dimmer => () => {
+        this.setState({ dimmer, open: true })
+    }
+
+    close = () => {
+        this.setState({ open, dimmer: false })
+    }
 
     handleSubmit = (event) => {
         if(this.state.message === "") {
