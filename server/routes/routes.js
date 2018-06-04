@@ -357,6 +357,8 @@ router.post('/api/LikeAPost',
   function (req, res, next) {
     var sourceid = req.user.email;
     var pid = req.body.postid;
+    console.log(sourceid)
+    console.log(pid)
 
     MongoClient.connect(url, function (err, client) {
       const db = client.db(dbName);
@@ -367,29 +369,29 @@ router.post('/api/LikeAPost',
         }
         var users = result[0].likedUsers;
 
-        if (users.indexOf(sourceid) == -1) {
-          res.json(JSON.stringify({result: "DUP"}));
-        }
-      });
-
-      db.collection("posts").update( {postid: pid}, {$push: {likedUsers: sourceid}}, function(err) {
-        if (err) {
-          console.log(err);
-        }
-        db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
-          if (err) {
-            console.log(err);
-          }
-          var count = result[0].likecount
-
-          db.collection("posts").update( {postid: pid}, {$set: {likecount: (count + 1)}}, function(err) {
+        if (users.indexOf(sourceid) != -1) {
+          res.json(JSON.stringify({ result: "DUP" }));
+        } else {
+          db.collection("posts").update({ postid: pid }, { $push: { likedUsers: sourceid } }, function (err) {
             if (err) {
               console.log(err);
             }
+            db.collection("posts").find({ postid: pid }).toArray(function (err, result) {
+              if (err) {
+                console.log(err);
+              }
+              var count = result[0].likecount
 
-            res.json(JSON.stringify({result: "OK", count: count + 1}));
+              db.collection("posts").update({ postid: pid }, { $set: { likecount: (count + 1) } }, function (err) {
+                if (err) {
+                  console.log(err);
+                }
+
+                res.json(JSON.stringify({ result: "OK", count: count + 1 }));
+              });
+            });
           });
-        });
+        }
       });
     });
   });
@@ -466,6 +468,7 @@ router.post('/api/getPosts',
       });
     });
   });
+
 router.post('/api/sendEmail',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
@@ -493,6 +496,7 @@ router.post('/api/sendEmail',
             }
         });
 });
+
 // insert operation
 router.post('/insert', function (req, res, next) {
   var email = req.body.email;
