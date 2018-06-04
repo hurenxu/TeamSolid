@@ -422,6 +422,8 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
     var sourceid = req.user.email;
     var pmsg = req.body.msg;
     var pdate = req.body.date;
+    var paspect = req.body.aspect;
+    
       console.log(req.files);
       //TODO: add filepath to db & create directory for each user
       MongoClient.connect(url, function (err, client) {
@@ -444,7 +446,6 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
                 console.log(err);
               }
               res.json(JSON.stringify(result));
-
             });
           })
         });
