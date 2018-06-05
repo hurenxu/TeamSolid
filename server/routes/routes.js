@@ -134,7 +134,7 @@ router.post('/api/signup', function (req, res, next) {
     const db = client.db(dbName);
     var cl = db.collection('accounts');
     var count;
-    db.collection('userinfo').find({std: eml}).toArray(function(err, result) {
+    db.collection('userinfo').find({sid: eml}).toArray(function(err, result) {
       if (result.length == 0) {
         cl.count(function (err, num) {
           count = num;
@@ -306,7 +306,7 @@ router.post('/api/ChangeToPost',
         console.log(err);
       }
       const db = client.db(dbName);
-      db.collection("userinfo").find({std: sourceid}).toArray(function(err, result) {
+      db.collection("userinfo").find({sid: sourceid}).toArray(function(err, result) {
         var follows = result[0].follow;
 
 
