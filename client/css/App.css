@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  height: 80px;
+  padding: 20px;
+  color: white;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/bannerbg.png");
+  background-size: contain;
+}
+
+.App-login-header {
+  height: 80px;
+  padding: 20px;
+  color: white;
+  background: #222;
+  background-size: contain;
+}
+
+.App-title {
+  font-size: 3em;
+  margin-top: 8%;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body {
+  background-color: FloralWhite;
+}

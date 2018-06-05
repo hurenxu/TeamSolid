@@ -1,0 +1,15 @@
+{
+  "short_name": "Team Solid",
+  "name": "Team Solid Progressive Web App",
+  "icons": [
+    {
+      "src":"logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.ejs",
+  "background_color": "#222",
+  "theme_color": "#222",
+  "display": "standalone"
+}
