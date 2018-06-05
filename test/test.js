@@ -88,4 +88,4 @@ describe('Password input', () => {
 
         expect(wrapper.state('password')).to.equal('cats');
     });
-});
+});*/
