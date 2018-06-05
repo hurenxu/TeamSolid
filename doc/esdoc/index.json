@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "client/components/Advertisement.js",
-    "content": "import React, {Component} from 'react'\nimport {Button} from 'semantic-ui-react'\nimport GoogleAds from 'react-google-ads'\nimport axios from \"axios/index\";\n\nclass Advertisement extends Component {\n\n    constructor(props) {\n        super(props);\n    }\n\n    render() {\n        if(this.props.open === false) {\n            return (\n              <div></div>\n            );\n        }\n        else {\n            return (\n                <div>\n                    <GoogleAds\n                        client=\"ca-pub-7292810486004926\"\n                        slot=\"7806394673\"\n                        style={{display: 'inline-block', width: '100%',}}\n                    />\n                    <Button positive onClick={this.props.handleClick}>\n                        Subscribe to remove ads\n                    </Button>\n                </div>\n            );\n        }\n    }\n}\n\nexport default Advertisement\n",
+    "content": "import React, {Component} from 'react'\nimport {Button} from 'semantic-ui-react'\nimport GoogleAds from 'react-google-ads'\nimport axios from \"axios/index\";\n\n\n/**\n * This is the Advertisement class that extends the Component class. This class is used to generate the ad services\n * sponsored by Google Ads and required for the PeterBook to be profitable.\n * @extends {Component}\n */\nclass Advertisement extends Component {\n\n    /**\n     * This constructor is inherited from the Component Super Class, and passes in a props object which\n     * is a component that can be customized\n     * @param {Object} props - A react component that can be customized, in this case the google ad\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render function invokes a specified element everytime and returns that element. In this case,\n     * the function first checks if it can open the customized component (ad) , if it can open the\n     * component (ad) then it proceed to invoke the google ad element.\n     * @returns {*} - returns the invoked google ad element\n     */\n    render() {\n        if(this.props.open === false) {\n            return (\n              <div></div>\n            );\n        }\n        else {\n            return (\n                <div>\n                    <GoogleAds\n                        client=\"ca-pub-7292810486004926\"\n                        slot=\"7806394673\"\n                        style={{display: 'inline-block', width: '100%',}}\n                    />\n                    <Button positive onClick={this.props.handleClick}>\n                        Subscribe to remove ads\n                    </Button>\n                </div>\n            );\n        }\n    }\n}\n\nexport default Advertisement\n",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Advertisement.js",
     "access": "public",
@@ -585,12 +585,11 @@
     "export": true,
     "importPath": "web/client/components/Advertisement.js",
     "importStyle": "Advertisement",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "This is the Advertisement class that extends the Component class. This class is used to generate the ad services\nsponsored by Google Ads and required for the PeterBook to be profitable.",
+    "lineNumber": 12,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -603,9 +602,20 @@
     "static": false,
     "longname": "client/components/Advertisement.js~Advertisement#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true
+    "description": "This constructor is inherited from the Component Super Class, and passes in a props object which\nis a component that can be customized",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "A react component that can be customized, in this case the google ad"
+      }
+    ]
   },
   {
     "__docId__": 51,
@@ -617,15 +627,23 @@
     "static": false,
     "longname": "client/components/Advertisement.js~Advertisement#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
-    "params": [],
+    "description": "The render function invokes a specified element everytime and returns that element. In this case,\nthe function first checks if it can open the customized component (ad) , if it can open the\ncomponent (ad) then it proceed to invoke the google ad element.",
+    "lineNumber": 29,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - returns the invoked google ad element"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "returns the invoked google ad element"
+    },
+    "params": []
   },
   {
     "__docId__": 52,

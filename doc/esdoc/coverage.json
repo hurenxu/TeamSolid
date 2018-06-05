@@ -1,16 +1,12 @@
 {
-  "coverage": "0%",
+  "coverage": "1.96%",
   "expectCount": 153,
-  "actualCount": 0,
+  "actualCount": 3,
   "files": {
     "client/components/Advertisement.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        6,
-        8,
-        12
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "client/components/App.js": {
       "expectCount": 6,
