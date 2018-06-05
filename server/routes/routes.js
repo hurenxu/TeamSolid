@@ -1,7 +1,6 @@
 var express = require('express');
 let multer  = require('multer');
 var path =require('path');
-// var multerupload = multer({ dest: 'dir/' })
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport')
@@ -71,6 +70,15 @@ router.get('/loginsuccess',
   function (req, res) {
     res.json(JSON.stringify({islogined: true}))
   });
+
+router.post('/api/islogined', function(req, res, next) {
+  if (req.user) {
+    res.json(JSON.stringify({islogined: true}))
+  } else {
+    res.json(JSON.stringify({islogined: false}))
+  }
+});
+
 
 router.get('/loginfail',
   function (req, res) {

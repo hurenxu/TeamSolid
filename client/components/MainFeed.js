@@ -11,8 +11,7 @@ class MainFeed extends Component {
     super(props)
 
     this.state = {
-      feeds: [],
-        open: true
+      feeds: []
     }
 
     this.loadPosts = this.loadPosts.bind(this)
