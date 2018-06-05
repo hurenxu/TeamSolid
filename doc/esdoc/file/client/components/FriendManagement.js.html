@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">client/components/FriendManagement.js | web</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Advertisement.js~Advertisement.html">Advertisement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Aspect.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatCell.js~ChatCell.html">ChatCell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatWindow.js~ChatWindow.html">ChatWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html">Colorpicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Crud.js~Crud.html">Crud</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudHeader.js~CrudHeader.html">CrudHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudRow.js~CrudRow.html">CrudRow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedEvent.js~FeedEvent.html">FeedEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedInfo.js~FeedInfo.html">FeedInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FriendManagement.js~FriendManagement.html">FriendManagement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Login.js~Login.html">Login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Main.js~Main.html">Main</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html">MainFeed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Navbar.js~Navbar.html">Navbar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/NewPost.js~NewPost.html">NewPost</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/PostPopup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Select.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Signup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TechnicalSupport.js~TechnicalSupport.html">TechnicalSupport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TextBox.js~TextBox.html">TextBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Tmp.js~NameForm.html">NameForm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Routes">Routes</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">client/components/FriendManagement.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {Component} from &apos;react&apos;;
+import {Grid, Ref} from &apos;semantic-ui-react&apos;
+import Responsive from &apos;react-responsive&apos;;
+import axios from &apos;axios&apos;;
+import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from &apos;semantic-ui-react&apos;
+
+const style = {
+  marginTop: &apos;5em&apos;,
+}
+
+class FriendManagement extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      targetFriend: &quot;&quot;,
+      value: &quot;&quot;,
+      username: &quot;&quot;,
+      friendList: []
+    }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+  }
+
+  componentDidMount() {
+    axios.post(&apos;/api/getUserEmail&apos;).then((response) =&gt; {
+      console.log(JSON.parse(response.data))
+      this.setState({
+        username: JSON.parse(response.data).username
+      })
+      axios.post(&apos;api/getFriendList&apos;).then((response) =&gt; {
+        this.setState({friendList: JSON.parse(response.data)});
+      });
+    });
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value,
+                   targetFriend: event.target.value
+    });
+  }
+
+  handleDelete(curr_friend, e) {
+    e.preventDefault();
+    axios.post(&apos;/api/updateFriendList&apos;, {tid: curr_friend, actionType: &quot;delete&quot;}).then((response) =&gt; {
+      console.log(JSON.stringify(response.data));
+      this.setState({friendList: JSON.parse(response.data)})
+    });
+  }
+
+  handleSubmit(event) {
+    console.log(&quot;Submit&quot;);
+    console.log(this.state.targetFriend)
+    if(this.state.friendList.includes(this.state.targetFriend)){
+      alert(&apos;He/she is already your friend!&apos;)
+    }
+    else{
+      axios.post(&apos;/api/searchUser&apos;, {searchKey: this.state.targetFriend}).then((response) =&gt; {
+        const checkResult = response.data;
+        if(checkResult){
+          console.log(&quot;It exists&quot;)
+          if(this.state.targetFriend === this.state.username){
+            alert(&apos;You cannot add yourself!&apos;)
+          }
+          else{
+            axios.post(&apos;/api/updateFriendList&apos;, {tid: this.state.targetFriend, actionType: &quot;add&quot;}).then((response) =&gt; {
+              console.log(JSON.stringify(response.data));
+              this.setState({friendList: JSON.parse(response.data)})
+              alert(&apos;Success&apos;);
+              this.setState({value: &quot;&quot;});
+            });
+          }
+        }
+        else{
+          console.log(&quot;It doesn&apos;t exist&quot;)
+          alert(&apos;User doesn\&apos;t exist!&apos;);
+          this.setState({value: &quot;&quot;});
+        }
+      });
+    }
+  }
+
+  render(){
+
+    var currFriends = &lt;div&gt;&lt;/div&gt;
+
+    if(this.state.friendList.length != 0){
+      console.log(&quot;You have friends&quot;)
+      console.log(this.state.friendList.length)
+      currFriends = this.state.friendList.map((friend) =&gt; (
+          &lt;Card&gt;
+            &lt;Card.Content&gt;
+              {/*&lt;Image floated=&apos;right&apos; size=&apos;mini&apos; src=&apos;/assets/images/avatar/large/molly.png&apos; /&gt;*/}
+              &lt;Card.Header&gt;{friend}&lt;/Card.Header&gt;
+              &lt;Card.Meta&gt;Friend&lt;/Card.Meta&gt;
+              &lt;Card.Description&gt;
+              &lt;/Card.Description&gt;
+            &lt;/Card.Content&gt;
+            &lt;Card.Content extra&gt;
+              &lt;div className=&apos;ui two buttons&apos;&gt;
+                &lt;Button basic color=&apos;red&apos; onClick={this.handleDelete.bind(this, friend)}&gt;
+                  Delete
+                &lt;/Button&gt;
+              &lt;/div&gt;
+            &lt;/Card.Content&gt;
+          &lt;/Card&gt;
+        )
+      );
+    }
+    else{
+      currFriends = &lt;h3&gt;You have no friends loser&lt;/h3&gt;
+      console.log(&quot;You have no friends&quot;)
+    }
+
+    return (
+      &lt;div style={style}&gt;
+        &lt;Header as=&apos;h2&apos; textAlign=&apos;left&apos;&gt;Add a friend&lt;/Header&gt;
+        &lt;Input icon=&apos;users&apos; iconPosition=&apos;left&apos; value={this.state.value}
+               onChange={this.handleChange} placeholder=&apos;Search users...&apos; /&gt;
+        &lt;Button icon labelPosition=&apos;right&apos; onClick={this.handleSubmit}&gt;
+          Add Friend
+          &lt;Icon name=&apos;right arrow&apos; /&gt;
+        &lt;/Button&gt;
+        &lt;Header as=&apos;h2&apos; textAlign=&apos;left&apos;&gt;Manage friends&lt;/Header&gt;
+        &lt;Card.Group style={{marginTop: &apos;3em&apos;}}&gt;
+          {currFriends}
+        &lt;/Card.Group&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default FriendManagement</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

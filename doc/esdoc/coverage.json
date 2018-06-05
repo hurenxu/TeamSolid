@@ -1,14 +1,321 @@
 {
   "coverage": "0%",
-  "expectCount": 2,
+  "expectCount": 153,
   "actualCount": 0,
   "files": {
+    "client/components/Advertisement.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        8,
+        12
+      ]
+    },
     "client/components/App.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        10,
+        22,
+        33,
+        40
+      ]
+    },
+    "client/components/Aspect.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        14,
+        16,
+        18,
+        27,
+        31,
+        36
+      ]
+    },
+    "client/components/ChatCell.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        9,
+        13
+      ]
+    },
+    "client/components/ChatWindow.js": {
+      "expectCount": 16,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        12,
+        19,
+        21,
+        26,
+        30,
+        31,
+        33,
+        42,
+        47,
+        48,
+        54,
+        58,
+        70,
+        92,
+        104
+      ]
+    },
+    "client/components/Colorpicker.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        9,
+        11,
+        18,
+        23
+      ]
+    },
+    "client/components/Crud.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        9,
+        17,
+        21,
+        27
+      ]
+    },
+    "client/components/CrudHeader.js": {
       "expectCount": 2,
       "actualCount": 0,
       "undocumentLines": [
-        3,
-        4
+        5,
+        6
+      ]
+    },
+    "client/components/CrudRow.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        7,
+        10,
+        19,
+        24
+      ]
+    },
+    "client/components/FeedEvent.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        9,
+        14,
+        18
+      ]
+    },
+    "client/components/FeedInfo.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        7,
+        11
+      ]
+    },
+    "client/components/FriendManagement.js": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        11,
+        13,
+        15,
+        26,
+        38,
+        44,
+        52,
+        84
+      ]
+    },
+    "client/components/Login.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        17,
+        18,
+        20,
+        41,
+        60,
+        69,
+        74
+      ]
+    },
+    "client/components/Main.js": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        14,
+        16,
+        18,
+        35,
+        41,
+        47,
+        54,
+        62,
+        72,
+        83
+      ]
+    },
+    "client/components/MainFeed.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        10,
+        13,
+        23,
+        33,
+        39,
+        55
+      ]
+    },
+    "client/components/Navbar.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        9,
+        15,
+        16,
+        18,
+        32,
+        49,
+        60
+      ]
+    },
+    "client/components/NewPost.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        10,
+        12,
+        14,
+        21
+      ]
+    },
+    "client/components/PostPopup.js": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        15,
+        17,
+        19,
+        20,
+        23,
+        27,
+        49,
+        52,
+        56
+      ]
+    },
+    "client/components/Routes.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "client/components/Select.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        15,
+        17,
+        19,
+        31,
+        36,
+        56
+      ]
+    },
+    "client/components/Signup.js": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        16,
+        18,
+        20,
+        21,
+        25,
+        26,
+        54,
+        61
+      ]
+    },
+    "client/components/TechnicalSupport.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        11,
+        12,
+        14,
+        17,
+        25
+      ]
+    },
+    "client/components/TextBox.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        8
+      ]
+    },
+    "client/components/Tmp.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        14,
+        18,
+        34
+      ]
+    },
+    "client/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "client/service-worker-index.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        2,
+        5,
+        6
+      ]
+    },
+    "client/service-worker.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        2,
+        5,
+        6
       ]
     }
   }

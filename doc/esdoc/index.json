@@ -566,16 +566,80 @@
   {
     "__docId__": 48,
     "kind": "file",
-    "name": "client/components/App.js",
-    "content": "import React, { Component } from 'react';\nimport '../css/App.css';\nclass App extends Component {\n  render() {\n    return (\n      <div className=\"App\">\n        <header className=\"App-header\">\n          <h1 className=\"App-title\">Hello Team Solid</h1>\n        </header>\n        <p className=\"App-intro\">\n          To get started, edit <code>src/App.js</code> and save to reload.\n        </p>\n      </div>\n    );\n  }\n}\nexport default App;\n",
+    "name": "client/components/Advertisement.js",
+    "content": "import React, {Component} from 'react'\nimport {Button} from 'semantic-ui-react'\nimport GoogleAds from 'react-google-ads'\nimport axios from \"axios/index\";\n\nclass Advertisement extends Component {\n\n    constructor(props) {\n        super(props);\n    }\n\n    render() {\n        if(this.props.open === false) {\n            return (\n              <div></div>\n            );\n        }\n        else {\n            return (\n                <div>\n                    <GoogleAds\n                        client=\"ca-pub-7292810486004926\"\n                        slot=\"7806394673\"\n                        style={{display: 'inline-block', width: '100%',}}\n                    />\n                    <Button positive onClick={this.props.handleClick}>\n                        Subscribe to remove ads\n                    </Button>\n                </div>\n            );\n        }\n    }\n}\n\nexport default Advertisement\n",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/App.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Advertisement.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
     "__docId__": 49,
+    "kind": "class",
+    "name": "Advertisement",
+    "memberof": "client/components/Advertisement.js",
+    "static": true,
+    "longname": "client/components/Advertisement.js~Advertisement",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Advertisement.js",
+    "importStyle": "Advertisement",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 50,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Advertisement.js~Advertisement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Advertisement.js~Advertisement#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Advertisement.js~Advertisement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Advertisement.js~Advertisement#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "file",
+    "name": "client/components/App.js",
+    "content": "import React, { Component } from 'react';\nimport Login from './Login'\nimport Crud from './Crud'\nimport Main from './Main'\nimport Colorpicker from './Colorpicker'\n\nclass App extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        isLoginPage: true,\n        email: \"\",\n        password: \"\"\n\n      };\n\n    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);\n    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);\n  }\n\n  handleLoginCrudSwap(in_email, in_password) {\n    this.setState((prevState) => ({\n      email: in_email,\n      password: in_password\n    }));\n\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n  handleCrudLoginSwap() {\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n\n  render() {\n    const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;\n    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;\n\n    return (\n      <div className=\"App\">\n        <div>\n          <header className=\"App-header\">\n            <h1 className=\"App-title\">PeterBook</h1>\n          </header>\n        </div>\n        <Main></Main>\n      </div>\n    );\n  }\n}\nexport default App;\n",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/App.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 53,
     "kind": "class",
     "name": "App",
     "memberof": "client/components/App.js",
@@ -586,7 +650,7 @@
     "importPath": "web/client/components/App.js",
     "importStyle": "App",
     "description": null,
-    "lineNumber": 3,
+    "lineNumber": 7,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -594,7 +658,83 @@
     ]
   },
   {
-    "__docId__": 50,
+    "__docId__": 54,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/App.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/App.js~App#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/App.js~App",
+    "static": false,
+    "longname": "client/components/App.js~App#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"isLoginPage\": boolean, \"email\": *, \"password\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "name": "handleLoginCrudSwap",
+    "memberof": "client/components/App.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/App.js~App#handleLoginCrudSwap",
+    "access": "public",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [
+      {
+        "name": "in_email",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "in_password",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "name": "handleCrudLoginSwap",
+    "memberof": "client/components/App.js~App",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/App.js~App#handleCrudLoginSwap",
+    "access": "public",
+    "description": null,
+    "lineNumber": 33,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 60,
     "kind": "method",
     "name": "render",
     "memberof": "client/components/App.js~App",
@@ -604,7 +744,7 @@
     "longname": "client/components/App.js~App#render",
     "access": "public",
     "description": null,
-    "lineNumber": 4,
+    "lineNumber": 40,
     "undocument": true,
     "params": [],
     "return": {
@@ -614,28 +754,3026 @@
     }
   },
   {
-    "__docId__": 51,
+    "__docId__": 61,
     "kind": "file",
-    "name": "client/index.js",
-    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './components/App';\n\nReactDOM.render(<App />, document.getElementById('root'));\n",
+    "name": "client/components/Aspect.js",
+    "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\n\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\nclass Select extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeIndex: 0,\n      aspect: 'Others'\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.handleAspect = this.handleAspect.bind(this);\n  }\n\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n  }\n\n  handleAspect(aspect) {\n    this.setState({aspect: aspect});\n    this.props.handleAspect(aspect);\n  }\n\n  render() {\n    const {activeIndex} = this.state;\n\n    return (\n      <div>\n          <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='list layout' />\n              <Header.Content>\n                  Aspects\n              </Header.Content>\n          </Header>\n        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n          <Menu.Item>\n            <Input icon='search' placeholder='Search tag...'/>\n          </Menu.Item>\n          <Menu.Item name='0' index={0} value='Others' active={activeIndex === 0} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Others\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='0' index={1} value='Family' active={activeIndex === 1} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Family\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='1' index={2} value='Friends' active={activeIndex === 2} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Friends\n            <Label color='green'>12</Label>\n          </Menu.Item>\n\n          <Menu.Item name='2' index={3} value='Favorite' active={activeIndex === 3} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Favorite\n            <Label color='green'>1</Label>\n          </Menu.Item>\n\n        </Menu>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/index.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Aspect.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
+    "__docId__": 62,
+    "kind": "variable",
+    "name": "avatarStyle",
+    "memberof": "client/components/Aspect.js",
+    "static": true,
+    "longname": "client/components/Aspect.js~avatarStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/Aspect.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"width\": string, \"paddingLeft\": string, \"paddingRight\": string, \"marginLeft\": string, \"marginRight\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "class",
+    "name": "Select",
+    "memberof": "client/components/Aspect.js",
+    "static": true,
+    "longname": "client/components/Aspect.js~Select",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Aspect.js",
+    "importStyle": "Select",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 64,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Aspect.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Aspect.js~Select#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true
+  },
+  {
+    "__docId__": 65,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Aspect.js~Select",
+    "static": false,
+    "longname": "client/components/Aspect.js~Select#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"activeIndex\": *, \"aspect\": string}"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "name": "handleItemClick",
+    "memberof": "client/components/Aspect.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Aspect.js~Select#handleItemClick",
+    "access": "public",
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "params": [
+      {
+        "name": "e",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "objectPattern1",
+        "types": [
+          "{\"index\": *}"
+        ],
+        "defaultRaw": {
+          "index": null
+        },
+        "defaultValue": "{\"index\":null}"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "name": "handleAspect",
+    "memberof": "client/components/Aspect.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Aspect.js~Select#handleAspect",
+    "access": "public",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [
+      {
+        "name": "aspect",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Aspect.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Aspect.js~Select#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "file",
+    "name": "client/components/ChatCell.js",
+    "content": "import React, {Component} from 'react';\nimport {Grid, Message} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\n\nclass ChatCell extends Component {\n\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    var currMessage = \"\"\n    if (this.props.me) {\n      currMessage =\n        <Grid>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          </Grid.Column>\n          <Grid.Column width={14} textAlign='left'>\n            <Message compact color='green'>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n        </Grid>\n    } else {\n      currMessage =\n        <Grid>\n          <Grid.Column width={14} textAlign='right'>\n            <Message compact>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src={this.props.img}/>\n          </Grid.Column>\n        </Grid>\n    }\n    return (\n      <div style={{marginTop: '1em'}}>\n        {currMessage}\n      </div>\n    );\n  }\n}\n\nexport default ChatCell;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/ChatCell.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 72,
+    "kind": "class",
+    "name": "ChatCell",
+    "memberof": "client/components/ChatCell.js",
+    "static": true,
+    "longname": "client/components/ChatCell.js~ChatCell",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/ChatCell.js",
+    "importStyle": "ChatCell",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 73,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/ChatCell.js~ChatCell",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatCell.js~ChatCell#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/ChatCell.js~ChatCell",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatCell.js~ChatCell#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "file",
+    "name": "client/components/ChatWindow.js",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Header, Image, Form, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport ChatCell from \"./ChatCell\"\n\nconst overallStyle = {\n  padding: '2em',\n}\n\nconst messageStyle = {\n  height: '450px',\n  overflow: 'scroll',\n  overflowY: 'scroll',\n  overflowX: 'hidden'\n}\n\nconst inputStyle = {}\n\nconst headerStyle = {\n  borderBottomStyle: 'solid',\n  borderBottomWidth: '1px'\n}\n\nconst textareaStyle = {\n  marginTop: '1em',\n}\n\nclass ChatWindow extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      message: \"\",\n      // TODO: set id with the user\n      targetID: props.targetID,\n      targetUseName: \"\",\n      chatHistory: []\n    }\n\n    this.loadMessage(props.targetID)\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.loadMessage = this.loadMessage.bind(this);\n    this.postMessage = this.postMessage.bind(this);\n  }\n\n  componentDidMount() {\n    this.timerID = setInterval(\n      () => this.loadMessage(this.state.targetID),\n      1000\n    );\n  }\n\n  componentWillUnmount() {\n    clearInterval(this.timerID);\n  }\n\n  componentWillReceiveProps(nextProps) {\n    this.setState({\n      targetID: nextProps.targetID\n    })\n\n    this.loadMessage(nextProps.targetID)\n  }\n\n  handleSubmit = (event) => {\n    this.postMessage()\n  }\n\n  loadMessage(targetID) {\n    // get user name\n    if (targetID != \"\") {\n      axios.post('/api/searchUser', {searchKey: targetID}).then((response) => {\n        this.setState({\n          targetUserName: JSON.parse(response.data).username\n        });\n      });\n    }\n\n    axios.post('/api/switchChatTarget', {tid: targetID}).then((response) => {\n      var messages = JSON.parse(response.data)\n      messages.sort(function(a,b) {\n        return new Date(a.date) - new Date(b.date)\n      })\n\n      this.setState({\n        chatHistory: messages\n      });\n    });\n  }\n\n  postMessage() {\n    if (this.state.message === \"\") { return }\n\n    var currentDate = new Date()\n\n    axios.post('/api/postMessage', {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {\n      this.loadMessage(this.state.targetID)\n    })\n\n    this.setState({message: ''})\n  }\n\n  render() {\n    const {message} = this.state;\n\n    const chatcells = this.state.chatHistory.map((message) =>\n      <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);\n\n    return (\n      <div>\n        <Grid style={overallStyle}>\n          <Grid.Row style={headerStyle}>\n            <Grid.Column floated='left' width={5}>\n              <Header size='medium'>\n                <Image circular src='../assets/avatar.jpg'/>\n                {' '}{this.state.targetUserName}\n              </Header>\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={messageStyle}>\n            <Grid.Column>\n              {chatcells}\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={textareaStyle}>\n            <Grid.Column width={16}>\n              <Form reply style={inputStyle}>\n                <Grid>\n                  <Grid.Column width={12}><Form.TextArea name='message' value={message}\n                                                         onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>\n                  <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'\n                                                 labelPosition='left' icon='send' size='big'\n                                                 primary\n                                                 onClick={this.handleSubmit}/></Grid.Column>\n                </Grid>\n              </Form>\n            </Grid.Column>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default ChatWindow;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/ChatWindow.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "name": "overallStyle",
+    "memberof": "client/components/ChatWindow.js",
+    "static": true,
+    "longname": "client/components/ChatWindow.js~overallStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/ChatWindow.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"padding\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "name": "messageStyle",
+    "memberof": "client/components/ChatWindow.js",
+    "static": true,
+    "longname": "client/components/ChatWindow.js~messageStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/ChatWindow.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"height\": string, \"overflow\": string, \"overflowY\": string, \"overflowX\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "variable",
+    "name": "inputStyle",
+    "memberof": "client/components/ChatWindow.js",
+    "static": true,
+    "longname": "client/components/ChatWindow.js~inputStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/ChatWindow.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "variable",
+    "name": "headerStyle",
+    "memberof": "client/components/ChatWindow.js",
+    "static": true,
+    "longname": "client/components/ChatWindow.js~headerStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/ChatWindow.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"borderBottomStyle\": string, \"borderBottomWidth\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "variable",
+    "name": "textareaStyle",
+    "memberof": "client/components/ChatWindow.js",
+    "static": true,
+    "longname": "client/components/ChatWindow.js~textareaStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/ChatWindow.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"marginTop\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "class",
+    "name": "ChatWindow",
+    "memberof": "client/components/ChatWindow.js",
+    "static": true,
+    "longname": "client/components/ChatWindow.js~ChatWindow",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/ChatWindow.js",
+    "importStyle": "ChatWindow",
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 82,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 33,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"message\": *, \"targetID\": *, \"targetUseName\": *, \"chatHistory\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "member",
+    "name": "handleSubmit",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "componentDidMount",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#componentDidMount",
+    "access": "public",
+    "description": null,
+    "lineNumber": 47,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 88,
+    "kind": "member",
+    "name": "timerID",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#timerID",
+    "access": "public",
+    "description": null,
+    "lineNumber": 48,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "method",
+    "name": "componentWillUnmount",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#componentWillUnmount",
+    "access": "public",
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "componentWillReceiveProps",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#componentWillReceiveProps",
+    "access": "public",
+    "description": null,
+    "lineNumber": 58,
+    "undocument": true,
+    "params": [
+      {
+        "name": "nextProps",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 92,
+    "kind": "method",
+    "name": "loadMessage",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#loadMessage",
+    "access": "public",
+    "description": null,
+    "lineNumber": 70,
+    "undocument": true,
+    "params": [
+      {
+        "name": "targetID",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 93,
+    "kind": "method",
+    "name": "postMessage",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#postMessage",
+    "access": "public",
+    "description": null,
+    "lineNumber": 92,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/ChatWindow.js~ChatWindow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/ChatWindow.js~ChatWindow#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 104,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "file",
+    "name": "client/components/Colorpicker.js",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport { SketchPicker } from 'react-color'\n\nclass Colorpicker extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        background: 'black',\n      };\n    this.handleChangeComplete = this.handleChangeComplete.bind(this);\n  };\n\n  handleChangeComplete(color, event){\n    console.log(color.hex);\n    this.setState({ background: color.hex });\n  };\n\n  render() {\n    return (\n      <div style={{marginTop: '5%'}}>\n        <Grid centered>\n          <Grid.Row>\n            <h1 style={{color: this.state.background}}>Hello</h1>\n          </Grid.Row>\n          <Grid.Row>\n            <SketchPicker color={this.state.background } onChangeComplete={ this.handleChangeComplete } />\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Colorpicker;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Colorpicker.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 96,
+    "kind": "class",
+    "name": "Colorpicker",
+    "memberof": "client/components/Colorpicker.js",
+    "static": true,
+    "longname": "client/components/Colorpicker.js~Colorpicker",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Colorpicker.js",
+    "importStyle": "Colorpicker",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 97,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Colorpicker.js~Colorpicker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Colorpicker.js~Colorpicker#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Colorpicker.js~Colorpicker",
+    "static": false,
+    "longname": "client/components/Colorpicker.js~Colorpicker#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"background\": string}"
+      ]
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "method",
+    "name": "handleChangeComplete",
+    "memberof": "client/components/Colorpicker.js~Colorpicker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Colorpicker.js~Colorpicker#handleChangeComplete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "color",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 101,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Colorpicker.js~Colorpicker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Colorpicker.js~Colorpicker#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "file",
+    "name": "client/components/Crud.js",
+    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\nimport axios from 'axios';\nimport CrudRow from './CrudRow';\nimport CrudHeader from './CrudHeader';\n\n\nclass Crud extends Component {\n  constructor(props) {\n    super(props);\n\n    this.handleBackClicked = this.handleBackClicked.bind(this);\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n\n  }\n\n  handleBackClicked() {\n    this.props.onBackClicked();\n  }\n\n  handleDuplicate(dup_email, dup_password) {\n    console.log(this.props);\n    this.props.onDuplicateClicked(dup_email, dup_password);\n  }\n\n\n  render() {\n\n    // map user to CrudRows\n    const rows = this.props.users.map((user)=>\n      <CrudRow key={user.id} id={user.id} email={user.email} password={user.password} onDuplicateClicked={this.handleDuplicate} />)\n\n    return (\n      <div>\n        <Button onClick={this.handleBackClicked}>Sign out</Button>\n        <Table unstackable celled padded>\n          <CrudHeader />\n          <Table.Body>\n            {rows}\n          </Table.Body>\n        </Table>\n      </div>\n    );\n  }\n}\n\nexport default Crud;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Crud.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 103,
+    "kind": "class",
+    "name": "Crud",
+    "memberof": "client/components/Crud.js",
+    "static": true,
+    "longname": "client/components/Crud.js~Crud",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Crud.js",
+    "importStyle": "Crud",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 104,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Crud.js~Crud",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Crud.js~Crud#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "method",
+    "name": "handleBackClicked",
+    "memberof": "client/components/Crud.js~Crud",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Crud.js~Crud#handleBackClicked",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 108,
+    "kind": "method",
+    "name": "handleDuplicate",
+    "memberof": "client/components/Crud.js~Crud",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Crud.js~Crud#handleDuplicate",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dup_email",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "dup_password",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 109,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Crud.js~Crud",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Crud.js~Crud#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 110,
+    "kind": "file",
+    "name": "client/components/CrudHeader.js",
+    "content": "import React, {Component} from \"react\";\nimport {Header, Table} from \"semantic-ui-react\";\n\n\nclass CrudHeader extends Component {\n  render() {\n    return (\n      <Table.Header>\n        <Table.Row>\n          <Table.HeaderCell>Id</Table.HeaderCell>\n          <Table.HeaderCell>Email</Table.HeaderCell>\n          <Table.HeaderCell>Password</Table.HeaderCell>\n          <Table.HeaderCell>Actions</Table.HeaderCell>\n        </Table.Row>\n      </Table.Header>);\n  }\n}\n\nexport default CrudHeader;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/CrudHeader.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 111,
+    "kind": "class",
+    "name": "CrudHeader",
+    "memberof": "client/components/CrudHeader.js",
+    "static": true,
+    "longname": "client/components/CrudHeader.js~CrudHeader",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/CrudHeader.js",
+    "importStyle": "CrudHeader",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 112,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/CrudHeader.js~CrudHeader",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/CrudHeader.js~CrudHeader#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 113,
+    "kind": "file",
+    "name": "client/components/CrudRow.js",
+    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\n\n\nclass CrudRow extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.state = {\n      id: props.id,\n      email: props.email,\n      password: props.password\n    };\n\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n  }\n\n  handleDuplicate() {\n    console.log(this.props);\n    this.props.onDuplicateClicked(this.state.email, this.state.password);\n  }\n\n  render() {\n    return (\n      <Table.Row>\n        <Table.Cell>{this.state.id}</Table.Cell>\n        <Table.Cell>{this.state.email}</Table.Cell>\n        <Table.Cell>{this.state.password}</Table.Cell>\n        <Table.Cell>\n          <Button color=\"red\" onClick={this.handleDuplicate}>Duplicate</Button>\n        </Table.Cell>\n      </Table.Row>);\n  }\n}\n\nexport default CrudRow;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/CrudRow.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 114,
+    "kind": "class",
+    "name": "CrudRow",
+    "memberof": "client/components/CrudRow.js",
+    "static": true,
+    "longname": "client/components/CrudRow.js~CrudRow",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/CrudRow.js",
+    "importStyle": "CrudRow",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 115,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/CrudRow.js~CrudRow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/CrudRow.js~CrudRow#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/CrudRow.js~CrudRow",
+    "static": false,
+    "longname": "client/components/CrudRow.js~CrudRow#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"id\": *, \"email\": *, \"password\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 118,
+    "kind": "method",
+    "name": "handleDuplicate",
+    "memberof": "client/components/CrudRow.js~CrudRow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/CrudRow.js~CrudRow#handleDuplicate",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 119,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/CrudRow.js~CrudRow",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/CrudRow.js~CrudRow#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "file",
+    "name": "client/components/FeedEvent.js",
+    "content": "import React, {Component} from 'react'\nimport { Feed, Icon } from 'semantic-ui-react'\nimport moment from \"moment\";\nimport axios from \"axios/index\";\n\n\nclass FeedEvent extends Component {\n\n  constructor(props) {\n    super(props);\n    this.addALike = this.addALike.bind(this);\n  }\n\n  addALike() {\n    axios.post('/api/LikeAPost', {postid: this.props.postid});\n  }\n\n  render() {\n      return (\n      <Feed.Event>\n        <Feed.Label image={this.props.imageURL}/>\n        <Feed.Content>\n          <Feed.Summary>\n            <a>{this.props.userName}</a> posted this feed\n            <Feed.Date>{moment(this.props.date).fromNow()}</Feed.Date>\n          </Feed.Summary>\n          <Feed.Extra text>\n            {this.props.mainText}\n          </Feed.Extra>\n          <Feed.Extra images>\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n          </Feed.Extra>\n          <Feed.Meta>\n            <Feed.Like onClick={()=> this.addALike()}>\n              <Icon name='like'/>\n              {this.props.numOfLikes} Likes\n            </Feed.Like>\n          </Feed.Meta>\n        </Feed.Content>\n      </Feed.Event>\n    );\n  }\n}\n\nexport default FeedEvent",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/FeedEvent.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 121,
+    "kind": "class",
+    "name": "FeedEvent",
+    "memberof": "client/components/FeedEvent.js",
+    "static": true,
+    "longname": "client/components/FeedEvent.js~FeedEvent",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/FeedEvent.js",
+    "importStyle": "FeedEvent",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 122,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/FeedEvent.js~FeedEvent",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FeedEvent.js~FeedEvent#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "method",
+    "name": "addALike",
+    "memberof": "client/components/FeedEvent.js~FeedEvent",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FeedEvent.js~FeedEvent#addALike",
+    "access": "public",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 125,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/FeedEvent.js~FeedEvent",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FeedEvent.js~FeedEvent#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 126,
+    "kind": "file",
+    "name": "client/components/FeedInfo.js",
+    "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Header} from 'semantic-ui-react'\nimport Adv from './Advertisement'\n\nclass FeedInfo extends Component {\n\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return (\n        <div>\n        <Header as='h2' floated='left' style={{marginLeft: \"1em\"}}>\n            <Icon name='file text outline' />\n            <Header.Content>\n                Activties\n            </Header.Content>\n        </Header>\n      <Feed style={{marginTop: '5vh'}}>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/images.png'/>\n          <Feed.Content content='Peter Pan post a moment on the Work Aspect Channel'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/Aha-Soft-Free-Large-Boss-Superman.ico'/>\n          <Feed.Content content='You added Renxu Hu to the aspect Family'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/mom.png'/>\n          <Feed.Content content='Nimama (Aspect: Family) sent you a message'/>\n        </Feed.Event>\n      </Feed>\n            <Adv open={this.props.sub === false} handleClick={this.props.handleClick}/>\n        </div>\n    );\n  }\n}\n\nexport default FeedInfo\n",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/FeedInfo.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 127,
+    "kind": "class",
+    "name": "FeedInfo",
+    "memberof": "client/components/FeedInfo.js",
+    "static": true,
+    "longname": "client/components/FeedInfo.js~FeedInfo",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/FeedInfo.js",
+    "importStyle": "FeedInfo",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 128,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/FeedInfo.js~FeedInfo",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FeedInfo.js~FeedInfo#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 129,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/FeedInfo.js~FeedInfo",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FeedInfo.js~FeedInfo#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 130,
+    "kind": "file",
+    "name": "client/components/FriendManagement.js",
+    "content": "import React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from 'semantic-ui-react'\n\nconst style = {\n  marginTop: '5em',\n}\n\nclass FriendManagement extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      targetFriend: \"\",\n      value: \"\",\n      username: \"\",\n      friendList: []\n    }\n    this.handleSubmit = this.handleSubmit.bind(this)\n    this.handleChange = this.handleChange.bind(this)\n    this.handleDelete = this.handleDelete.bind(this)\n  }\n\n  componentDidMount() {\n    axios.post('/api/getUserEmail').then((response) => {\n      console.log(JSON.parse(response.data))\n      this.setState({\n        username: JSON.parse(response.data).username\n      })\n      axios.post('api/getFriendList').then((response) => {\n        this.setState({friendList: JSON.parse(response.data)});\n      });\n    });\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value,\n                   targetFriend: event.target.value\n    });\n  }\n\n  handleDelete(curr_friend, e) {\n    e.preventDefault();\n    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: \"delete\"}).then((response) => {\n      console.log(JSON.stringify(response.data));\n      this.setState({friendList: JSON.parse(response.data)})\n    });\n  }\n\n  handleSubmit(event) {\n    console.log(\"Submit\");\n    console.log(this.state.targetFriend)\n    if(this.state.friendList.includes(this.state.targetFriend)){\n      alert('He/she is already your friend!')\n    }\n    else{\n      axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {\n        const checkResult = response.data;\n        if(checkResult){\n          console.log(\"It exists\")\n          if(this.state.targetFriend === this.state.username){\n            alert('You cannot add yourself!')\n          }\n          else{\n            axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: \"add\"}).then((response) => {\n              console.log(JSON.stringify(response.data));\n              this.setState({friendList: JSON.parse(response.data)})\n              alert('Success');\n              this.setState({value: \"\"});\n            });\n          }\n        }\n        else{\n          console.log(\"It doesn't exist\")\n          alert('User doesn\\'t exist!');\n          this.setState({value: \"\"});\n        }\n      });\n    }\n  }\n\n  render(){\n\n    var currFriends = <div></div>\n\n    if(this.state.friendList.length != 0){\n      console.log(\"You have friends\")\n      console.log(this.state.friendList.length)\n      currFriends = this.state.friendList.map((friend) => (\n          <Card>\n            <Card.Content>\n              {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}\n              <Card.Header>{friend}</Card.Header>\n              <Card.Meta>Friend</Card.Meta>\n              <Card.Description>\n              </Card.Description>\n            </Card.Content>\n            <Card.Content extra>\n              <div className='ui two buttons'>\n                <Button basic color='red' onClick={this.handleDelete.bind(this, friend)}>\n                  Delete\n                </Button>\n              </div>\n            </Card.Content>\n          </Card>\n        )\n      );\n    }\n    else{\n      currFriends = <h3>You have no friends loser</h3>\n      console.log(\"You have no friends\")\n    }\n\n    return (\n      <div style={style}>\n        <Header as='h2' textAlign='left'>Add a friend</Header>\n        <Input icon='users' iconPosition='left' value={this.state.value}\n               onChange={this.handleChange} placeholder='Search users...' />\n        <Button icon labelPosition='right' onClick={this.handleSubmit}>\n          Add Friend\n          <Icon name='right arrow' />\n        </Button>\n        <Header as='h2' textAlign='left'>Manage friends</Header>\n        <Card.Group style={{marginTop: '3em'}}>\n          {currFriends}\n        </Card.Group>\n      </div>\n    );\n  }\n}\n\nexport default FriendManagement",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/FriendManagement.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 131,
+    "kind": "variable",
+    "name": "style",
+    "memberof": "client/components/FriendManagement.js",
+    "static": true,
+    "longname": "client/components/FriendManagement.js~style",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/FriendManagement.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"marginTop\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 132,
+    "kind": "class",
+    "name": "FriendManagement",
+    "memberof": "client/components/FriendManagement.js",
+    "static": true,
+    "longname": "client/components/FriendManagement.js~FriendManagement",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/FriendManagement.js",
+    "importStyle": "FriendManagement",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 133,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"targetFriend\": *, \"value\": *, \"username\": *, \"friendList\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 138,
+    "kind": "method",
+    "name": "componentDidMount",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#componentDidMount",
+    "access": "public",
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 139,
+    "kind": "method",
+    "name": "handleChange",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#handleChange",
+    "access": "public",
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "params": [
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 140,
+    "kind": "method",
+    "name": "handleDelete",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#handleDelete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [
+      {
+        "name": "curr_friend",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "e",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 141,
+    "kind": "method",
+    "name": "handleSubmit",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "params": [
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 142,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/FriendManagement.js~FriendManagement",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/FriendManagement.js~FriendManagement#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 84,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 143,
+    "kind": "file",
+    "name": "client/components/Login.js",
+    "content": "/**\n * Created by Wanhui on 4/20/18.\n */\n\nimport React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport '../css/login.css'\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport TextBox from './TextBox';\nimport Navbar from './Navbar';\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport SignUp from './Signup';\nimport App from './App';\n\nclass Login extends Component {\n    constructor(props) {\n        super(props);\n        this.state =\n            {\n                email: '',\n                password: '',\n                buttonText: 'Login',\n                msg_link: 'Sign Up',\n                header_privacy: 'Decentralization',\n                header_security: 'Security',\n                header_freedom: 'Freedom',\n                msg_privacy: 'You choose who can see your data.',\n                msg_security: 'All data are encrypted to make them safe.',\n                msg_freedom: 'Your identity is not controlled and observed.',\n                open: 0,\n                redirect:false\n            };\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n        this.onclose = this.onclose.bind(this);\n        this.state.redirPage=this.props.redirPage;\n  }\n\n  handleSubmit(event) {\n    event.preventDefault();\n    function validateEmail(email) {\n      var re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\n      return re.test(String(email).toLowerCase());\n    }\n\n    if (validateEmail(this.state.email) && this.state.password != '' ) {\n      //Submit to somewhere\n      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> this.redirPage(response));\n    }\n    else if (!validateEmail(this.state.email)) {\n      alert('Invalid email address');\n    }\n    else {\n      alert('Password cannot be empty');\n    }\n  }\n\n    redirPage(response) {\n        if(JSON.parse(response.data).islogined){\n            this.state.redirect = true;\n            this.setState(this.state);\n        }else{\n            alert('Incorrect email or password!');\n        }\n    }\n\n    onclose(event) {\n        this.state.redirect = true;\n        this.setState({redirect: true});\n    }\n\n  render() {\n    const Mobile = props => <Responsive {...props} maxWidth={767}/>;\n    const Default = props => <Responsive {...props} minWidth={768}/>;\n\n        if(this.state.redirect){\n            return <App />;\n        }\n\n        return (\n            <div className=\"App\">\n                <div>\n                <header className=\"App-login-header\">\n                    <h3 className=\"App-title\">Peterbook</h3>\n                </header>\n                </div>\n        <Grid style={{marginTop: '-80px'}} columns={16} divided='vertically' className=\"text_board\">\n                <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>\n                    <Grid.Row className ='text_box text_font'>\n                        <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_security} text={this.state.msg_security}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>\n                    </Grid.Row>\n                </Grid.Column>\n\n            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className=\"login_box\" style={{height: '55%'}}>\n                    <h2 className=\"ui form_header centered\">\n                        <div className=\"content mid_text\">\n                            Log-in to your account\n                        </div>\n                    </h2>\n                <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                    <Form size='huge'>\n                        <Form.Input\n                            fluid icon='user' iconPosition='left' placeholder='email'\n                            onChange={(e, {value})=> this.setState({email: value})}\n                        />\n                        <Form.Input\n                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                            onChange={(e, {value})=> this.setState({password: value})}\n                        />\n                    </Form>\n                </Container>\n                    <Button positive icon='checkmark' content=\"Log In\" labelPosition='right' onClick={this.handleSubmit} />\n                    <Button color='grey' icon='genderless' labelPosition='right' content='Sign up' onClick={()=>this.setState({open: 1})} />\n            </Grid.Column>\n            </Grid>\n                <SignUp onclose={()=> this.onclose()} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>\n            </div>\n        );\n    }\n}\n\nexport default Login;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Login.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 144,
+    "kind": "class",
+    "name": "Login",
+    "memberof": "client/components/Login.js",
+    "static": true,
+    "longname": "client/components/Login.js~Login",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Login.js",
+    "importStyle": "Login",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 145,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Login.js~Login",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Login.js~Login#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true
+  },
+  {
+    "__docId__": 146,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Login.js~Login",
+    "static": false,
+    "longname": "client/components/Login.js~Login#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"email\": *, \"password\": *, \"buttonText\": string, \"msg_link\": string, \"header_privacy\": string, \"header_security\": string, \"header_freedom\": string, \"msg_privacy\": string, \"msg_security\": string, \"msg_freedom\": string, \"open\": *, \"redirect\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 150,
+    "kind": "method",
+    "name": "handleSubmit",
+    "memberof": "client/components/Login.js~Login",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Login.js~Login#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "params": [
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 151,
+    "kind": "method",
+    "name": "redirPage",
+    "memberof": "client/components/Login.js~Login",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Login.js~Login#redirPage",
+    "access": "public",
+    "description": null,
+    "lineNumber": 60,
+    "undocument": true,
+    "params": [
+      {
+        "name": "response",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 152,
+    "kind": "method",
+    "name": "onclose",
+    "memberof": "client/components/Login.js~Login",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Login.js~Login#onclose",
+    "access": "public",
+    "description": null,
+    "lineNumber": 69,
+    "undocument": true,
+    "params": [
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 153,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Login.js~Login",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Login.js~Login#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 74,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 154,
+    "kind": "file",
+    "name": "client/components/Main.js",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Feed} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport Navbar from './Navbar'\nimport Select from './Select'\nimport MainFeed from './MainFeed'\nimport ChatWindow from './ChatWindow'\nimport FeedInfo from './FeedInfo'\nimport Aspect from './Aspect'\nimport FriendManagement from './FriendManagement'\nimport axios from \"axios/index\";\n\nclass Main extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      mode: 'posts',\n      targetUserID: \"\",\n      aspect: 'Others',\n      friendList: [],\n        sub: false,\n        loginBack: true\n    }\n\n    this.handlePosts = this.handlePosts.bind(this);\n    this.handleFriends = this.handleFriends.bind(this);\n    this.handleMessages = this.handleMessages.bind(this);\n    this.handlePost = this.handlePost.bind(this);\n    this.handleClick = this.handleClick.bind(this);\n    this.handleUnsub = this.handleUnsub.bind(this);\n  }\n\n  handlePosts() {\n    this.setState({\n      mode: 'posts'\n    })\n  }\n\n  handleFriends() {\n    this.setState({\n      mode: 'friends'\n    })\n  }\n\n  handleMessages(inputID = \"\") {\n    this.setState({\n      mode: 'messages',\n      targetUserID: inputID\n    })\n  }\n\n  handlePost(aspect) {\n    this.setState({\n      aspect: aspect\n    });\n    this.state.aspect = aspect;\n  }\n\n\n    handleClick() {\n        axios.post('/api/setsub', {sub: true});\n        this.setState({\n            sub: true,\n            loginBack: true\n        });\n        this.state.sub = true;\n        this.state.loginBack = true;\n    }\n\n    handleUnsub() {\n        var boolean = !this.state.sub;\n        axios.post('/api/setsub', {sub: boolean});\n        this.setState({\n            sub: boolean,\n            loginBack: true\n        });\n        this.state.sub = boolean;\n        this.state.loginBack = true;\n    }\n\n  render() {\n\n    const window = (this.state.mode === 'posts') ? <MainFeed/> :\n      (this.state.mode === 'messages' ?\n        <ChatWindow targetID={this.state.targetUserID} handleMessages={this.handleMessages}/> : <FriendManagement/>)\n\n    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :\n      (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)\n\n    if(this.state.loginBack === true) {\n        axios.post('/api/getsub').then((response) => {\n            this.setState({\n                sub: JSON.parse(response.data).sub\n            });\n            this.state.sub = JSON.parse(response.data).sub;\n        });\n        this.state.loginBack = false;\n    }\n\n    return (\n      <div>\n        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}\n                handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>\n        <Grid>\n          <Grid.Column width={4}>\n            {aspect}\n          </Grid.Column>\n          <Grid.Column width={8}>\n            {window}\n          </Grid.Column>\n          <Grid.Column width={4}>\n              {console.log(this.state.sub)}\n            <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>\n          </Grid.Column>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Main;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Main.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 155,
+    "kind": "class",
+    "name": "Main",
+    "memberof": "client/components/Main.js",
+    "static": true,
+    "longname": "client/components/Main.js~Main",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Main.js",
+    "importStyle": "Main",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 156,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true
+  },
+  {
+    "__docId__": 157,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Main.js~Main",
+    "static": false,
+    "longname": "client/components/Main.js~Main#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"mode\": string, \"targetUserID\": *, \"aspect\": string, \"friendList\": *, \"sub\": *, \"loginBack\": boolean}"
+      ]
+    }
+  },
+  {
+    "__docId__": 164,
+    "kind": "method",
+    "name": "handlePosts",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#handlePosts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 165,
+    "kind": "method",
+    "name": "handleFriends",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#handleFriends",
+    "access": "public",
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 166,
+    "kind": "method",
+    "name": "handleMessages",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#handleMessages",
+    "access": "public",
+    "description": null,
+    "lineNumber": 47,
+    "undocument": true,
+    "params": [
+      {
+        "name": "inputID",
+        "optional": true,
+        "types": [
+          "string"
+        ],
+        "defaultRaw": "",
+        "defaultValue": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 167,
+    "kind": "method",
+    "name": "handlePost",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#handlePost",
+    "access": "public",
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "params": [
+      {
+        "name": "aspect",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 168,
+    "kind": "method",
+    "name": "handleClick",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#handleClick",
+    "access": "public",
+    "description": null,
+    "lineNumber": 62,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 169,
+    "kind": "method",
+    "name": "handleUnsub",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#handleUnsub",
+    "access": "public",
+    "description": null,
+    "lineNumber": 72,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 170,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Main.js~Main",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Main.js~Main#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 83,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 171,
+    "kind": "file",
+    "name": "client/components/MainFeed.js",
+    "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Message} from 'semantic-ui-react'\nimport FeedEvent from './FeedEvent'\nimport NewPost from './NewPost'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\nclass MainFeed extends Component {\n\n  constructor(props) {\n    super(props)\n\n    this.state = {\n      feeds: []\n    }\n\n    this.loadPosts = this.loadPosts.bind(this)\n    this.createPost = this.createPost.bind(this)\n    this.loadPosts()\n      this.feedList = this.feedList.bind(this)\n  }\n\n  loadPosts() {\n    axios.post('/api/getPosts').then((response) => {\n      this.setState({\n        feeds: JSON.parse(response.data)\n      })\n      this.state.feeds = JSON.parse(response.data);\n      console.log(\"finish loading post\")\n    });\n  }\n\n  createPost(postObject) {\n    axios.post('/api/postPost', postObject).then((response) => {\n      this.loadPosts()\n    })\n  }\n\n  feedList() {\n    if(this.state.feeds == null) {\n        return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>\n            <Message.Header>There is no post</Message.Header>\n            <p>Do you want to post something?</p>\n        </Message>);\n    }\n    else {\n        return(this.state.feeds.map((feed, index) =>\n            <FeedEvent imageURL=\"\" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}\n                       date={feed.data}\n                       postid={feed.postid}/>\n        ));\n    }\n  }\n\n  render() {\n      return (\n      <div style={{marginTop: '5vh'}}>\n        <div>\n          <div>\n            <NewPost createPost={this.createPost}/>\n          </div>\n        </div>\n        <div>\n          <Feed size='large'>\n              {this.feedList()}\n          </Feed>\n        </div>\n      </div>\n    );\n  }\n}\n\nexport default MainFeed\n",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/MainFeed.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 172,
+    "kind": "class",
+    "name": "MainFeed",
+    "memberof": "client/components/MainFeed.js",
+    "static": true,
+    "longname": "client/components/MainFeed.js~MainFeed",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/MainFeed.js",
+    "importStyle": "MainFeed",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 173,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/MainFeed.js~MainFeed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/MainFeed.js~MainFeed#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true
+  },
+  {
+    "__docId__": 174,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/MainFeed.js~MainFeed",
+    "static": false,
+    "longname": "client/components/MainFeed.js~MainFeed#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"feeds\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 178,
+    "kind": "method",
+    "name": "loadPosts",
+    "memberof": "client/components/MainFeed.js~MainFeed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/MainFeed.js~MainFeed#loadPosts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 179,
+    "kind": "method",
+    "name": "createPost",
+    "memberof": "client/components/MainFeed.js~MainFeed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/MainFeed.js~MainFeed#createPost",
+    "access": "public",
+    "description": null,
+    "lineNumber": 33,
+    "undocument": true,
+    "params": [
+      {
+        "name": "postObject",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 180,
+    "kind": "method",
+    "name": "feedList",
+    "memberof": "client/components/MainFeed.js~MainFeed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/MainFeed.js~MainFeed#feedList",
+    "access": "public",
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 181,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/MainFeed.js~MainFeed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/MainFeed.js~MainFeed#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 55,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 182,
+    "kind": "file",
+    "name": "client/components/Navbar.js",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport '../css/App.css';\nimport axios from \"axios/index\";\nimport TechnicalSupport from \"./TechnicalSupport\"\n\nconst avatarStyle = {\n  width: '21.3vw',\n  paddingLeft: '6em',\n  paddingRight: '6em',\n}\n\nclass Navbar extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        activeItem: 'posts',\n          username: 'Profile',\n          openSupport: 0,\n          subMsg: \"Not Subscribed\"\n      };\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.loadUsername = this.loadUsername.bind(this);\n\n    this.loadUsername()\n  }\n\n  handleItemClick(e, {name}) {\n    this.setState({activeItem: name})\n\n    if (name === 'posts') {\n      this.props.handlePosts();\n    }\n    else if (name === 'messages') {\n      this.props.handleMessages();\n    }\n    else if (name === 'friends'){\n      this.props.handleFriends();\n    }\n    else if (name === 'support'){\n      this.setState({openSupport:1});\n    }\n  }\n\n  loadUsername() {\n    axios.post('/api/getUserName').then((response) => {\n      this.setState({\n        username: JSON.parse(response.data).username\n      });\n\n      console.log(\"loading user name\");\n      console.log(JSON.parse(response.data).username)\n    });\n  }\n\n  render() {\n    this.state.subMsg = (this.props.sub === true) ? \"Subscribed\" : \"Not Subscribed\";\n\n    return (\n      <div>\n        <Menu pointing size='huge'>\n          <Menu.Item name='me' onClick={this.handleItemClick}>\n              <img src=\"../assets/avatar.jpg\" />\n            <Label as='a' color='blue' onClick={this.props.handleUnsub}>\n                  {this.state.username}\n                  <Label.Detail>{this.state.subMsg}</Label.Detail>\n              </Label>\n          </Menu.Item>\n          <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>\n          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>\n          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick}/>\n          <Menu.Menu position='right'>\n            <Menu.Item>\n              <Input icon='search' placeholder='Search...'/>\n            </Menu.Item>\n              <Menu.Item name='support' active={this.state.activeItem === 'support'} onClick={this.handleItemClick}/>\n            <Menu.Item name='logout' onClick={this.handleItemClick}/>\n          </Menu.Menu>\n        </Menu>\n        <TechnicalSupport open={this.state.openSupport === 1} onClose={()=> this.setState({openSupport: 0})}/>\n      </div>\n    );\n  }\n}\n\nexport default Navbar;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Navbar.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 183,
+    "kind": "variable",
+    "name": "avatarStyle",
+    "memberof": "client/components/Navbar.js",
+    "static": true,
+    "longname": "client/components/Navbar.js~avatarStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/Navbar.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"width\": string, \"paddingLeft\": string, \"paddingRight\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 184,
+    "kind": "class",
+    "name": "Navbar",
+    "memberof": "client/components/Navbar.js",
+    "static": true,
+    "longname": "client/components/Navbar.js~Navbar",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Navbar.js",
+    "importStyle": "Navbar",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 185,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Navbar.js~Navbar",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Navbar.js~Navbar#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true
+  },
+  {
+    "__docId__": 186,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Navbar.js~Navbar",
+    "static": false,
+    "longname": "client/components/Navbar.js~Navbar#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"activeItem\": string, \"username\": string, \"openSupport\": *, \"subMsg\": string}"
+      ]
+    }
+  },
+  {
+    "__docId__": 189,
+    "kind": "method",
+    "name": "handleItemClick",
+    "memberof": "client/components/Navbar.js~Navbar",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Navbar.js~Navbar#handleItemClick",
+    "access": "public",
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "params": [
+      {
+        "name": "e",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "objectPattern1",
+        "types": [
+          "{\"name\": *}"
+        ],
+        "defaultRaw": {
+          "name": null
+        },
+        "defaultValue": "{\"name\":null}"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 190,
+    "kind": "method",
+    "name": "loadUsername",
+    "memberof": "client/components/Navbar.js~Navbar",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Navbar.js~Navbar#loadUsername",
+    "access": "public",
+    "description": null,
+    "lineNumber": 49,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 191,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Navbar.js~Navbar",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Navbar.js~Navbar#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 60,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 192,
+    "kind": "file",
+    "name": "client/components/NewPost.js",
+    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\nconst styles = {\n  width: '33vw',\n  marginTop: '5vh',\n}\n\nclass NewPost extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        open: 0,\n        message: ''\n      };\n  }\n\n  render() {\n    return (\n      <div>\n        <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n          <Button.Group>\n            <Button>Clear</Button>\n            <Button.Or/>\n            <Button positive>Post</Button>\n          </Button.Group>\n        </Form>\n        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n      </div>\n    )\n  }\n}\n\nexport default NewPost",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/NewPost.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 193,
+    "kind": "variable",
+    "name": "styles",
+    "memberof": "client/components/NewPost.js",
+    "static": true,
+    "longname": "client/components/NewPost.js~styles",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/NewPost.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"width\": string, \"marginTop\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 194,
+    "kind": "class",
+    "name": "NewPost",
+    "memberof": "client/components/NewPost.js",
+    "static": true,
+    "longname": "client/components/NewPost.js~NewPost",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/NewPost.js",
+    "importStyle": "NewPost",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 195,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/NewPost.js~NewPost",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/NewPost.js~NewPost#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true
+  },
+  {
+    "__docId__": 196,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/NewPost.js~NewPost",
+    "static": false,
+    "longname": "client/components/NewPost.js~NewPost#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"open\": *, \"message\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 197,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/NewPost.js~NewPost",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/NewPost.js~NewPost#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 198,
+    "kind": "file",
+    "name": "client/components/PostPopup.js",
+    "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal,Icon } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\nlet initialState = {\n    message: \"\",\n    open: false,\n    dimmer: 'blurring',\n    aspect: \"\",\n    imageFile: null,\n    videoFile: null\n};\n\nclass Signup extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    show = dimmer => () => {\n        this.setState({ dimmer, open: true })\n    }\n\n    close = () => {\n        this.setState({ open, dimmer: false })\n    }\n\n    handleSubmit = (event) => {\n        if(this.state.message === \"\") {\n            return\n        }\n        const date = moment().format();\n        const data = new FormData();\n        data.append('image', this.state.imageFile);\n        data.append('video', this.state.videoFile);\n        data.append('msg', this.state.message);\n        data.append('date', date);\n        console.log(data);\n        //var message={msg: this.state.message, date: date};\n        this.props.createPost(data);\n        console.log(this.state.imageFile);\n        console.log(this.state.imageFile.size);\n        //axios.post(`/api/postPost`, {msg: this.state.message, date: date});\n        this.setState({dimmer: false, open: false, message: ''});\n    };\n    saveImage = (event) => {\n        this.setState({imageFile: event.target.files[0]});\n    }\n    saveVideo = (event) => {\n        this.setState({videoFile: event.target.files[0]});\n\n    }\n    render() {\n        const { message } = this.state\n        return (\n            <div>\n                <Modal size='tiny' className=\"scrolling\" style={{height: '50%'}} dimmer=\"blurring\" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>\n                    <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                        <Form size='large'>\n                            <Form.TextArea\n                                placeholder='What do you want to post?' name='message' value={message}\n                                onChange={(e, {value})=> this.setState({message: value})}\n                            />\n                            <label for=\"image\">\n                                <Icon size='big' name='picture'/>\n                                <Form.Input type=\"file\" id=\"image\" onChange={this.saveImage} style={{display: 'none'}} accept=\"image/*\"/>\n                            </label>\n                            <label htmlFor=\"video\">\n                                <Icon size='big' name='video camera'/>\n                                <Form.Input type=\"file\" id=\"video\" onChange={this.saveVideo} style={{display: 'none'}} accept=\"video/*\"/>\n                            </label>\n                            <Button.Group style={{float: 'right', marginRight: '10%'}}>\n                                <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>\n                                <Button.Or />\n                                <Button positive onClick={()=> { this.handleSubmit(); this.props.onClose()}}>Post</Button>\n                            </Button.Group>\n                        </Form>\n                    </Container>\n\n                </Modal>\n            </div>\n        )\n    }\n}\n\nexport default Signup",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/PostPopup.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 199,
+    "kind": "variable",
+    "name": "initialState",
+    "memberof": "client/components/PostPopup.js",
+    "static": true,
+    "longname": "client/components/PostPopup.js~initialState",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/PostPopup.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"message\": *, \"open\": *, \"dimmer\": string, \"aspect\": *, \"imageFile\": *, \"videoFile\": *}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 200,
+    "kind": "class",
+    "name": "Signup",
+    "memberof": "client/components/PostPopup.js",
+    "static": true,
+    "longname": "client/components/PostPopup.js~Signup",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/PostPopup.js",
+    "importStyle": "Signup",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 201,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true
+  },
+  {
+    "__docId__": 202,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 203,
+    "kind": "member",
+    "name": "handleSubmit",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 204,
+    "kind": "member",
+    "name": "show",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#show",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 205,
+    "kind": "member",
+    "name": "close",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#close",
+    "access": "public",
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 207,
+    "kind": "member",
+    "name": "saveImage",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#saveImage",
+    "access": "public",
+    "description": null,
+    "lineNumber": 49,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 208,
+    "kind": "member",
+    "name": "saveVideo",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#saveVideo",
+    "access": "public",
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 209,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/PostPopup.js~Signup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/PostPopup.js~Signup#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 210,
+    "kind": "file",
+    "name": "client/components/Routes.js",
+    "content": "import React from \"react\";\r\nimport { BrowserRouter, Route } from \"react-router-dom\";\r\nimport App from './App';\r\nimport Login from './Login';\r\n\r\nconst Routes = () => (\r\n    <BrowserRouter>\r\n        <Main>\r\n            <Route exact path=\"/\" component={App} />\r\n            <Route path=\"/login\" component={Login} />\r\n        </Main>\r\n    </BrowserRouter>\r\n);\r\n\r\nexport default Routes;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Routes.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 211,
+    "kind": "function",
+    "name": "Routes",
+    "memberof": "client/components/Routes.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "client/components/Routes.js~Routes",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Routes.js",
+    "importStyle": "Routes",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 212,
+    "kind": "file",
+    "name": "client/components/Select.js",
+    "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport axios from \"axios\";\n\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\nclass Select extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeIndex: 0,\n      friendList: []\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n\n    // load friend list\n    this.loadFriendList = this.loadFriendList.bind(this);\n    this.loadFriendList();\n  }\n\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n    this.props.handleMessages(this.state.friendList[index].sid);\n  }\n\n  loadFriendList() {\n    axios.post('/api/getFriendList').then((response) => {\n      // this.setState({\n      //   friendList: JSON.parse(response.data)\n      // });\n      console.log(\"Load friend list\")\n\n      const friendIDs = JSON.parse(response.data)\n\n      axios.all(friendIDs.map(friendID => axios.post('/api/searchUser', {searchKey: friendID})))\n        .then(axios.spread((...results) => {\n          // all requests are now complete\n          const friendDetails = results.map(res => JSON.parse(res.data))\n          this.setState({\n            friendList: friendDetails\n          })\n        }));\n    })\n  }\n\n  render() {\n    const {activeIndex} = this.state;\n    var menuItems = []\n    for (var i = 0; i < this.state.friendList.length; i++) {\n      menuItems.push(\n        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i} onClick={this.handleItemClick}>\n          <img style={avatarStyle} className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          {this.state.friendList[i].username}\n          <Label color='red'>1</Label>\n        </Menu.Item>\n      )\n    }\n\n    return (\n      <div>\n        <Grid>\n          <Grid.Row >\n            <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='users' />\n              <Header.Content>\n                Friends\n              </Header.Content>\n            </Header>\n          </Grid.Row>\n          <Grid.Row>\n            <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n              {menuItems}\n            </Menu>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Select.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 213,
+    "kind": "variable",
+    "name": "avatarStyle",
+    "memberof": "client/components/Select.js",
+    "static": true,
+    "longname": "client/components/Select.js~avatarStyle",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/Select.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"width\": string, \"paddingLeft\": string, \"paddingRight\": string, \"marginLeft\": string, \"marginRight\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 214,
+    "kind": "class",
+    "name": "Select",
+    "memberof": "client/components/Select.js",
+    "static": true,
+    "longname": "client/components/Select.js~Select",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Select.js",
+    "importStyle": "Select",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 215,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Select.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Select.js~Select#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true
+  },
+  {
+    "__docId__": 216,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Select.js~Select",
+    "static": false,
+    "longname": "client/components/Select.js~Select#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"activeIndex\": *, \"friendList\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 219,
+    "kind": "method",
+    "name": "handleItemClick",
+    "memberof": "client/components/Select.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Select.js~Select#handleItemClick",
+    "access": "public",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [
+      {
+        "name": "e",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "objectPattern1",
+        "types": [
+          "{\"index\": *}"
+        ],
+        "defaultRaw": {
+          "index": null
+        },
+        "defaultValue": "{\"index\":null}"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 220,
+    "kind": "method",
+    "name": "loadFriendList",
+    "memberof": "client/components/Select.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Select.js~Select#loadFriendList",
+    "access": "public",
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 221,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Select.js~Select",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Select.js~Select#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 222,
+    "kind": "file",
+    "name": "client/components/Signup.js",
+    "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport App from './App';\n\nlet initialState = {\n    username: \"\",\n    password: \"\",\n    repeat: \"\",\n    email: \"\",\n    message: [],\n    open: false,\n    dimmer: 'blurring'\n};\n\nclass Signup extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n    }\n\n    show = dimmer => () => this.setState({ dimmer, open: true })\n    close = () => this.setState({ open, dimmer: false })\n\n    handleSubmit = (event) => {\n        let message = [];\n        if(this.state.username === \"\") {\n            alert(\"Username can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password === \"\") {\n            alert(\"Password can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.repeat === \"\") {\n            alert(\"Please enter your password again!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password !== this.state.repeat) {\n            alert(\"Password is not matching!\");\n            this.setState({message: message});\n            return\n        }\n        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email}).then((response)=> this.redirPage(response));\n        this.setState({open: false});\n        this.setState({dimmer: false});\n    };\n    redirPage(response) {\n            if(JSON.parse(response.data).result===\"OK\"){\n                this.props.onclose();\n            }else{\n                alert(\"Signup fail!\");\n            }\n    }\n    render() {\n        const { dimmer } = this.state\n\n            return (\n                <div>\n                    <Modal size='tiny' className=\"scrolling\" style={{height: '60%'}} dimmer={dimmer}\n                           open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                        <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>\n                        <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>\n                            <Form size='large'>\n                                <Form.Input\n                                    fluid icon='user' iconPosition='left' placeholder='Username'\n                                    onChange={(e, {value})=> this.setState({username: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                                    onChange={(e, {value})=> this.setState({password: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'\n                                    onChange={(e, {value})=> this.setState({repeat: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='envelope' iconPosition='left' placeholder='Email'\n                                    onChange={(e, {value})=> this.setState({email: value})}\n                                />\n                            </Form>\n                        </Container>\n                        <Modal.Actions>\n                            <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />\n                            <Button positive icon='checkmark' labelPosition='right' content=\"Sign Up\" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />\n                        </Modal.Actions>\n                    </Modal>\n                </div>\n            )\n    }\n}\n\nexport default Signup",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Signup.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 223,
+    "kind": "variable",
+    "name": "initialState",
+    "memberof": "client/components/Signup.js",
+    "static": true,
+    "longname": "client/components/Signup.js~initialState",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/Signup.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"username\": *, \"password\": *, \"repeat\": *, \"email\": *, \"message\": *, \"open\": *, \"dimmer\": string}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 224,
+    "kind": "class",
+    "name": "Signup",
+    "memberof": "client/components/Signup.js",
+    "static": true,
+    "longname": "client/components/Signup.js~Signup",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Signup.js",
+    "importStyle": "Signup",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 225,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Signup.js~Signup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true
+  },
+  {
+    "__docId__": 226,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Signup.js~Signup",
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 227,
+    "kind": "member",
+    "name": "handleSubmit",
+    "memberof": "client/components/Signup.js~Signup",
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 229,
+    "kind": "member",
+    "name": "show",
+    "memberof": "client/components/Signup.js~Signup",
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#show",
+    "access": "public",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 230,
+    "kind": "member",
+    "name": "close",
+    "memberof": "client/components/Signup.js~Signup",
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#close",
+    "access": "public",
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 232,
+    "kind": "method",
+    "name": "redirPage",
+    "memberof": "client/components/Signup.js~Signup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#redirPage",
+    "access": "public",
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "params": [
+      {
+        "name": "response",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 233,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Signup.js~Signup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Signup.js~Signup#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 61,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 234,
+    "kind": "file",
+    "name": "client/components/TechnicalSupport.js",
+    "content": "import React, {Component} from 'react';\nimport { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nimport axios from \"axios/index\";\nlet initialState = {\n    open: false,\n    status: \"default\",\n    message:\"\"\n};\nclass TechnicalSupport extends Component {\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n    handleSubmit(){\n        //TODO: send message to backend\n        this.setState({status: \"default\"});\n        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {\n            alert(\"Success!\");\n            this.setState({open: false});\n        });\n    }\n    render() {\n        var body;\n        var button;\n        if(this.state.status===\"default\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body= (\n                <Grid columns={2} divided>\n                <Grid.Row>\n                    <Grid.Column>\n                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: \"email\"})}/>\n                    </Grid.Column>\n                    <Grid.Column>\n                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: \"FAQ\"})} />\n                    </Grid.Column>\n                </Grid.Row>\n            </Grid>\n            );\n        }\n        else if(this.state.status===\"email\"){\n            body=(\n                <Form size='huge'>\n                    <Form.TextArea fluid placeholder='Type in your message here'\n                        onChange={(e, {value})=> this.setState({message: value})}\n                    />\n                    <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n                    <Button positive icon='checkmark' content=\"Submit\" labelPosition='right' onClick={this.handleSubmit}/>\n                </Form>\n            );\n        }else if(this.state.status===\"FAQ\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body=(\n                <div>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                </div>\n            );\n        }\n        return (\n            <div>\n                <Modal size='small' className=\"scrolling\" style={{height: '60%'}} dimmer=\"blurring\"\n                       open={this.props.open} onClose={()=> {this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>\n                    {body}\n                    <Modal.Actions>\n                        {button}\n                    </Modal.Actions>\n                </Modal>\n            </div>\n        );\n    }\n}\nexport default TechnicalSupport;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/TechnicalSupport.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 235,
+    "kind": "variable",
+    "name": "initialState",
+    "memberof": "client/components/TechnicalSupport.js",
+    "static": true,
+    "longname": "client/components/TechnicalSupport.js~initialState",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/components/TechnicalSupport.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"open\": *, \"status\": string, \"message\": *}"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 236,
+    "kind": "class",
+    "name": "TechnicalSupport",
+    "memberof": "client/components/TechnicalSupport.js",
+    "static": true,
+    "longname": "client/components/TechnicalSupport.js~TechnicalSupport",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/TechnicalSupport.js",
+    "importStyle": "TechnicalSupport",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 237,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/TechnicalSupport.js~TechnicalSupport",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/TechnicalSupport.js~TechnicalSupport#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true
+  },
+  {
+    "__docId__": 238,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/TechnicalSupport.js~TechnicalSupport",
+    "static": false,
+    "longname": "client/components/TechnicalSupport.js~TechnicalSupport#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 240,
+    "kind": "method",
+    "name": "handleSubmit",
+    "memberof": "client/components/TechnicalSupport.js~TechnicalSupport",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/TechnicalSupport.js~TechnicalSupport#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 241,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/TechnicalSupport.js~TechnicalSupport",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/TechnicalSupport.js~TechnicalSupport#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 242,
+    "kind": "file",
+    "name": "client/components/TextBox.js",
+    "content": "import React, {Component} from 'react';\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nclass TextBox extends Component {\n    constructor(props) {\n        super(props);\n    }\n    render() {\n        return (\n            <div>\n                <h1 className=\"text_box_header\">\n                    <b>{this.props.header}</b>\n                </h1>\n                <p className=\"text_box_content\">{this.props.text}</p>\n            </div>\n        );\n    }\n}\nexport default TextBox;",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/TextBox.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 243,
+    "kind": "class",
+    "name": "TextBox",
+    "memberof": "client/components/TextBox.js",
+    "static": true,
+    "longname": "client/components/TextBox.js~TextBox",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/TextBox.js",
+    "importStyle": "TextBox",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 244,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/TextBox.js~TextBox",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/TextBox.js~TextBox#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true
+  },
+  {
+    "__docId__": 245,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/TextBox.js~TextBox",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/TextBox.js~TextBox#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 246,
+    "kind": "file",
+    "name": "client/components/Tmp.js",
+    "content": "import React from 'react';\nimport axios from 'axios';\nimport ReactDOM from 'react-dom';\n\nexport default class NameForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {value: '', name: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n  handleSubmit(event) {\n    axios.post(`/insert`, { name: this.state.value })\n    .then(res => {\n      console.log(res.data);\n      this.setState({name: res.data.length});\n      var content=(\n        <ul>\n            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}\n        </ul>\n      );\n      ReactDOM.render(content,document.getElementById(\"root\"));\n    })\n\n    event.preventDefault();\n  }\n\n  render() {\n    return (\n      <div id=\"root\">\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n      <p>Hello guest{this.state.name}</p>\n      </div>\n    );\n  }\n}",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Tmp.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 247,
+    "kind": "class",
+    "name": "NameForm",
+    "memberof": "client/components/Tmp.js",
+    "static": true,
+    "longname": "client/components/Tmp.js~NameForm",
+    "access": "public",
+    "export": true,
+    "importPath": "web/client/components/Tmp.js",
+    "importStyle": "NameForm",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "react~React.Component"
+    ]
+  },
+  {
+    "__docId__": 248,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "client/components/Tmp.js~NameForm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Tmp.js~NameForm#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true
+  },
+  {
+    "__docId__": 249,
+    "kind": "member",
+    "name": "state",
+    "memberof": "client/components/Tmp.js~NameForm",
+    "static": false,
+    "longname": "client/components/Tmp.js~NameForm#state",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"value\": *, \"name\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 252,
+    "kind": "method",
+    "name": "handleChange",
+    "memberof": "client/components/Tmp.js~NameForm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Tmp.js~NameForm#handleChange",
+    "access": "public",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 253,
+    "kind": "method",
+    "name": "handleSubmit",
+    "memberof": "client/components/Tmp.js~NameForm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Tmp.js~NameForm#handleSubmit",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "event",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 254,
+    "kind": "method",
+    "name": "render",
+    "memberof": "client/components/Tmp.js~NameForm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "client/components/Tmp.js~NameForm#render",
+    "access": "public",
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 255,
+    "kind": "file",
+    "name": "client/index.js",
+    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './components/App';\nimport Tmp from './components/Tmp';\nimport Login from './components/Login';\nimport '../semantic/dist/semantic.min.css';\n\nvar el = document.getElementById('root');\nif (el.className == 'index') {\n    ReactDOM.render(<App />, document.getElementById('root'));\n} else {\n    ReactDOM.render(<Login redirect={false}/>, document.getElementById('root'));\n}\n",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 256,
+    "kind": "variable",
+    "name": "el",
+    "memberof": "client/index.js",
+    "static": true,
+    "longname": "client/index.js~el",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 257,
+    "kind": "file",
+    "name": "client/service-worker-index.js",
+    "content": "// Set this to true for production\nvar doCache = false;\n\n// Name our cache\nconst VERSION = 'index-v1';\nvar urlsToCache = [\n    '/css/App.css',\n    '/components/App.js'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/service-worker-index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 258,
+    "kind": "variable",
+    "name": "doCache",
+    "memberof": "client/service-worker-index.js",
+    "static": true,
+    "longname": "client/service-worker-index.js~doCache",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/service-worker-index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 259,
+    "kind": "variable",
+    "name": "VERSION",
+    "memberof": "client/service-worker-index.js",
+    "static": true,
+    "longname": "client/service-worker-index.js~VERSION",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/service-worker-index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 260,
+    "kind": "variable",
+    "name": "urlsToCache",
+    "memberof": "client/service-worker-index.js",
+    "static": true,
+    "longname": "client/service-worker-index.js~urlsToCache",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/service-worker-index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 261,
+    "kind": "file",
+    "name": "client/service-worker.js",
+    "content": "// Set this to true for production\nvar doCache = false;\n\n// Name our cache\nconst VERSION = 'login-v1';\nvar urlsToCache = [\n    '/components/Login.js',\n    '/css/login.css'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
+    "static": true,
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/service-worker.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 262,
+    "kind": "variable",
+    "name": "doCache",
+    "memberof": "client/service-worker.js",
+    "static": true,
+    "longname": "client/service-worker.js~doCache",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/service-worker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 263,
+    "kind": "variable",
+    "name": "VERSION",
+    "memberof": "client/service-worker.js",
+    "static": true,
+    "longname": "client/service-worker.js~VERSION",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/service-worker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 264,
+    "kind": "variable",
+    "name": "urlsToCache",
+    "memberof": "client/service-worker.js",
+    "static": true,
+    "longname": "client/service-worker.js~urlsToCache",
+    "access": "public",
+    "export": false,
+    "importPath": "web/client/service-worker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string[]"
+      ]
+    },
+    "ignore": true
+  },
+  {
     "kind": "index",
     "content": "# TeamSolid",
-    "longname": "/Users/idosuna/WebstormProjects/TeamSolid/README.md",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"web\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"body-parser\": \"^1.18.2\",\n    \"ejs\": \"^2.5.8\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-jsx-plugin\": \"^1.0.0\",\n    \"esdoc-react-plugin\": \"^1.0.1\",\n    \"express\": \"^4.16.3\",\n    \"mongodb\": \"^3.0.7\",\n    \"mongoose\": \"^5.0.15\",\n    \"nodemon\": \"^1.17.3\",\n    \"react\": \"^16.3.2\",\n    \"react-bootstrap\": \"^0.32.1\",\n    \"react-dom\": \"^16.3.2\",\n    \"react-modal\": \"^3.4.1\",\n    \"react-router-dom\": \"^4.2.2\",\n    \"react-scripts\": \"1.1.4\"\n  },\n  \"scripts\": {\n    \"webpack\": \"webpack\",\n    \"start\": \"npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"webpack\": \"^3.4.1\",\n    \"webpack-dev-middleware\": \"^2.0.6\",\n    \"webpack-dev-server\": \"^3.1.3\"\n  }\n}\n",
-    "longname": "/Users/idosuna/WebstormProjects/TeamSolid/package.json",
+    "content": "{\n  \"name\": \"web\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-loader\": \"^7.1.4\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"babel-preset-stage-0\": \"^6.24.1\",\n    \"body-parser\": \"^1.18.2\",\n    \"chai\": \"^4.1.2\",\n    \"connect-ensure-login\": \"^0.1.1\",\n    \"cookie-parser\": \"^1.4.3\",\n    \"ejs\": \"^2.5.8\",\n    \"enzyme\": \"^3.3.0\",\n    \"enzyme-adapter-react-16\": \"^1.1.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-jsx-plugin\": \"^1.0.0\",\n    \"esdoc-react-plugin\": \"^1.0.1\",\n    \"express\": \"^4.16.3\",\n    \"express-session\": \"^1.15.6\",\n    \"extract-text-webpack-plugin\": \"^3.0.2\",\n    \"faker\": \"^4.1.0\",\n    \"html-webpack-plugin\": \"^3.2.0\",\n    \"moment\": \"^2.22.1\",\n    \"mongodb\": \"^3.0.7\",\n    \"mongoose\": \"^5.0.15\",\n    \"multer\": \"^1.3.0\",\n    \"nodemailer\": \"^4.6.5\",\n    \"nodemon\": \"^1.17.3\",\n    \"package.json\": \"^2.0.1\",\n    \"passport\": \"^0.4.0\",\n    \"passport-local\": \"^1.0.0\",\n    \"react\": \"^16.4.0\",\n    \"react-bootstrap\": \"^0.32.1\",\n    \"react-color\": \"^2.14.1\",\n    \"react-dom\": \"^16.4.0\",\n    \"react-google-ads\": \"^1.0.5\",\n    \"react-modal\": \"^3.4.1\",\n    \"react-responsive\": \"^4.1.0\",\n    \"react-router-dom\": \"^4.2.2\",\n    \"react-scripts\": \"^1.1.4\",\n    \"semantic-ui-react\": \"^0.79.1\",\n    \"style-loader\": \"^0.21.0\",\n    \"sw-precache-webpack-plugin\": \"^0.11.5\",\n    \"uuid\": \"^3.2.1\",\n    \"webpack-manifest-plugin\": \"^2.0.3\"\n  },\n  \"scripts\": {\n    \"test\": \"mocha ./test/*.js --compilers js:babel-core/register --recursive  --require ignore-styles\",\n    \"dev:hot\": \"webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./\",\n    \"webpack\": \"webpack\",\n    \"start\": \"npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www\",\n    \"lint\": \"esw --ignore-path .gitignore --color .\",\n    \"lint-watch\": \"npm run lint -- --watch\"\n  },\n  \"devDependencies\": {\n    \"babel-plugin-transform-es2015-arrow-functions\": \"^6.22.0\",\n    \"bell-on-bundler-error-plugin\": \"^2.0.0\",\n    \"css-loader\": \"^0.28.11\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.19.1\",\n    \"eslint-plugin-react\": \"^7.7.0\",\n    \"eslint-watch\": \"^3.1.4\",\n    \"file-loader\": \"^1.1.11\",\n    \"ignore-styles\": \"^5.0.1\",\n    \"jsdom\": \"^11.11.0\",\n    \"mocha\": \"^5.2.0\",\n    \"react-addons-test-utils\": \"^15.6.2\",\n    \"resolve-url-loader\": \"^2.3.0\",\n    \"sinon\": \"^5.0.10\",\n    \"url-loader\": \"^1.0.1\",\n    \"webpack\": \"^4.6.0\",\n    \"webpack-cli\": \"^2.0.15\",\n    \"webpack-dev-middleware\": \"^2.0.6\",\n    \"webpack-dev-server\": \"^3.1.3\"\n  }\n}\n",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"

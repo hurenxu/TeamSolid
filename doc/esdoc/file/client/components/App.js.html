@@ -29,24 +29,86 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/App.js~App.html">App</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Advertisement.js~Advertisement.html">Advertisement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Aspect.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatCell.js~ChatCell.html">ChatCell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatWindow.js~ChatWindow.html">ChatWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html">Colorpicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Crud.js~Crud.html">Crud</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudHeader.js~CrudHeader.html">CrudHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudRow.js~CrudRow.html">CrudRow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedEvent.js~FeedEvent.html">FeedEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedInfo.js~FeedInfo.html">FeedInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FriendManagement.js~FriendManagement.html">FriendManagement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Login.js~Login.html">Login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Main.js~Main.html">Main</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html">MainFeed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Navbar.js~Navbar.html">Navbar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/NewPost.js~NewPost.html">NewPost</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/PostPopup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Select.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Signup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TechnicalSupport.js~TechnicalSupport.html">TechnicalSupport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TextBox.js~TextBox.html">TextBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Tmp.js~NameForm.html">NameForm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Routes">Routes</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">client/components/App.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, { Component } from &apos;react&apos;;
-import &apos;../css/App.css&apos;;
+import Login from &apos;./Login&apos;
+import Crud from &apos;./Crud&apos;
+import Main from &apos;./Main&apos;
+import Colorpicker from &apos;./Colorpicker&apos;
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state =
+      {
+        isLoginPage: true,
+        email: &quot;&quot;,
+        password: &quot;&quot;
+
+      };
+
+    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);
+    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);
+  }
+
+  handleLoginCrudSwap(in_email, in_password) {
+    this.setState((prevState) =&gt; ({
+      email: in_email,
+      password: in_password
+    }));
+
+    this.setState((prevState) =&gt; ({
+      isLoginPage: !prevState.isLoginPage
+    }));
+  }
+
+  handleCrudLoginSwap() {
+    this.setState((prevState) =&gt; ({
+      isLoginPage: !prevState.isLoginPage
+    }));
+  }
+
+
   render() {
+    const loginPage = &lt;Login onSubmitClicked={this.handleLoginCrudSwap} /&gt;;
+    const crudPage = &lt;Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/&gt;;
+
     return (
       &lt;div className=&quot;App&quot;&gt;
-        &lt;header className=&quot;App-header&quot;&gt;
-          &lt;h1 className=&quot;App-title&quot;&gt;Hello Team Solid&lt;/h1&gt;
-        &lt;/header&gt;
-        &lt;p className=&quot;App-intro&quot;&gt;
-          To get started, edit &lt;code&gt;src/App.js&lt;/code&gt; and save to reload.
-        &lt;/p&gt;
+        &lt;div&gt;
+          &lt;header className=&quot;App-header&quot;&gt;
+            &lt;h1 className=&quot;App-title&quot;&gt;PeterBook&lt;/h1&gt;
+          &lt;/header&gt;
+        &lt;/div&gt;
+        &lt;Main&gt;&lt;/Main&gt;
       &lt;/div&gt;
     );
   }
@@ -57,7 +119,7 @@ export default App;
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

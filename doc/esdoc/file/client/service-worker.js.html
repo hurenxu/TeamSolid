@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">client/service-worker.js | web</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Advertisement.js~Advertisement.html">Advertisement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Aspect.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatCell.js~ChatCell.html">ChatCell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatWindow.js~ChatWindow.html">ChatWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html">Colorpicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Crud.js~Crud.html">Crud</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudHeader.js~CrudHeader.html">CrudHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudRow.js~CrudRow.html">CrudRow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedEvent.js~FeedEvent.html">FeedEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedInfo.js~FeedInfo.html">FeedInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FriendManagement.js~FriendManagement.html">FriendManagement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Login.js~Login.html">Login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Main.js~Main.html">Main</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html">MainFeed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Navbar.js~Navbar.html">Navbar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/NewPost.js~NewPost.html">NewPost</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/PostPopup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Select.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Signup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TechnicalSupport.js~TechnicalSupport.html">TechnicalSupport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TextBox.js~TextBox.html">TextBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Tmp.js~NameForm.html">NameForm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Routes">Routes</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">client/service-worker.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// Set this to true for production
+var doCache = false;
+
+// Name our cache
+const VERSION = &apos;login-v1&apos;;
+var urlsToCache = [
+    &apos;/components/Login.js&apos;,
+    &apos;/css/login.css&apos;
+];
+
+// Delete old caches that are not our current one!
+self.addEventListener(&quot;activate&quot;, event =&gt; {
+    console.log(&quot;inside activate&quot;);
+    const cacheWhitelist = [VERSION];
+    event.waitUntil(
+        caches.keys()
+            .then(keyList =&gt;
+                Promise.all(keyList.map(key =&gt; {
+                    if (!cacheWhitelist.includes(key)) {
+                        console.log(&apos;Deleting cache: &apos; + key)
+                        return caches.delete(key);
+                    }
+                }))
+            )
+    );
+});
+
+// The first time the user starts up the PWA, &apos;install&apos; is triggered.
+self.addEventListener(&apos;install&apos;, function(event) {
+    if (doCache) {
+        // Perform install steps
+        event.waitUntil(
+            caches.open(VERSION)
+                .then(function (cache) {
+                    console.log(&apos;opened cache&apos;);
+                    return cache.addAll(urlsToCache);
+                })
+        );
+    }
+});
+
+// When the webpage goes to fetch files, we intercept that request and serve up the matching files
+// if we have them
+self.addEventListener(&apos;fetch&apos;, function(event) {
+    if (doCache) {
+        event.respondWith(
+            caches.match(event.request).then(function(response) {
+                console.log(&apos;fetch cache and return response&apos;);
+                return response || fetch(event.request);
+            })
+        );
+    }
+});</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

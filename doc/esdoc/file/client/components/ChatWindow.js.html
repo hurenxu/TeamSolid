@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">client/components/ChatWindow.js | web</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Advertisement.js~Advertisement.html">Advertisement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/App.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Aspect.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatCell.js~ChatCell.html">ChatCell</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/ChatWindow.js~ChatWindow.html">ChatWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html">Colorpicker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Crud.js~Crud.html">Crud</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudHeader.js~CrudHeader.html">CrudHeader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/CrudRow.js~CrudRow.html">CrudRow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedEvent.js~FeedEvent.html">FeedEvent</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FeedInfo.js~FeedInfo.html">FeedInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/FriendManagement.js~FriendManagement.html">FriendManagement</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Login.js~Login.html">Login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Main.js~Main.html">Main</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html">MainFeed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Navbar.js~Navbar.html">Navbar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/NewPost.js~NewPost.html">NewPost</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/PostPopup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Select.js~Select.html">Select</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Signup.js~Signup.html">Signup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TechnicalSupport.js~TechnicalSupport.html">TechnicalSupport</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/TextBox.js~TextBox.html">TextBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/client/components/Tmp.js~NameForm.html">NameForm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Routes">Routes</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">client/components/ChatWindow.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {Component} from &apos;react&apos;;
+import {Button, Grid, Header, Image, Form, Icon} from &apos;semantic-ui-react&apos;
+import Responsive from &apos;react-responsive&apos;;
+import axios from &apos;axios&apos;;
+import ReactDOM from &quot;react-dom&quot;;
+import ChatCell from &quot;./ChatCell&quot;
+
+const overallStyle = {
+  padding: &apos;2em&apos;,
+}
+
+const messageStyle = {
+  height: &apos;450px&apos;,
+  overflow: &apos;scroll&apos;,
+  overflowY: &apos;scroll&apos;,
+  overflowX: &apos;hidden&apos;
+}
+
+const inputStyle = {}
+
+const headerStyle = {
+  borderBottomStyle: &apos;solid&apos;,
+  borderBottomWidth: &apos;1px&apos;
+}
+
+const textareaStyle = {
+  marginTop: &apos;1em&apos;,
+}
+
+class ChatWindow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: &quot;&quot;,
+      // TODO: set id with the user
+      targetID: props.targetID,
+      targetUseName: &quot;&quot;,
+      chatHistory: []
+    }
+
+    this.loadMessage(props.targetID)
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.loadMessage = this.loadMessage.bind(this);
+    this.postMessage = this.postMessage.bind(this);
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () =&gt; this.loadMessage(this.state.targetID),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      targetID: nextProps.targetID
+    })
+
+    this.loadMessage(nextProps.targetID)
+  }
+
+  handleSubmit = (event) =&gt; {
+    this.postMessage()
+  }
+
+  loadMessage(targetID) {
+    // get user name
+    if (targetID != &quot;&quot;) {
+      axios.post(&apos;/api/searchUser&apos;, {searchKey: targetID}).then((response) =&gt; {
+        this.setState({
+          targetUserName: JSON.parse(response.data).username
+        });
+      });
+    }
+
+    axios.post(&apos;/api/switchChatTarget&apos;, {tid: targetID}).then((response) =&gt; {
+      var messages = JSON.parse(response.data)
+      messages.sort(function(a,b) {
+        return new Date(a.date) - new Date(b.date)
+      })
+
+      this.setState({
+        chatHistory: messages
+      });
+    });
+  }
+
+  postMessage() {
+    if (this.state.message === &quot;&quot;) { return }
+
+    var currentDate = new Date()
+
+    axios.post(&apos;/api/postMessage&apos;, {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) =&gt; {
+      this.loadMessage(this.state.targetID)
+    })
+
+    this.setState({message: &apos;&apos;})
+  }
+
+  render() {
+    const {message} = this.state;
+
+    const chatcells = this.state.chatHistory.map((message) =&gt;
+      &lt;ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={&apos;../assets/avatar3.jpg&apos;}/&gt;);
+
+    return (
+      &lt;div&gt;
+        &lt;Grid style={overallStyle}&gt;
+          &lt;Grid.Row style={headerStyle}&gt;
+            &lt;Grid.Column floated=&apos;left&apos; width={5}&gt;
+              &lt;Header size=&apos;medium&apos;&gt;
+                &lt;Image circular src=&apos;../assets/avatar.jpg&apos;/&gt;
+                {&apos; &apos;}{this.state.targetUserName}
+              &lt;/Header&gt;
+            &lt;/Grid.Column&gt;
+          &lt;/Grid.Row&gt;
+          &lt;Grid.Row style={messageStyle}&gt;
+            &lt;Grid.Column&gt;
+              {chatcells}
+            &lt;/Grid.Column&gt;
+          &lt;/Grid.Row&gt;
+          &lt;Grid.Row style={textareaStyle}&gt;
+            &lt;Grid.Column width={16}&gt;
+              &lt;Form reply style={inputStyle}&gt;
+                &lt;Grid&gt;
+                  &lt;Grid.Column width={12}&gt;&lt;Form.TextArea name=&apos;message&apos; value={message}
+                                                         onChange={(e, {value}) =&gt; this.setState({message: value})}/&gt;&lt;/Grid.Column&gt;
+                  &lt;Grid.Column width={4}&gt;&lt;Button style={{marginTop: &apos;1em&apos;}} content=&apos;Send&apos;
+                                                 labelPosition=&apos;left&apos; icon=&apos;send&apos; size=&apos;big&apos;
+                                                 primary
+                                                 onClick={this.handleSubmit}/&gt;&lt;/Grid.Column&gt;
+                &lt;/Grid&gt;
+              &lt;/Form&gt;
+            &lt;/Grid.Column&gt;
+          &lt;/Grid.Row&gt;
+        &lt;/Grid&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default ChatWindow;</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
