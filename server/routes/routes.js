@@ -27,9 +27,9 @@ passport.deserializeUser(function (id, done) {
 });
 
 passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
+  usernameField: 'email',
+  passwordField: 'password'
+},
   function (username, password, done) {
     MongoClient.connect(url, function (err, client) {
       const db = client.db(dbName);
@@ -67,15 +67,15 @@ router.get('/login', function (req, res) {
 router.get('/loginsuccess',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res) {
-    res.json(JSON.stringify({islogined: true}))
+    res.json(JSON.stringify({ islogined: true }))
   });
 
 router.get('/loginfail',
   function (req, res) {
-    res.json(JSON.stringify({islogined: false}))
+    res.json(JSON.stringify({ islogined: false }))
   });
 
-router.post('/api/logout', function(req, res){
+router.post('/api/logout', function (req, res) {
   req.logout();
   res.redirect('/login');
 });
@@ -103,7 +103,7 @@ router.post('/api/getUserName',
           console.log(err);
         }
 
-        res.json(JSON.stringify({"username": result[0].username}));
+        res.json(JSON.stringify({ "username": result[0].username }));
       });
     });
   });
@@ -111,7 +111,7 @@ router.post('/api/getUserName',
 router.post('/api/getUserEmail',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
-    res.json(JSON.stringify({"username": req.user.email}));
+    res.json(JSON.stringify({ "username": req.user.email }));
   });
 
 router.post('/api/signup', function (req, res, next) {
@@ -124,52 +124,52 @@ router.post('/api/signup', function (req, res, next) {
     const db = client.db(dbName);
     var cl = db.collection('accounts');
     var count;
-    db.collection('userinfo').find({std: eml}).toArray(function(err, result) {
+    db.collection('userinfo').find({ std: eml }).toArray(function (err, result) {
       if (result.length == 0) {
         cl.count(function (err, num) {
           count = num;
-          cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
+          cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd }, function () {
             console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
-              res.json(JSON.stringify({result: "OK"}));
+            db.collection('userinfo').insertOne({ userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub }, function () {
+              res.json(JSON.stringify({ result: "OK" }));
             })
           });
         });
       } else {
-        res.json(JSON.stringify({result: "DUP"}));
+        res.json(JSON.stringify({ result: "DUP" }));
       }
     })
   });
 });
 
 router.post('/api/getsub',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res, next) {
-        var eml = req.user.email;
-        var response = null;
-        MongoClient.connect(url, function (err, client) {
-            const db = client.db(dbName);
-            response = db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var eml = req.user.email;
+    var response = null;
+    MongoClient.connect(url, function (err, client) {
+      const db = client.db(dbName);
+      response = db.collection('userinfo').find({ sid: eml }).toArray(function (err, result) {
+        if (err) {
+          console.log(err);
+        }
 
-                res.json(JSON.stringify({sub: result[0].sub}));
-            });
-        });
+        res.json(JSON.stringify({ sub: result[0].sub }));
+      });
     });
+  });
 
 router.post('/api/setsub',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res, next) {
-      var eml = req.user.email;
-      var sub = req.body.sub;
-      MongoClient.connect(url, function (err, client) {
-          const db = client.db(dbName);
-          db.collection('userinfo').updateOne({sid: eml}, {$set: {"sub": sub}});
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var eml = req.user.email;
+    var sub = req.body.sub;
+    MongoClient.connect(url, function (err, client) {
+      const db = client.db(dbName);
+      db.collection('userinfo').updateOne({ sid: eml }, { $set: { "sub": sub } });
     });
-});
+  });
 
 router.post('/api/switchChatTarget',
   require('connect-ensure-login').ensureLoggedIn(),
@@ -228,11 +228,11 @@ router.post('/api/updateFriendList',
       const db = client.db(dbName);
 
       if (actionType == "delete") {
-        db.collection("userinfo").update( {sid: sourceid}, {$pullAll: {friends: [targetid]}}, function(err) {
+        db.collection("userinfo").update({ sid: sourceid }, { $pullAll: { friends: [targetid] } }, function (err) {
           if (err) {
             console.log(err);
           }
-          db.collection("userinfo").update( {sid: targetid}, {$pullAll: {friends:[sourceid]}}, function(err){
+          db.collection("userinfo").update({ sid: targetid }, { $pullAll: { friends: [sourceid] } }, function (err) {
             if (err) {
               console.log(err);
             }
@@ -244,13 +244,13 @@ router.post('/api/updateFriendList',
             res.json(JSON.stringify(result[0].friends));
           });
         });
-      } else if(actionType == "add") {
-        db.collection("userinfo").update( {sid: sourceid}, {$push: {friends: targetid}}, function(err) {
+      } else if (actionType == "add") {
+        db.collection("userinfo").update({ sid: sourceid }, { $push: { friends: targetid } }, function (err) {
           if (err) {
             console.log(err);
           }
 
-          db.collection("userinfo").update( {sid: targetid}, {$push: {friends: sourceid}}, function(err) {
+          db.collection("userinfo").update({ sid: targetid }, { $push: { friends: sourceid } }, function (err) {
             if (err) {
               console.log(err);
             }
@@ -296,7 +296,7 @@ router.post('/api/ChangeToPost',
         console.log(err);
       }
       const db = client.db(dbName);
-      db.collection("userinfo").find({std: sourceid}).toArray(function(err, result) {
+      db.collection("userinfo").find({ std: sourceid }).toArray(function (err, result) {
         var follows = result[0].follow;
 
 
@@ -404,13 +404,13 @@ router.post('/api/postMessage',
       }
       const db = client.db(dbName);
 
-      db.collection("posts").count(function(err, num) {
-        db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
+      db.collection("posts").count(function (err, num) {
+        db.collection("messages").insertOne({ sid: sourceid, tid: targetid, msg: mmsg, date: mdate }, function (err) {
           if (err) {
             console.log(err);
           }
 
-          res.json(JSON.stringify({result: "OK"}));
+          res.json(JSON.stringify({ result: "OK" }));
         });
       });
     });
@@ -435,9 +435,9 @@ router.post('/api/postPost',
             console.log(err);
           }
 
-          db.collection("userinfo").find({sid: sourceid}).toArray(function(err, result) {
+          db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
             var follows = result[0].follow;
-    
+
             db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
               if (err) {
                 console.log(err);
@@ -478,32 +478,32 @@ router.post('/api/getPosts',
   });
 
 router.post('/api/sendEmail',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res, next) {
-        var nodemailer = require('nodemailer');
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res, next) {
+    var nodemailer = require('nodemailer');
 
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'maoxianxianxian@gmail.com',
-                pass: '6295141.3'
-            }
-        });
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'maoxianxianxian@gmail.com',
+        pass: '6295141.3'
+      }
+    });
 
-        var mailOptions = {
-            from: 'maoxianxianxian@gmail.com',
-            to: 'maoxianxianxian@gmail.com',
-            subject: 'Perterbook contact from user',
-            text: req.body.content
-        };
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
-});
+    var mailOptions = {
+      from: 'maoxianxianxian@gmail.com',
+      to: 'maoxianxianxian@gmail.com',
+      subject: 'Perterbook contact from user',
+      text: req.body.content
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  });
 
 router.post('/api/follow',
   require('connect-ensure-login').ensureLoggedIn(),
@@ -520,13 +520,13 @@ router.post('/api/follow',
         }
 
         if (result[0].follow.indexOf(targetid) != -1) {
-          res.json(JSON.stringify({result: "DUP"}));
+          res.json(JSON.stringify({ result: "DUP" }));
         } else {
-          db.collection("userinfo").update( {sid: sourceid}, {$push: {follow: targetid}}, function(err) {
+          db.collection("userinfo").update({ sid: sourceid }, { $push: { follow: targetid } }, function (err) {
             if (err) {
-              res.json(JSON.stringify({result: "FAIL"}));
+              res.json(JSON.stringify({ result: "FAIL" }));
             } else {
-              res.json(JSON.stringify({result: "OK"}));
+              res.json(JSON.stringify({ result: "OK" }));
             }
           });
         }
@@ -544,12 +544,12 @@ router.post('/api/unfollow',
     MongoClient.connect(url, function (err, client) {
       const db = client.db(dbName);
 
-      db.collection("userinfo").update( {sid: sourceid}, {$pullAll: { follow:[targetid]}}, function(err){
+      db.collection("userinfo").update({ sid: sourceid }, { $pullAll: { follow: [targetid] } }, function (err) {
         if (err) {
           console.log(err)
-          res.json(JSON.stringify({result: "FAIL"}));
+          res.json(JSON.stringify({ result: "FAIL" }));
         } else {
-          res.json(JSON.stringify({result: "OK"}));
+          res.json(JSON.stringify({ result: "OK" }));
         }
       });
     });
@@ -564,9 +564,9 @@ router.post('/insert', function (req, res, next) {
     const db = client.db(dbName);
     var cl = db.collection('userTable');
     var count;
-    cl.count(function(err, num) {
-      count=num;
-      cl.insertOne({ _id:(count+1), userEmail: email, password: passwd}, function (err) {
+    cl.count(function (err, num) {
+      count = num;
+      cl.insertOne({ _id: (count + 1), userEmail: email, password: passwd }, function (err) {
         if (err) throw err;
         res.send("insertion success!");
       });
@@ -579,7 +579,7 @@ router.get('/read', function (req, res) {
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
     var cl = db.collection('userTable');
-    cl.find({}).toArray(function(err,list){
+    cl.find({}).toArray(function (err, list) {
       if (err) throw err;
       res.send(JSON.stringify(list));
     });
@@ -591,10 +591,102 @@ router.get('/delete', function (req, res) {
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
     var cl = db.collection('userTable');
-    cl.deleteOne({userEmail: email}, function(err){
-      if(err) throw err;
+    cl.deleteOne({ userEmail: email }, function (err) {
+      if (err) throw err;
       res.send("deletion success!");
     })
   });
 });
 module.exports = router;
+
+
+
+// KMS service
+const projectId = 'superb-blend-201518';
+// The location of the new key ring, e.g. "global"
+const locationId = 'global';
+
+// The name of the new key ring, e.g. "my-new-key-ring"
+const keyRingId = 'user-keyring';
+
+const keyId = 'user-key';
+
+
+// connect to google kms api
+function buildAndAuthorizeService(callback) {
+  // Imports the Google APIs client library
+  const google = require('googleapis').google;
+
+  // Acquires credentials
+  google.auth.getApplicationDefault((err, authClient) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+      authClient = authClient.createScoped([
+        'https://www.googleapis.com/auth/cloud-platform'
+      ]);
+    }
+
+    // Instantiates an authorized client
+    const cloudkms = google.cloudkms({
+      version: 'v1',
+      auth: authClient
+    });
+
+    callback(null, cloudkms);
+  });
+}
+
+function encrypt(msg) {
+  buildAndAuthorizeService((err, cloudkms) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    const request = {
+      // This will be a path parameter in the request URL
+      name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+      // This will be the request body
+      resource: {
+        plaintext: Buffer.from(msg, 'utf8').toString('base64')
+      }
+    };
+
+    console.log("encrypting" + msg);
+
+    // Encrypts the file using the specified crypto key
+    cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      // Writes the encrypted file to disk
+      const result = response.data;
+      console.log("encrypted data is: " + result.ciphertext);
+      return result.ciphertext;
+    });
+  });
+}
+
+router.post('/api/testencrypt',
+  function (req, res, next) {
+    var msg = encrypt(req.user.email);
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+
+      const db = client.db(dbName);
+
+      db.collection("test").insertOne(msg, function (err, res) {
+        if (err) throw err;
+        console.log("msg inserted: " + msg);
+        db.close();
+      })
+    });
+  });
