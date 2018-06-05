@@ -443,9 +443,16 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
     var pmsg = req.body.msg;
     var pdate = req.body.date;
     var paspect = req.body.aspect;
-    var pfilename = req.files[0].filename;
+    var pfilename = ''
 
-    console.log(req.files);
+    if ('files' in req) {
+      if (req.files.length != 0) {
+        if ('filename' in req.files[0]) {
+          pfilename = req.files[0].filename;
+        }
+      }
+    }
+
     //TODO: add filepath to db & create directory for each user
     MongoClient.connect(url, function (err, client) {
       if (err) {
