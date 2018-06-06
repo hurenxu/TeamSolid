@@ -38,11 +38,8 @@ class Signup extends Component {
         data.append('video', this.state.videoFile);
         data.append('msg', this.state.message);
         data.append('date', date);
-        console.log(data);
         //var message={msg: this.state.message, date: date};
         this.props.createPost(data);
-        console.log(this.state.imageFile);
-        console.log(this.state.imageFile.size);
         //axios.post(`/api/postPost`, {msg: this.state.message, date: date});
         this.setState({dimmer: false, open: false, message: ''});
     };
