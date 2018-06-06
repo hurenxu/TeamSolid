@@ -731,62 +731,62 @@ function encrypt(msg) {
 router.post('/api/testencrypt',
   function (req, res, next) {
     console.log("encrypting post!");
-    // var msg = encrypt(req.user.email);
-    var msg = req.user.email;
+    var msg = encrypt(req.user.email);
+    // var msg = req.user.email;
     console.log(msg);
     console.log("aa");
 
 
-    buildAndAuthorizeService((err, cloudkms) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-  
-  
-      console.log(Buffer.from(msg, 'utf8').toString('base64'));
-      const request = {
-        // This will be a path parameter in the request URL
-        name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
-        // This will be the request body
-        resource: {
-          plaintext: Buffer.from(msg, 'utf8').toString('base64')
-        }
-      };
-  
-      process.stdout.write("encrypting " + msg);
-  
-      // Encrypts the file using the specified crypto key
-      cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-  
-        // Writes the encrypted file to disk
-        const result = response.data;
-        console.log("encrypted data is: " + result.ciphertext);
-        // return result.ciphertext;
-      });
-    });
-
-
-
-
-
-
-
-    // MongoClient.connect(url, function (err, client) {
+    // buildAndAuthorizeService((err, cloudkms) => {
     //   if (err) {
     //     console.log(err);
+    //     return;
     //   }
-
-    //   const db = client.db(dbName);
-
-    //   db.collection("test").insertOne(msg, function (err, res) {
-    //     if (err) throw err;
-    //     console.log("msg inserted: " + msg);
-    //     db.close();
-    //   })
+  
+  
+    //   console.log(Buffer.from(msg, 'utf8').toString('base64'));
+    //   const request = {
+    //     // This will be a path parameter in the request URL
+    //     name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+    //     // This will be the request body
+    //     resource: {
+    //       plaintext: Buffer.from(msg, 'utf8').toString('base64')
+    //     }
+    //   };
+  
+    //   process.stdout.write("encrypting " + msg);
+  
+    //   // Encrypts the file using the specified crypto key
+    //   cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return;
+    //     }
+  
+    //     // Writes the encrypted file to disk
+    //     const result = response.data;
+    //     console.log("encrypted data is: " + result.ciphertext);
+    //     // return result.ciphertext;
+    //   });
     // });
+
+
+
+
+
+
+
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+
+      const db = client.db(dbName);
+
+      db.collection("test").insertOne(msg, function (err, res) {
+        if (err) throw err;
+        console.log("msg inserted: " + msg);
+        db.close();
+      })
+    });
   });
