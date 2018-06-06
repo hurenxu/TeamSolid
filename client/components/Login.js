@@ -59,6 +59,7 @@ class Login extends Component {
 
     redirPage(response) {
         if(JSON.parse(response.data).islogined){
+            history.pushState(null, null, '/');
             this.state.redirect = true;
             this.setState(this.state);
         }else{

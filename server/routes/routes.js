@@ -63,6 +63,10 @@ router.get('/',
   });
 
 router.get('/login', function (req, res) {
+  if (req.user) {
+    req.logout();
+  }
+
   res.render('loginpage');
 });
 
@@ -446,14 +450,14 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
     var paspect = req.body.aspect;
     var pfiles = []
 
-    console.log(req.files)
+    console.log('one post');
+
     if ('files' in req) {
       for (var i = 0; i < req.files.length; i++) {
         pfiles.push({filename: req.files[i].filename, filetype: req.files[i].mimetype})
       }
     }
 
-    //TODO: add filepath to db & create directory for each user
     MongoClient.connect(url, function (err, client) {
       if (err) {
         console.log(err);
@@ -500,6 +504,8 @@ router.post('/api/getPosts',
           if (err) {
             console.log(err);
           }
+
+          // console.log(result)
 
           res.json(JSON.stringify(result));
         });
