@@ -426,7 +426,7 @@ router.post('/api/postMessage',
     });
   });
 
-router.route('/resource/:id').post(require('connect-ensure-login').ensureLoggedIn(),
+router.route('/resource/:id').get(require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
     var sourceid = req.user.email;
     var url = req.params.id;
@@ -443,13 +443,12 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
     var pmsg = req.body.msg;
     var pdate = req.body.date;
     var paspect = req.body.aspect;
-    var pfilename = ''
+    var pfiles = []
 
+    console.log(req.files)
     if ('files' in req) {
-      if (req.files.length != 0) {
-        if ('filename' in req.files[0]) {
-          pfilename = req.files[0].filename;
-        }
+      for (var i = 0; i < req.files.length; i++) {
+        pfiles.push({filename: req.files[i].filename, filetype: req.files[i].mimetype})
       }
     }
 
@@ -461,7 +460,7 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
       const db = client.db(dbName);
 
       db.collection("posts").count(function (err, num) {
-        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
+        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, files: pfiles, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
           if (err) {
             console.log(err);
           }
