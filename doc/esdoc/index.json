@@ -1447,7 +1447,7 @@
     "__docId__": 102,
     "kind": "file",
     "name": "client/components/Crud.js",
-    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\nimport axios from 'axios';\nimport CrudRow from './CrudRow';\nimport CrudHeader from './CrudHeader';\n\n\nclass Crud extends Component {\n  constructor(props) {\n    super(props);\n\n    this.handleBackClicked = this.handleBackClicked.bind(this);\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n\n  }\n\n  handleBackClicked() {\n    this.props.onBackClicked();\n  }\n\n  handleDuplicate(dup_email, dup_password) {\n    console.log(this.props);\n    this.props.onDuplicateClicked(dup_email, dup_password);\n  }\n\n\n  render() {\n\n    // map user to CrudRows\n    const rows = this.props.users.map((user)=>\n      <CrudRow key={user.id} id={user.id} email={user.email} password={user.password} onDuplicateClicked={this.handleDuplicate} />)\n\n    return (\n      <div>\n        <Button onClick={this.handleBackClicked}>Sign out</Button>\n        <Table unstackable celled padded>\n          <CrudHeader />\n          <Table.Body>\n            {rows}\n          </Table.Body>\n        </Table>\n      </div>\n    );\n  }\n}\n\nexport default Crud;",
+    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\nimport axios from 'axios';\nimport CrudRow from './CrudRow';\nimport CrudHeader from './CrudHeader';\n\n/**\n * This class is used to implement the mechanism of create,reads,update, and delete.\n * @extends {Component}\n */\nclass Crud extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - react component for modification\n     */\n  constructor(props) {\n    super(props);\n\n    this.handleBackClicked = this.handleBackClicked.bind(this);\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n\n  }\n\n    /**\n     * handleBackClicked method is used to handle when the user presses back button on the browser.\n     */\n  handleBackClicked() {\n    this.props.onBackClicked();\n  }\n\n    /**\n     * handleDuplicate method is used to hadle when there are email or password duplicates\n     * @param {string} dup_email=user_email - duplicate email string\n     * @param {string} dup_password=user_password - duplicate email string\n     */\n  handleDuplicate(dup_email, dup_password) {\n    console.log(this.props);\n    this.props.onDuplicateClicked(dup_email, dup_password);\n  }\n\n\n    /**\n     * The render method invokes the web page when back button is clicked.\n     * @returns {*} - the invoked page when back button is clicked\n     */\n  render() {\n\n    // map user to CrudRows\n    const rows = this.props.users.map((user)=>\n      <CrudRow key={user.id} id={user.id} email={user.email} password={user.password} onDuplicateClicked={this.handleDuplicate} />)\n\n    return (\n      <div>\n        <Button onClick={this.handleBackClicked}>Sign out</Button>\n        <Table unstackable celled padded>\n          <CrudHeader />\n          <Table.Body>\n            {rows}\n          </Table.Body>\n        </Table>\n      </div>\n    );\n  }\n}\n\nexport default Crud;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Crud.js",
     "access": "public",
@@ -1465,12 +1465,11 @@
     "export": true,
     "importPath": "web/client/components/Crud.js",
     "importStyle": "Crud",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "This class is used to implement the mechanism of create,reads,update, and delete.",
+    "lineNumber": 11,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -1483,9 +1482,22 @@
     "static": false,
     "longname": "client/components/Crud.js~Crud#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "react component for modification"
+      }
+    ]
   },
   {
     "__docId__": 107,
@@ -1497,9 +1509,8 @@
     "static": false,
     "longname": "client/components/Crud.js~Crud#handleBackClicked",
     "access": "public",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
+    "description": "handleBackClicked method is used to handle when the user presses back button on the browser.",
+    "lineNumber": 28,
     "params": [],
     "return": null
   },
@@ -1513,21 +1524,32 @@
     "static": false,
     "longname": "client/components/Crud.js~Crud#handleDuplicate",
     "access": "public",
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "description": "handleDuplicate method is used to hadle when there are email or password duplicates",
+    "lineNumber": 37,
     "params": [
       {
-        "name": "dup_email",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "user_email",
+        "defaultRaw": "user_email",
+        "name": "dup_email",
+        "description": "duplicate email string"
       },
       {
-        "name": "dup_password",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "user_password",
+        "defaultRaw": "user_password",
+        "name": "dup_password",
+        "description": "duplicate email string"
       }
     ],
     "return": null
@@ -1542,15 +1564,23 @@
     "static": false,
     "longname": "client/components/Crud.js~Crud#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the web page when back button is clicked.",
+    "lineNumber": 47,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - the invoked page when back button is clicked"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "the invoked page when back button is clicked"
+    },
+    "params": []
   },
   {
     "__docId__": 110,

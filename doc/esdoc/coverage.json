@@ -1,7 +1,7 @@
 {
-  "coverage": "5.88%",
+  "coverage": "9.15%",
   "expectCount": 153,
-  "actualCount": 9,
+  "actualCount": 14,
   "files": {
     "client/components/Advertisement.js": {
       "expectCount": 3,
@@ -70,14 +70,8 @@
     },
     "client/components/Crud.js": {
       "expectCount": 5,
-      "actualCount": 0,
-      "undocumentLines": [
-        8,
-        9,
-        17,
-        21,
-        27
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "client/components/CrudHeader.js": {
       "expectCount": 2,
