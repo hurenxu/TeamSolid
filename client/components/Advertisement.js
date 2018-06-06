@@ -14,7 +14,7 @@ class Advertisement extends Component {
     /**
      * This constructor is inherited from the Component Super Class, and passes in a props object which
      * is a component that can be customized
-     * @param {Object} props - A react component that can be customized, in this case the google ad
+     * @param {Object} props=react_component - A react component that can be customized, in this case the google ad.
      */
     constructor(props) {
         super(props);
@@ -24,7 +24,7 @@ class Advertisement extends Component {
      * The render function invokes a specified element everytime and returns that element. In this case,
      * the function first checks if it can open the customized component (ad) , if it can open the
      * component (ad) then it proceed to invoke the google ad element.
-     * @returns {*} - returns the invoked google ad element
+     * @returns {*} - returns the invoked google ad element.
      */
     render() {
         if(this.props.open === false) {

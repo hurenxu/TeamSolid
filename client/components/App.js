@@ -13,7 +13,7 @@ class App extends Component {
     /**
      * This constructor invokes the constructor from the super class Component. It's used to initialize the
      * login page by initializing the email and password fields to default empty.
-     * @param {Object} props - react component that can be modified
+     * @param {Object} props=react_component - react component that can be modified.
      */
   constructor(props) {
     super(props);
@@ -38,8 +38,8 @@ class App extends Component {
     /**
      * The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism
      * to handle the user's input email and input password.
-     * @param {string} in_email - user's input email
-     * @param {string} in_password - user's input password
+     * @param {string} in_email=user_email - user's input email.
+     * @param {string} in_password=user_password - user's input password.
      */
   handleLoginCrudSwap(in_email, in_password) {
     this.setState((prevState) => ({
@@ -66,7 +66,7 @@ class App extends Component {
     /**
      * The render method invokes the PeterBook components that handle login page interactions with email,
      * password, and clicked items.
-     * @returns {*} - the invoked Peterbook Login Page
+     * @returns {*} - the invoked Peterbook Login Page.
      */
   render() {
     const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;

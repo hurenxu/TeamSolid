@@ -73,7 +73,7 @@ class App extends Component {
     /**
      * This constructor invokes the constructor from the super class Component. It&apos;s used to initialize the
      * login page by initializing the email and password fields to default empty.
-     * @param {Object} props - react component that can be modified
+     * @param {Object} props=react_component - react component that can be modified
      */
   constructor(props) {
     super(props);
@@ -98,8 +98,8 @@ class App extends Component {
     /**
      * The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism
      * to handle the user&apos;s input email and input password.
-     * @param {string} in_email - user&apos;s input email
-     * @param {string} in_password - user&apos;s input password
+     * @param {string} in_email=user_email - user&apos;s input email
+     * @param {string} in_password=user_password - user&apos;s input password
      */
   handleLoginCrudSwap(in_email, in_password) {
     this.setState((prevState) =&gt; ({

@@ -61,9 +61,18 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {Component} from &quot;react&quot;;
 import {Header, Table} from &quot;semantic-ui-react&quot;;
 
-
+/**
+ * The CrudHeader class is used to format the attributes of id, email, password, and actions
+ * using a table.
+ * @extends {Component}
+ */
 class CrudHeader extends Component {
-  render() {
+
+    /**
+     * The render method invokes the formatted header using a table.
+     * @returns {*} - invokes the formatted attributes id,email,password, and actions
+     */
+    render() {
     return (
       &lt;Table.Header&gt;
         &lt;Table.Row&gt;

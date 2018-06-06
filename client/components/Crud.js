@@ -12,7 +12,7 @@ class Crud extends Component {
 
     /**
      * The constructor passes a props object which is a react component that can be modified for use.
-     * @param {Object} props=react_component - react component for modification
+     * @param {Object} props=react_component - react component for modification.
      */
   constructor(props) {
     super(props);
@@ -30,9 +30,9 @@ class Crud extends Component {
   }
 
     /**
-     * handleDuplicate method is used to hadle when there are email or password duplicates
-     * @param {string} dup_email=user_email - duplicate email string
-     * @param {string} dup_password=user_password - duplicate email string
+     * handleDuplicate method is used to hadle when there are email or password duplicates.
+     * @param {string} dup_email=user_email - duplicate email string.
+     * @param {string} dup_password=user_password - duplicate email string.
      */
   handleDuplicate(dup_email, dup_password) {
     console.log(this.props);
@@ -42,7 +42,7 @@ class Crud extends Component {
 
     /**
      * The render method invokes the web page when back button is clicked.
-     * @returns {*} - the invoked page when back button is clicked
+     * @returns {*} - the invoked page when back button is clicked.
      */
   render() {
 
