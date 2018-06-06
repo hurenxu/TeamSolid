@@ -58,13 +58,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import App from &apos;<span><a href="file/client/components/App.js.html#lineNumber7">web/client/components/App.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import App from &apos;<span><a href="file/client/components/App.js.html#lineNumber11">web/client/components/App.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/client/components/App.js.html#lineNumber7">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/client/components/App.js.html#lineNumber11">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -74,7 +74,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>react~Component</span> &#x2192; App</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>Component</span> &#x2192; App</div></div>
   
   
   
@@ -84,7 +84,8 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>This App class is the main app JavaScript component.</p>
+</div>
   
 
   
@@ -116,13 +117,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/App.js~App.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/App.js~App.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>This constructor invokes the constructor from the super class Component.</p>
+</div>
       </div>
     </td>
     <td>
@@ -151,13 +153,15 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/App.js~App.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {&quot;isLoginPage&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, &quot;email&quot;: <span>*</span>, &quot;password&quot;: <span>*</span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/App.js~App.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {isLoginPage: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, email: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, password: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The member variables of the page&apos;s state include a booolean to check if it&apos;s the login page, a string
+field for the email, and a string field for the password.</p>
+</div>
       </div>
     </td>
     <td>
@@ -192,7 +196,9 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>The method handleCrudLoginSwap , uses the create, read, update, and delete mechanism to restore the
+the login back to it&apos;s original state once a user has finished loggin in.</p>
+</div>
       </div>
     </td>
     <td>
@@ -214,13 +220,15 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/App.js~App.html#instance-method-handleLoginCrudSwap">handleLoginCrudSwap</a></span></span><span class="code" data-ice="signature">(in_email: <span>*</span>, in_password: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/App.js~App.html#instance-method-handleLoginCrudSwap">handleLoginCrudSwap</a></span></span><span class="code" data-ice="signature">(in_email: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, in_password: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism
+to handle the user&apos;s input email and input password.</p>
+</div>
       </div>
     </td>
     <td>
@@ -248,7 +256,9 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>The render method invokes the PeterBook components that handle login page interactions with email,
+password, and clicked items.</p>
+</div>
       </div>
     </td>
     <td>
@@ -274,22 +284,41 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber8">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>This constructor invokes the constructor from the super class Component. It&apos;s used to initialize the
+login page by initializing the email and password fields to default empty.</p>
+</div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">props</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>react component that can be modified</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -320,18 +349,20 @@
     
     
     
-    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {&quot;isLoginPage&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, &quot;email&quot;: <span>*</span>, &quot;password&quot;: <span>*</span>}</span>
+    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {isLoginPage: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, email: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, password: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The member variables of the page&apos;s state include a booolean to check if it&apos;s the login page, a string
+field for the email, and a string field for the password.</p>
+</div>
 
   
 
@@ -370,14 +401,16 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber33">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The method handleCrudLoginSwap , uses the create, read, update, and delete mechanism to restore the
+the login back to it&apos;s original state once a user has finished loggin in.</p>
+</div>
 
   
 
@@ -409,18 +442,20 @@
     
     
     
-    <span class="code" data-ice="name">handleLoginCrudSwap</span><span class="code" data-ice="signature">(in_email: <span>*</span>, in_password: <span>*</span>)</span>
+    <span class="code" data-ice="name">handleLoginCrudSwap</span><span class="code" data-ice="signature">(in_email: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, in_password: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber22">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism
+to handle the user&apos;s input email and input password.</p>
+</div>
 
   
 
@@ -434,15 +469,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">in_email</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>user&apos;s input email</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">in_password</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>user&apos;s input password</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -478,14 +515,16 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber40">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/App.js.html#lineNumber71">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The render method invokes the PeterBook components that handle login page interactions with email,
+password, and clicked items.</p>
+</div>
 
   
 
@@ -498,7 +537,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>the invoked Peterbook Login Page</p>
+</td>
         </tr>
       </tbody>
     </table>

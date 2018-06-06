@@ -569,7 +569,7 @@
     "name": "client/components/Advertisement.js",
     "content": "import React, {Component} from 'react'\nimport {Button} from 'semantic-ui-react'\nimport GoogleAds from 'react-google-ads'\nimport axios from \"axios/index\";\n\n\n/**\n * This is the Advertisement class that extends the Component class. This class is used to generate the ad services\n * sponsored by Google Ads and required for the PeterBook to be profitable.\n * @extends {Component}\n */\nclass Advertisement extends Component {\n\n    /**\n     * This constructor is inherited from the Component Super Class, and passes in a props object which\n     * is a component that can be customized\n     * @param {Object} props - A react component that can be customized, in this case the google ad\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render function invokes a specified element everytime and returns that element. In this case,\n     * the function first checks if it can open the customized component (ad) , if it can open the\n     * component (ad) then it proceed to invoke the google ad element.\n     * @returns {*} - returns the invoked google ad element\n     */\n    render() {\n        if(this.props.open === false) {\n            return (\n              <div></div>\n            );\n        }\n        else {\n            return (\n                <div>\n                    <GoogleAds\n                        client=\"ca-pub-7292810486004926\"\n                        slot=\"7806394673\"\n                        style={{display: 'inline-block', width: '100%',}}\n                    />\n                    <Button positive onClick={this.props.handleClick}>\n                        Subscribe to remove ads\n                    </Button>\n                </div>\n            );\n        }\n    }\n}\n\nexport default Advertisement\n",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Advertisement.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Advertisement.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -649,9 +649,9 @@
     "__docId__": 52,
     "kind": "file",
     "name": "client/components/App.js",
-    "content": "import React, { Component } from 'react';\nimport Login from './Login'\nimport Crud from './Crud'\nimport Main from './Main'\nimport Colorpicker from './Colorpicker'\n\nclass App extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        isLoginPage: true,\n        email: \"\",\n        password: \"\"\n\n      };\n\n    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);\n    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);\n  }\n\n  handleLoginCrudSwap(in_email, in_password) {\n    this.setState((prevState) => ({\n      email: in_email,\n      password: in_password\n    }));\n\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n  handleCrudLoginSwap() {\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n\n  render() {\n    const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;\n    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;\n\n    return (\n      <div className=\"App\">\n        <div>\n          <header className=\"App-header\">\n            <h1 className=\"App-title\">PeterBook</h1>\n          </header>\n        </div>\n        <Main></Main>\n      </div>\n    );\n  }\n}\nexport default App;\n",
+    "content": "import React, { Component } from 'react';\nimport Login from './Login'\nimport Crud from './Crud'\nimport Main from './Main'\nimport Colorpicker from './Colorpicker'\n\n/**\n * This App class is the main app JavaScript component.\n * @extends {Component}\n */\nclass App extends Component {\n\n    /**\n     * This constructor invokes the constructor from the super class Component. It's used to initialize the\n     * login page by initializing the email and password fields to default empty.\n     * @param {Object} props - react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The member variables of the page's state include a booolean to check if it's the login page, a string\n         * field for the email, and a string field for the password.\n         * @type {{isLoginPage: boolean, email: string, password: string}}\n         */\n    this.state =\n      {\n        isLoginPage: true,\n        email: \"\",\n        password: \"\"\n\n      };\n\n    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);\n    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);\n  }\n\n    /**\n     * The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism\n     * to handle the user's input email and input password.\n     * @param {string} in_email - user's input email\n     * @param {string} in_password - user's input password\n     */\n  handleLoginCrudSwap(in_email, in_password) {\n    this.setState((prevState) => ({\n      email: in_email,\n      password: in_password\n    }));\n\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n    /**\n     * The method handleCrudLoginSwap , uses the create, read, update, and delete mechanism to restore the\n     * the login back to it's original state once a user has finished loggin in.\n     */\n  handleCrudLoginSwap() {\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n\n    /**\n     * The render method invokes the PeterBook components that handle login page interactions with email,\n     * password, and clicked items.\n     * @returns {*} - the invoked Peterbook Login Page\n     */\n  render() {\n    const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;\n    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;\n\n    return (\n      <div className=\"App\">\n        <div>\n          <header className=\"App-header\">\n            <h1 className=\"App-title\">PeterBook</h1>\n          </header>\n        </div>\n        <Main></Main>\n      </div>\n    );\n  }\n}\nexport default App;\n",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/App.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/App.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -667,12 +667,11 @@
     "export": true,
     "importPath": "web/client/components/App.js",
     "importStyle": "App",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "This App class is the main app JavaScript component.",
+    "lineNumber": 11,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -685,9 +684,20 @@
     "static": false,
     "longname": "client/components/App.js~App#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true
+    "description": "This constructor invokes the constructor from the super class Component. It's used to initialize the\nlogin page by initializing the email and password fields to default empty.",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 55,
@@ -697,13 +707,15 @@
     "static": false,
     "longname": "client/components/App.js~App#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 10,
-    "undocument": true,
+    "description": "The member variables of the page's state include a booolean to check if it's the login page, a string\nfield for the email, and a string field for the password.",
+    "lineNumber": 26,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"isLoginPage\": boolean, \"email\": *, \"password\": *}"
-      ]
+        "{isLoginPage: boolean, email: string, password: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -716,21 +728,28 @@
     "static": false,
     "longname": "client/components/App.js~App#handleLoginCrudSwap",
     "access": "public",
-    "description": null,
-    "lineNumber": 22,
-    "undocument": true,
+    "description": "The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism\nto handle the user's input email and input password.",
+    "lineNumber": 44,
     "params": [
       {
-        "name": "in_email",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "in_email",
+        "description": "user's input email"
       },
       {
-        "name": "in_password",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "in_password",
+        "description": "user's input password"
       }
     ],
     "return": null
@@ -745,9 +764,8 @@
     "static": false,
     "longname": "client/components/App.js~App#handleCrudLoginSwap",
     "access": "public",
-    "description": null,
-    "lineNumber": 33,
-    "undocument": true,
+    "description": "The method handleCrudLoginSwap , uses the create, read, update, and delete mechanism to restore the\nthe login back to it's original state once a user has finished loggin in.",
+    "lineNumber": 59,
     "params": [],
     "return": null
   },
@@ -761,15 +779,23 @@
     "static": false,
     "longname": "client/components/App.js~App#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 40,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the PeterBook components that handle login page interactions with email,\npassword, and clicked items.",
+    "lineNumber": 71,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - the invoked Peterbook Login Page"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "the invoked Peterbook Login Page"
+    },
+    "params": []
   },
   {
     "__docId__": 61,
@@ -777,7 +803,7 @@
     "name": "client/components/Aspect.js",
     "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\n\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\nclass Select extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeIndex: 0,\n      aspect: 'Others'\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.handleAspect = this.handleAspect.bind(this);\n  }\n\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n  }\n\n  handleAspect(aspect) {\n    this.setState({aspect: aspect});\n    this.props.handleAspect(aspect);\n  }\n\n  render() {\n    const {activeIndex} = this.state;\n\n    return (\n      <div>\n          <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='list layout' />\n              <Header.Content>\n                  Aspects\n              </Header.Content>\n          </Header>\n        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n          <Menu.Item>\n            <Input icon='search' placeholder='Search tag...'/>\n          </Menu.Item>\n          <Menu.Item name='0' index={0} value='Others' active={activeIndex === 0} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Others\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='0' index={1} value='Family' active={activeIndex === 1} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Family\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='1' index={2} value='Friends' active={activeIndex === 2} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Friends\n            <Label color='green'>12</Label>\n          </Menu.Item>\n\n          <Menu.Item name='2' index={3} value='Favorite' active={activeIndex === 3} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Favorite\n            <Label color='green'>1</Label>\n          </Menu.Item>\n\n        </Menu>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Aspect.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Aspect.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -935,7 +961,7 @@
     "name": "client/components/ChatCell.js",
     "content": "import React, {Component} from 'react';\nimport {Grid, Message} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\n\nclass ChatCell extends Component {\n\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    var currMessage = \"\"\n    if (this.props.me) {\n      currMessage =\n        <Grid>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          </Grid.Column>\n          <Grid.Column width={14} textAlign='left'>\n            <Message compact color='green'>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n        </Grid>\n    } else {\n      currMessage =\n        <Grid>\n          <Grid.Column width={14} textAlign='right'>\n            <Message compact>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src={this.props.img}/>\n          </Grid.Column>\n        </Grid>\n    }\n    return (\n      <div style={{marginTop: '1em'}}>\n        {currMessage}\n      </div>\n    );\n  }\n}\n\nexport default ChatCell;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/ChatCell.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/ChatCell.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -999,7 +1025,7 @@
     "name": "client/components/ChatWindow.js",
     "content": "import React, {Component} from 'react';\nimport {Button, Grid, Header, Image, Form, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport ChatCell from \"./ChatCell\"\n\nconst overallStyle = {\n  padding: '2em',\n}\n\nconst messageStyle = {\n  height: '450px',\n  overflow: 'scroll',\n  overflowY: 'scroll',\n  overflowX: 'hidden'\n}\n\nconst inputStyle = {}\n\nconst headerStyle = {\n  borderBottomStyle: 'solid',\n  borderBottomWidth: '1px'\n}\n\nconst textareaStyle = {\n  marginTop: '1em',\n}\n\nclass ChatWindow extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      message: \"\",\n      // TODO: set id with the user\n      targetID: props.targetID,\n      targetUseName: \"\",\n      chatHistory: []\n    }\n\n    this.loadMessage(props.targetID)\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.loadMessage = this.loadMessage.bind(this);\n    this.postMessage = this.postMessage.bind(this);\n  }\n\n  componentDidMount() {\n    this.timerID = setInterval(\n      () => this.loadMessage(this.state.targetID),\n      1000\n    );\n  }\n\n  componentWillUnmount() {\n    clearInterval(this.timerID);\n  }\n\n  componentWillReceiveProps(nextProps) {\n    this.setState({\n      targetID: nextProps.targetID\n    })\n\n    this.loadMessage(nextProps.targetID)\n  }\n\n  handleSubmit = (event) => {\n    this.postMessage()\n  }\n\n  loadMessage(targetID) {\n    // get user name\n    if (targetID != \"\") {\n      axios.post('/api/searchUser', {searchKey: targetID}).then((response) => {\n        this.setState({\n          targetUserName: JSON.parse(response.data).username\n        });\n      });\n    }\n\n    axios.post('/api/switchChatTarget', {tid: targetID}).then((response) => {\n      var messages = JSON.parse(response.data)\n      messages.sort(function(a,b) {\n        return new Date(a.date) - new Date(b.date)\n      })\n\n      this.setState({\n        chatHistory: messages\n      });\n    });\n  }\n\n  postMessage() {\n    if (this.state.message === \"\") { return }\n\n    var currentDate = new Date()\n\n    axios.post('/api/postMessage', {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {\n      this.loadMessage(this.state.targetID)\n    })\n\n    this.setState({message: ''})\n  }\n\n  render() {\n    const {message} = this.state;\n\n    const chatcells = this.state.chatHistory.map((message) =>\n      <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);\n\n    return (\n      <div>\n        <Grid style={overallStyle}>\n          <Grid.Row style={headerStyle}>\n            <Grid.Column floated='left' width={5}>\n              <Header size='medium'>\n                <Image circular src='../assets/avatar.jpg'/>\n                {' '}{this.state.targetUserName}\n              </Header>\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={messageStyle}>\n            <Grid.Column>\n              {chatcells}\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={textareaStyle}>\n            <Grid.Column width={16}>\n              <Form reply style={inputStyle}>\n                <Grid>\n                  <Grid.Column width={12}><Form.TextArea name='message' value={message}\n                                                         onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>\n                  <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'\n                                                 labelPosition='left' icon='send' size='big'\n                                                 primary\n                                                 onClick={this.handleSubmit}/></Grid.Column>\n                </Grid>\n              </Form>\n            </Grid.Column>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default ChatWindow;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/ChatWindow.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/ChatWindow.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1313,7 +1339,7 @@
     "name": "client/components/Colorpicker.js",
     "content": "import React, {Component} from 'react';\nimport {Button, Grid} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport { SketchPicker } from 'react-color'\n\nclass Colorpicker extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        background: 'black',\n      };\n    this.handleChangeComplete = this.handleChangeComplete.bind(this);\n  };\n\n  handleChangeComplete(color, event){\n    console.log(color.hex);\n    this.setState({ background: color.hex });\n  };\n\n  render() {\n    return (\n      <div style={{marginTop: '5%'}}>\n        <Grid centered>\n          <Grid.Row>\n            <h1 style={{color: this.state.background}}>Hello</h1>\n          </Grid.Row>\n          <Grid.Row>\n            <SketchPicker color={this.state.background } onChangeComplete={ this.handleChangeComplete } />\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Colorpicker;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Colorpicker.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Colorpicker.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1423,7 +1449,7 @@
     "name": "client/components/Crud.js",
     "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\nimport axios from 'axios';\nimport CrudRow from './CrudRow';\nimport CrudHeader from './CrudHeader';\n\n\nclass Crud extends Component {\n  constructor(props) {\n    super(props);\n\n    this.handleBackClicked = this.handleBackClicked.bind(this);\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n\n  }\n\n  handleBackClicked() {\n    this.props.onBackClicked();\n  }\n\n  handleDuplicate(dup_email, dup_password) {\n    console.log(this.props);\n    this.props.onDuplicateClicked(dup_email, dup_password);\n  }\n\n\n  render() {\n\n    // map user to CrudRows\n    const rows = this.props.users.map((user)=>\n      <CrudRow key={user.id} id={user.id} email={user.email} password={user.password} onDuplicateClicked={this.handleDuplicate} />)\n\n    return (\n      <div>\n        <Button onClick={this.handleBackClicked}>Sign out</Button>\n        <Table unstackable celled padded>\n          <CrudHeader />\n          <Table.Body>\n            {rows}\n          </Table.Body>\n        </Table>\n      </div>\n    );\n  }\n}\n\nexport default Crud;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Crud.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Crud.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1532,7 +1558,7 @@
     "name": "client/components/CrudHeader.js",
     "content": "import React, {Component} from \"react\";\nimport {Header, Table} from \"semantic-ui-react\";\n\n\nclass CrudHeader extends Component {\n  render() {\n    return (\n      <Table.Header>\n        <Table.Row>\n          <Table.HeaderCell>Id</Table.HeaderCell>\n          <Table.HeaderCell>Email</Table.HeaderCell>\n          <Table.HeaderCell>Password</Table.HeaderCell>\n          <Table.HeaderCell>Actions</Table.HeaderCell>\n        </Table.Row>\n      </Table.Header>);\n  }\n}\n\nexport default CrudHeader;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/CrudHeader.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/CrudHeader.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1582,7 +1608,7 @@
     "name": "client/components/CrudRow.js",
     "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\n\n\nclass CrudRow extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.state = {\n      id: props.id,\n      email: props.email,\n      password: props.password\n    };\n\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n  }\n\n  handleDuplicate() {\n    console.log(this.props);\n    this.props.onDuplicateClicked(this.state.email, this.state.password);\n  }\n\n  render() {\n    return (\n      <Table.Row>\n        <Table.Cell>{this.state.id}</Table.Cell>\n        <Table.Cell>{this.state.email}</Table.Cell>\n        <Table.Cell>{this.state.password}</Table.Cell>\n        <Table.Cell>\n          <Button color=\"red\" onClick={this.handleDuplicate}>Duplicate</Button>\n        </Table.Cell>\n      </Table.Row>);\n  }\n}\n\nexport default CrudRow;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/CrudRow.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/CrudRow.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1679,7 +1705,7 @@
     "name": "client/components/FeedEvent.js",
     "content": "import React, {Component} from 'react'\nimport { Feed, Icon } from 'semantic-ui-react'\nimport moment from \"moment\";\nimport axios from \"axios/index\";\n\n\nclass FeedEvent extends Component {\n\n  constructor(props) {\n    super(props);\n    this.addALike = this.addALike.bind(this);\n  }\n\n  addALike() {\n    axios.post('/api/LikeAPost', {postid: this.props.postid});\n  }\n\n  render() {\n      return (\n      <Feed.Event>\n        <Feed.Label image={this.props.imageURL}/>\n        <Feed.Content>\n          <Feed.Summary>\n            <a>{this.props.userName}</a> posted this feed\n            <Feed.Date>{moment(this.props.date).fromNow()}</Feed.Date>\n          </Feed.Summary>\n          <Feed.Extra text>\n            {this.props.mainText}\n          </Feed.Extra>\n          <Feed.Extra images>\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n          </Feed.Extra>\n          <Feed.Meta>\n            <Feed.Like onClick={()=> this.addALike()}>\n              <Icon name='like'/>\n              {this.props.numOfLikes} Likes\n            </Feed.Like>\n          </Feed.Meta>\n        </Feed.Content>\n      </Feed.Event>\n    );\n  }\n}\n\nexport default FeedEvent",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/FeedEvent.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/FeedEvent.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1759,7 +1785,7 @@
     "name": "client/components/FeedInfo.js",
     "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Header} from 'semantic-ui-react'\nimport Adv from './Advertisement'\n\nclass FeedInfo extends Component {\n\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return (\n        <div>\n        <Header as='h2' floated='left' style={{marginLeft: \"1em\"}}>\n            <Icon name='file text outline' />\n            <Header.Content>\n                Activties\n            </Header.Content>\n        </Header>\n      <Feed style={{marginTop: '5vh'}}>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/images.png'/>\n          <Feed.Content content='Peter Pan post a moment on the Work Aspect Channel'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/Aha-Soft-Free-Large-Boss-Superman.ico'/>\n          <Feed.Content content='You added Renxu Hu to the aspect Family'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/mom.png'/>\n          <Feed.Content content='Nimama (Aspect: Family) sent you a message'/>\n        </Feed.Event>\n      </Feed>\n            <Adv open={this.props.sub === false} handleClick={this.props.handleClick}/>\n        </div>\n    );\n  }\n}\n\nexport default FeedInfo\n",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/FeedInfo.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/FeedInfo.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1823,7 +1849,7 @@
     "name": "client/components/FriendManagement.js",
     "content": "import React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from 'semantic-ui-react'\n\nconst style = {\n  marginTop: '5em',\n}\n\nclass FriendManagement extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      targetFriend: \"\",\n      value: \"\",\n      username: \"\",\n      friendList: []\n    }\n    this.handleSubmit = this.handleSubmit.bind(this)\n    this.handleChange = this.handleChange.bind(this)\n    this.handleDelete = this.handleDelete.bind(this)\n  }\n\n  componentDidMount() {\n    axios.post('/api/getUserEmail').then((response) => {\n      console.log(JSON.parse(response.data))\n      this.setState({\n        username: JSON.parse(response.data).username\n      })\n      axios.post('api/getFriendList').then((response) => {\n        this.setState({friendList: JSON.parse(response.data)});\n      });\n    });\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value,\n                   targetFriend: event.target.value\n    });\n  }\n\n  handleDelete(curr_friend, e) {\n    e.preventDefault();\n    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: \"delete\"}).then((response) => {\n      console.log(JSON.stringify(response.data));\n      this.setState({friendList: JSON.parse(response.data)})\n    });\n  }\n\n  handleSubmit(event) {\n    console.log(\"Submit\");\n    console.log(this.state.targetFriend)\n    if(this.state.friendList.includes(this.state.targetFriend)){\n      alert('He/she is already your friend!')\n    }\n    else{\n      axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {\n        const checkResult = response.data;\n        if(checkResult){\n          console.log(\"It exists\")\n          if(this.state.targetFriend === this.state.username){\n            alert('You cannot add yourself!')\n          }\n          else{\n            axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: \"add\"}).then((response) => {\n              console.log(JSON.stringify(response.data));\n              this.setState({friendList: JSON.parse(response.data)})\n              alert('Success');\n              this.setState({value: \"\"});\n            });\n          }\n        }\n        else{\n          console.log(\"It doesn't exist\")\n          alert('User doesn\\'t exist!');\n          this.setState({value: \"\"});\n        }\n      });\n    }\n  }\n\n  render(){\n\n    var currFriends = <div></div>\n\n    if(this.state.friendList.length != 0){\n      console.log(\"You have friends\")\n      console.log(this.state.friendList.length)\n      currFriends = this.state.friendList.map((friend) => (\n          <Card>\n            <Card.Content>\n              {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}\n              <Card.Header>{friend}</Card.Header>\n              <Card.Meta>Friend</Card.Meta>\n              <Card.Description>\n              </Card.Description>\n            </Card.Content>\n            <Card.Content extra>\n              <div className='ui two buttons'>\n                <Button basic color='red' onClick={this.handleDelete.bind(this, friend)}>\n                  Delete\n                </Button>\n              </div>\n            </Card.Content>\n          </Card>\n        )\n      );\n    }\n    else{\n      currFriends = <h3>You have no friends loser</h3>\n      console.log(\"You have no friends\")\n    }\n\n    return (\n      <div style={style}>\n        <Header as='h2' textAlign='left'>Add a friend</Header>\n        <Input icon='users' iconPosition='left' value={this.state.value}\n               onChange={this.handleChange} placeholder='Search users...' />\n        <Button icon labelPosition='right' onClick={this.handleSubmit}>\n          Add Friend\n          <Icon name='right arrow' />\n        </Button>\n        <Header as='h2' textAlign='left'>Manage friends</Header>\n        <Card.Group style={{marginTop: '3em'}}>\n          {currFriends}\n        </Card.Group>\n      </div>\n    );\n  }\n}\n\nexport default FriendManagement",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/FriendManagement.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/FriendManagement.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2016,7 +2042,7 @@
     "name": "client/components/Login.js",
     "content": "/**\n * Created by Wanhui on 4/20/18.\n */\n\nimport React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport '../css/login.css'\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport TextBox from './TextBox';\nimport Navbar from './Navbar';\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport SignUp from './Signup';\nimport App from './App';\n\nclass Login extends Component {\n    constructor(props) {\n        super(props);\n        this.state =\n            {\n                email: '',\n                password: '',\n                buttonText: 'Login',\n                msg_link: 'Sign Up',\n                header_privacy: 'Decentralization',\n                header_security: 'Security',\n                header_freedom: 'Freedom',\n                msg_privacy: 'You choose who can see your data.',\n                msg_security: 'All data are encrypted to make them safe.',\n                msg_freedom: 'Your identity is not controlled and observed.',\n                open: 0,\n                redirect:false\n            };\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n        this.onclose = this.onclose.bind(this);\n        this.state.redirPage=this.props.redirPage;\n  }\n\n  handleSubmit(event) {\n    event.preventDefault();\n    function validateEmail(email) {\n      var re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\n      return re.test(String(email).toLowerCase());\n    }\n\n    if (validateEmail(this.state.email) && this.state.password != '' ) {\n      //Submit to somewhere\n      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> this.redirPage(response));\n    }\n    else if (!validateEmail(this.state.email)) {\n      alert('Invalid email address');\n    }\n    else {\n      alert('Password cannot be empty');\n    }\n  }\n\n    redirPage(response) {\n        if(JSON.parse(response.data).islogined){\n            this.state.redirect = true;\n            this.setState(this.state);\n        }else{\n            alert('Incorrect email or password!');\n        }\n    }\n\n    onclose(event) {\n        this.state.redirect = true;\n        this.setState({redirect: true});\n    }\n\n  render() {\n    const Mobile = props => <Responsive {...props} maxWidth={767}/>;\n    const Default = props => <Responsive {...props} minWidth={768}/>;\n\n        if(this.state.redirect){\n            return <App />;\n        }\n\n        return (\n            <div className=\"App\">\n                <div>\n                <header className=\"App-login-header\">\n                    <h3 className=\"App-title\">Peterbook</h3>\n                </header>\n                </div>\n        <Grid style={{marginTop: '-80px'}} columns={16} divided='vertically' className=\"text_board\">\n                <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>\n                    <Grid.Row className ='text_box text_font'>\n                        <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_security} text={this.state.msg_security}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>\n                    </Grid.Row>\n                </Grid.Column>\n\n            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className=\"login_box\" style={{height: '55%'}}>\n                    <h2 className=\"ui form_header centered\">\n                        <div className=\"content mid_text\">\n                            Log-in to your account\n                        </div>\n                    </h2>\n                <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                    <Form size='huge'>\n                        <Form.Input\n                            fluid icon='user' iconPosition='left' placeholder='email'\n                            onChange={(e, {value})=> this.setState({email: value})}\n                        />\n                        <Form.Input\n                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                            onChange={(e, {value})=> this.setState({password: value})}\n                        />\n                    </Form>\n                </Container>\n                    <Button positive icon='checkmark' content=\"Log In\" labelPosition='right' onClick={this.handleSubmit} />\n                    <Button color='grey' icon='genderless' labelPosition='right' content='Sign up' onClick={()=>this.setState({open: 1})} />\n            </Grid.Column>\n            </Grid>\n                <SignUp onclose={()=> this.onclose()} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>\n            </div>\n        );\n    }\n}\n\nexport default Login;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Login.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Login.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2166,7 +2192,7 @@
     "name": "client/components/Main.js",
     "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Feed} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport Navbar from './Navbar'\nimport Select from './Select'\nimport MainFeed from './MainFeed'\nimport ChatWindow from './ChatWindow'\nimport FeedInfo from './FeedInfo'\nimport Aspect from './Aspect'\nimport FriendManagement from './FriendManagement'\nimport axios from \"axios/index\";\n\nclass Main extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      mode: 'posts',\n      targetUserID: \"\",\n      aspect: 'Others',\n      friendList: [],\n        sub: false,\n        loginBack: true\n    }\n\n    this.handlePosts = this.handlePosts.bind(this);\n    this.handleFriends = this.handleFriends.bind(this);\n    this.handleMessages = this.handleMessages.bind(this);\n    this.handlePost = this.handlePost.bind(this);\n    this.handleClick = this.handleClick.bind(this);\n    this.handleUnsub = this.handleUnsub.bind(this);\n  }\n\n  handlePosts() {\n    this.setState({\n      mode: 'posts'\n    })\n  }\n\n  handleFriends() {\n    this.setState({\n      mode: 'friends'\n    })\n  }\n\n  handleMessages(inputID = \"\") {\n    this.setState({\n      mode: 'messages',\n      targetUserID: inputID\n    })\n  }\n\n  handlePost(aspect) {\n    this.setState({\n      aspect: aspect\n    });\n    this.state.aspect = aspect;\n  }\n\n\n    handleClick() {\n        axios.post('/api/setsub', {sub: true});\n        this.setState({\n            sub: true,\n            loginBack: true\n        });\n        this.state.sub = true;\n        this.state.loginBack = true;\n    }\n\n    handleUnsub() {\n        var boolean = !this.state.sub;\n        axios.post('/api/setsub', {sub: boolean});\n        this.setState({\n            sub: boolean,\n            loginBack: true\n        });\n        this.state.sub = boolean;\n        this.state.loginBack = true;\n    }\n\n  render() {\n\n    const window = (this.state.mode === 'posts') ? <MainFeed/> :\n      (this.state.mode === 'messages' ?\n        <ChatWindow targetID={this.state.targetUserID} handleMessages={this.handleMessages}/> : <FriendManagement/>)\n\n    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :\n      (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)\n\n    if(this.state.loginBack === true) {\n        axios.post('/api/getsub').then((response) => {\n            this.setState({\n                sub: JSON.parse(response.data).sub\n            });\n            this.state.sub = JSON.parse(response.data).sub;\n        });\n        this.state.loginBack = false;\n    }\n\n    return (\n      <div>\n        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}\n                handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>\n        <Grid>\n          <Grid.Column width={4}>\n            {aspect}\n          </Grid.Column>\n          <Grid.Column width={8}>\n            {window}\n          </Grid.Column>\n          <Grid.Column width={4}>\n              {console.log(this.state.sub)}\n            <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>\n          </Grid.Column>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Main;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Main.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Main.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2360,7 +2386,7 @@
     "name": "client/components/MainFeed.js",
     "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Message} from 'semantic-ui-react'\nimport FeedEvent from './FeedEvent'\nimport NewPost from './NewPost'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\nclass MainFeed extends Component {\n\n  constructor(props) {\n    super(props)\n\n    this.state = {\n      feeds: []\n    }\n\n    this.loadPosts = this.loadPosts.bind(this)\n    this.createPost = this.createPost.bind(this)\n    this.loadPosts()\n      this.feedList = this.feedList.bind(this)\n  }\n\n  loadPosts() {\n    axios.post('/api/getPosts').then((response) => {\n      this.setState({\n        feeds: JSON.parse(response.data)\n      })\n      this.state.feeds = JSON.parse(response.data);\n      console.log(\"finish loading post\")\n    });\n  }\n\n  createPost(postObject) {\n    axios.post('/api/postPost', postObject).then((response) => {\n      this.loadPosts()\n    })\n  }\n\n  feedList() {\n    if(this.state.feeds == null) {\n        return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>\n            <Message.Header>There is no post</Message.Header>\n            <p>Do you want to post something?</p>\n        </Message>);\n    }\n    else {\n        return(this.state.feeds.map((feed, index) =>\n            <FeedEvent imageURL=\"\" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}\n                       date={feed.data}\n                       postid={feed.postid}/>\n        ));\n    }\n  }\n\n  render() {\n      return (\n      <div style={{marginTop: '5vh'}}>\n        <div>\n          <div>\n            <NewPost createPost={this.createPost}/>\n          </div>\n        </div>\n        <div>\n          <Feed size='large'>\n              {this.feedList()}\n          </Feed>\n        </div>\n      </div>\n    );\n  }\n}\n\nexport default MainFeed\n",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/MainFeed.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/MainFeed.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2500,7 +2526,7 @@
     "name": "client/components/Navbar.js",
     "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport '../css/App.css';\nimport axios from \"axios/index\";\nimport TechnicalSupport from \"./TechnicalSupport\"\n\nconst avatarStyle = {\n  width: '21.3vw',\n  paddingLeft: '6em',\n  paddingRight: '6em',\n}\n\nclass Navbar extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        activeItem: 'posts',\n          username: 'Profile',\n          openSupport: 0,\n          subMsg: \"Not Subscribed\"\n      };\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.loadUsername = this.loadUsername.bind(this);\n\n    this.loadUsername()\n  }\n\n  handleItemClick(e, {name}) {\n    this.setState({activeItem: name})\n\n    if (name === 'posts') {\n      this.props.handlePosts();\n    }\n    else if (name === 'messages') {\n      this.props.handleMessages();\n    }\n    else if (name === 'friends'){\n      this.props.handleFriends();\n    }\n    else if (name === 'support'){\n      this.setState({openSupport:1});\n    }\n  }\n\n  loadUsername() {\n    axios.post('/api/getUserName').then((response) => {\n      this.setState({\n        username: JSON.parse(response.data).username\n      });\n\n      console.log(\"loading user name\");\n      console.log(JSON.parse(response.data).username)\n    });\n  }\n\n  render() {\n    this.state.subMsg = (this.props.sub === true) ? \"Subscribed\" : \"Not Subscribed\";\n\n    return (\n      <div>\n        <Menu pointing size='huge'>\n          <Menu.Item name='me' onClick={this.handleItemClick}>\n              <img src=\"../assets/avatar.jpg\" />\n            <Label as='a' color='blue' onClick={this.props.handleUnsub}>\n                  {this.state.username}\n                  <Label.Detail>{this.state.subMsg}</Label.Detail>\n              </Label>\n          </Menu.Item>\n          <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>\n          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>\n          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick}/>\n          <Menu.Menu position='right'>\n            <Menu.Item>\n              <Input icon='search' placeholder='Search...'/>\n            </Menu.Item>\n              <Menu.Item name='support' active={this.state.activeItem === 'support'} onClick={this.handleItemClick}/>\n            <Menu.Item name='logout' onClick={this.handleItemClick}/>\n          </Menu.Menu>\n        </Menu>\n        <TechnicalSupport open={this.state.openSupport === 1} onClose={()=> this.setState({openSupport: 0})}/>\n      </div>\n    );\n  }\n}\n\nexport default Navbar;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Navbar.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Navbar.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2651,7 +2677,7 @@
     "name": "client/components/NewPost.js",
     "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\nconst styles = {\n  width: '33vw',\n  marginTop: '5vh',\n}\n\nclass NewPost extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        open: 0,\n        message: ''\n      };\n  }\n\n  render() {\n    return (\n      <div>\n        <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n          <Button.Group>\n            <Button>Clear</Button>\n            <Button.Or/>\n            <Button positive>Post</Button>\n          </Button.Group>\n        </Form>\n        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n      </div>\n    )\n  }\n}\n\nexport default NewPost",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/NewPost.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/NewPost.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2753,7 +2779,7 @@
     "name": "client/components/PostPopup.js",
     "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal,Icon } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\nlet initialState = {\n    message: \"\",\n    open: false,\n    dimmer: 'blurring',\n    aspect: \"\",\n    imageFile: null,\n    videoFile: null\n};\n\nclass Signup extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    show = dimmer => () => {\n        this.setState({ dimmer, open: true })\n    }\n\n    close = () => {\n        this.setState({ open, dimmer: false })\n    }\n\n    handleSubmit = (event) => {\n        if(this.state.message === \"\") {\n            return\n        }\n        const date = moment().format();\n        const data = new FormData();\n        data.append('image', this.state.imageFile);\n        data.append('video', this.state.videoFile);\n        data.append('msg', this.state.message);\n        data.append('date', date);\n        console.log(data);\n        //var message={msg: this.state.message, date: date};\n        this.props.createPost(data);\n        console.log(this.state.imageFile);\n        console.log(this.state.imageFile.size);\n        //axios.post(`/api/postPost`, {msg: this.state.message, date: date});\n        this.setState({dimmer: false, open: false, message: ''});\n    };\n    saveImage = (event) => {\n        this.setState({imageFile: event.target.files[0]});\n    }\n    saveVideo = (event) => {\n        this.setState({videoFile: event.target.files[0]});\n\n    }\n    render() {\n        const { message } = this.state\n        return (\n            <div>\n                <Modal size='tiny' className=\"scrolling\" style={{height: '50%'}} dimmer=\"blurring\" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>\n                    <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                        <Form size='large'>\n                            <Form.TextArea\n                                placeholder='What do you want to post?' name='message' value={message}\n                                onChange={(e, {value})=> this.setState({message: value})}\n                            />\n                            <label for=\"image\">\n                                <Icon size='big' name='picture'/>\n                                <Form.Input type=\"file\" id=\"image\" onChange={this.saveImage} style={{display: 'none'}} accept=\"image/*\"/>\n                            </label>\n                            <label htmlFor=\"video\">\n                                <Icon size='big' name='video camera'/>\n                                <Form.Input type=\"file\" id=\"video\" onChange={this.saveVideo} style={{display: 'none'}} accept=\"video/*\"/>\n                            </label>\n                            <Button.Group style={{float: 'right', marginRight: '10%'}}>\n                                <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>\n                                <Button.Or />\n                                <Button positive onClick={()=> { this.handleSubmit(); this.props.onClose()}}>Post</Button>\n                            </Button.Group>\n                        </Form>\n                    </Container>\n\n                </Modal>\n            </div>\n        )\n    }\n}\n\nexport default Signup",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/PostPopup.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/PostPopup.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2940,7 +2966,7 @@
     "name": "client/components/Routes.js",
     "content": "import React from \"react\";\r\nimport { BrowserRouter, Route } from \"react-router-dom\";\r\nimport App from './App';\r\nimport Login from './Login';\r\n\r\nconst Routes = () => (\r\n    <BrowserRouter>\r\n        <Main>\r\n            <Route exact path=\"/\" component={App} />\r\n            <Route path=\"/login\" component={Login} />\r\n        </Main>\r\n    </BrowserRouter>\r\n);\r\n\r\nexport default Routes;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Routes.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Routes.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -2970,7 +2996,7 @@
     "name": "client/components/Select.js",
     "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport axios from \"axios\";\n\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\nclass Select extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeIndex: 0,\n      friendList: []\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n\n    // load friend list\n    this.loadFriendList = this.loadFriendList.bind(this);\n    this.loadFriendList();\n  }\n\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n    this.props.handleMessages(this.state.friendList[index].sid);\n  }\n\n  loadFriendList() {\n    axios.post('/api/getFriendList').then((response) => {\n      // this.setState({\n      //   friendList: JSON.parse(response.data)\n      // });\n      console.log(\"Load friend list\")\n\n      const friendIDs = JSON.parse(response.data)\n\n      axios.all(friendIDs.map(friendID => axios.post('/api/searchUser', {searchKey: friendID})))\n        .then(axios.spread((...results) => {\n          // all requests are now complete\n          const friendDetails = results.map(res => JSON.parse(res.data))\n          this.setState({\n            friendList: friendDetails\n          })\n        }));\n    })\n  }\n\n  render() {\n    const {activeIndex} = this.state;\n    var menuItems = []\n    for (var i = 0; i < this.state.friendList.length; i++) {\n      menuItems.push(\n        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i} onClick={this.handleItemClick}>\n          <img style={avatarStyle} className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          {this.state.friendList[i].username}\n          <Label color='red'>1</Label>\n        </Menu.Item>\n      )\n    }\n\n    return (\n      <div>\n        <Grid>\n          <Grid.Row >\n            <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='users' />\n              <Header.Content>\n                Friends\n              </Header.Content>\n            </Header>\n          </Grid.Row>\n          <Grid.Row>\n            <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n              {menuItems}\n            </Menu>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Select.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Select.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3121,7 +3147,7 @@
     "name": "client/components/Signup.js",
     "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport App from './App';\n\nlet initialState = {\n    username: \"\",\n    password: \"\",\n    repeat: \"\",\n    email: \"\",\n    message: [],\n    open: false,\n    dimmer: 'blurring'\n};\n\nclass Signup extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n    }\n\n    show = dimmer => () => this.setState({ dimmer, open: true })\n    close = () => this.setState({ open, dimmer: false })\n\n    handleSubmit = (event) => {\n        let message = [];\n        if(this.state.username === \"\") {\n            alert(\"Username can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password === \"\") {\n            alert(\"Password can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.repeat === \"\") {\n            alert(\"Please enter your password again!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password !== this.state.repeat) {\n            alert(\"Password is not matching!\");\n            this.setState({message: message});\n            return\n        }\n        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email}).then((response)=> this.redirPage(response));\n        this.setState({open: false});\n        this.setState({dimmer: false});\n    };\n    redirPage(response) {\n            if(JSON.parse(response.data).result===\"OK\"){\n                this.props.onclose();\n            }else{\n                alert(\"Signup fail!\");\n            }\n    }\n    render() {\n        const { dimmer } = this.state\n\n            return (\n                <div>\n                    <Modal size='tiny' className=\"scrolling\" style={{height: '60%'}} dimmer={dimmer}\n                           open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                        <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>\n                        <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>\n                            <Form size='large'>\n                                <Form.Input\n                                    fluid icon='user' iconPosition='left' placeholder='Username'\n                                    onChange={(e, {value})=> this.setState({username: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                                    onChange={(e, {value})=> this.setState({password: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'\n                                    onChange={(e, {value})=> this.setState({repeat: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='envelope' iconPosition='left' placeholder='Email'\n                                    onChange={(e, {value})=> this.setState({email: value})}\n                                />\n                            </Form>\n                        </Container>\n                        <Modal.Actions>\n                            <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />\n                            <Button positive icon='checkmark' labelPosition='right' content=\"Sign Up\" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />\n                        </Modal.Actions>\n                    </Modal>\n                </div>\n            )\n    }\n}\n\nexport default Signup",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Signup.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Signup.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3297,7 +3323,7 @@
     "name": "client/components/TechnicalSupport.js",
     "content": "import React, {Component} from 'react';\nimport { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nimport axios from \"axios/index\";\nlet initialState = {\n    open: false,\n    status: \"default\",\n    message:\"\"\n};\nclass TechnicalSupport extends Component {\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n    handleSubmit(){\n        //TODO: send message to backend\n        this.setState({status: \"default\"});\n        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {\n            alert(\"Success!\");\n            this.setState({open: false});\n        });\n    }\n    render() {\n        var body;\n        var button;\n        if(this.state.status===\"default\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body= (\n                <Grid columns={2} divided>\n                <Grid.Row>\n                    <Grid.Column>\n                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: \"email\"})}/>\n                    </Grid.Column>\n                    <Grid.Column>\n                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: \"FAQ\"})} />\n                    </Grid.Column>\n                </Grid.Row>\n            </Grid>\n            );\n        }\n        else if(this.state.status===\"email\"){\n            body=(\n                <Form size='huge'>\n                    <Form.TextArea fluid placeholder='Type in your message here'\n                        onChange={(e, {value})=> this.setState({message: value})}\n                    />\n                    <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n                    <Button positive icon='checkmark' content=\"Submit\" labelPosition='right' onClick={this.handleSubmit}/>\n                </Form>\n            );\n        }else if(this.state.status===\"FAQ\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body=(\n                <div>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                </div>\n            );\n        }\n        return (\n            <div>\n                <Modal size='small' className=\"scrolling\" style={{height: '60%'}} dimmer=\"blurring\"\n                       open={this.props.open} onClose={()=> {this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>\n                    {body}\n                    <Modal.Actions>\n                        {button}\n                    </Modal.Actions>\n                </Modal>\n            </div>\n        );\n    }\n}\nexport default TechnicalSupport;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/TechnicalSupport.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/TechnicalSupport.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3415,7 +3441,7 @@
     "name": "client/components/TextBox.js",
     "content": "import React, {Component} from 'react';\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nclass TextBox extends Component {\n    constructor(props) {\n        super(props);\n    }\n    render() {\n        return (\n            <div>\n                <h1 className=\"text_box_header\">\n                    <b>{this.props.header}</b>\n                </h1>\n                <p className=\"text_box_content\">{this.props.text}</p>\n            </div>\n        );\n    }\n}\nexport default TextBox;",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/TextBox.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/TextBox.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3479,7 +3505,7 @@
     "name": "client/components/Tmp.js",
     "content": "import React from 'react';\nimport axios from 'axios';\nimport ReactDOM from 'react-dom';\n\nexport default class NameForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {value: '', name: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n  handleSubmit(event) {\n    axios.post(`/insert`, { name: this.state.value })\n    .then(res => {\n      console.log(res.data);\n      this.setState({name: res.data.length});\n      var content=(\n        <ul>\n            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}\n        </ul>\n      );\n      ReactDOM.render(content,document.getElementById(\"root\"));\n    })\n\n    event.preventDefault();\n  }\n\n  render() {\n    return (\n      <div id=\"root\">\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n      <p>Hello guest{this.state.name}</p>\n      </div>\n    );\n  }\n}",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/components/Tmp.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/components/Tmp.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3606,7 +3632,7 @@
     "name": "client/index.js",
     "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './components/App';\nimport Tmp from './components/Tmp';\nimport Login from './components/Login';\nimport '../semantic/dist/semantic.min.css';\n\nvar el = document.getElementById('root');\nif (el.className == 'index') {\n    ReactDOM.render(<App />, document.getElementById('root'));\n} else {\n    ReactDOM.render(<Login redirect={false}/>, document.getElementById('root'));\n}\n",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/index.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3638,7 +3664,7 @@
     "name": "client/service-worker-index.js",
     "content": "// Set this to true for production\nvar doCache = false;\n\n// Name our cache\nconst VERSION = 'index-v1';\nvar urlsToCache = [\n    '/css/App.css',\n    '/components/App.js'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/service-worker-index.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/service-worker-index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3712,7 +3738,7 @@
     "name": "client/service-worker.js",
     "content": "// Set this to true for production\nvar doCache = false;\n\n// Name our cache\nconst VERSION = 'login-v1';\nvar urlsToCache = [\n    '/components/Login.js',\n    '/css/login.css'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
     "static": true,
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/client/service-worker.js",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/client/service-worker.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -3783,7 +3809,7 @@
   {
     "kind": "index",
     "content": "# TeamSolid",
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/README.md",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
@@ -3791,7 +3817,7 @@
   {
     "kind": "packageJSON",
     "content": "{\n  \"name\": \"web\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-loader\": \"^7.1.4\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"babel-preset-stage-0\": \"^6.24.1\",\n    \"body-parser\": \"^1.18.2\",\n    \"chai\": \"^4.1.2\",\n    \"connect-ensure-login\": \"^0.1.1\",\n    \"cookie-parser\": \"^1.4.3\",\n    \"ejs\": \"^2.5.8\",\n    \"enzyme\": \"^3.3.0\",\n    \"enzyme-adapter-react-16\": \"^1.1.1\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-jsx-plugin\": \"^1.0.0\",\n    \"esdoc-react-plugin\": \"^1.0.1\",\n    \"express\": \"^4.16.3\",\n    \"express-session\": \"^1.15.6\",\n    \"extract-text-webpack-plugin\": \"^3.0.2\",\n    \"faker\": \"^4.1.0\",\n    \"html-webpack-plugin\": \"^3.2.0\",\n    \"moment\": \"^2.22.1\",\n    \"mongodb\": \"^3.0.7\",\n    \"mongoose\": \"^5.0.15\",\n    \"multer\": \"^1.3.0\",\n    \"nodemailer\": \"^4.6.5\",\n    \"nodemon\": \"^1.17.3\",\n    \"package.json\": \"^2.0.1\",\n    \"passport\": \"^0.4.0\",\n    \"passport-local\": \"^1.0.0\",\n    \"react\": \"^16.4.0\",\n    \"react-bootstrap\": \"^0.32.1\",\n    \"react-color\": \"^2.14.1\",\n    \"react-dom\": \"^16.4.0\",\n    \"react-google-ads\": \"^1.0.5\",\n    \"react-modal\": \"^3.4.1\",\n    \"react-responsive\": \"^4.1.0\",\n    \"react-router-dom\": \"^4.2.2\",\n    \"react-scripts\": \"^1.1.4\",\n    \"semantic-ui-react\": \"^0.79.1\",\n    \"style-loader\": \"^0.21.0\",\n    \"sw-precache-webpack-plugin\": \"^0.11.5\",\n    \"uuid\": \"^3.2.1\",\n    \"webpack-manifest-plugin\": \"^2.0.3\"\n  },\n  \"scripts\": {\n    \"test\": \"mocha ./test/*.js --compilers js:babel-core/register --recursive  --require ignore-styles\",\n    \"dev:hot\": \"webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./\",\n    \"webpack\": \"webpack\",\n    \"start\": \"npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www\",\n    \"lint\": \"esw --ignore-path .gitignore --color .\",\n    \"lint-watch\": \"npm run lint -- --watch\"\n  },\n  \"devDependencies\": {\n    \"babel-plugin-transform-es2015-arrow-functions\": \"^6.22.0\",\n    \"bell-on-bundler-error-plugin\": \"^2.0.0\",\n    \"css-loader\": \"^0.28.11\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^4.19.1\",\n    \"eslint-plugin-react\": \"^7.7.0\",\n    \"eslint-watch\": \"^3.1.4\",\n    \"file-loader\": \"^1.1.11\",\n    \"ignore-styles\": \"^5.0.1\",\n    \"jsdom\": \"^11.11.0\",\n    \"mocha\": \"^5.2.0\",\n    \"react-addons-test-utils\": \"^15.6.2\",\n    \"resolve-url-loader\": \"^2.3.0\",\n    \"sinon\": \"^5.0.10\",\n    \"url-loader\": \"^1.0.1\",\n    \"webpack\": \"^4.6.0\",\n    \"webpack-cli\": \"^2.0.15\",\n    \"webpack-dev-middleware\": \"^2.0.6\",\n    \"webpack-dev-server\": \"^3.1.3\"\n  }\n}\n",
-    "longname": "/Users/idosuna/WebstormProjects/FinalProject/TeamSolid/package.json",
+    "longname": "/Users/idosuna/WebstormProjects/FinalProduction/TeamSolid/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
