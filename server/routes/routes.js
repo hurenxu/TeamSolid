@@ -738,17 +738,16 @@ router.post('/api/testdecrypt',
         console.log(err);
         return;
       }
-      console.log(Buffer.from(msg, 'utf8').toString('base64'));
       const request = {
         // This will be a path parameter in the request URL
         name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
         // This will be the request body
         resource: {
-          plaintext: Buffer.from(msg, 'utf8').toString('base64')
+          ciphertext: msg
         }
       };
   
-      process.stdout.write("encrypting " + msg);
+      process.stdout.write("decrypting " + msg);
   
       // Encrypts the file using the specified crypto key
       cloudkms.projects.locations.keyRings.cryptoKeys.decrypt(request, (err, response) => {
