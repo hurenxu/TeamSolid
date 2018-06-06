@@ -3,8 +3,9 @@ let multer  = require('multer');
 var path =require('path');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
-var passport = require('passport')
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var googleapi = require('googleapis');
 // Connection URL
 const url = 'mongodb://localhost';
 
@@ -727,6 +728,7 @@ function encrypt(msg) {
 
 router.post('/api/testencrypt',
   function (req, res, next) {
+    console.log("encrypting post!");
     var msg = encrypt(req.user.email);
     MongoClient.connect(url, function (err, client) {
       if (err) {

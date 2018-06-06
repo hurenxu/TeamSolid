@@ -19,6 +19,7 @@
     "express-session": "^1.15.6",
     "extract-text-webpack-plugin": "^3.0.2",
     "faker": "^4.1.0",
+    "googleapis": "^31.0.2",
     "html-webpack-plugin": "^3.2.0",
     "moment": "^2.22.1",
     "mongodb": "^3.0.7",
