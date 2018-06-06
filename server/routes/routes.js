@@ -427,7 +427,7 @@ router.post('/api/postMessage',
     });
   });
 
-router.route('/resource/:id').post(require('connect-ensure-login').ensureLoggedIn(),
+router.route('/resource/:id').get(require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
     var sourceid = req.user.email;
     var url = req.params.id;
