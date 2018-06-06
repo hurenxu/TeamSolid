@@ -662,7 +662,7 @@ const locationId = 'global';
 // The name of the new key ring, e.g. "my-new-key-ring"
 const keyRingId = 'user-keyring';
 
-const keyId = 'user-key';
+const cryptoKeyId = 'user-key';
 
 
 // connect to google kms api
