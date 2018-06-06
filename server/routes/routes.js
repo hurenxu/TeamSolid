@@ -3,8 +3,9 @@ let multer  = require('multer');
 var path =require('path');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
-var passport = require('passport')
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var googleapi = require('googleapis');
 // Connection URL
 const url = 'mongodb://localhost';
 
@@ -651,3 +652,96 @@ router.get('/delete', function (req, res) {
   });
 });
 module.exports = router;
+
+// KMS service
+const projectId = 'superb-blend-201518';
+// The location of the new key ring, e.g. "global"
+const locationId = 'global';
+
+// The name of the new key ring, e.g. "my-new-key-ring"
+const keyRingId = 'user-keyring';
+
+const keyId = 'user-key';
+
+
+// connect to google kms api
+function buildAndAuthorizeService(callback) {
+  // Imports the Google APIs client library
+  const google = require('googleapis').google;
+
+  // Acquires credentials
+  google.auth.getApplicationDefault((err, authClient) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+      authClient = authClient.createScoped([
+        'https://www.googleapis.com/auth/cloud-platform'
+      ]);
+    }
+
+    // Instantiates an authorized client
+    const cloudkms = google.cloudkms({
+      version: 'v1',
+      auth: authClient
+    });
+
+    callback(null, cloudkms);
+  });
+}
+
+function encrypt(msg) {
+  buildAndAuthorizeService((err, cloudkms) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    const request = {
+      // This will be a path parameter in the request URL
+      name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+      // This will be the request body
+      resource: {
+        plaintext: Buffer.from(msg, 'utf8').toString('base64')
+      }
+    };
+
+    console.log("encrypting" + msg);
+
+    // Encrypts the file using the specified crypto key
+    cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      // Writes the encrypted file to disk
+      const result = response.data;
+      console.log("encrypted data is: " + result.ciphertext);
+      return result.ciphertext;
+    });
+  });
+}
+
+router.post('/api/testencrypt',
+  function (req, res, next) {
+    console.log("encrypting post!");
+    var msg = encrypt(req.user.email);
+    console.log(msg);
+    console.log("aa");
+    MongoClient.connect(url, function (err, client) {
+      if (err) {
+        console.log(err);
+      }
+
+      const db = client.db(dbName);
+
+      db.collection("test").insertOne(msg, function (err, res) {
+        if (err) throw err;
+        console.log("msg inserted: " + msg);
+        db.close();
+      })
+    });
+  });

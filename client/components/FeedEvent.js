@@ -16,9 +16,11 @@ class FeedEvent extends Component {
   }
 
   render() {
+    //var img =
+      console.log(this.props);
+      var url = "resource/"+this.props.imageURL;
       return (
       <Feed.Event>
-        <Feed.Label image={this.props.imageURL}/>
         <Feed.Content>
           <Feed.Summary>
             <a>{this.props.userName}</a> posted this feed
@@ -28,8 +30,7 @@ class FeedEvent extends Component {
             {this.props.mainText}
           </Feed.Extra>
           <Feed.Extra images>
-            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}
-            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}
+            <a><img src={url}/></a>
           </Feed.Extra>
           <Feed.Meta>
             <Feed.Like onClick={()=> this.addALike()}>

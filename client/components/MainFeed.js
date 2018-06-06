@@ -26,7 +26,6 @@ class MainFeed extends Component {
         feeds: JSON.parse(response.data)
       })
       this.state.feeds = JSON.parse(response.data);
-      console.log("finish loading post")
     });
   }
 
@@ -45,7 +44,7 @@ class MainFeed extends Component {
     }
     else {
         return(this.state.feeds.map((feed, index) =>
-            <FeedEvent imageURL="" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
+            <FeedEvent imageURL={feed.filename} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
                        date={feed.data}
                        postid={feed.postid}/>
         ));
