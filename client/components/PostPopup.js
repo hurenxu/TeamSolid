@@ -29,9 +29,6 @@ class Signup extends Component {
     }
 
     handleSubmit = (event) => {
-        if(this.state.message === "") {
-            return
-        }
         const date = moment().format();
         const data = new FormData();
         for(var i=0;i<this.state.imageFile.length;i++)
@@ -43,7 +40,7 @@ class Signup extends Component {
         data.append('date', date);
         this.props.createPost(data);
         //axios.post(`/api/postPost`, {msg: this.state.message, date: date});
-        this.setState({dimmer: false, open: false, message: ''});
+        this.setState(initialState);
     };
     saveImage = (event) => {
         this.setState({imageFile: this.state.imageFile.concat([event.target.files[0]])
