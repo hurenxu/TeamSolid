@@ -728,13 +728,9 @@ function encrypt(msg) {
   });
 }
 
-router.post('/api/testencrypt',
+router.post('/api/testdecrypt',
   function (req, res, next) {
-    console.log("encrypting post!");
-    // var msg = encrypt(req.user.email);
-    var msg = req.user.email;
-    console.log(msg);
-    console.log("aa");
+    var msg = req.body.msg;
 
 
     buildAndAuthorizeService((err, cloudkms) => {
@@ -742,8 +738,45 @@ router.post('/api/testencrypt',
         console.log(err);
         return;
       }
+      console.log(Buffer.from(msg, 'utf8').toString('base64'));
+      const request = {
+        // This will be a path parameter in the request URL
+        name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+        // This will be the request body
+        resource: {
+          plaintext: Buffer.from(msg, 'utf8').toString('base64')
+        }
+      };
   
+      process.stdout.write("encrypting " + msg);
   
+      // Encrypts the file using the specified crypto key
+      cloudkms.projects.locations.keyRings.cryptoKeys.decrypt(request, (err, response) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+  
+        // Writes the encrypted file to disk
+        const result = response.data;
+        var res = Buffer.from(result.plaintext, 'base64').toString('utf8');
+        console.log("decrypted data is: " + res);
+        res.send(res);
+        // return result.ciphertext;
+      });
+    });
+  });
+
+  router.post('/api/testencrypt',
+  function (req, res, next) {
+    var msg = req.user.email;
+
+
+    buildAndAuthorizeService((err, cloudkms) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
       console.log(Buffer.from(msg, 'utf8').toString('base64'));
       const request = {
         // This will be a path parameter in the request URL
@@ -766,27 +799,8 @@ router.post('/api/testencrypt',
         // Writes the encrypted file to disk
         const result = response.data;
         console.log("encrypted data is: " + result.ciphertext);
+        res.send(result.ciphertext);
         // return result.ciphertext;
       });
     });
-
-
-
-
-
-
-
-    // MongoClient.connect(url, function (err, client) {
-    //   if (err) {
-    //     console.log(err);
-    //   }
-
-    //   const db = client.db(dbName);
-
-    //   db.collection("test").insertOne(msg, function (err, res) {
-    //     if (err) throw err;
-    //     console.log("msg inserted: " + msg);
-    //     db.close();
-    //   })
-    // });
   });
