@@ -711,7 +711,7 @@ function encrypt(msg) {
       }
     };
 
-    console.log("encrypting" + msg);
+    process.stdout.write("encrypting " + msg);
 
     // Encrypts the file using the specified crypto key
     cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
