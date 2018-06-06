@@ -730,6 +730,8 @@ router.post('/api/testencrypt',
   function (req, res, next) {
     console.log("encrypting post!");
     var msg = encrypt(req.user.email);
+    console.log(msg);
+    console.log("aa");
     MongoClient.connect(url, function (err, client) {
       if (err) {
         console.log(err);
