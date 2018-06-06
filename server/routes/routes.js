@@ -700,6 +700,8 @@ function encrypt(msg) {
       return;
     }
 
+
+    console.log(Buffer.from(msg, 'utf8').toString('base64'));
     const request = {
       // This will be a path parameter in the request URL
       name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
