@@ -8,8 +8,8 @@ let initialState = {
     open: false,
     dimmer: 'blurring',
     aspect: "",
-    imageFile: null,
-    videoFile: null
+    imageFile: [],
+    videoFile: []
 };
 
 class Signup extends Component {
@@ -34,17 +34,20 @@ class Signup extends Component {
         }
         const date = moment().format();
         const data = new FormData();
-        data.append('image', this.state.imageFile);
+        for(var i=0;i<this.state.imageFile.length;i++)
+        {
+            data.append('image', this.state.imageFile[i]);
+        }
         data.append('video', this.state.videoFile);
         data.append('msg', this.state.message);
         data.append('date', date);
-        //var message={msg: this.state.message, date: date};
         this.props.createPost(data);
         //axios.post(`/api/postPost`, {msg: this.state.message, date: date});
         this.setState({dimmer: false, open: false, message: ''});
     };
     saveImage = (event) => {
-        this.setState({imageFile: event.target.files[0]});
+        this.setState({imageFile: this.state.imageFile.concat([event.target.files[0]])
+        });
     }
     saveVideo = (event) => {
         this.setState({videoFile: event.target.files[0]});

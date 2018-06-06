@@ -36,7 +36,7 @@ class MainFeed extends Component {
   }
 
   feedList() {
-    if(this.state.feeds == null) {
+    if(this.state.feeds[0]==undefined) {
         return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>
             <Message.Header>There is no post</Message.Header>
             <p>Do you want to post something?</p>
@@ -44,7 +44,7 @@ class MainFeed extends Component {
     }
     else {
         return(this.state.feeds.map((feed, index) =>
-            <FeedEvent imageURL={feed.filename} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
+            <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
                        date={feed.data}
                        postid={feed.postid}/>
         ));

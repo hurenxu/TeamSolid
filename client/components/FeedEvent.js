@@ -16,9 +16,24 @@ class FeedEvent extends Component {
   }
 
   render() {
-    //var img =
-      console.log(this.props);
-      var url = "resource/"+this.props.imageURL;
+      var body;
+      if(this.props.files.length >0){
+          if(this.props.files[0].filetype.substring(0,1)==="i"){
+              body= (
+                  <div>
+                      {this.props.files.map((file, index)=>(
+                          <a><img src={"resource/"+file.filename}/></a>
+                      ))}
+              </div>
+              )
+
+          }
+          else{
+                body=(<a><video controls>
+                    <source src={"resource/"+this.props.files[0].filename} type={this.props.files[0].filetype}/>
+                </video></a>)
+          }
+      }
       return (
       <Feed.Event>
         <Feed.Content>
@@ -30,7 +45,7 @@ class FeedEvent extends Component {
             {this.props.mainText}
           </Feed.Extra>
           <Feed.Extra images>
-            <a><img src={url}/></a>
+              {body}
           </Feed.Extra>
           <Feed.Meta>
             <Feed.Like onClick={()=> this.addALike()}>
