@@ -43,15 +43,38 @@ class Signup extends Component {
         this.setState(initialState);
     };
     saveImage = (event) => {
-        this.setState({imageFile: this.state.imageFile.concat([event.target.files[0]])
-        });
+        if(this.state.videoFile.length>1){
+            alert("cannot upload image and video at the same time!");
+        }
+        else if(this.state.imageFile.length<4){
+            this.setState({imageFile: this.state.imageFile.concat([event.target.files[0]])});
+        }else{
+            alert("upload at most 4 images at a time!");
+        }
     }
     saveVideo = (event) => {
-        this.setState({videoFile: event.target.files[0]});
-
+        if(this.state.imageFile.length>1){
+            alert("cannot upload image and video at the same time!");
+        }
+        else if(this.state.videoFile.length<1){
+            this.setState({videoFile: [event.target.files[0]]});
+        }else{
+            alert("upload at 1 video at a time!");
+        }
     }
     render() {
         const { message } = this.state
+        var numOfFile=0;
+        if(this.state.imageFile.length!=0){
+            numOfFile=this.state.imageFile.length;
+        }
+        if(this.state.videoFile.length!=0){
+            numOfFile=this.state.videoFile.length;
+        }
+        var indication;
+        if(numOfFile!=0){
+            indication=<div>{numOfFile} files uploaded!</div>
+        }
         return (
             <div>
                 <Modal size='tiny' className="scrolling" style={{height: '50%'}} dimmer="blurring" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
@@ -70,6 +93,7 @@ class Signup extends Component {
                                 <Icon size='big' name='video camera'/>
                                 <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}} accept="video/*"/>
                             </label>
+                            {indication}
                             <Button.Group style={{float: 'right', marginRight: '10%'}}>
                                 <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>
                                 <Button.Or />
