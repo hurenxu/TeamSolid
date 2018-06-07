@@ -693,15 +693,31 @@ function buildAndAuthorizeService(callback) {
   });
 }
 
-function enc(msg, callback){
-  buildAndAuthorizeService((err, cloudkms) => {
+function enc(msg, callback) {
+  // Imports the Google APIs client library
+  const google = require('googleapis').google;
+
+  // Acquires credentials
+  google.auth.getApplicationDefault((err, authClient) => {
     if (err) {
-      console.log(err);
+      callback(err);
       return;
     }
 
+    if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+      authClient = authClient.createScoped([
+        'https://www.googleapis.com/auth/cloud-platform'
+      ]);
+    }
 
-    console.log(Buffer.from(msg, 'utf8').toString('base64'));
+    // Instantiates an authorized client
+    const cloudkms = google.cloudkms({
+      version: 'v1',
+      auth: authClient
+    });
+
+    // callback(null, cloudkms);
+
     const request = {
       // This will be a path parameter in the request URL
       name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
@@ -711,7 +727,7 @@ function enc(msg, callback){
       }
     };
 
-    process.stdout.write("encrypting " + msg);
+    console.log("encrypting " + msg);
 
     // Encrypts the file using the specified crypto key
     cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
@@ -724,7 +740,6 @@ function enc(msg, callback){
       const result = response.data;
       console.log("encrypted data is: " + result.ciphertext);
       callback(null, result.ciphertext);
-      // return result.ciphertext;
     });
   });
 }
@@ -807,7 +822,7 @@ router.post('/api/testdecrypt',
     var msg = req.user.email;
 
     enc(msg, (err, m) => {
-      console.log("aaa: " + msg);
+      console.log("aaa: " + m);
       console.log("haha");
     })
 
