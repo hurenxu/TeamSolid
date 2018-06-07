@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid, Ref} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import axios from 'axios';
-import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from 'semantic-ui-react'
+import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card, Divider} from 'semantic-ui-react'
 
 const style = {
   marginTop: '5em',
@@ -122,6 +122,7 @@ class FriendManagement extends Component {
           Add Friend
           <Icon name='right arrow' />
         </Button>
+        <Divider section />
         <Header as='h2' textAlign='left'>Manage friends</Header>
         <Card.Group style={{marginTop: '3em'}}>
           {currFriends}

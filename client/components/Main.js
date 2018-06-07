@@ -104,12 +104,22 @@ class Main extends Component {
         <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}
                 handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>
         <Grid>
-          <Grid.Column width={4}>
-            {aspect}
-          </Grid.Column>
-          <Grid.Column width={8}>
+          {this.state.mode === 'friends' &&
+            <Grid.Column width={1}>
+            </Grid.Column>
+          }
+          {this.state.mode != 'friends' &&
+            <Grid.Column width={4}>
+              {aspect}
+            </Grid.Column>
+          }
+          <Grid.Column width={this.state.mode === 'friends' ? 9 : 8}>
             {window}
           </Grid.Column>
+          {this.state.mode === 'friends' &&
+            <Grid.Column width={1}>
+            </Grid.Column>
+          }
           <Grid.Column width={4}>
               {console.log(this.state.sub)}
             <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>

@@ -68,21 +68,15 @@ class Select extends Component {
 
     return (
       <div>
-        <Grid>
-          <Grid.Row >
             <Header as='h2' floated='left'  style={{marginLeft: "1em"}}>
               <Icon name='users' />
               <Header.Content>
                 Friends
               </Header.Content>
             </Header>
-          </Grid.Row>
-          <Grid.Row>
             <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
               {menuItems}
             </Menu>
-          </Grid.Row>
-        </Grid>
       </div>
     );
   }
