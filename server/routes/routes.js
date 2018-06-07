@@ -716,7 +716,7 @@ function encrypt(msg, callback) {
   });
 }
 
-function decrpt(msg, callback) {
+function decrypt(msg, callback) {
   // Imports the Google APIs client library
   const google = require('googleapis').google;
 
