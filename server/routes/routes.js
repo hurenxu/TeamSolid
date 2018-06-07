@@ -822,8 +822,8 @@ router.post('/api/testdecrypt',
     var msg = req.user.email;
 
     enc(msg, (err, m) => {
-      console.log("aaa: " + m);
-      console.log("haha");
+      console.log("encrypted: " + m);
+      res.next(m);
     })
 
 
