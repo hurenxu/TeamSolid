@@ -113,7 +113,7 @@ class Main extends Component {
               {aspect}
             </Grid.Column>
           }
-          <Grid.Column width={this.state.mode === 'friends' ? 9 : 8}>
+          <Grid.Column width={this.state.mode === 'friends' ? 10 : 8}>
             {window}
           </Grid.Column>
           {this.state.mode === 'friends' &&

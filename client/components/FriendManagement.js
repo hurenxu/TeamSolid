@@ -109,7 +109,7 @@ class FriendManagement extends Component {
       );
     }
     else{
-      currFriends = <h3>You have no friends loser</h3>
+      currFriends = <h3>You have no friends. Peter is always your friend.</h3>
       console.log("You have no friends")
     }
 
@@ -118,7 +118,7 @@ class FriendManagement extends Component {
         <Header as='h2' textAlign='left'>Add a friend</Header>
         <Input icon='users' iconPosition='left' value={this.state.value}
                onChange={this.handleChange} placeholder='Search users...' />
-        <Button icon labelPosition='right' onClick={this.handleSubmit}>
+        <Button icon labelPosition='right' onClick={this.handleSubmit} style={{marginTop: '3em', marginBottom: '3em'}}>
           Add Friend
           <Icon name='right arrow' />
         </Button>
