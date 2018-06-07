@@ -744,6 +744,60 @@ function enc(msg, callback) {
   });
 }
 
+function dec(msg, callback) {
+  // Imports the Google APIs client library
+  const google = require('googleapis').google;
+
+  // Acquires credentials
+  google.auth.getApplicationDefault((err, authClient) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+      authClient = authClient.createScoped([
+        'https://www.googleapis.com/auth/cloud-platform'
+      ]);
+    }
+
+    // Instantiates an authorized client
+    const cloudkms = google.cloudkms({
+      version: 'v1',
+      auth: authClient
+    });
+
+    // callback(null, cloudkms);
+
+    const request = {
+      // This will be a path parameter in the request URL
+      name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+      // This will be the request body
+      resource: {
+        ciphertext: msg
+      }
+    };
+
+    // process.stdout.write("decrypting " + msg);
+
+    // Decrypts the file using the specified crypto key
+    cloudkms.projects.locations.keyRings.cryptoKeys.decrypt(request, (err, response) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      // Writes the encrypted file to disk
+      const result = response.data;
+      var res = Buffer.from(result.plaintext, 'base64').toString('utf8');
+      // console.log("decrypted data is: " + res);
+      // res.send(res);
+      callback(null, res);
+      // return result.ciphertext;
+    });
+  });
+}
+
 function encrypt(msg) {
   buildAndAuthorizeService((err, cloudkms) => {
     if (err) {
@@ -783,38 +837,43 @@ router.post('/api/testdecrypt',
   function (req, res, next) {
     var msg = req.body.msg;
 
+    dec(msg, (err, m) => {
+      console.log("Decrpted: " + m);
+      res.send(m);
+    })
 
-    buildAndAuthorizeService((err, cloudkms) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      const request = {
-        // This will be a path parameter in the request URL
-        name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
-        // This will be the request body
-        resource: {
-          ciphertext: msg
-        }
-      };
+
+    // buildAndAuthorizeService((err, cloudkms) => {
+    //   if (err) {
+    //     console.log(err);
+    //     return;
+    //   }
+    //   const request = {
+    //     // This will be a path parameter in the request URL
+    //     name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+    //     // This will be the request body
+    //     resource: {
+    //       ciphertext: msg
+    //     }
+    //   };
   
-      process.stdout.write("decrypting " + msg);
+    //   process.stdout.write("decrypting " + msg);
   
-      // Encrypts the file using the specified crypto key
-      cloudkms.projects.locations.keyRings.cryptoKeys.decrypt(request, (err, response) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
+    //   // Encrypts the file using the specified crypto key
+    //   cloudkms.projects.locations.keyRings.cryptoKeys.decrypt(request, (err, response) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return;
+    //     }
   
-        // Writes the encrypted file to disk
-        const result = response.data;
-        var res = Buffer.from(result.plaintext, 'base64').toString('utf8');
-        console.log("decrypted data is: " + res);
-        res.send(res);
-        // return result.ciphertext;
-      });
-    });
+    //     // Writes the encrypted file to disk
+    //     const result = response.data;
+    //     var res = Buffer.from(result.plaintext, 'base64').toString('utf8');
+    //     console.log("decrypted data is: " + res);
+    //     res.send(res);
+    //     // return result.ciphertext;
+    //   });
+    // });
   });
 
   router.post('/api/testencrypt',
@@ -823,7 +882,7 @@ router.post('/api/testdecrypt',
 
     enc(msg, (err, m) => {
       console.log("encrypted: " + m);
-      res.next(m);
+      res.send(m);
     })
 
 
