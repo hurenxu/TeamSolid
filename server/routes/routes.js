@@ -693,6 +693,42 @@ function buildAndAuthorizeService(callback) {
   });
 }
 
+function enc(msg, callback){
+  buildAndAuthorizeService((err, cloudkms) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+
+    console.log(Buffer.from(msg, 'utf8').toString('base64'));
+    const request = {
+      // This will be a path parameter in the request URL
+      name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+      // This will be the request body
+      resource: {
+        plaintext: Buffer.from(msg, 'utf8').toString('base64')
+      }
+    };
+
+    process.stdout.write("encrypting " + msg);
+
+    // Encrypts the file using the specified crypto key
+    cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      // Writes the encrypted file to disk
+      const result = response.data;
+      console.log("encrypted data is: " + result.ciphertext);
+      callback(null, result.ciphertext);
+      // return result.ciphertext;
+    });
+  });
+}
+
 function encrypt(msg) {
   buildAndAuthorizeService((err, cloudkms) => {
     if (err) {
@@ -770,36 +806,41 @@ router.post('/api/testdecrypt',
   function (req, res, next) {
     var msg = req.user.email;
 
+    enc(msg, (err, m) => {
+      console.log("aaa: " + msg);
+      console.log("haha");
+    })
 
-    buildAndAuthorizeService((err, cloudkms) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log(Buffer.from(msg, 'utf8').toString('base64'));
-      const request = {
-        // This will be a path parameter in the request URL
-        name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
-        // This will be the request body
-        resource: {
-          plaintext: Buffer.from(msg, 'utf8').toString('base64')
-        }
-      };
+
+    // buildAndAuthorizeService((err, cloudkms) => {
+    //   if (err) {
+    //     console.log(err);
+    //     return;
+    //   }
+    //   console.log(Buffer.from(msg, 'utf8').toString('base64'));
+    //   const request = {
+    //     // This will be a path parameter in the request URL
+    //     name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+    //     // This will be the request body
+    //     resource: {
+    //       plaintext: Buffer.from(msg, 'utf8').toString('base64')
+    //     }
+    //   };
   
-      process.stdout.write("encrypting " + msg);
+    //   process.stdout.write("encrypting " + msg);
   
-      // Encrypts the file using the specified crypto key
-      cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
+    //   // Encrypts the file using the specified crypto key
+    //   cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
+    //     if (err) {
+    //       console.log(err);
+    //       return;
+    //     }
   
-        // Writes the encrypted file to disk
-        const result = response.data;
-        console.log("encrypted data is: " + result.ciphertext);
-        res.send(result.ciphertext);
-        // return result.ciphertext;
-      });
-    });
+    //     // Writes the encrypted file to disk
+    //     const result = response.data;
+    //     console.log("encrypted data is: " + result.ciphertext);
+    //     res.send(result.ciphertext);
+    //     // return result.ciphertext;
+    //   });
+    // });
   });
