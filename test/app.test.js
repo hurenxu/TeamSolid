@@ -15,7 +15,7 @@ describe('App Component', () => {
         const wrapper = shallow(<App/>);
         expect(wrapper.find('header')).to.have.length(1);
     });
-
+//
     it('should have a title inside the app', () => {
         const wrapper = shallow(<App/>);
         expect(wrapper.find('h1')).to.have.length(1);
