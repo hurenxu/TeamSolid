@@ -591,6 +591,7 @@ router.post('/api/getPosts',
           if (err) {
             console.log(err);
           }
+          console.log(result);
           console.log("start getting post");
 
           async.each(result, function(post, callback) {
