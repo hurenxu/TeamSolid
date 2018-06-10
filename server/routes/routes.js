@@ -258,8 +258,9 @@ router.post('/api/switchChatTarget',
                 if(err) throw err;
                 msg1.msg = dec_msg;
                 msg1.date = dec_date;
-              })
-            })
+                callback();
+              });
+            });
           }, function(err){
             if(err) throw err;
             console.log("aaa");
@@ -272,8 +273,9 @@ router.post('/api/switchChatTarget',
                   if(err) throw err;
                   msg2.msg = dec_msg;
                   msg2.date = dec_date;
-                })
-              })
+                  callback();
+                });
+              });
             }, function(err){
               if(err) throw err;
               console.log("bbb");
