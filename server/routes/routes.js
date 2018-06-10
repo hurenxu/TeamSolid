@@ -280,8 +280,8 @@ router.post('/api/switchChatTarget',
               if(err) throw err;
               console.log("bbb");
               res.json(JSON.stringify(result1.concat(result2)));
-            })
-          })
+            });
+          });
 
           // res.json(JSON.stringify(result1.concat(result2)));
         });
@@ -408,7 +408,30 @@ router.post('/api/ChangeToPost',
             console.log(err);
           }
 
-          res.json(JSON.stringify(result));
+          async.each(result, function(post, callback) {
+            // console.log("dealing post");
+            // console.log(post);
+            //TODO: fix filename when empty
+            decrypt(post.msg, (err, m) =>{
+              if(err) throw err;
+              decrypt(post.msg, (err, dec_msg) =>{
+                if(err) throw err;
+                decrypt(post.data, (err, dec_data) =>{
+                  if(err) throw err;
+                  post.filename = '';
+                  post.msg = dec_msg;
+                  post.data = dec_data;
+                  callback();
+                });
+              });
+            });
+          }, function(err) {
+            if(err) throw err;
+            // console.log("finish decrypting all data");
+            res.json(JSON.stringify(result));
+          });
+
+          // res.json(JSON.stringify(result));
         });
       })
     });
@@ -434,32 +457,37 @@ router.post('/api/ChangeToMessage',
 
 
           async.each(result1, function(msg1, callback){
+            console.log("???");
             decrypt(msg1.msg, (err, dec_msg)=>{
               if(err) throw err;
               decrypt(msg1.date, (err, dec_date)=>{
                 if(err) throw err;
                 msg1.msg = dec_msg;
                 msg1.date = dec_date;
-              })
-            })
+                callback();
+              });
+            });
           }, function(err){
             if(err) throw err;
+            console.log("aaa");
             
             async.each(result2, function(msg2, callback){
+              console.log("...");
               decrypt(msg2.msg, (err, dec_msg)=>{
                 if(err) throw err;
                 decrypt(msg2.date, (err, dec_date)=>{
                   if(err) throw err;
                   msg2.msg = dec_msg;
                   msg2.date = dec_date;
-                })
-              })
+                  callback();
+                });
+              });
             }, function(err){
               if(err) throw err;
-              
+              console.log("bbb");
               res.json(JSON.stringify(result1.concat(result2)));
-            })
-          })
+            });
+          });
 
           // res.json(JSON.stringify(result1.concat(result2)));
         });
