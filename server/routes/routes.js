@@ -45,6 +45,8 @@ passport.use(new LocalStrategy({
         }
 
         decrypt(user.password, (err, dec_password) =>{
+          if(err) throw err;
+
           if (dec_password != password) {
             return done(null, false, { message: 'Incorrect password.' });
           }
@@ -140,7 +142,12 @@ router.post('/api/getUserName',
           console.log(err);
         }
 
-        res.json(JSON.stringify({"username": result[0].username}));
+        decrypt(result[0].username, (err, dec_usr) =>{
+          if(err) throw err;
+
+          res.json(JSON.stringify({"username": dec_usr}));
+        })
+        // res.json(JSON.stringify({"username": result[0].username}));
       });
     });
   });
