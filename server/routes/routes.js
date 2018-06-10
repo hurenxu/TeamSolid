@@ -249,7 +249,36 @@ router.post('/api/switchChatTarget',
           if (err) {
             console.log(err);
           }
-          res.json(JSON.stringify(result1.concat(result2)));
+
+          async.each(result1, function(msg1, callback){
+            decrypt(msg1.msg, (err, dec_msg)=>{
+              if(err) throw err;
+              decrypt(msg1.date, (err, dec_date)=>{
+                if(err) throw err;
+                msg1.msg = dec_msg;
+                msg1.date = dec_date;
+              })
+            })
+          }, function(err){
+            if(err) throw err;
+            
+            async.each(result2, function(msg2, callback){
+              decrypt(msg2.msg, (err, dec_msg)=>{
+                if(err) throw err;
+                decrypt(msg2.date, (err, dec_date)=>{
+                  if(err) throw err;
+                  msg2.msg = dec_msg;
+                  msg2.date = dec_date;
+                })
+              })
+            }, function(err){
+              if(err) throw err;
+              
+              res.json(JSON.stringify(result1.concat(result2)));
+            })
+          })
+
+          // res.json(JSON.stringify(result1.concat(result2)));
         });
       });
     });
@@ -397,7 +426,37 @@ router.post('/api/ChangeToMessage',
           if (err) {
             console.log(err);
           }
-          res.json(JSON.stringify(result1.concat(result2)));
+
+
+          async.each(result1, function(msg1, callback){
+            decrypt(msg1.msg, (err, dec_msg)=>{
+              if(err) throw err;
+              decrypt(msg1.date, (err, dec_date)=>{
+                if(err) throw err;
+                msg1.msg = dec_msg;
+                msg1.date = dec_date;
+              })
+            })
+          }, function(err){
+            if(err) throw err;
+            
+            async.each(result2, function(msg2, callback){
+              decrypt(msg2.msg, (err, dec_msg)=>{
+                if(err) throw err;
+                decrypt(msg2.date, (err, dec_date)=>{
+                  if(err) throw err;
+                  msg2.msg = dec_msg;
+                  msg2.date = dec_date;
+                })
+              })
+            }, function(err){
+              if(err) throw err;
+              
+              res.json(JSON.stringify(result1.concat(result2)));
+            })
+          })
+
+          // res.json(JSON.stringify(result1.concat(result2)));
         });
       });
     });
@@ -473,15 +532,30 @@ router.post('/api/postMessage',
       }
       const db = client.db(dbName);
 
-      db.collection("posts").count(function(err, num) {
-        db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
-          if (err) {
-            console.log(err);
-          }
+      encrypt(mmsg, (err, enc_msg) => {
+        if(err) throw err;
+        encrypt(mdate, (err, enc_date) =>{
+          if(err) throw err;
 
-          res.json(JSON.stringify({result: "OK"}));
+          db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: enc_msg, date: enc_date}, function (err) {
+            if (err) {
+              console.log(err);
+            }
+  
+            res.json(JSON.stringify({result: "OK"}));
+          });
         });
       });
+
+      // db.collection("posts").count(function(err, num) {
+      //   db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
+      //     if (err) {
+      //       console.log(err);
+      //     }
+
+      //     res.json(JSON.stringify({result: "OK"}));
+      //   });
+      // });
     });
   });
 
@@ -591,12 +665,12 @@ router.post('/api/getPosts',
           if (err) {
             console.log(err);
           }
-          console.log(result);
-          console.log("start getting post");
+          // console.log(result);
+          // console.log("start getting post");
 
           async.each(result, function(post, callback) {
-            console.log("dealing post");
-            console.log(post);
+            // console.log("dealing post");
+            // console.log(post);
             //TODO: fix filename when empty
             decrypt(post.msg, (err, m) =>{
               if(err) throw err;
@@ -613,7 +687,7 @@ router.post('/api/getPosts',
             });
           }, function(err) {
             if(err) throw err;
-            console.log("finish decrypting all data");
+            // console.log("finish decrypting all data");
             res.json(JSON.stringify(result));
           });
 
@@ -623,13 +697,6 @@ router.post('/api/getPosts',
     });
   });
 
-
-// function decrypt_posts(posts, callback){
-//   var i;
-//   for(i = 0; i < posts.length; i++){
-    
-//   }
-// }
 
 router.post('/api/comment',
   require('connect-ensure-login').ensureLoggedIn(),
