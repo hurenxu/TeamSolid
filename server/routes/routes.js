@@ -6,6 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var googleapi = require('googleapis');
+var async = require("async");
 // Connection URL
 const url = 'mongodb://localhost';
 
@@ -519,22 +520,54 @@ router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-lo
       const db = client.db(dbName);
 
       db.collection("posts").count(function (err, num) {
-        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
-          if (err) {
-            console.log(err);
-          }
+        if(err) throw err;
 
-          db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
-            var follows = result[0].follow;
-
-            db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
-              if (err) {
-                console.log(err);
-              }
-              res.json(JSON.stringify(result));
+        encrypt(pfilename, (err, enc_pfilename) =>{
+          if(err) throw err;
+          encrypt(pmsg, (err, enc_pmsg) =>{
+            if(err) throw err;
+            encrypt(pdate, (err, enc_pdate) =>{
+              if(err) throw err;
+              
+              
+              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: enc_pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], data: enc_pdate }, function (err) {
+                if (err) {
+                  console.log(err);
+                }
+      
+                db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+                  var follows = result[0].follow;
+      
+                  db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+                    if (err) {
+                      console.log(err);
+                    }
+                    res.json(JSON.stringify(result));
+                  });
+                });
+              });
             });
-          })
+          });
         });
+
+
+
+        // db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
+        //   if (err) {
+        //     console.log(err);
+        //   }
+
+        //   db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+        //     var follows = result[0].follow;
+
+        //     db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+        //       if (err) {
+        //         console.log(err);
+        //       }
+        //       res.json(JSON.stringify(result));
+        //     });
+        //   })
+        // });
       });
     });
   });
@@ -559,11 +592,23 @@ router.post('/api/getPosts',
             console.log(err);
           }
 
+          // async.each(result, function(post, callback) {
+          //   decrypt(post.)
+          // })
+
           res.json(JSON.stringify(result));
         });
       })
     });
   });
+
+
+// function decrypt_posts(posts, callback){
+//   var i;
+//   for(i = 0; i < posts.length; i++){
+    
+//   }
+// }
 
 router.post('/api/comment',
   require('connect-ensure-login').ensureLoggedIn(),
@@ -843,3 +888,5 @@ router.post('/api/testdecrypt',
       res.send(m);
     });
   });
+
+  
