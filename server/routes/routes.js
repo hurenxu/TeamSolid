@@ -591,6 +591,7 @@ router.post('/api/getPosts',
           if (err) {
             console.log(err);
           }
+          console.log("start getting post");
 
           async.each(result, function(post, callback) {
             decrypt(post.filename, (err, dec_filename) =>{
@@ -608,8 +609,9 @@ router.post('/api/getPosts',
             });
           }, function(err) {
             if(err) throw err;
+            console.log("finish decrypting all data");
             res.json(JSON.stringify(result));
-          })
+          });
 
           // res.json(JSON.stringify(result));
         });
