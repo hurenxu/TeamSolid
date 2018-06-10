@@ -14,9 +14,24 @@ import { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-u
 import SignUp from './Signup';
 import App from './App';
 
+/**
+ * The Login class is meant to accomplish functionality that will enable the returning users to log into their
+ * profile.
+ * @extends {Component}
+ */
 class Login extends Component {
+
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
     constructor(props) {
         super(props);
+
+        /**
+         * The public member variables that will update the state of the React element.
+         * @type {{email: string, password: string, buttonText: string, msg_link: string, header_privacy: string, header_security: string, header_freedom: string, msg_privacy: string, msg_security: string, msg_freedom: string, open: number, redirect: boolean}}
+         */
         this.state =
             {
                 email: '',
@@ -38,6 +53,11 @@ class Login extends Component {
         this.state.redirPage=this.props.redirPage;
   }
 
+    /**
+     * The handleSubmit method fires when a user inputs their email to log in into their social media account.
+     * @param {Object} event=react_event - modifies the state of the react element
+     * @type {Method}
+     */
   handleSubmit(event) {
     event.preventDefault();
     function validateEmail(email) {
@@ -57,6 +77,12 @@ class Login extends Component {
     }
   }
 
+
+    /**
+     * The redirPage method handles the processed sign in form by authenticating a successful sign-in or re-directing
+     * you to sign in again.
+     * @param {Object} response=response - the response is parased to verify successful and failing sign-ups
+     */
     redirPage(response) {
         if(JSON.parse(response.data).islogined){
             this.state.redirect = true;
@@ -66,12 +92,21 @@ class Login extends Component {
         }
     }
 
+    /**
+     * The onclose method is meant to redirect the page after a successful login.
+     * @param {Object} event=react_event - modifies the state of the react element
+     */
     onclose(event) {
         this.state.redirect = true;
         this.setState({redirect: true});
     }
 
-  render() {
+    /**
+     * The render method invokes the formatted login page for the user to interact with once they're trying to
+     * access their account once again.
+     * @returns {*} - invokes the formatted login page.
+     */
+    render() {
     const Mobile = props => <Responsive {...props} maxWidth={767}/>;
     const Default = props => <Responsive {...props} minWidth={768}/>;
 

@@ -1,7 +1,7 @@
 {
-  "coverage": "38.56%",
+  "coverage": "50.32%",
   "expectCount": 153,
-  "actualCount": 59,
+  "actualCount": 77,
   "files": {
     "client/components/Advertisement.js": {
       "expectCount": 3,
@@ -28,12 +28,8 @@
     },
     "client/components/ChatCell.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        7,
-        9,
-        13
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "client/components/ChatWindow.js": {
       "expectCount": 16,
@@ -59,14 +55,8 @@
     },
     "client/components/Colorpicker.js": {
       "expectCount": 5,
-      "actualCount": 0,
-      "undocumentLines": [
-        8,
-        9,
-        11,
-        18,
-        23
-      ]
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "client/components/Crud.js": {
       "expectCount": 5,
@@ -85,22 +75,13 @@
     },
     "client/components/FeedEvent.js": {
       "expectCount": 4,
-      "actualCount": 0,
-      "undocumentLines": [
-        7,
-        9,
-        14,
-        18
-      ]
+      "actualCount": 4,
+      "undocumentLines": []
     },
     "client/components/FeedInfo.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        5,
-        7,
-        11
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "client/components/FriendManagement.js": {
       "expectCount": 9,
@@ -119,16 +100,8 @@
     },
     "client/components/Login.js": {
       "expectCount": 7,
-      "actualCount": 0,
-      "undocumentLines": [
-        17,
-        18,
-        20,
-        41,
-        60,
-        69,
-        74
-      ]
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "client/components/Main.js": {
       "expectCount": 10,
@@ -174,9 +147,13 @@
     },
     "client/components/NewPost.js": {
       "expectCount": 5,
-      "actualCount": 4,
+      "actualCount": 0,
       "undocumentLines": [
-        24
+        5,
+        10,
+        12,
+        14,
+        21
       ]
     },
     "client/components/PostPopup.js": {

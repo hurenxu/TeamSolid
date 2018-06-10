@@ -62,65 +62,38 @@
 import {Button, Header, Image, Modal, Form, TextArea} from &apos;semantic-ui-react&apos;
 import PostPopup from &apos;./PostPopup&apos;
 
-/**
- * CSS styling to format the post window.
- * @type {{width: string, marginTop: string}}
- */
 const styles = {
-  width: &apos;33vw&apos;,
-  marginTop: &apos;5vh&apos;,
+    width: &apos;33vw&apos;,
+    marginTop: &apos;5vh&apos;,
 }
 
-
-
-
-
-
-/**
- * Sirve please
- * @extends {Component}
- * @extends {Component}
- */
 class NewPost extends Component {
 
-    /**
-     * The constructor passes a props object which is a react component that can be modified for use.
-     * @param {Object} props=react_component - a react component that can be modified
-     */
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
+        this.state =
+            {
+                open: 0,
+                message: &apos;&apos;
+            };
+    }
 
-        /**
-         * The public members needed to update the state of the React component.
-         * @type {{open: number, message: string}}
-         */
-    this.state =
-      {
-        open: 0,
-        message: &apos;&apos;
-      };
-  }
-
-    /**
-     * The render method invokes the formatted window for a user to create a new post on social media app.
-     * @returns {*} - invokes the formatted post window for user to interact with.
-     */
-  render() {
-    return (
-      &lt;div&gt;
-        &lt;Form style={styles} reply&gt;
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;Form style={styles} reply&gt;
           &lt;TextArea placeholder=&apos;Click to Post&apos; name=&apos;mesage&apos; value={this.state.message}
                     style={{minHeight: 100}} onClick={() =&gt; this.setState({open: 1})}/&gt;
-          &lt;Button.Group&gt;
-            &lt;Button&gt;Clear&lt;/Button&gt;
-            &lt;Button.Or/&gt;
-            &lt;Button positive&gt;Post&lt;/Button&gt;
-          &lt;/Button.Group&gt;
-        &lt;/Form&gt;
-        &lt;PostPopup open={this.state.open === 1} onClose={() =&gt; this.setState({open: 0})} createPost={this.props.createPost}/&gt;
-      &lt;/div&gt;
-    )
-  }
+                    &lt;Button.Group&gt;
+                        &lt;Button&gt;Clear&lt;/Button&gt;
+                        &lt;Button.Or/&gt;
+                        &lt;Button positive&gt;Post&lt;/Button&gt;
+                    &lt;/Button.Group&gt;
+                &lt;/Form&gt;
+                &lt;PostPopup open={this.state.open === 1} onClose={() =&gt; this.setState({open: 0})} createPost={this.props.createPost}/&gt;
+            &lt;/div&gt;
+        )
+    }
 }
 
 export default NewPost</code></pre>

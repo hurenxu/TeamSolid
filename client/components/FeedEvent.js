@@ -3,18 +3,34 @@ import { Feed, Icon } from 'semantic-ui-react'
 import moment from "moment";
 import axios from "axios/index";
 
-
+/**
+ * The FeedEvent class is meant to accomplish functionality that will allow the user to interact with their
+ * social media feed.
+ * @extends {Component}
+ */
 class FeedEvent extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
     this.addALike = this.addALike.bind(this);
   }
 
+  /**
+   * The addALike method is meant to allow users to interact with their feed by being able to like it
+   * @type {Method}
+   */
   addALike() {
     axios.post('/api/LikeAPost', {postid: this.props.postid});
   }
 
+  /**
+   * The render method invokes the formatted feed for the user and enable them to like a post that may contain images.
+   * @return {*} - invokes the formatted feed for user interaction
+   */
   render() {
       return (
       <Feed.Event>

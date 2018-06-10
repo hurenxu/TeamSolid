@@ -58,13 +58,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Colorpicker from &apos;<span><a href="file/client/components/Colorpicker.js.html#lineNumber8">web/client/components/Colorpicker.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Colorpicker from &apos;<span><a href="file/client/components/Colorpicker.js.html#lineNumber13">web/client/components/Colorpicker.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/client/components/Colorpicker.js.html#lineNumber8">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/client/components/Colorpicker.js.html#lineNumber13">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -74,7 +74,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>react~Component</span> &#x2192; Colorpicker</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>Component</span> &#x2192; Colorpicker</div></div>
   
   
   
@@ -84,7 +84,9 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>The ColorPicker class is meant to accomplish functionality that enables the user to choose the color for their
+background.</p>
+</div>
   
 
   
@@ -116,13 +118,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The constructor passes a props object which is a react component that can be modified for use.</p>
+</div>
       </div>
     </td>
     <td>
@@ -151,13 +154,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {&quot;background&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {background: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The public member variables that will update the state of the React element.</p>
+</div>
       </div>
     </td>
     <td>
@@ -186,13 +190,15 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html#instance-method-handleChangeComplete">handleChangeComplete</a></span></span><span class="code" data-ice="signature">(color: <span>*</span>, event: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Colorpicker.js~Colorpicker.html#instance-method-handleChangeComplete">handleChangeComplete</a></span></span><span class="code" data-ice="signature">(color: <span>Hexadecimal</span>, event: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The handleChangeComplete method is meant to track changes requested by the user and addresses the changes by
+changing the color of the background.</p>
+</div>
       </div>
     </td>
     <td>
@@ -220,7 +226,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>The render method invokes the formatted background color that the user request.</p>
+</div>
       </div>
     </td>
     <td>
@@ -246,22 +253,40 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber9">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber19">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The constructor passes a props object which is a react component that can be modified for use.</p>
+</div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">props</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>default: react_component</li></ul></td>
+      <td data-ice="description"><p>a react component that can be modified</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -292,18 +317,19 @@
     
     
     
-    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {&quot;background&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
+    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {background: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The public member variables that will update the state of the React element.</p>
+</div>
 
   
 
@@ -338,18 +364,20 @@
     
     
     
-    <span class="code" data-ice="name">handleChangeComplete</span><span class="code" data-ice="signature">(color: <span>*</span>, event: <span>*</span>)</span>
+    <span class="code" data-ice="name">handleChangeComplete</span><span class="code" data-ice="signature">(color: <span>Hexadecimal</span>, event: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber18">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber39">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The handleChangeComplete method is meant to track changes requested by the user and addresses the changes by
+changing the color of the background.</p>
+</div>
 
   
 
@@ -363,15 +391,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">color</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span>Hexadecimal</span></td>
+      <td data-ice="appendix"><ul><li>default: hex_value</li></ul></td>
+      <td data-ice="description"><p>the color requested by the user.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">event</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>default: react_event</li></ul></td>
+      <td data-ice="description"><p>modifies the state of the react element.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -407,14 +437,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber23">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Colorpicker.js.html#lineNumber48">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The render method invokes the formatted background color that the user request.</p>
+</div>
 
   
 
@@ -427,7 +458,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>invokes the formatted background color</p>
+</td>
         </tr>
       </tbody>
     </table>

@@ -2,12 +2,25 @@ import React, {Component} from 'react'
 import {Feed, Icon, Grid, Header} from 'semantic-ui-react'
 import Adv from './Advertisement'
 
+/**
+ * The FeedInfo class is meant to accomplish functionality that will support the feed a user experiences while
+ * using the social media application.
+ * @extends {Component}
+ */
 class FeedInfo extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
   }
 
+    /**
+     * The render method invokes the formatted feed for a user to interact with.
+     * @returns {*} - invokes the formatted feed.
+     */
   render() {
     return (
         <div>

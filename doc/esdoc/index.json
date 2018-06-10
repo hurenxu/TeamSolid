@@ -967,7 +967,7 @@
     "__docId__": 71,
     "kind": "file",
     "name": "client/components/ChatCell.js",
-    "content": "import React, {Component} from 'react';\nimport {Grid, Message} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\n\nclass ChatCell extends Component {\n\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    var currMessage = \"\"\n    if (this.props.me) {\n      currMessage =\n        <Grid>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          </Grid.Column>\n          <Grid.Column width={14} textAlign='left'>\n            <Message compact color='green'>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n        </Grid>\n    } else {\n      currMessage =\n        <Grid>\n          <Grid.Column width={14} textAlign='right'>\n            <Message compact>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src={this.props.img}/>\n          </Grid.Column>\n        </Grid>\n    }\n    return (\n      <div style={{marginTop: '1em'}}>\n        {currMessage}\n      </div>\n    );\n  }\n}\n\nexport default ChatCell;",
+    "content": "import React, {Component} from 'react';\nimport {Grid, Message} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\n\n/**\n * The ChatCell class is meant to accomplish functionality that will provide the user with a chat cell.\n * @extends {Component}\n */\nclass ChatCell extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n  }\n\n    /**\n     * The render method invokes the formatted chat cell for the user to interact with.\n     * @returns {*} - invokes the formatted chat cell.\n     */\n  render() {\n    var currMessage = \"\"\n    if (this.props.me) {\n      currMessage =\n        <Grid>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          </Grid.Column>\n          <Grid.Column width={14} textAlign='left'>\n            <Message compact color='green'>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n        </Grid>\n    } else {\n      currMessage =\n        <Grid>\n          <Grid.Column width={14} textAlign='right'>\n            <Message compact>\n              {this.props.msg}\n            </Message>\n          </Grid.Column>\n          <Grid.Column width={2}>\n            <img className=\"ui avatar image\" src={this.props.img}/>\n          </Grid.Column>\n        </Grid>\n    }\n    return (\n      <div style={{marginTop: '1em'}}>\n        {currMessage}\n      </div>\n    );\n  }\n}\n\nexport default ChatCell;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/ChatCell.js",
     "access": "public",
@@ -985,12 +985,11 @@
     "export": true,
     "importPath": "web/client/components/ChatCell.js",
     "importStyle": "ChatCell",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "The ChatCell class is meant to accomplish functionality that will provide the user with a chat cell.",
+    "lineNumber": 11,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -1003,9 +1002,22 @@
     "static": false,
     "longname": "client/components/ChatCell.js~ChatCell#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 74,
@@ -1017,15 +1029,23 @@
     "static": false,
     "longname": "client/components/ChatCell.js~ChatCell#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 13,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted chat cell for the user to interact with.",
+    "lineNumber": 25,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted chat cell."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted chat cell."
+    },
+    "params": []
   },
   {
     "__docId__": 75,
@@ -1345,7 +1365,7 @@
     "__docId__": 95,
     "kind": "file",
     "name": "client/components/Colorpicker.js",
-    "content": "import React, {Component} from 'react';\nimport {Button, Grid} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport { SketchPicker } from 'react-color'\n\nclass Colorpicker extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        background: 'black',\n      };\n    this.handleChangeComplete = this.handleChangeComplete.bind(this);\n  };\n\n  handleChangeComplete(color, event){\n    console.log(color.hex);\n    this.setState({ background: color.hex });\n  };\n\n  render() {\n    return (\n      <div style={{marginTop: '5%'}}>\n        <Grid centered>\n          <Grid.Row>\n            <h1 style={{color: this.state.background}}>Hello</h1>\n          </Grid.Row>\n          <Grid.Row>\n            <SketchPicker color={this.state.background } onChangeComplete={ this.handleChangeComplete } />\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Colorpicker;",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport { SketchPicker } from 'react-color'\n\n/**\n * The ColorPicker class is meant to accomplish functionality that enables the user to choose the color for their\n * background.\n * @extends {Component}\n */\nclass Colorpicker extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The public member variables that will update the state of the React element.\n         * @type {{background: string}}\n         */\n    this.state =\n      {\n        background: 'black',\n      };\n    this.handleChangeComplete = this.handleChangeComplete.bind(this);\n  };\n\n    /**\n     * The handleChangeComplete method is meant to track changes requested by the user and addresses the changes by\n     * changing the color of the background.\n     * @param {Hexadecimal} color=hex_value - the color requested by the user.\n     * @param {Object} event=react_event - modifies the state of the react element.\n     */\n  handleChangeComplete(color, event){\n    console.log(color.hex);\n    this.setState({ background: color.hex });\n  };\n\n    /**\n     * The render method invokes the formatted background color that the user request.\n     * @returns {*} - invokes the formatted background color\n     */\n  render() {\n    return (\n      <div style={{marginTop: '5%'}}>\n        <Grid centered>\n          <Grid.Row>\n            <h1 style={{color: this.state.background}}>Hello</h1>\n          </Grid.Row>\n          <Grid.Row>\n            <SketchPicker color={this.state.background } onChangeComplete={ this.handleChangeComplete } />\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Colorpicker;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Colorpicker.js",
     "access": "public",
@@ -1363,12 +1383,11 @@
     "export": true,
     "importPath": "web/client/components/Colorpicker.js",
     "importStyle": "Colorpicker",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "The ColorPicker class is meant to accomplish functionality that enables the user to choose the color for their\nbackground.",
+    "lineNumber": 13,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -1381,9 +1400,22 @@
     "static": false,
     "longname": "client/components/Colorpicker.js~Colorpicker#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 98,
@@ -1393,13 +1425,15 @@
     "static": false,
     "longname": "client/components/Colorpicker.js~Colorpicker#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 11,
-    "undocument": true,
+    "description": "The public member variables that will update the state of the React element.",
+    "lineNumber": 26,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"background\": string}"
-      ]
+        "{background: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1412,21 +1446,32 @@
     "static": false,
     "longname": "client/components/Colorpicker.js~Colorpicker#handleChangeComplete",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "The handleChangeComplete method is meant to track changes requested by the user and addresses the changes by\nchanging the color of the background.",
+    "lineNumber": 39,
     "params": [
       {
-        "name": "color",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Hexadecimal"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "hex_value",
+        "defaultRaw": "hex_value",
+        "name": "color",
+        "description": "the color requested by the user."
       },
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element."
       }
     ],
     "return": null
@@ -1441,15 +1486,23 @@
     "static": false,
     "longname": "client/components/Colorpicker.js~Colorpicker#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted background color that the user request.",
+    "lineNumber": 48,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted background color"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted background color"
+    },
+    "params": []
   },
   {
     "__docId__": 102,
@@ -1769,7 +1822,7 @@
     "__docId__": 120,
     "kind": "file",
     "name": "client/components/FeedEvent.js",
-    "content": "import React, {Component} from 'react'\nimport { Feed, Icon } from 'semantic-ui-react'\nimport moment from \"moment\";\nimport axios from \"axios/index\";\n\n\nclass FeedEvent extends Component {\n\n  constructor(props) {\n    super(props);\n    this.addALike = this.addALike.bind(this);\n  }\n\n  addALike() {\n    axios.post('/api/LikeAPost', {postid: this.props.postid});\n  }\n\n  render() {\n      return (\n      <Feed.Event>\n        <Feed.Label image={this.props.imageURL}/>\n        <Feed.Content>\n          <Feed.Summary>\n            <a>{this.props.userName}</a> posted this feed\n            <Feed.Date>{moment(this.props.date).fromNow()}</Feed.Date>\n          </Feed.Summary>\n          <Feed.Extra text>\n            {this.props.mainText}\n          </Feed.Extra>\n          <Feed.Extra images>\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n          </Feed.Extra>\n          <Feed.Meta>\n            <Feed.Like onClick={()=> this.addALike()}>\n              <Icon name='like'/>\n              {this.props.numOfLikes} Likes\n            </Feed.Like>\n          </Feed.Meta>\n        </Feed.Content>\n      </Feed.Event>\n    );\n  }\n}\n\nexport default FeedEvent",
+    "content": "import React, {Component} from 'react'\nimport { Feed, Icon } from 'semantic-ui-react'\nimport moment from \"moment\";\nimport axios from \"axios/index\";\n\n/**\n * The FeedEvent class is meant to accomplish functionality that will allow the user to interact with their\n * social media feed.\n * @extends {Component}\n */\nclass FeedEvent extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n    this.addALike = this.addALike.bind(this);\n  }\n\n  /**\n   * The addALike method is meant to allow users to interact with their feed by being able to like it\n   * @type {Method}\n   */\n  addALike() {\n    axios.post('/api/LikeAPost', {postid: this.props.postid});\n  }\n\n  /**\n   * The render method invokes the formatted feed for the user and enable them to like a post that may contain images.\n   * @return {*} - invokes the formatted feed for user interaction\n   */\n  render() {\n      return (\n      <Feed.Event>\n        <Feed.Label image={this.props.imageURL}/>\n        <Feed.Content>\n          <Feed.Summary>\n            <a>{this.props.userName}</a> posted this feed\n            <Feed.Date>{moment(this.props.date).fromNow()}</Feed.Date>\n          </Feed.Summary>\n          <Feed.Extra text>\n            {this.props.mainText}\n          </Feed.Extra>\n          <Feed.Extra images>\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n            {/*<a><img src='/assets/images/wireframe/image.png' /></a>*/}\n          </Feed.Extra>\n          <Feed.Meta>\n            <Feed.Like onClick={()=> this.addALike()}>\n              <Icon name='like'/>\n              {this.props.numOfLikes} Likes\n            </Feed.Like>\n          </Feed.Meta>\n        </Feed.Content>\n      </Feed.Event>\n    );\n  }\n}\n\nexport default FeedEvent",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/FeedEvent.js",
     "access": "public",
@@ -1787,12 +1840,11 @@
     "export": true,
     "importPath": "web/client/components/FeedEvent.js",
     "importStyle": "FeedEvent",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "The FeedEvent class is meant to accomplish functionality that will allow the user to interact with their\nsocial media feed.",
+    "lineNumber": 11,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -1805,9 +1857,22 @@
     "static": false,
     "longname": "client/components/FeedEvent.js~FeedEvent#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 124,
@@ -1819,9 +1884,16 @@
     "static": false,
     "longname": "client/components/FeedEvent.js~FeedEvent#addALike",
     "access": "public",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "The addALike method is meant to allow users to interact with their feed by being able to like it",
+    "lineNumber": 26,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -1835,21 +1907,23 @@
     "static": false,
     "longname": "client/components/FeedEvent.js~FeedEvent#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted feed for the user and enable them to like a post that may contain images.",
+    "lineNumber": 34,
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted feed for user interaction"
+    },
+    "params": []
   },
   {
     "__docId__": 126,
     "kind": "file",
     "name": "client/components/FeedInfo.js",
-    "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Header} from 'semantic-ui-react'\nimport Adv from './Advertisement'\n\nclass FeedInfo extends Component {\n\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return (\n        <div>\n        <Header as='h2' floated='left' style={{marginLeft: \"1em\"}}>\n            <Icon name='file text outline' />\n            <Header.Content>\n                Activties\n            </Header.Content>\n        </Header>\n      <Feed style={{marginTop: '5vh'}}>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/images.png'/>\n          <Feed.Content content='Peter Pan post a moment on the Work Aspect Channel'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/Aha-Soft-Free-Large-Boss-Superman.ico'/>\n          <Feed.Content content='You added Renxu Hu to the aspect Family'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/mom.png'/>\n          <Feed.Content content='Nimama (Aspect: Family) sent you a message'/>\n        </Feed.Event>\n      </Feed>\n            <Adv open={this.props.sub === false} handleClick={this.props.handleClick}/>\n        </div>\n    );\n  }\n}\n\nexport default FeedInfo\n",
+    "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Header} from 'semantic-ui-react'\nimport Adv from './Advertisement'\n\n/**\n * The FeedInfo class is meant to accomplish functionality that will support the feed a user experiences while\n * using the social media application.\n * @extends {Component}\n */\nclass FeedInfo extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n  }\n\n    /**\n     * The render method invokes the formatted feed for a user to interact with.\n     * @returns {*} - invokes the formatted feed.\n     */\n  render() {\n    return (\n        <div>\n        <Header as='h2' floated='left' style={{marginLeft: \"1em\"}}>\n            <Icon name='file text outline' />\n            <Header.Content>\n                Activties\n            </Header.Content>\n        </Header>\n      <Feed style={{marginTop: '5vh'}}>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/images.png'/>\n          <Feed.Content content='Peter Pan post a moment on the Work Aspect Channel'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/Aha-Soft-Free-Large-Boss-Superman.ico'/>\n          <Feed.Content content='You added Renxu Hu to the aspect Family'/>\n        </Feed.Event>\n        <Feed.Event>\n          <Feed.Label image='../assets/image/avatar/mom.png'/>\n          <Feed.Content content='Nimama (Aspect: Family) sent you a message'/>\n        </Feed.Event>\n      </Feed>\n            <Adv open={this.props.sub === false} handleClick={this.props.handleClick}/>\n        </div>\n    );\n  }\n}\n\nexport default FeedInfo\n",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/FeedInfo.js",
     "access": "public",
@@ -1867,12 +1941,11 @@
     "export": true,
     "importPath": "web/client/components/FeedInfo.js",
     "importStyle": "FeedInfo",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "The FeedInfo class is meant to accomplish functionality that will support the feed a user experiences while\nusing the social media application.",
+    "lineNumber": 10,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -1885,9 +1958,22 @@
     "static": false,
     "longname": "client/components/FeedInfo.js~FeedInfo#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 129,
@@ -1899,15 +1985,23 @@
     "static": false,
     "longname": "client/components/FeedInfo.js~FeedInfo#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 11,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted feed for a user to interact with.",
+    "lineNumber": 24,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted feed."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted feed."
+    },
+    "params": []
   },
   {
     "__docId__": 130,
@@ -2106,7 +2200,7 @@
     "__docId__": 143,
     "kind": "file",
     "name": "client/components/Login.js",
-    "content": "/**\n * Created by Wanhui on 4/20/18.\n */\n\nimport React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport '../css/login.css'\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport TextBox from './TextBox';\nimport Navbar from './Navbar';\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport SignUp from './Signup';\nimport App from './App';\n\nclass Login extends Component {\n    constructor(props) {\n        super(props);\n        this.state =\n            {\n                email: '',\n                password: '',\n                buttonText: 'Login',\n                msg_link: 'Sign Up',\n                header_privacy: 'Decentralization',\n                header_security: 'Security',\n                header_freedom: 'Freedom',\n                msg_privacy: 'You choose who can see your data.',\n                msg_security: 'All data are encrypted to make them safe.',\n                msg_freedom: 'Your identity is not controlled and observed.',\n                open: 0,\n                redirect:false\n            };\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n        this.onclose = this.onclose.bind(this);\n        this.state.redirPage=this.props.redirPage;\n  }\n\n  handleSubmit(event) {\n    event.preventDefault();\n    function validateEmail(email) {\n      var re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\n      return re.test(String(email).toLowerCase());\n    }\n\n    if (validateEmail(this.state.email) && this.state.password != '' ) {\n      //Submit to somewhere\n      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> this.redirPage(response));\n    }\n    else if (!validateEmail(this.state.email)) {\n      alert('Invalid email address');\n    }\n    else {\n      alert('Password cannot be empty');\n    }\n  }\n\n    redirPage(response) {\n        if(JSON.parse(response.data).islogined){\n            this.state.redirect = true;\n            this.setState(this.state);\n        }else{\n            alert('Incorrect email or password!');\n        }\n    }\n\n    onclose(event) {\n        this.state.redirect = true;\n        this.setState({redirect: true});\n    }\n\n  render() {\n    const Mobile = props => <Responsive {...props} maxWidth={767}/>;\n    const Default = props => <Responsive {...props} minWidth={768}/>;\n\n        if(this.state.redirect){\n            return <App />;\n        }\n\n        return (\n            <div className=\"App\">\n                <div>\n                <header className=\"App-login-header\">\n                    <h3 className=\"App-title\">Peterbook</h3>\n                </header>\n                </div>\n        <Grid style={{marginTop: '-80px'}} columns={16} divided='vertically' className=\"text_board\">\n                <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>\n                    <Grid.Row className ='text_box text_font'>\n                        <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_security} text={this.state.msg_security}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>\n                    </Grid.Row>\n                </Grid.Column>\n\n            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className=\"login_box\" style={{height: '55%'}}>\n                    <h2 className=\"ui form_header centered\">\n                        <div className=\"content mid_text\">\n                            Log-in to your account\n                        </div>\n                    </h2>\n                <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                    <Form size='huge'>\n                        <Form.Input\n                            fluid icon='user' iconPosition='left' placeholder='email'\n                            onChange={(e, {value})=> this.setState({email: value})}\n                        />\n                        <Form.Input\n                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                            onChange={(e, {value})=> this.setState({password: value})}\n                        />\n                    </Form>\n                </Container>\n                    <Button positive icon='checkmark' content=\"Log In\" labelPosition='right' onClick={this.handleSubmit} />\n                    <Button color='grey' icon='genderless' labelPosition='right' content='Sign up' onClick={()=>this.setState({open: 1})} />\n            </Grid.Column>\n            </Grid>\n                <SignUp onclose={()=> this.onclose()} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>\n            </div>\n        );\n    }\n}\n\nexport default Login;",
+    "content": "/**\n * Created by Wanhui on 4/20/18.\n */\n\nimport React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport '../css/login.css'\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport TextBox from './TextBox';\nimport Navbar from './Navbar';\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport SignUp from './Signup';\nimport App from './App';\n\n/**\n * The Login class is meant to accomplish functionality that will enable the returning users to log into their\n * profile.\n * @extends {Component}\n */\nclass Login extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * The public member variables that will update the state of the React element.\n         * @type {{email: string, password: string, buttonText: string, msg_link: string, header_privacy: string, header_security: string, header_freedom: string, msg_privacy: string, msg_security: string, msg_freedom: string, open: number, redirect: boolean}}\n         */\n        this.state =\n            {\n                email: '',\n                password: '',\n                buttonText: 'Login',\n                msg_link: 'Sign Up',\n                header_privacy: 'Decentralization',\n                header_security: 'Security',\n                header_freedom: 'Freedom',\n                msg_privacy: 'You choose who can see your data.',\n                msg_security: 'All data are encrypted to make them safe.',\n                msg_freedom: 'Your identity is not controlled and observed.',\n                open: 0,\n                redirect:false\n            };\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n        this.onclose = this.onclose.bind(this);\n        this.state.redirPage=this.props.redirPage;\n  }\n\n    /**\n     * The handleSubmit method fires when a user inputs their email to log in into their social media account.\n     * @param {Object} event=react_event - modifies the state of the react element\n     * @type {Method}\n     */\n  handleSubmit(event) {\n    event.preventDefault();\n    function validateEmail(email) {\n      var re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\n      return re.test(String(email).toLowerCase());\n    }\n\n    if (validateEmail(this.state.email) && this.state.password != '' ) {\n      //Submit to somewhere\n      axios.post('/api/login', {email: this.state.email, password: this.state.password}).then((response)=> this.redirPage(response));\n    }\n    else if (!validateEmail(this.state.email)) {\n      alert('Invalid email address');\n    }\n    else {\n      alert('Password cannot be empty');\n    }\n  }\n\n\n    /**\n     * The redirPage method handles the processed sign in form by authenticating a successful sign-in or re-directing\n     * you to sign in again.\n     * @param {Object} response=response - the response is parased to verify successful and failing sign-ups\n     */\n    redirPage(response) {\n        if(JSON.parse(response.data).islogined){\n            this.state.redirect = true;\n            this.setState(this.state);\n        }else{\n            alert('Incorrect email or password!');\n        }\n    }\n\n    /**\n     * The onclose method is meant to redirect the page after a successful login.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n    onclose(event) {\n        this.state.redirect = true;\n        this.setState({redirect: true});\n    }\n\n    /**\n     * The render method invokes the formatted login page for the user to interact with once they're trying to\n     * access their account once again.\n     * @returns {*} - invokes the formatted login page.\n     */\n    render() {\n    const Mobile = props => <Responsive {...props} maxWidth={767}/>;\n    const Default = props => <Responsive {...props} minWidth={768}/>;\n\n        if(this.state.redirect){\n            return <App />;\n        }\n\n        return (\n            <div className=\"App\">\n                <div>\n                <header className=\"App-login-header\">\n                    <h3 className=\"App-title\">Peterbook</h3>\n                </header>\n                </div>\n        <Grid style={{marginTop: '-80px'}} columns={16} divided='vertically' className=\"text_board\">\n                <Grid.Column mobile={14} computer={9} style={{height: '85%'}}>\n                    <Grid.Row className ='text_box text_font'>\n                        <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_security} text={this.state.msg_security}/>\n                    </Grid.Row>\n                    <Grid.Row style={{height: '25%'}} className ='text_font'>\n                        <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>\n                    </Grid.Row>\n                </Grid.Column>\n\n            <Grid.Column mobile={14} computer={5}  verticalAlign='middle' className=\"login_box\" style={{height: '55%'}}>\n                    <h2 className=\"ui form_header centered\">\n                        <div className=\"content mid_text\">\n                            Log-in to your account\n                        </div>\n                    </h2>\n                <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                    <Form size='huge'>\n                        <Form.Input\n                            fluid icon='user' iconPosition='left' placeholder='email'\n                            onChange={(e, {value})=> this.setState({email: value})}\n                        />\n                        <Form.Input\n                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                            onChange={(e, {value})=> this.setState({password: value})}\n                        />\n                    </Form>\n                </Container>\n                    <Button positive icon='checkmark' content=\"Log In\" labelPosition='right' onClick={this.handleSubmit} />\n                    <Button color='grey' icon='genderless' labelPosition='right' content='Sign up' onClick={()=>this.setState({open: 1})} />\n            </Grid.Column>\n            </Grid>\n                <SignUp onclose={()=> this.onclose()} open={this.state.open === 1} onClose={()=> this.setState({open: 0})}/>\n            </div>\n        );\n    }\n}\n\nexport default Login;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Login.js",
     "access": "public",
@@ -2124,12 +2218,11 @@
     "export": true,
     "importPath": "web/client/components/Login.js",
     "importStyle": "Login",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
+    "description": "The Login class is meant to accomplish functionality that will enable the returning users to log into their\nprofile.",
+    "lineNumber": 22,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -2142,9 +2235,22 @@
     "static": false,
     "longname": "client/components/Login.js~Login#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 146,
@@ -2154,13 +2260,15 @@
     "static": false,
     "longname": "client/components/Login.js~Login#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
+    "description": "The public member variables that will update the state of the React element.",
+    "lineNumber": 35,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"email\": *, \"password\": *, \"buttonText\": string, \"msg_link\": string, \"header_privacy\": string, \"header_security\": string, \"header_freedom\": string, \"msg_privacy\": string, \"msg_security\": string, \"msg_freedom\": string, \"open\": *, \"redirect\": *}"
-      ]
+        "{email: string, password: string, buttonText: string, msg_link: string, header_privacy: string, header_security: string, header_freedom: string, msg_privacy: string, msg_security: string, msg_freedom: string, open: number, redirect: boolean}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2173,17 +2281,30 @@
     "static": false,
     "longname": "client/components/Login.js~Login#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 41,
-    "undocument": true,
+    "description": "The handleSubmit method fires when a user inputs their email to log in into their social media account.",
+    "lineNumber": 61,
     "params": [
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element"
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2196,15 +2317,20 @@
     "static": false,
     "longname": "client/components/Login.js~Login#redirPage",
     "access": "public",
-    "description": null,
-    "lineNumber": 60,
-    "undocument": true,
+    "description": "The redirPage method handles the processed sign in form by authenticating a successful sign-in or re-directing\nyou to sign in again.",
+    "lineNumber": 86,
     "params": [
       {
-        "name": "response",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "response",
+        "defaultRaw": "response",
+        "name": "response",
+        "description": "the response is parased to verify successful and failing sign-ups"
       }
     ],
     "return": null
@@ -2219,15 +2345,20 @@
     "static": false,
     "longname": "client/components/Login.js~Login#onclose",
     "access": "public",
-    "description": null,
-    "lineNumber": 69,
-    "undocument": true,
+    "description": "The onclose method is meant to redirect the page after a successful login.",
+    "lineNumber": 99,
     "params": [
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element"
       }
     ],
     "return": null
@@ -2242,15 +2373,23 @@
     "static": false,
     "longname": "client/components/Login.js~Login#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 74,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted login page for the user to interact with once they're trying to\naccess their account once again.",
+    "lineNumber": 109,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted login page."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted login page."
+    },
+    "params": []
   },
   {
     "__docId__": 154,
@@ -2741,7 +2880,7 @@
     "__docId__": 192,
     "kind": "file",
     "name": "client/components/NewPost.js",
-    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\n/**\n * CSS styling to format the post window.\n * @type {{width: string, marginTop: string}}\n */\nconst styles = {\n  width: '33vw',\n  marginTop: '5vh',\n}\n\n\n\n\n\n\n/**\n * Sirve please\n * @extends {Component}\n * @extends {Component}\n */\nclass NewPost extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The public members needed to update the state of the React component.\n         * @type {{open: number, message: string}}\n         */\n    this.state =\n      {\n        open: 0,\n        message: ''\n      };\n  }\n\n    /**\n     * The render method invokes the formatted window for a user to create a new post on social media app.\n     * @returns {*} - invokes the formatted post window for user to interact with.\n     */\n  render() {\n    return (\n      <div>\n        <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n          <Button.Group>\n            <Button>Clear</Button>\n            <Button.Or/>\n            <Button positive>Post</Button>\n          </Button.Group>\n        </Form>\n        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n      </div>\n    )\n  }\n}\n\nexport default NewPost",
+    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\nconst styles = {\n    width: '33vw',\n    marginTop: '5vh',\n}\n\nclass NewPost extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state =\n            {\n                open: 0,\n                message: ''\n            };\n    }\n\n    render() {\n        return (\n            <div>\n                <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n                    <Button.Group>\n                        <Button>Clear</Button>\n                        <Button.Or/>\n                        <Button positive>Post</Button>\n                    </Button.Group>\n                </Form>\n                <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n            </div>\n        )\n    }\n}\n\nexport default NewPost",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/NewPost.js",
     "access": "public",
@@ -2759,15 +2898,13 @@
     "export": false,
     "importPath": "web/client/components/NewPost.js",
     "importStyle": null,
-    "description": "CSS styling to format the post window.",
-    "lineNumber": 9,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
     "type": {
-      "nullable": null,
       "types": [
-        "{width: string, marginTop: string}"
-      ],
-      "spread": false,
-      "description": null
+        "{\"width\": string, \"marginTop\": string}"
+      ]
     },
     "ignore": true
   },
@@ -2783,7 +2920,7 @@
     "importPath": "web/client/components/NewPost.js",
     "importStyle": "NewPost",
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 10,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -2800,22 +2937,9 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#constructor",
     "access": "public",
-    "description": "The constructor passes a props object which is a react component that can be modified for use.",
-    "lineNumber": 30,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "defaultValue": "react_component",
-        "defaultRaw": "react_component",
-        "name": "props",
-        "description": "a react component that can be modified"
-      }
-    ]
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true
   },
   {
     "__docId__": 196,
@@ -2825,15 +2949,13 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#state",
     "access": "public",
-    "description": "The public members needed to update the state of the React component.",
-    "lineNumber": 37,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
     "type": {
-      "nullable": null,
       "types": [
-        "{open: number, message: string}"
-      ],
-      "spread": false,
-      "description": null
+        "{\"open\": *, \"message\": *}"
+      ]
     }
   },
   {
@@ -2846,23 +2968,15 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#render",
     "access": "public",
-    "description": "The render method invokes the formatted window for a user to create a new post on social media app.",
-    "lineNumber": 48,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{*} - invokes the formatted post window for user to interact with."
-      }
-    ],
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [],
     "return": {
-      "nullable": null,
       "types": [
         "*"
-      ],
-      "spread": false,
-      "description": "invokes the formatted post window for user to interact with."
-    },
-    "params": []
+      ]
+    }
   },
   {
     "__docId__": 198,

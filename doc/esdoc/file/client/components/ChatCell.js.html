@@ -64,12 +64,24 @@ import Responsive from &apos;react-responsive&apos;;
 import axios from &apos;axios&apos;;
 import ReactDOM from &quot;react-dom&quot;;
 
+/**
+ * The ChatCell class is meant to accomplish functionality that will provide the user with a chat cell.
+ * @extends {Component}
+ */
 class ChatCell extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
   }
 
+    /**
+     * The render method invokes the formatted chat cell for the user to interact with.
+     * @returns {*} - invokes the formatted chat cell.
+     */
   render() {
     var currMessage = &quot;&quot;
     if (this.props.me) {
