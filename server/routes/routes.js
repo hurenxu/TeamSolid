@@ -592,11 +592,26 @@ router.post('/api/getPosts',
             console.log(err);
           }
 
-          // async.each(result, function(post, callback) {
-          //   decrypt(post.)
-          // })
+          async.each(result, function(post, callback) {
+            decrypt(post.filename, (err, dec_filename) =>{
+              if(err) throw err;
+              decrypt(post.msg, (err, dec_msg) =>{
+                if(err) throw err;
+                decrypt(post.data, (err, dec_data) =>{
+                  if(err) throw err;
+                  post.filename = dec_filename;
+                  post.msg = dec_msg;
+                  post.data = dec_data;
+                  callback();
+                });
+              });
+            });
+          }, function(err) {
+            if(err) throw err;
+            res.json(JSON.stringify(result));
+          })
 
-          res.json(JSON.stringify(result));
+          // res.json(JSON.stringify(result));
         });
       })
     });
