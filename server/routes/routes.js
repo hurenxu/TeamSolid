@@ -290,6 +290,8 @@ router.post('/api/updateFriendList',
     var targetid = req.body.tid;
     var actionType = req.body.actionType;
 
+    //TODO: add verification
+
     MongoClient.connect(url, function (err, client) {
       const db = client.db(dbName);
 
@@ -362,7 +364,7 @@ router.post('/api/ChangeToPost',
         console.log(err);
       }
       const db = client.db(dbName);
-      db.collection("userinfo").find({std: sourceid}).toArray(function(err, result) {
+      db.collection("userinfo").find({sid: sourceid}).toArray(function(err, result) {
         var follows = result[0].follow;
 
 
