@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "client/components/Advertisement.js",
-    "content": "import React, {Component} from 'react'\nimport {Button} from 'semantic-ui-react'\nimport GoogleAds from 'react-google-ads'\nimport axios from \"axios/index\";\n\n\n/**\n * This is the Advertisement class that extends the Component class. This class is used to generate the ad services\n * sponsored by Google Ads and required for the PeterBook to be profitable.\n * @extends {Component}\n */\nclass Advertisement extends Component {\n\n    /**\n     * This constructor is inherited from the Component Super Class, and passes in a props object which\n     * is a component that can be customized\n     * @param {Object} props=react_component - A react component that can be customized, in this case the google ad\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render function invokes a specified element everytime and returns that element. In this case,\n     * the function first checks if it can open the customized component (ad) , if it can open the\n     * component (ad) then it proceed to invoke the google ad element.\n     * @returns {*} - returns the invoked google ad element\n     */\n    render() {\n        if(this.props.open === false) {\n            return (\n              <div></div>\n            );\n        }\n        else {\n            return (\n                <div>\n                    <GoogleAds\n                        client=\"ca-pub-7292810486004926\"\n                        slot=\"7806394673\"\n                        style={{display: 'inline-block', width: '100%',}}\n                    />\n                    <Button positive onClick={this.props.handleClick}>\n                        Subscribe to remove ads\n                    </Button>\n                </div>\n            );\n        }\n    }\n}\n\nexport default Advertisement\n",
+    "content": "import React, {Component} from 'react'\nimport {Button} from 'semantic-ui-react'\nimport GoogleAds from 'react-google-ads'\nimport axios from \"axios/index\";\n\n\n/**\n * This is the Advertisement class that extends the Component class. This class is used to generate the ad services\n * sponsored by Google Ads and required for the PeterBook to be profitable.\n * @extends {Component}\n */\nclass Advertisement extends Component {\n\n    /**\n     * This constructor is inherited from the Component Super Class, and passes in a props object which\n     * is a component that can be customized\n     * @param {Object} props=react_component - A react component that can be customized, in this case the google ad.\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render function invokes a specified element everytime and returns that element. In this case,\n     * the function first checks if it can open the customized component (ad) , if it can open the\n     * component (ad) then it proceed to invoke the google ad element.\n     * @returns {*} - returns the invoked google ad element.\n     */\n    render() {\n        if(this.props.open === false) {\n            return (\n              <div></div>\n            );\n        }\n        else {\n            return (\n                <div>\n                    <GoogleAds\n                        client=\"ca-pub-7292810486004926\"\n                        slot=\"7806394673\"\n                        style={{display: 'inline-block', width: '100%',}}\n                    />\n                    <Button positive onClick={this.props.handleClick}>\n                        Subscribe to remove ads\n                    </Button>\n                </div>\n            );\n        }\n    }\n}\n\nexport default Advertisement\n",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Advertisement.js",
     "access": "public",
@@ -615,7 +615,7 @@
         "defaultValue": "react_component",
         "defaultRaw": "react_component",
         "name": "props",
-        "description": "A react component that can be customized, in this case the google ad"
+        "description": "A react component that can be customized, in this case the google ad."
       }
     ]
   },
@@ -634,7 +634,7 @@
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{*} - returns the invoked google ad element"
+        "tagValue": "{*} - returns the invoked google ad element."
       }
     ],
     "return": {
@@ -643,7 +643,7 @@
         "*"
       ],
       "spread": false,
-      "description": "returns the invoked google ad element"
+      "description": "returns the invoked google ad element."
     },
     "params": []
   },
@@ -651,7 +651,7 @@
     "__docId__": 52,
     "kind": "file",
     "name": "client/components/App.js",
-    "content": "import React, { Component } from 'react';\nimport Login from './Login'\nimport Crud from './Crud'\nimport Main from './Main'\nimport Colorpicker from './Colorpicker'\n\n/**\n * This App class is the main app JavaScript component.\n * @extends {Component}\n */\nclass App extends Component {\n\n    /**\n     * This constructor invokes the constructor from the super class Component. It's used to initialize the\n     * login page by initializing the email and password fields to default empty.\n     * @param {Object} props=react_component - react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The member variables of the page's state include a booolean to check if it's the login page, a string\n         * field for the email, and a string field for the password.\n         * @type {{isLoginPage: boolean, email: string, password: string}}\n         */\n    this.state =\n      {\n        isLoginPage: true,\n        email: \"\",\n        password: \"\"\n\n      };\n\n    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);\n    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);\n  }\n\n    /**\n     * The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism\n     * to handle the user's input email and input password.\n     * @param {string} in_email=user_email - user's input email\n     * @param {string} in_password=user_password - user's input password\n     */\n  handleLoginCrudSwap(in_email, in_password) {\n    this.setState((prevState) => ({\n      email: in_email,\n      password: in_password\n    }));\n\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n    /**\n     * The method handleCrudLoginSwap , uses the create, read, update, and delete mechanism to restore the\n     * the login back to it's original state once a user has finished loggin in.\n     */\n  handleCrudLoginSwap() {\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n\n    /**\n     * The render method invokes the PeterBook components that handle login page interactions with email,\n     * password, and clicked items.\n     * @returns {*} - the invoked Peterbook Login Page\n     */\n  render() {\n    const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;\n    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;\n\n    return (\n      <div className=\"App\">\n        <div>\n          <header className=\"App-header\">\n            <h1 className=\"App-title\">PeterBook</h1>\n          </header>\n        </div>\n        <Main></Main>\n      </div>\n    );\n  }\n}\nexport default App;\n",
+    "content": "import React, { Component } from 'react';\nimport Login from './Login'\nimport Crud from './Crud'\nimport Main from './Main'\nimport Colorpicker from './Colorpicker'\n\n/**\n * This App class is the main app JavaScript component.\n * @extends {Component}\n */\nclass App extends Component {\n\n    /**\n     * This constructor invokes the constructor from the super class Component. It's used to initialize the\n     * login page by initializing the email and password fields to default empty.\n     * @param {Object} props=react_component - react component that can be modified.\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The member variables of the page's state include a booolean to check if it's the login page, a string\n         * field for the email, and a string field for the password.\n         * @type {{isLoginPage: boolean, email: string, password: string}}\n         */\n    this.state =\n      {\n        isLoginPage: true,\n        email: \"\",\n        password: \"\"\n\n      };\n\n    this.handleLoginCrudSwap = this.handleLoginCrudSwap.bind(this);\n    this.handleCrudLoginSwap = this.handleCrudLoginSwap.bind(this);\n  }\n\n    /**\n     * The method handleLoginCrudSwap , uses the create, read, update, and delete mechanism\n     * to handle the user's input email and input password.\n     * @param {string} in_email=user_email - user's input email.\n     * @param {string} in_password=user_password - user's input password.\n     */\n  handleLoginCrudSwap(in_email, in_password) {\n    this.setState((prevState) => ({\n      email: in_email,\n      password: in_password\n    }));\n\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n    /**\n     * The method handleCrudLoginSwap , uses the create, read, update, and delete mechanism to restore the\n     * the login back to it's original state once a user has finished loggin in.\n     */\n  handleCrudLoginSwap() {\n    this.setState((prevState) => ({\n      isLoginPage: !prevState.isLoginPage\n    }));\n  }\n\n\n    /**\n     * The render method invokes the PeterBook components that handle login page interactions with email,\n     * password, and clicked items.\n     * @returns {*} - the invoked Peterbook Login Page.\n     */\n  render() {\n    const loginPage = <Login onSubmitClicked={this.handleLoginCrudSwap} />;\n    const crudPage = <Crud email={this.state.email} password={this.state.password} onBackClicked={this.handleCrudLoginSwap}/>;\n\n    return (\n      <div className=\"App\">\n        <div>\n          <header className=\"App-header\">\n            <h1 className=\"App-title\">PeterBook</h1>\n          </header>\n        </div>\n        <Main></Main>\n      </div>\n    );\n  }\n}\nexport default App;\n",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/App.js",
     "access": "public",
@@ -699,7 +699,7 @@
         "defaultValue": "react_component",
         "defaultRaw": "react_component",
         "name": "props",
-        "description": "react component that can be modified"
+        "description": "react component that can be modified."
       }
     ]
   },
@@ -745,7 +745,7 @@
         "defaultValue": "user_email",
         "defaultRaw": "user_email",
         "name": "in_email",
-        "description": "user's input email"
+        "description": "user's input email."
       },
       {
         "nullable": null,
@@ -757,7 +757,7 @@
         "defaultValue": "user_password",
         "defaultRaw": "user_password",
         "name": "in_password",
-        "description": "user's input password"
+        "description": "user's input password."
       }
     ],
     "return": null
@@ -792,7 +792,7 @@
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{*} - the invoked Peterbook Login Page"
+        "tagValue": "{*} - the invoked Peterbook Login Page."
       }
     ],
     "return": {
@@ -801,7 +801,7 @@
         "*"
       ],
       "spread": false,
-      "description": "the invoked Peterbook Login Page"
+      "description": "the invoked Peterbook Login Page."
     },
     "params": []
   },
@@ -1455,7 +1455,7 @@
     "__docId__": 102,
     "kind": "file",
     "name": "client/components/Crud.js",
-    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\nimport axios from 'axios';\nimport CrudRow from './CrudRow';\nimport CrudHeader from './CrudHeader';\n\n/**\n * This class is used to implement the mechanism of create,reads,update, and delete.\n * @extends {Component}\n */\nclass Crud extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - react component for modification\n     */\n  constructor(props) {\n    super(props);\n\n    this.handleBackClicked = this.handleBackClicked.bind(this);\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n\n  }\n\n    /**\n     * handleBackClicked method is used to handle when the user presses back button on the browser.\n     */\n  handleBackClicked() {\n    this.props.onBackClicked();\n  }\n\n    /**\n     * handleDuplicate method is used to hadle when there are email or password duplicates\n     * @param {string} dup_email=user_email - duplicate email string\n     * @param {string} dup_password=user_password - duplicate email string\n     */\n  handleDuplicate(dup_email, dup_password) {\n    console.log(this.props);\n    this.props.onDuplicateClicked(dup_email, dup_password);\n  }\n\n\n    /**\n     * The render method invokes the web page when back button is clicked.\n     * @returns {*} - the invoked page when back button is clicked\n     */\n  render() {\n\n    // map user to CrudRows\n    const rows = this.props.users.map((user)=>\n      <CrudRow key={user.id} id={user.id} email={user.email} password={user.password} onDuplicateClicked={this.handleDuplicate} />)\n\n    return (\n      <div>\n        <Button onClick={this.handleBackClicked}>Sign out</Button>\n        <Table unstackable celled padded>\n          <CrudHeader />\n          <Table.Body>\n            {rows}\n          </Table.Body>\n        </Table>\n      </div>\n    );\n  }\n}\n\nexport default Crud;",
+    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\nimport axios from 'axios';\nimport CrudRow from './CrudRow';\nimport CrudHeader from './CrudHeader';\n\n/**\n * This class is used to implement the mechanism of create,reads,update, and delete.\n * @extends {Component}\n */\nclass Crud extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - react component for modification.\n     */\n  constructor(props) {\n    super(props);\n\n    this.handleBackClicked = this.handleBackClicked.bind(this);\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n\n  }\n\n    /**\n     * handleBackClicked method is used to handle when the user presses back button on the browser.\n     */\n  handleBackClicked() {\n    this.props.onBackClicked();\n  }\n\n    /**\n     * handleDuplicate method is used to hadle when there are email or password duplicates.\n     * @param {string} dup_email=user_email - duplicate email string.\n     * @param {string} dup_password=user_password - duplicate email string.\n     */\n  handleDuplicate(dup_email, dup_password) {\n    console.log(this.props);\n    this.props.onDuplicateClicked(dup_email, dup_password);\n  }\n\n\n    /**\n     * The render method invokes the web page when back button is clicked.\n     * @returns {*} - the invoked page when back button is clicked.\n     */\n  render() {\n\n    // map user to CrudRows\n    const rows = this.props.users.map((user)=>\n      <CrudRow key={user.id} id={user.id} email={user.email} password={user.password} onDuplicateClicked={this.handleDuplicate} />)\n\n    return (\n      <div>\n        <Button onClick={this.handleBackClicked}>Sign out</Button>\n        <Table unstackable celled padded>\n          <CrudHeader />\n          <Table.Body>\n            {rows}\n          </Table.Body>\n        </Table>\n      </div>\n    );\n  }\n}\n\nexport default Crud;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Crud.js",
     "access": "public",
@@ -1503,7 +1503,7 @@
         "defaultValue": "react_component",
         "defaultRaw": "react_component",
         "name": "props",
-        "description": "react component for modification"
+        "description": "react component for modification."
       }
     ]
   },
@@ -1532,7 +1532,7 @@
     "static": false,
     "longname": "client/components/Crud.js~Crud#handleDuplicate",
     "access": "public",
-    "description": "handleDuplicate method is used to hadle when there are email or password duplicates",
+    "description": "handleDuplicate method is used to hadle when there are email or password duplicates.",
     "lineNumber": 37,
     "params": [
       {
@@ -1545,7 +1545,7 @@
         "defaultValue": "user_email",
         "defaultRaw": "user_email",
         "name": "dup_email",
-        "description": "duplicate email string"
+        "description": "duplicate email string."
       },
       {
         "nullable": null,
@@ -1557,7 +1557,7 @@
         "defaultValue": "user_password",
         "defaultRaw": "user_password",
         "name": "dup_password",
-        "description": "duplicate email string"
+        "description": "duplicate email string."
       }
     ],
     "return": null
@@ -1577,7 +1577,7 @@
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{*} - the invoked page when back button is clicked"
+        "tagValue": "{*} - the invoked page when back button is clicked."
       }
     ],
     "return": {
@@ -1586,7 +1586,7 @@
         "*"
       ],
       "spread": false,
-      "description": "the invoked page when back button is clicked"
+      "description": "the invoked page when back button is clicked."
     },
     "params": []
   },
@@ -1594,7 +1594,7 @@
     "__docId__": 110,
     "kind": "file",
     "name": "client/components/CrudHeader.js",
-    "content": "import React, {Component} from \"react\";\nimport {Header, Table} from \"semantic-ui-react\";\n\n/**\n * The CrudHeader class is used to format the attributes of id, email, password, and actions\n * using a table.\n * @extends {Component}\n */\nclass CrudHeader extends Component {\n\n    /**\n     * The render method invokes the formatted header using a table.\n     * @returns {*} - invokes the formatted attributes id,email,password, and actions\n     */\n    render() {\n    return (\n      <Table.Header>\n        <Table.Row>\n          <Table.HeaderCell>Id</Table.HeaderCell>\n          <Table.HeaderCell>Email</Table.HeaderCell>\n          <Table.HeaderCell>Password</Table.HeaderCell>\n          <Table.HeaderCell>Actions</Table.HeaderCell>\n        </Table.Row>\n      </Table.Header>);\n  }\n}\n\nexport default CrudHeader;",
+    "content": "import React, {Component} from \"react\";\nimport {Header, Table} from \"semantic-ui-react\";\n\n/**\n * The CrudHeader class is used to format the attributes of id, email, password, and actions\n * using a table.\n * @extends {Component}\n */\nclass CrudHeader extends Component {\n\n    /**\n     * The render method invokes the formatted header using a table.\n     * @returns {*} - invokes the formatted attributes id,email,password, and actions.\n     */\n    render() {\n    return (\n      <Table.Header>\n        <Table.Row>\n          <Table.HeaderCell>Id</Table.HeaderCell>\n          <Table.HeaderCell>Email</Table.HeaderCell>\n          <Table.HeaderCell>Password</Table.HeaderCell>\n          <Table.HeaderCell>Actions</Table.HeaderCell>\n        </Table.Row>\n      </Table.Header>);\n  }\n}\n\nexport default CrudHeader;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/CrudHeader.js",
     "access": "public",
@@ -1634,7 +1634,7 @@
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{*} - invokes the formatted attributes id,email,password, and actions"
+        "tagValue": "{*} - invokes the formatted attributes id,email,password, and actions."
       }
     ],
     "return": {
@@ -1643,7 +1643,7 @@
         "*"
       ],
       "spread": false,
-      "description": "invokes the formatted attributes id,email,password, and actions"
+      "description": "invokes the formatted attributes id,email,password, and actions."
     },
     "params": []
   },
@@ -1651,7 +1651,7 @@
     "__docId__": 113,
     "kind": "file",
     "name": "client/components/CrudRow.js",
-    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\n\n\nclass CrudRow extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.state = {\n      id: props.id,\n      email: props.email,\n      password: props.password\n    };\n\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n  }\n\n  handleDuplicate() {\n    console.log(this.props);\n    this.props.onDuplicateClicked(this.state.email, this.state.password);\n  }\n\n  render() {\n    return (\n      <Table.Row>\n        <Table.Cell>{this.state.id}</Table.Cell>\n        <Table.Cell>{this.state.email}</Table.Cell>\n        <Table.Cell>{this.state.password}</Table.Cell>\n        <Table.Cell>\n          <Button color=\"red\" onClick={this.handleDuplicate}>Duplicate</Button>\n        </Table.Cell>\n      </Table.Row>);\n  }\n}\n\nexport default CrudRow;",
+    "content": "import React, {Component} from \"react\";\nimport {Button, Table} from \"semantic-ui-react\";\n\n/**\n * The CrudRow class is used to format the attributes of id, email, password.\n * @extends Component\n */\nclass CrudRow extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n      * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * Member variables that constitute of id, email, and password\n         * @type {{id: Object , email: string, password: string}}\n         */\n    this.state = {\n      id: props.id,\n      email: props.email,\n      password: props.password\n    };\n\n    this.handleDuplicate = this.handleDuplicate.bind(this);\n  }\n\n    /**\n     * The handleDuplicate method is meant to handle cases of duplicated clicks\n     */\n  handleDuplicate() {\n    console.log(this.props);\n    this.props.onDuplicateClicked(this.state.email, this.state.password);\n  }\n\n    /**\n     * The render moethod invokes the formatted id, email, and password using a formatted table.\n     * It also handles the event of a click.\n     * @returns {*} - invokes the formatted id, email, and password\n     */\n  render() {\n    return (\n      <Table.Row>\n        <Table.Cell>{this.state.id}</Table.Cell>\n        <Table.Cell>{this.state.email}</Table.Cell>\n        <Table.Cell>{this.state.password}</Table.Cell>\n        <Table.Cell>\n          <Button color=\"red\" onClick={this.handleDuplicate}>Duplicate</Button>\n        </Table.Cell>\n      </Table.Row>);\n  }\n}\n\nexport default CrudRow;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/CrudRow.js",
     "access": "public",
@@ -1669,12 +1669,11 @@
     "export": true,
     "importPath": "web/client/components/CrudRow.js",
     "importStyle": "CrudRow",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "The CrudRow class is used to format the attributes of id, email, password.",
+    "lineNumber": 8,
     "interface": false,
     "extends": [
-      "react~Component"
+      "*"
     ]
   },
   {
@@ -1687,9 +1686,22 @@
     "static": false,
     "longname": "client/components/CrudRow.js~CrudRow#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 116,
@@ -1699,13 +1711,15 @@
     "static": false,
     "longname": "client/components/CrudRow.js~CrudRow#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 10,
-    "undocument": true,
+    "description": "Member variables that constitute of id, email, and password",
+    "lineNumber": 21,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"id\": *, \"email\": *, \"password\": *}"
-      ]
+        "{id: Object , email: string, password: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1718,9 +1732,8 @@
     "static": false,
     "longname": "client/components/CrudRow.js~CrudRow#handleDuplicate",
     "access": "public",
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
+    "description": "The handleDuplicate method is meant to handle cases of duplicated clicks",
+    "lineNumber": 33,
     "params": [],
     "return": null
   },
@@ -1734,15 +1747,23 @@
     "static": false,
     "longname": "client/components/CrudRow.js~CrudRow#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 24,
-    "undocument": true,
-    "params": [],
+    "description": "The render moethod invokes the formatted id, email, and password using a formatted table.\nIt also handles the event of a click.",
+    "lineNumber": 43,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted id, email, and password"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted id, email, and password"
+    },
+    "params": []
   },
   {
     "__docId__": 120,
