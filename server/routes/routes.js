@@ -597,7 +597,8 @@ router.post('/api/getPosts',
           async.each(result, function(post, callback) {
             console.log("dealing post");
             console.log(post);
-            decrypt(post.filename, (err, dec_filename) =>{
+            //TODO: fix filename when empty
+            decrypt(post.msg, (err, m) =>{
               if(err) throw err;
               decrypt(post.msg, (err, dec_msg) =>{
                 if(err) throw err;
