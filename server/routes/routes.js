@@ -251,6 +251,7 @@ router.post('/api/switchChatTarget',
           }
 
           async.each(result1, function(msg1, callback){
+            console.log("???");
             decrypt(msg1.msg, (err, dec_msg)=>{
               if(err) throw err;
               decrypt(msg1.date, (err, dec_date)=>{
@@ -261,8 +262,10 @@ router.post('/api/switchChatTarget',
             })
           }, function(err){
             if(err) throw err;
+            console.log("aaa");
             
             async.each(result2, function(msg2, callback){
+              console.log("...");
               decrypt(msg2.msg, (err, dec_msg)=>{
                 if(err) throw err;
                 decrypt(msg2.date, (err, dec_date)=>{
@@ -273,7 +276,7 @@ router.post('/api/switchChatTarget',
               })
             }, function(err){
               if(err) throw err;
-              
+              console.log("bbb");
               res.json(JSON.stringify(result1.concat(result2)));
             })
           })
