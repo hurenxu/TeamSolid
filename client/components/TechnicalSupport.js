@@ -3,17 +3,42 @@ import { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'seman
 import ReactDOM from "react-dom";
 import '../css/login.css'
 import axios from "axios/index";
+
+/**
+ * The public members incorporated to assist with technical support.
+ * @type {{open: boolean, status: string, message: string}}
+ */
 let initialState = {
     open: false,
     status: "default",
     message:""
 };
+
+/**
+ * The TechnicalSupport class is used to accomplish technical support functionality for users in need to support.
+ * @extends {Component}
+ */
 class TechnicalSupport extends Component {
+
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
     constructor(props) {
         super(props);
+
+        /**
+         * State is susceptiable to change and variability for react components.
+         * @type {{open: boolean, status: string, message: string}}
+         */
         this.state = initialState;
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    /**
+     * The handleSubmit method is used for when an email request is submitted.
+     * @type {Method}
+     */
     handleSubmit(){
         //TODO: send message to backend
         this.setState({status: "default"});
@@ -22,6 +47,13 @@ class TechnicalSupport extends Component {
             this.setState({open: false});
         });
     }
+
+    /**
+     * The render method invokes the formatted technical support window so that the user can interact the page
+     * to request support or submit an email form for support.
+     * @returns {*} - invokes the formatted technical support page
+     * @type {Method}
+     */
     render() {
         var body;
         var button;

@@ -62,15 +62,38 @@
 import {Button, Header, Image, Modal, Form, TextArea} from &apos;semantic-ui-react&apos;
 import PostPopup from &apos;./PostPopup&apos;
 
+/**
+ * CSS styling to format the post window.
+ * @type {{width: string, marginTop: string}}
+ */
 const styles = {
   width: &apos;33vw&apos;,
   marginTop: &apos;5vh&apos;,
 }
 
+
+
+
+
+
+/**
+ * Sirve please
+ * @extends {Component}
+ * @extends {Component}
+ */
 class NewPost extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
+
+        /**
+         * The public members needed to update the state of the React component.
+         * @type {{open: number, message: string}}
+         */
     this.state =
       {
         open: 0,
@@ -78,6 +101,10 @@ class NewPost extends Component {
       };
   }
 
+    /**
+     * The render method invokes the formatted window for a user to create a new post on social media app.
+     * @returns {*} - invokes the formatted post window for user to interact with.
+     */
   render() {
     return (
       &lt;div&gt;

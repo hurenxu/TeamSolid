@@ -2741,7 +2741,7 @@
     "__docId__": 192,
     "kind": "file",
     "name": "client/components/NewPost.js",
-    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\nconst styles = {\n  width: '33vw',\n  marginTop: '5vh',\n}\n\nclass NewPost extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        open: 0,\n        message: ''\n      };\n  }\n\n  render() {\n    return (\n      <div>\n        <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n          <Button.Group>\n            <Button>Clear</Button>\n            <Button.Or/>\n            <Button positive>Post</Button>\n          </Button.Group>\n        </Form>\n        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n      </div>\n    )\n  }\n}\n\nexport default NewPost",
+    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\n/**\n * CSS styling to format the post window.\n * @type {{width: string, marginTop: string}}\n */\nconst styles = {\n  width: '33vw',\n  marginTop: '5vh',\n}\n\n\n\n\n\n\n/**\n * Sirve please\n * @extends {Component}\n * @extends {Component}\n */\nclass NewPost extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The public members needed to update the state of the React component.\n         * @type {{open: number, message: string}}\n         */\n    this.state =\n      {\n        open: 0,\n        message: ''\n      };\n  }\n\n    /**\n     * The render method invokes the formatted window for a user to create a new post on social media app.\n     * @returns {*} - invokes the formatted post window for user to interact with.\n     */\n  render() {\n    return (\n      <div>\n        <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n          <Button.Group>\n            <Button>Clear</Button>\n            <Button.Or/>\n            <Button positive>Post</Button>\n          </Button.Group>\n        </Form>\n        <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n      </div>\n    )\n  }\n}\n\nexport default NewPost",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/NewPost.js",
     "access": "public",
@@ -2759,13 +2759,15 @@
     "export": false,
     "importPath": "web/client/components/NewPost.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "CSS styling to format the post window.",
+    "lineNumber": 9,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"width\": string, \"marginTop\": string}"
-      ]
+        "{width: string, marginTop: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -2781,7 +2783,7 @@
     "importPath": "web/client/components/NewPost.js",
     "importStyle": "NewPost",
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 24,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -2798,9 +2800,22 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 30,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 196,
@@ -2810,13 +2825,15 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "The public members needed to update the state of the React component.",
+    "lineNumber": 37,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"open\": *, \"message\": *}"
-      ]
+        "{open: number, message: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2829,21 +2846,29 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted window for a user to create a new post on social media app.",
+    "lineNumber": 48,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted post window for user to interact with."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted post window for user to interact with."
+    },
+    "params": []
   },
   {
     "__docId__": 198,
     "kind": "file",
     "name": "client/components/PostPopup.js",
-    "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal,Icon } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\nlet initialState = {\n    message: \"\",\n    open: false,\n    dimmer: 'blurring',\n    aspect: \"\",\n    imageFile: null,\n    videoFile: null\n};\n\nclass Signup extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    show = dimmer => () => {\n        this.setState({ dimmer, open: true })\n    }\n\n    close = () => {\n        this.setState({ open, dimmer: false })\n    }\n\n    handleSubmit = (event) => {\n        if(this.state.message === \"\") {\n            return\n        }\n        const date = moment().format();\n        const data = new FormData();\n        data.append('image', this.state.imageFile);\n        data.append('video', this.state.videoFile);\n        data.append('msg', this.state.message);\n        data.append('date', date);\n        console.log(data);\n        //var message={msg: this.state.message, date: date};\n        this.props.createPost(data);\n        console.log(this.state.imageFile);\n        console.log(this.state.imageFile.size);\n        //axios.post(`/api/postPost`, {msg: this.state.message, date: date});\n        this.setState({dimmer: false, open: false, message: ''});\n    };\n    saveImage = (event) => {\n        this.setState({imageFile: event.target.files[0]});\n    }\n    saveVideo = (event) => {\n        this.setState({videoFile: event.target.files[0]});\n\n    }\n    render() {\n        const { message } = this.state\n        return (\n            <div>\n                <Modal size='tiny' className=\"scrolling\" style={{height: '50%'}} dimmer=\"blurring\" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>\n                    <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                        <Form size='large'>\n                            <Form.TextArea\n                                placeholder='What do you want to post?' name='message' value={message}\n                                onChange={(e, {value})=> this.setState({message: value})}\n                            />\n                            <label for=\"image\">\n                                <Icon size='big' name='picture'/>\n                                <Form.Input type=\"file\" id=\"image\" onChange={this.saveImage} style={{display: 'none'}} accept=\"image/*\"/>\n                            </label>\n                            <label htmlFor=\"video\">\n                                <Icon size='big' name='video camera'/>\n                                <Form.Input type=\"file\" id=\"video\" onChange={this.saveVideo} style={{display: 'none'}} accept=\"video/*\"/>\n                            </label>\n                            <Button.Group style={{float: 'right', marginRight: '10%'}}>\n                                <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>\n                                <Button.Or />\n                                <Button positive onClick={()=> { this.handleSubmit(); this.props.onClose()}}>Post</Button>\n                            </Button.Group>\n                        </Form>\n                    </Container>\n\n                </Modal>\n            </div>\n        )\n    }\n}\n\nexport default Signup",
+    "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal,Icon } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\n/**\n * The public members incorporated to assist with signup functionality handling when a user uploads a picture or\n * video type file.\n * @type {{message: string, open: boolean, dimmer: string, aspect: string, imageFile: null, videoFile: null}}\n */\nlet initialState = {\n    message: \"\",\n    open: false,\n    dimmer: 'blurring',\n    aspect: \"\",\n    imageFile: null,\n    videoFile: null\n};\n\n/**\n * The PostPopup class is used to supplement functionality for handling when a user uploads a picture or\n * video type file.\n * @extends {Component}\n */\nclass Signup extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * The public members needed to update the state of the React component.\n         * @type {{message: string, open: boolean, dimmer: string, aspect: string, imageFile: null, videoFile: null}}\n         */\n        this.state = initialState;\n\n        /**\n         * The handleSubmit fires when a user attemps to add picture/video file.\n         * @type {Method}\n         */\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    /**\n     * Show will emulate the dimmer effect which hides distractions to focus attention on particular content.\n     * @param dimmer\n     * @type {functionality}\n     */\n    show = dimmer => () => {\n        this.setState({ dimmer, open: true })\n    }\n\n    /**\n     * Close will stop emulating the dimmer effect and stop hiding distractions.\n     * @type {functionality}\n     */\n    close = () => {\n        this.setState({ open, dimmer: false })\n    }\n\n    /**\n     * The handleSubmit fires when a user attemps to add picture/video file.\n     * It ensures you that it properly handles images, and video types for posting.\n     * @param {Object} event=react_event - modifies the state of the react element\n     * @type {Method}\n     */\n    handleSubmit = (event) => {\n        if(this.state.message === \"\") {\n            return\n        }\n        const date = moment().format();\n        const data = new FormData();\n        data.append('image', this.state.imageFile);\n        data.append('video', this.state.videoFile);\n        data.append('msg', this.state.message);\n        data.append('date', date);\n        console.log(data);\n        //var message={msg: this.state.message, date: date};\n        this.props.createPost(data);\n        console.log(this.state.imageFile);\n        console.log(this.state.imageFile.size);\n        //axios.post(`/api/postPost`, {msg: this.state.message, date: date});\n        this.setState({dimmer: false, open: false, message: ''});\n    };\n\n    /**\n     * The saveImage method is meant to save the image submitted by the user.\n     * @param {Object} event=react_event - modifies the state of the react element\n     * @type {Method}\n     */\n    saveImage = (event) => {\n        this.setState({imageFile: event.target.files[0]});\n    }\n\n    /**\n     * The saveVideo method is meant to save the video submitted by the user.\n     * @param {Object} event=react_event - modifies the state of the react element\n     * @type {Method}\n     */\n    saveVideo = (event) => {\n        this.setState({videoFile: event.target.files[0]});\n\n    }\n\n    /**\n     * The render method invokes the user's formmated social media application so that the user can post\n     * image and video types on their social media template.\n     * @returns {*} - invokes the formatted user's social media template ready for personalized posting.\n     */\n    render() {\n        const { message } = this.state\n        return (\n            <div>\n                <Modal size='tiny' className=\"scrolling\" style={{height: '50%'}} dimmer=\"blurring\" open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>\n                    <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>\n                        <Form size='large'>\n                            <Form.TextArea\n                                placeholder='What do you want to post?' name='message' value={message}\n                                onChange={(e, {value})=> this.setState({message: value})}\n                            />\n                            <label for=\"image\">\n                                <Icon size='big' name='picture'/>\n                                <Form.Input type=\"file\" id=\"image\" onChange={this.saveImage} style={{display: 'none'}} accept=\"image/*\"/>\n                            </label>\n                            <label htmlFor=\"video\">\n                                <Icon size='big' name='video camera'/>\n                                <Form.Input type=\"file\" id=\"video\" onChange={this.saveVideo} style={{display: 'none'}} accept=\"video/*\"/>\n                            </label>\n                            <Button.Group style={{float: 'right', marginRight: '10%'}}>\n                                <Button onClick={()=> {this.close(); this.props.onClose()}}>Clear</Button>\n                                <Button.Or />\n                                <Button positive onClick={()=> { this.handleSubmit(); this.props.onClose()}}>Post</Button>\n                            </Button.Group>\n                        </Form>\n                    </Container>\n\n                </Modal>\n            </div>\n        )\n    }\n}\n\nexport default Signup",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/PostPopup.js",
     "access": "public",
@@ -2861,13 +2886,15 @@
     "export": false,
     "importPath": "web/client/components/PostPopup.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The public members incorporated to assist with signup functionality handling when a user uploads a picture or\nvideo type file.",
+    "lineNumber": 11,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"message\": *, \"open\": *, \"dimmer\": string, \"aspect\": *, \"imageFile\": *, \"videoFile\": *}"
-      ]
+        "{message: string, open: boolean, dimmer: string, aspect: string, imageFile: null, videoFile: null}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -2882,12 +2909,11 @@
     "export": true,
     "importPath": "web/client/components/PostPopup.js",
     "importStyle": "Signup",
-    "description": null,
-    "lineNumber": 15,
-    "undocument": true,
+    "description": "The PostPopup class is used to supplement functionality for handling when a user uploads a picture or\nvideo type file.",
+    "lineNumber": 25,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -2900,9 +2926,22 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 31,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 202,
@@ -2912,13 +2951,15 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
+    "description": "The public members needed to update the state of the React component.",
+    "lineNumber": 38,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "{message: string, open: boolean, dimmer: string, aspect: string, imageFile: null, videoFile: null}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2929,13 +2970,15 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
+    "description": "The handleSubmit fires when a user attemps to add picture/video file.",
+    "lineNumber": 44,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Method"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2946,13 +2989,27 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#show",
     "access": "public",
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
+    "description": "Show will emulate the dimmer effect which hides distractions to focus attention on particular content.",
+    "lineNumber": 52,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dimmer",
+        "description": ""
+      }
+    ],
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "functionality"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2963,13 +3020,15 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#close",
     "access": "public",
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
+    "description": "Close will stop emulating the dimmer effect and stop hiding distractions.",
+    "lineNumber": 60,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "functionality"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2980,13 +3039,29 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#saveImage",
     "access": "public",
-    "description": null,
-    "lineNumber": 49,
-    "undocument": true,
+    "description": "The saveImage method is meant to save the image submitted by the user.",
+    "lineNumber": 94,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element"
+      }
+    ],
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Method"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2997,13 +3072,29 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#saveVideo",
     "access": "public",
-    "description": null,
-    "lineNumber": 52,
-    "undocument": true,
+    "description": "The saveVideo method is meant to save the video submitted by the user.",
+    "lineNumber": 103,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element"
+      }
+    ],
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Method"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3016,15 +3107,23 @@
     "static": false,
     "longname": "client/components/PostPopup.js~Signup#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 56,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the user's formmated social media application so that the user can post\nimage and video types on their social media template.",
+    "lineNumber": 113,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted user's social media template ready for personalized posting."
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted user's social media template ready for personalized posting."
+    },
+    "params": []
   },
   {
     "__docId__": 210,
@@ -3434,7 +3533,7 @@
     "__docId__": 234,
     "kind": "file",
     "name": "client/components/TechnicalSupport.js",
-    "content": "import React, {Component} from 'react';\nimport { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nimport axios from \"axios/index\";\nlet initialState = {\n    open: false,\n    status: \"default\",\n    message:\"\"\n};\nclass TechnicalSupport extends Component {\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n    handleSubmit(){\n        //TODO: send message to backend\n        this.setState({status: \"default\"});\n        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {\n            alert(\"Success!\");\n            this.setState({open: false});\n        });\n    }\n    render() {\n        var body;\n        var button;\n        if(this.state.status===\"default\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body= (\n                <Grid columns={2} divided>\n                <Grid.Row>\n                    <Grid.Column>\n                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: \"email\"})}/>\n                    </Grid.Column>\n                    <Grid.Column>\n                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: \"FAQ\"})} />\n                    </Grid.Column>\n                </Grid.Row>\n            </Grid>\n            );\n        }\n        else if(this.state.status===\"email\"){\n            body=(\n                <Form size='huge'>\n                    <Form.TextArea fluid placeholder='Type in your message here'\n                        onChange={(e, {value})=> this.setState({message: value})}\n                    />\n                    <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n                    <Button positive icon='checkmark' content=\"Submit\" labelPosition='right' onClick={this.handleSubmit}/>\n                </Form>\n            );\n        }else if(this.state.status===\"FAQ\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body=(\n                <div>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                </div>\n            );\n        }\n        return (\n            <div>\n                <Modal size='small' className=\"scrolling\" style={{height: '60%'}} dimmer=\"blurring\"\n                       open={this.props.open} onClose={()=> {this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>\n                    {body}\n                    <Modal.Actions>\n                        {button}\n                    </Modal.Actions>\n                </Modal>\n            </div>\n        );\n    }\n}\nexport default TechnicalSupport;",
+    "content": "import React, {Component} from 'react';\nimport { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nimport axios from \"axios/index\";\n\n/**\n * The public members incorporated to assist with technical support.\n * @type {{open: boolean, status: string, message: string}}\n */\nlet initialState = {\n    open: false,\n    status: \"default\",\n    message:\"\"\n};\n\n/**\n * The TechnicalSupport class is used to accomplish technical support functionality for users in need to support.\n * @extends {Component}\n */\nclass TechnicalSupport extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * State is susceptiable to change and variability for react components.\n         * @type {{open: boolean, status: string, message: string}}\n         */\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    /**\n     * The handleSubmit method is used for when an email request is submitted.\n     * @type {Method}\n     */\n    handleSubmit(){\n        //TODO: send message to backend\n        this.setState({status: \"default\"});\n        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {\n            alert(\"Success!\");\n            this.setState({open: false});\n        });\n    }\n\n    /**\n     * The render method invokes the formatted technical support window so that the user can interact the page\n     * to request support or submit an email form for support.\n     * @returns {*} - invokes the formatted technical support page\n     * @type {Method}\n     */\n    render() {\n        var body;\n        var button;\n        if(this.state.status===\"default\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body= (\n                <Grid columns={2} divided>\n                <Grid.Row>\n                    <Grid.Column>\n                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: \"email\"})}/>\n                    </Grid.Column>\n                    <Grid.Column>\n                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: \"FAQ\"})} />\n                    </Grid.Column>\n                </Grid.Row>\n            </Grid>\n            );\n        }\n        else if(this.state.status===\"email\"){\n            body=(\n                <Form size='huge'>\n                    <Form.TextArea fluid placeholder='Type in your message here'\n                        onChange={(e, {value})=> this.setState({message: value})}\n                    />\n                    <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n                    <Button positive icon='checkmark' content=\"Submit\" labelPosition='right' onClick={this.handleSubmit}/>\n                </Form>\n            );\n        }else if(this.state.status===\"FAQ\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body=(\n                <div>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                </div>\n            );\n        }\n        return (\n            <div>\n                <Modal size='small' className=\"scrolling\" style={{height: '60%'}} dimmer=\"blurring\"\n                       open={this.props.open} onClose={()=> {this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>\n                    {body}\n                    <Modal.Actions>\n                        {button}\n                    </Modal.Actions>\n                </Modal>\n            </div>\n        );\n    }\n}\nexport default TechnicalSupport;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/TechnicalSupport.js",
     "access": "public",
@@ -3452,13 +3551,15 @@
     "export": false,
     "importPath": "web/client/components/TechnicalSupport.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The public members incorporated to assist with technical support.",
+    "lineNumber": 11,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"open\": *, \"status\": string, \"message\": *}"
-      ]
+        "{open: boolean, status: string, message: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -3473,12 +3574,11 @@
     "export": true,
     "importPath": "web/client/components/TechnicalSupport.js",
     "importStyle": "TechnicalSupport",
-    "description": null,
-    "lineNumber": 11,
-    "undocument": true,
+    "description": "The TechnicalSupport class is used to accomplish technical support functionality for users in need to support.",
+    "lineNumber": 21,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -3491,9 +3591,22 @@
     "static": false,
     "longname": "client/components/TechnicalSupport.js~TechnicalSupport#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 238,
@@ -3503,13 +3616,15 @@
     "static": false,
     "longname": "client/components/TechnicalSupport.js~TechnicalSupport#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "State is susceptiable to change and variability for react components.",
+    "lineNumber": 34,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "{open: boolean, status: string, message: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3522,9 +3637,16 @@
     "static": false,
     "longname": "client/components/TechnicalSupport.js~TechnicalSupport#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
+    "description": "The handleSubmit method is used for when an email request is submitted.",
+    "lineNumber": 42,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -3538,21 +3660,37 @@
     "static": false,
     "longname": "client/components/TechnicalSupport.js~TechnicalSupport#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted technical support window so that the user can interact the page\nto request support or submit an email form for support.",
+    "lineNumber": 57,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted technical support page"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted technical support page"
+    },
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "params": []
   },
   {
     "__docId__": 242,
     "kind": "file",
     "name": "client/components/TextBox.js",
-    "content": "import React, {Component} from 'react';\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\n\n/**\n * @extends {Component}\n */\nclass TextBox extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render method invokes a text box utilizing the props react object.\n     * @returns {*} - invokes the formatted text box\n     */\n    render() {\n        return (\n            <div>\n                <h1 className=\"text_box_header\">\n                    <b>{this.props.header}</b>\n                </h1>\n                <p className=\"text_box_content\">{this.props.text}</p>\n            </div>\n        );\n    }\n}\nexport default TextBox;",
+    "content": "import React, {Component} from 'react';\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\n\n/**\n * The TextBox class is used to accomplish making a text box for the user to interact with.\n * @extends {Component}\n */\nclass TextBox extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render method invokes a text box utilizing the props react object.\n     * @returns {*} - invokes the formatted text box\n     */\n    render() {\n        return (\n            <div>\n                <h1 className=\"text_box_header\">\n                    <b>{this.props.header}</b>\n                </h1>\n                <p className=\"text_box_content\">{this.props.text}</p>\n            </div>\n        );\n    }\n}\nexport default TextBox;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/TextBox.js",
     "access": "public",
@@ -3570,8 +3708,8 @@
     "export": true,
     "importPath": "web/client/components/TextBox.js",
     "importStyle": "TextBox",
-    "description": "",
-    "lineNumber": 8,
+    "description": "The TextBox class is used to accomplish making a text box for the user to interact with.",
+    "lineNumber": 9,
     "interface": false,
     "extends": [
       "Component"
@@ -3588,7 +3726,7 @@
     "longname": "client/components/TextBox.js~TextBox#constructor",
     "access": "public",
     "description": "The constructor passes a props object which is a react component that can be modified for use.",
-    "lineNumber": 14,
+    "lineNumber": 15,
     "params": [
       {
         "nullable": null,
@@ -3615,7 +3753,7 @@
     "longname": "client/components/TextBox.js~TextBox#render",
     "access": "public",
     "description": "The render method invokes a text box utilizing the props react object.",
-    "lineNumber": 22,
+    "lineNumber": 23,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3636,7 +3774,7 @@
     "__docId__": 246,
     "kind": "file",
     "name": "client/components/Tmp.js",
-    "content": "import React from 'react';\nimport axios from 'axios';\nimport ReactDOM from 'react-dom';\n\n/**\n * @extends {Component}\n */\nexport default class NameForm extends React.Component {\n\n  /**\n   * The constructor passes a props object which is a react component that can be modified for use.\n   * @param {Object} props=react_component - a react component that can be modified\n   */\n  constructor(props) {\n    super(props);\n\n      /**\n       * The public members of this class are value and name which are of type string. They are used to fill\n       * in the values of the name form.\n       * @type {{value: string, name: string}}\n       */\n    this.state = {value: '', name: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n    /**\n     * The handleChange method runs of every key stroke to update the React state.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n    /**\n     * The handleSubmit method configures the name form that is filled out by the user and is used when the\n     * form is submitted.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n  handleSubmit(event) {\n    axios.post(`/insert`, { name: this.state.value })\n    .then(res => {\n      console.log(res.data);\n      this.setState({name: res.data.length});\n      var content=(\n        <ul>\n            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}\n        </ul>\n      );\n      ReactDOM.render(content,document.getElementById(\"root\"));\n    })\n\n    event.preventDefault();\n  }\n\n    /**\n     * The render method invokes the formatted name form that utilizes the methods handleSubmit and handleChange\n     * for the name form.\n     * @returns {*} - invokes the formatted name form\n     */\n  render() {\n    return (\n      <div id=\"root\">\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n      <p>Hello guest{this.state.name}</p>\n      </div>\n    );\n  }\n}",
+    "content": "import React from 'react';\nimport axios from 'axios';\nimport ReactDOM from 'react-dom';\n\n/**\n * The tmp class is used to accomplish the functionality for the name form to assist users with submitting\n * their name form.\n * @extends {Component}\n */\nexport default class NameForm extends React.Component {\n\n  /**\n   * The constructor passes a props object which is a react component that can be modified for use.\n   * @param {Object} props=react_component - a react component that can be modified\n   */\n  constructor(props) {\n    super(props);\n\n      /**\n       * The public members of this class are value and name which are of type string. They are used to fill\n       * in the values of the name form.\n       * @type {{value: string, name: string}}\n       */\n    this.state = {value: '', name: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n    /**\n     * The handleChange method runs of every key stroke to update the React state.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n    /**\n     * The handleSubmit method configures the name form that is filled out by the user and is used when the\n     * form is submitted.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n  handleSubmit(event) {\n    axios.post(`/insert`, { name: this.state.value })\n    .then(res => {\n      console.log(res.data);\n      this.setState({name: res.data.length});\n      var content=(\n        <ul>\n            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}\n        </ul>\n      );\n      ReactDOM.render(content,document.getElementById(\"root\"));\n    })\n\n    event.preventDefault();\n  }\n\n    /**\n     * The render method invokes the formatted name form that utilizes the methods handleSubmit and handleChange\n     * for the name form.\n     * @returns {*} - invokes the formatted name form\n     */\n  render() {\n    return (\n      <div id=\"root\">\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n      <p>Hello guest{this.state.name}</p>\n      </div>\n    );\n  }\n}",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Tmp.js",
     "access": "public",
@@ -3654,8 +3792,8 @@
     "export": true,
     "importPath": "web/client/components/Tmp.js",
     "importStyle": "NameForm",
-    "description": "",
-    "lineNumber": 8,
+    "description": "The tmp class is used to accomplish the functionality for the name form to assist users with submitting\ntheir name form.",
+    "lineNumber": 10,
     "interface": false,
     "extends": [
       "Component"
@@ -3672,7 +3810,7 @@
     "longname": "client/components/Tmp.js~NameForm#constructor",
     "access": "public",
     "description": "The constructor passes a props object which is a react component that can be modified for use.",
-    "lineNumber": 14,
+    "lineNumber": 16,
     "params": [
       {
         "nullable": null,
@@ -3697,7 +3835,7 @@
     "longname": "client/components/Tmp.js~NameForm#state",
     "access": "public",
     "description": "The public members of this class are value and name which are of type string. They are used to fill\nin the values of the name form.",
-    "lineNumber": 22,
+    "lineNumber": 24,
     "type": {
       "nullable": null,
       "types": [
@@ -3718,7 +3856,7 @@
     "longname": "client/components/Tmp.js~NameForm#handleChange",
     "access": "public",
     "description": "The handleChange method runs of every key stroke to update the React state.",
-    "lineNumber": 32,
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
@@ -3746,7 +3884,7 @@
     "longname": "client/components/Tmp.js~NameForm#handleSubmit",
     "access": "public",
     "description": "The handleSubmit method configures the name form that is filled out by the user and is used when the\nform is submitted.",
-    "lineNumber": 41,
+    "lineNumber": 43,
     "params": [
       {
         "nullable": null,
@@ -3774,7 +3912,7 @@
     "longname": "client/components/Tmp.js~NameForm#render",
     "access": "public",
     "description": "The render method invokes the formatted name form that utilizes the methods handleSubmit and handleChange\nfor the name form.",
-    "lineNumber": 62,
+    "lineNumber": 64,
     "unknown": [
       {
         "tagName": "@returns",

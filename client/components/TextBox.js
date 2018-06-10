@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import '../css/login.css'
 
 /**
+ * The TextBox class is used to accomplish making a text box for the user to interact with.
  * @extends {Component}
  */
 class TextBox extends Component {

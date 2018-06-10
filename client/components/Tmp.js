@@ -3,6 +3,8 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 
 /**
+ * The tmp class is used to accomplish the functionality for the name form to assist users with submitting
+ * their name form.
  * @extends {Component}
  */
 export default class NameForm extends React.Component {
