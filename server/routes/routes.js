@@ -604,7 +604,7 @@ router.post('/api/getPosts',
                 if(err) throw err;
                 decrypt(post.data, (err, dec_data) =>{
                   if(err) throw err;
-                  post.filename = dec_filename;
+                  post.filename = '';
                   post.msg = dec_msg;
                   post.data = dec_data;
                   callback();
