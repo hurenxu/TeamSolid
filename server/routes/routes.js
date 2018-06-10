@@ -176,7 +176,9 @@ router.post('/api/signup', function (req, res, next) {
           encrypt(usrname, (err, enc_usrname) =>{
             encrypt(pwd, (err, enc_pwd) =>{
               cl.insertOne({ _id: (count + 1), username: enc_usrname, email: eml, password: enc_pwd}, function () {
-                console.log('insert!' + eml + ' ' + pwd + " encrypted username and pwd: " + enc_usrname + " " + enc_pwd);
+                console.log('insert!' + eml + ' ' + pwd);
+                console.log("encrypted usrname: " + enc_usrname);
+                console.log("encrypted pwd: " + enc_pwd);
     
                 db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
                   res.json(JSON.stringify({result: "OK"}));
@@ -269,7 +271,14 @@ router.post('/api/searchUser',
           console.log(err);
         }
 
-        res.json(JSON.stringify(result[0]));
+        decrypt(result[0].username, (err, dec_username) =>{
+          if(err) throw err;
+
+          result[0].username = dec_username;
+          res.json(JSON.stringify(result[0]));
+        });
+
+        // res.json(JSON.stringify(result[0]));
       });
     });
   });
