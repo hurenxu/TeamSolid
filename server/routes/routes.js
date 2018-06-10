@@ -44,13 +44,39 @@ passport.use(new LocalStrategy({
           return done(null, false, { message: 'Incorrect username.' });
         }
 
-        if (user.password != password) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
+        decrypt(user.password, (err, dec_password) =>{
+          if (dec_password != password) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+  
+          console.log(username + ' success')
+          return done(null, user);
+        })
+        // if (user.password != password) {
+        //   return done(null, false, { message: 'Incorrect password.' });
+        // }
 
-        console.log(username + ' success')
-        return done(null, user);
+        // console.log(username + ' success')
+        // return done(null, user);
       });
+
+      // decrypt(username, (err, dec_username) => {
+      //   if(err) throw err;
+      //   col.findOne({ email: dec_username }, function (err, user) {
+      //     if (err) { return done(err); }
+      //     if (!user) {
+      //       return done(null, false, { message: 'Incorrect username.' });
+      //     }
+  
+      //     if (user.password != password) {
+      //       return done(null, false, { message: 'Incorrect password.' });
+      //     }
+  
+      //     console.log(username + ' success')
+      //     return done(null, user);
+      //   });
+      // });
+
     })
   }
 ));
@@ -139,13 +165,26 @@ router.post('/api/signup', function (req, res, next) {
       if (result.length == 0) {
         cl.count(function (err, num) {
           count = num;
-          cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
-            console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
-              res.json(JSON.stringify({result: "OK"}));
+          encrypt(usrname, (err, enc_usrname) =>{
+            encrypt(pwd, (err, enc_pwd) =>{
+              cl.insertOne({ _id: (count + 1), username: enc_usrname, email: eml, password: enc_pwd}, function () {
+                console.log('insert!' + eml + ' ' + pwd + " encrypted username and pwd: " + enc_usrname + " " + enc_pwd);
+    
+                db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
+                  res.json(JSON.stringify({result: "OK"}));
+                })
+              });
             })
-          });
+          })
+          
+          // cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
+          //   console.log('insert!' + eml + ' ' + pwd);
+
+          //   db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
+          //     res.json(JSON.stringify({result: "OK"}));
+          //   })
+          // });
         });
       } else {
         res.json(JSON.stringify({result: "DUP"}));
@@ -774,7 +813,7 @@ router.post('/api/testdecrypt',
     decrypt(msg, (err, m) => {
       console.log("Decrpted: " + m);
       res.send(m);
-    })
+    });
   });
 
   router.post('/api/testencrypt',
@@ -784,5 +823,5 @@ router.post('/api/testdecrypt',
     encrypt(msg, (err, m) => {
       console.log("encrypted: " + m);
       res.send(m);
-    })
+    });
   });
