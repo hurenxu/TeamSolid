@@ -1,7 +1,7 @@
 {
-  "coverage": "13.72%",
+  "coverage": "25.49%",
   "expectCount": 153,
-  "actualCount": 21,
+  "actualCount": 39,
   "files": {
     "client/components/Advertisement.js": {
       "expectCount": 3,
@@ -221,18 +221,8 @@
     },
     "client/components/Signup.js": {
       "expectCount": 9,
-      "actualCount": 0,
-      "undocumentLines": [
-        6,
-        16,
-        18,
-        20,
-        21,
-        25,
-        26,
-        54,
-        61
-      ]
+      "actualCount": 9,
+      "undocumentLines": []
     },
     "client/components/TechnicalSupport.js": {
       "expectCount": 6,
@@ -248,24 +238,13 @@
     },
     "client/components/TextBox.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        4,
-        5,
-        8
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "client/components/Tmp.js": {
       "expectCount": 6,
-      "actualCount": 0,
-      "undocumentLines": [
-        5,
-        6,
-        8,
-        14,
-        18,
-        34
-      ]
+      "actualCount": 6,
+      "undocumentLines": []
     },
     "client/index.js": {
       "expectCount": 1,

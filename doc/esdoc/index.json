@@ -3211,7 +3211,7 @@
     "__docId__": 222,
     "kind": "file",
     "name": "client/components/Signup.js",
-    "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport App from './App';\n\nlet initialState = {\n    username: \"\",\n    password: \"\",\n    repeat: \"\",\n    email: \"\",\n    message: [],\n    open: false,\n    dimmer: 'blurring'\n};\n\nclass Signup extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n    }\n\n    show = dimmer => () => this.setState({ dimmer, open: true })\n    close = () => this.setState({ open, dimmer: false })\n\n    handleSubmit = (event) => {\n        let message = [];\n        if(this.state.username === \"\") {\n            alert(\"Username can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password === \"\") {\n            alert(\"Password can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.repeat === \"\") {\n            alert(\"Please enter your password again!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password !== this.state.repeat) {\n            alert(\"Password is not matching!\");\n            this.setState({message: message});\n            return\n        }\n        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email}).then((response)=> this.redirPage(response));\n        this.setState({open: false});\n        this.setState({dimmer: false});\n    };\n    redirPage(response) {\n            if(JSON.parse(response.data).result===\"OK\"){\n                this.props.onclose();\n            }else{\n                alert(\"Signup fail!\");\n            }\n    }\n    render() {\n        const { dimmer } = this.state\n\n            return (\n                <div>\n                    <Modal size='tiny' className=\"scrolling\" style={{height: '60%'}} dimmer={dimmer}\n                           open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                        <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>\n                        <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>\n                            <Form size='large'>\n                                <Form.Input\n                                    fluid icon='user' iconPosition='left' placeholder='Username'\n                                    onChange={(e, {value})=> this.setState({username: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                                    onChange={(e, {value})=> this.setState({password: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'\n                                    onChange={(e, {value})=> this.setState({repeat: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='envelope' iconPosition='left' placeholder='Email'\n                                    onChange={(e, {value})=> this.setState({email: value})}\n                                />\n                            </Form>\n                        </Container>\n                        <Modal.Actions>\n                            <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />\n                            <Button positive icon='checkmark' labelPosition='right' content=\"Sign Up\" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />\n                        </Modal.Actions>\n                    </Modal>\n                </div>\n            )\n    }\n}\n\nexport default Signup",
+    "content": "import React, { Component } from 'react'\nimport { Container, Form, Popup, Button, Header, Image, Modal } from 'semantic-ui-react'\nimport axios from \"axios/index\";\nimport App from './App';\n\n/**\n * The public members incorporated to complete the social network sign up functionality.\n * @type {{username: string, password: string, repeat: string, email: string, message: Array, open: boolean, dimmer: string}}\n */\nlet initialState = {\n    username: \"\",\n    password: \"\",\n    repeat: \"\",\n    email: \"\",\n    message: [],\n    open: false,\n    dimmer: 'blurring'\n};\n\n/**\n * The Signup class is used to accomplish the sign up functionality for the social network web application.\n * @extends {Component}\n */\nclass Signup extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * The public members used to handle the sign up for the first time.\n         * @type {{username: string, password: string, repeat: string, email: string, message: Array, open: boolean, dimmer: string}}\n         */\n        this.state = initialState;\n\n        /**\n         * The handleSubmit fires when the sign up form is submitted. It ensures you use a proper username and\n         * ensures password configuration.\n         * @type {method}\n         */\n        this.handleSubmit = this.handleSubmit.bind(this);\n        this.redirPage = this.redirPage.bind(this);\n    }\n\n    /**\n     * Show will emulate the dimmer effect which hides distractions to focus attention on particular content.\n     * @param dimmer\n     * @type {functionality}\n     */\n    show = dimmer => () => this.setState({ dimmer, open: true })\n\n    /**\n     * Close will stop emulating the dimmer effect and stop hiding distractions.\n     * @type {functionality}\n     */\n    close = () => this.setState({ open, dimmer: false })\n\n    /**\n     * The handleSubmit fires when the sign up form is submitted. It ensures you use a proper username and\n     * ensures password configuration.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n    handleSubmit = (event) => {\n        let message = [];\n        if(this.state.username === \"\") {\n            alert(\"Username can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password === \"\") {\n            alert(\"Password can't be empty!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.repeat === \"\") {\n            alert(\"Please enter your password again!\");\n            this.setState({message: message});\n            return\n        }\n        if(this.state.password !== this.state.repeat) {\n            alert(\"Password is not matching!\");\n            this.setState({message: message});\n            return\n        }\n        axios.post(`/api/signup`, {username: this.state.username, password: this.state.password, email: this.state.email}).then((response)=> this.redirPage(response));\n        this.setState({open: false});\n        this.setState({dimmer: false});\n    };\n\n    /**\n     * The redirPage method handles the processed sign up form by authenticating a successful sign-up or re-directing\n     * you to sign up again.\n     * @param {Object} response=response - the response is parased to verify successful and failing sign-ups\n     */\n    redirPage(response) {\n            if(JSON.parse(response.data).result===\"OK\"){\n                this.props.onclose();\n            }else{\n                alert(\"Signup fail!\");\n            }\n    }\n\n    /**\n     * The render method invokes the formatted sign up page where the user can interact with the page to\n     * accomplish the sign up procedure.\n     * @returns {*} - invokes the formatted sign up page\n     */\n    render() {\n        const { dimmer } = this.state\n\n            return (\n                <div>\n                    <Modal size='tiny' className=\"scrolling\" style={{height: '60%'}} dimmer={dimmer}\n                           open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>\n                        <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>\n                        <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>\n                            <Form size='large'>\n                                <Form.Input\n                                    fluid icon='user' iconPosition='left' placeholder='Username'\n                                    onChange={(e, {value})=> this.setState({username: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='lock' iconPosition='left' placeholder='Password' type='password'\n                                    onChange={(e, {value})=> this.setState({password: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'\n                                    onChange={(e, {value})=> this.setState({repeat: value})}\n                                />\n                                <Form.Input\n                                    fluid icon='envelope' iconPosition='left' placeholder='Email'\n                                    onChange={(e, {value})=> this.setState({email: value})}\n                                />\n                            </Form>\n                        </Container>\n                        <Modal.Actions>\n                            <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />\n                            <Button positive icon='checkmark' labelPosition='right' content=\"Sign Up\" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />\n                        </Modal.Actions>\n                    </Modal>\n                </div>\n            )\n    }\n}\n\nexport default Signup",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Signup.js",
     "access": "public",
@@ -3229,13 +3229,15 @@
     "export": false,
     "importPath": "web/client/components/Signup.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The public members incorporated to complete the social network sign up functionality.",
+    "lineNumber": 10,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"username\": *, \"password\": *, \"repeat\": *, \"email\": *, \"message\": *, \"open\": *, \"dimmer\": string}"
-      ]
+        "{username: string, password: string, repeat: string, email: string, message: Array, open: boolean, dimmer: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -3250,12 +3252,11 @@
     "export": true,
     "importPath": "web/client/components/Signup.js",
     "importStyle": "Signup",
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true,
+    "description": "The Signup class is used to accomplish the sign up functionality for the social network web application.",
+    "lineNumber": 24,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -3268,9 +3269,22 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 30,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 226,
@@ -3280,13 +3294,15 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
+    "description": "The public members used to handle the sign up for the first time.",
+    "lineNumber": 37,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "{username: string, password: string, repeat: string, email: string, message: Array, open: boolean, dimmer: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3297,13 +3313,15 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "description": "The handleSubmit fires when the sign up form is submitted. It ensures you use a proper username and\nensures password configuration.",
+    "lineNumber": 44,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "method"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3314,13 +3332,27 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#show",
     "access": "public",
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
+    "description": "Show will emulate the dimmer effect which hides distractions to focus attention on particular content.",
+    "lineNumber": 53,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dimmer",
+        "description": ""
+      }
+    ],
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "functionality"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3331,13 +3363,15 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#close",
     "access": "public",
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
+    "description": "Close will stop emulating the dimmer effect and stop hiding distractions.",
+    "lineNumber": 59,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "functionality"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3350,15 +3384,20 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#redirPage",
     "access": "public",
-    "description": null,
-    "lineNumber": 54,
-    "undocument": true,
+    "description": "The redirPage method handles the processed sign up form by authenticating a successful sign-up or re-directing\nyou to sign up again.",
+    "lineNumber": 98,
     "params": [
       {
-        "name": "response",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "response",
+        "defaultRaw": "response",
+        "name": "response",
+        "description": "the response is parased to verify successful and failing sign-ups"
       }
     ],
     "return": null
@@ -3373,15 +3412,23 @@
     "static": false,
     "longname": "client/components/Signup.js~Signup#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 61,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted sign up page where the user can interact with the page to\naccomplish the sign up procedure.",
+    "lineNumber": 111,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted sign up page"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted sign up page"
+    },
+    "params": []
   },
   {
     "__docId__": 234,
@@ -3505,7 +3552,7 @@
     "__docId__": 242,
     "kind": "file",
     "name": "client/components/TextBox.js",
-    "content": "import React, {Component} from 'react';\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nclass TextBox extends Component {\n    constructor(props) {\n        super(props);\n    }\n    render() {\n        return (\n            <div>\n                <h1 className=\"text_box_header\">\n                    <b>{this.props.header}</b>\n                </h1>\n                <p className=\"text_box_content\">{this.props.text}</p>\n            </div>\n        );\n    }\n}\nexport default TextBox;",
+    "content": "import React, {Component} from 'react';\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\n\n/**\n * @extends {Component}\n */\nclass TextBox extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n    }\n\n    /**\n     * The render method invokes a text box utilizing the props react object.\n     * @returns {*} - invokes the formatted text box\n     */\n    render() {\n        return (\n            <div>\n                <h1 className=\"text_box_header\">\n                    <b>{this.props.header}</b>\n                </h1>\n                <p className=\"text_box_content\">{this.props.text}</p>\n            </div>\n        );\n    }\n}\nexport default TextBox;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/TextBox.js",
     "access": "public",
@@ -3523,12 +3570,11 @@
     "export": true,
     "importPath": "web/client/components/TextBox.js",
     "importStyle": "TextBox",
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 8,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -3541,9 +3587,22 @@
     "static": false,
     "longname": "client/components/TextBox.js~TextBox#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 245,
@@ -3555,21 +3614,29 @@
     "static": false,
     "longname": "client/components/TextBox.js~TextBox#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes a text box utilizing the props react object.",
+    "lineNumber": 22,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted text box"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted text box"
+    },
+    "params": []
   },
   {
     "__docId__": 246,
     "kind": "file",
     "name": "client/components/Tmp.js",
-    "content": "import React from 'react';\nimport axios from 'axios';\nimport ReactDOM from 'react-dom';\n\nexport default class NameForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {value: '', name: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n  handleSubmit(event) {\n    axios.post(`/insert`, { name: this.state.value })\n    .then(res => {\n      console.log(res.data);\n      this.setState({name: res.data.length});\n      var content=(\n        <ul>\n            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}\n        </ul>\n      );\n      ReactDOM.render(content,document.getElementById(\"root\"));\n    })\n\n    event.preventDefault();\n  }\n\n  render() {\n    return (\n      <div id=\"root\">\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n      <p>Hello guest{this.state.name}</p>\n      </div>\n    );\n  }\n}",
+    "content": "import React from 'react';\nimport axios from 'axios';\nimport ReactDOM from 'react-dom';\n\n/**\n * @extends {Component}\n */\nexport default class NameForm extends React.Component {\n\n  /**\n   * The constructor passes a props object which is a react component that can be modified for use.\n   * @param {Object} props=react_component - a react component that can be modified\n   */\n  constructor(props) {\n    super(props);\n\n      /**\n       * The public members of this class are value and name which are of type string. They are used to fill\n       * in the values of the name form.\n       * @type {{value: string, name: string}}\n       */\n    this.state = {value: '', name: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n    /**\n     * The handleChange method runs of every key stroke to update the React state.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n    /**\n     * The handleSubmit method configures the name form that is filled out by the user and is used when the\n     * form is submitted.\n     * @param {Object} event=react_event - modifies the state of the react element\n     */\n  handleSubmit(event) {\n    axios.post(`/insert`, { name: this.state.value })\n    .then(res => {\n      console.log(res.data);\n      this.setState({name: res.data.length});\n      var content=(\n        <ul>\n            {res.data.map((item)=><li key={item.id}>username: {item.userName}</li>)}\n        </ul>\n      );\n      ReactDOM.render(content,document.getElementById(\"root\"));\n    })\n\n    event.preventDefault();\n  }\n\n    /**\n     * The render method invokes the formatted name form that utilizes the methods handleSubmit and handleChange\n     * for the name form.\n     * @returns {*} - invokes the formatted name form\n     */\n  render() {\n    return (\n      <div id=\"root\">\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n      <p>Hello guest{this.state.name}</p>\n      </div>\n    );\n  }\n}",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Tmp.js",
     "access": "public",
@@ -3587,12 +3654,11 @@
     "export": true,
     "importPath": "web/client/components/Tmp.js",
     "importStyle": "NameForm",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "",
+    "lineNumber": 8,
     "interface": false,
     "extends": [
-      "react~React.Component"
+      "Component"
     ]
   },
   {
@@ -3605,9 +3671,22 @@
     "static": false,
     "longname": "client/components/Tmp.js~NameForm#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 249,
@@ -3617,13 +3696,15 @@
     "static": false,
     "longname": "client/components/Tmp.js~NameForm#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "The public members of this class are value and name which are of type string. They are used to fill\nin the values of the name form.",
+    "lineNumber": 22,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"value\": *, \"name\": *}"
-      ]
+        "{value: string, name: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3636,15 +3717,20 @@
     "static": false,
     "longname": "client/components/Tmp.js~NameForm#handleChange",
     "access": "public",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "The handleChange method runs of every key stroke to update the React state.",
+    "lineNumber": 32,
     "params": [
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element"
       }
     ],
     "return": null
@@ -3659,15 +3745,20 @@
     "static": false,
     "longname": "client/components/Tmp.js~NameForm#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "The handleSubmit method configures the name form that is filled out by the user and is used when the\nform is submitted.",
+    "lineNumber": 41,
     "params": [
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element"
       }
     ],
     "return": null
@@ -3682,15 +3773,23 @@
     "static": false,
     "longname": "client/components/Tmp.js~NameForm#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 34,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted name form that utilizes the methods handleSubmit and handleChange\nfor the name form.",
+    "lineNumber": 62,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted name form"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted name form"
+    },
+    "params": []
   },
   {
     "__docId__": 255,

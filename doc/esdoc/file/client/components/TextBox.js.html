@@ -61,10 +61,24 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {Component} from &apos;react&apos;;
 import ReactDOM from &quot;react-dom&quot;;
 import &apos;../css/login.css&apos;
+
+/**
+ * @extends {Component}
+ */
 class TextBox extends Component {
+
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
     constructor(props) {
         super(props);
     }
+
+    /**
+     * The render method invokes a text box utilizing the props react object.
+     * @returns {*} - invokes the formatted text box
+     */
     render() {
         return (
             &lt;div&gt;
