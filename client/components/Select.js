@@ -60,9 +60,17 @@ class Select extends Component {
       menuItems.push(
         <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i}
                    onClick={this.handleItemClick}>
-          <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-          {this.state.friendList[i].username}
-          <Label color='red'>1</Label>
+          <Grid verticalAlign='middle' centered>
+            <Grid.Column width={3}>
+              <Image size='mini' circular src="../assets/avatar.jpg" />
+            </Grid.Column>
+            <Grid.Column textAlign="center" width={9}>
+              {this.state.friendList[i].username}
+            </Grid.Column>
+            <Grid.Column width={2}>
+              <Label color='red'>1</Label>
+            </Grid.Column>
+          </Grid>
         </Menu.Item>
       )
     }
