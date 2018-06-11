@@ -6,15 +6,34 @@ import '../css/App.css';
 import axios from "axios/index";
 import TechnicalSupport from "./TechnicalSupport"
 
+/**
+ * The avatarStyle uses CSS attributes for formatting the position of the avatar.
+ * @type {{width: string, paddingLeft: string, paddingRight: string}}
+ */
 const avatarStyle = {
   width: '21.3vw',
   paddingLeft: '6em',
   paddingRight: '6em',
 }
 
+/**
+ * The Navbar is meant to accomplish functionality that will allow the user to use a navigation bar for their
+ * social media web application.
+ * @extends {Component}
+ */
 class Navbar extends Component {
+
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
+
+        /**
+         * State is susceptible to change and variability for react components.
+         * @type {{activeItem: string, username: string, openSupport: number, subMsg: string}}
+         */
     this.state =
       {
         activeItem: 'posts',
@@ -29,6 +48,11 @@ class Navbar extends Component {
     this.loadUsername()
   }
 
+    /**
+     * The handleItemClick method is meant to fire when a component is clicked on.
+     * @param {Object} e=react_event - modifies the state of the react element
+     * @param {string} name=name_string - the name string
+     */
   handleItemClick(e, {name}) {
     this.setState({activeItem: name})
 
@@ -46,6 +70,10 @@ class Navbar extends Component {
     }
   }
 
+    /**
+     * The loadUsername method is meant to configure the users name and load it.
+     * @type {Method}
+     */
   loadUsername() {
     axios.post('/api/getUserName').then((response) => {
       this.setState({
@@ -57,6 +85,10 @@ class Navbar extends Component {
     });
   }
 
+    /**
+     * The render method invokes the formatted navigation bar for the user to interact with.
+     * @returns {*} - invokes the formatted navigation bar
+     */
   render() {
     this.state.subMsg = (this.props.sub === true) ? "Subscribed" : "Not Subscribed";
 

@@ -64,14 +64,32 @@ import Responsive from &apos;react-responsive&apos;;
 import axios from &apos;axios&apos;;
 import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from &apos;semantic-ui-react&apos;
 
+/**
+ * The style uses CSS attributes for formatting purposes.
+ * @type {{marginTop: string}}
+ */
 const style = {
   marginTop: &apos;5em&apos;,
 }
 
+/**
+ * The FriendMangement class is meant to accomplish functionality that will allow the user the autonamy to manage
+ * their friends.
+ * @extends {Component}
+ */
 class FriendManagement extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
+
+    /**
+     * State is susceptible to change and variability for react components.
+     * @type {{targetFriend: string, value: string, username: string, friendList: Object}}
+     */
     this.state = {
       targetFriend: &quot;&quot;,
       value: &quot;&quot;,
@@ -83,6 +101,11 @@ class FriendManagement extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
+  /**
+   * The componentDidMount method is meant to verify if the component was able successfully get the user&apos;s email
+   * and friend list.
+   * @type {Method}
+   */
   componentDidMount() {
     axios.post(&apos;/api/getUserEmail&apos;).then((response) =&gt; {
       console.log(JSON.parse(response.data))
@@ -95,12 +118,23 @@ class FriendManagement extends Component {
     });
   }
 
+  /**
+   * The handleChange method is meant to fire when the event of a react component changes.
+   * @param {Object} event=react_event - modifies the state of the react element.
+   * @type {Method}
+   */
   handleChange(event) {
     this.setState({value: event.target.value,
                    targetFriend: event.target.value
     });
   }
 
+  /**
+   * The handleDelete method is meant to fire when a user attemps to delete a friend from their social media app.
+   * @param {Object} curr_friend=friend_toBeDeleted - the friend that user attemps to delete.
+   * @param {Object} e=react_event - modifies the state of the react element.
+   * @type {Method}
+   */
   handleDelete(curr_friend, e) {
     e.preventDefault();
     axios.post(&apos;/api/updateFriendList&apos;, {tid: curr_friend, actionType: &quot;delete&quot;}).then((response) =&gt; {
@@ -109,6 +143,11 @@ class FriendManagement extends Component {
     });
   }
 
+  /**
+   * The handleSubmit method is meant to fire when user makes a request by submitting an action.
+   * @param {Object} event=react_event - modifies the state of the react element.
+   * @type {Method}
+   */
   handleSubmit(event) {
     console.log(&quot;Submit&quot;);
     console.log(this.state.targetFriend)
@@ -141,6 +180,10 @@ class FriendManagement extends Component {
     }
   }
 
+  /**
+   * The render method invokes the formatted list of friends and takes carer of modifications using the helper methods.
+   * @returns {*} - invokes formatted list of friends with changes
+   */
   render(){
 
     var currFriends = &lt;div&gt;&lt;/div&gt;

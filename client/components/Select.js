@@ -4,6 +4,10 @@ import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 import axios from "axios";
 
+/**
+ * The avatarStyle uses CSS attributes to format social media app avatars
+ * @type {{width: string, paddingLeft: string, paddingRight: string, marginLeft: string, marginRight: string}}
+ */
 const avatarStyle = {
   width: '5vw',
   paddingLeft: '1em',
@@ -12,10 +16,24 @@ const avatarStyle = {
   marginRight: '1em'
 }
 
+/**
+ * The Select class is meant to accomplish functionality that will allow the user to select components in the
+ * social media web application.
+ * @extends {Component}
+ */
 class Select extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
+
+        /**
+         * State is susceptible to change and variability for react components.
+         * @type {{activeIndex: number, friendList: Array}}
+         */
     this.state = {
       activeIndex: 0,
       friendList: []
@@ -28,11 +46,21 @@ class Select extends Component {
     this.loadFriendList();
   }
 
+    /**
+     * The handleItemClick method is meant to fire when a component is clicked on
+     * @param {Object} e=react_event - modifies the state of the react element
+     * @param index
+     * @type {Method}
+     */
   handleItemClick(e, {index}) {
     this.setState({activeIndex: index});
     this.props.handleMessages(this.state.friendList[index].sid);
   }
 
+    /**
+     * The loadFriendList method is meant configure and load the list of a user's friends
+     * @type {Method}
+     */
   loadFriendList() {
     axios.post('/api/getFriendList').then((response) => {
       // this.setState({
@@ -53,6 +81,10 @@ class Select extends Component {
     })
   }
 
+    /**
+     * The render method invokes the formatted friend list loaded so that the user can select components.
+     * @returns {*} - invokes formatted friend list
+     */
   render() {
     const {activeIndex} = this.state;
     var menuItems = []

@@ -58,13 +58,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Select from &apos;<span><a href="file/client/components/Select.js.html#lineNumber15">web/client/components/Select.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Select from &apos;<span><a href="file/client/components/Select.js.html#lineNumber24">web/client/components/Select.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/client/components/Select.js.html#lineNumber15">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/client/components/Select.js.html#lineNumber24">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -116,13 +116,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The constructor passes a props object which is a react component that can be modified for use.</p>
+</div>
       </div>
     </td>
     <td>
@@ -151,13 +152,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {&quot;activeIndex&quot;: <span>*</span>, &quot;friendList&quot;: <span>*</span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {activeIndex: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, friendList: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>}</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>State is susceptible to change and variability for react components.</p>
+</div>
       </div>
     </td>
     <td>
@@ -186,13 +188,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-method-handleItemClick">handleItemClick</a></span></span><span class="code" data-ice="signature">(e: <span>*</span>, objectPattern1: {&quot;index&quot;: <span>*</span>})</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-method-handleItemClick">handleItemClick</a></span></span><span class="code" data-ice="signature">(e: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, index: <span>*</span>): <span>Method</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The handleItemClick method is meant to fire when a component is clicked on</p>
+</div>
       </div>
     </td>
     <td>
@@ -214,13 +217,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-method-loadFriendList">loadFriendList</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/Select.js~Select.html#instance-method-loadFriendList">loadFriendList</a></span></span><span class="code" data-ice="signature">(): <span>Method</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The loadFriendList method is meant configure and load the list of a user&apos;s friends</p>
+</div>
       </div>
     </td>
     <td>
@@ -248,7 +252,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>The render method invokes the formatted friend list loaded so that the user can select components.</p>
+</div>
       </div>
     </td>
     <td>
@@ -274,22 +279,40 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The constructor passes a props object which is a react component that can be modified for use.</p>
+</div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">props</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>default: react_component</li></ul></td>
+      <td data-ice="description"><p>a react component that can be modified</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -320,18 +343,19 @@
     
     
     
-    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {&quot;activeIndex&quot;: <span>*</span>, &quot;friendList&quot;: <span>*</span>}</span>
+    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {activeIndex: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, friendList: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber37">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>State is susceptible to change and variability for react components.</p>
+</div>
 
   
 
@@ -366,18 +390,19 @@
     
     
     
-    <span class="code" data-ice="name">handleItemClick</span><span class="code" data-ice="signature">(e: <span>*</span>, objectPattern1: {&quot;index&quot;: <span>*</span>})</span>
+    <span class="code" data-ice="name">handleItemClick</span><span class="code" data-ice="signature">(e: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, index: <span>*</span>): <span>Method</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The handleItemClick method is meant to fire when a component is clicked on</p>
+</div>
 
   
 
@@ -391,14 +416,15 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">e</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>default: react_event</li></ul></td>
+      <td data-ice="description"><p>modifies the state of the react element</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">objectPattern1</td>
-      <td data-ice="type" class="code">{&quot;index&quot;: <span>*</span>}</td>
-      <td data-ice="appendix"><ul><li>default: {&quot;index&quot;:null}</li></ul></td>
+      <td data-ice="name" class="code" data-depth="0">index</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 </tbody>
@@ -431,18 +457,19 @@
     
     
     
-    <span class="code" data-ice="name">loadFriendList</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">loadFriendList</span><span class="code" data-ice="signature">(): <span>Method</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The loadFriendList method is meant configure and load the list of a user&apos;s friends</p>
+</div>
 
   
 
@@ -478,14 +505,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/Select.js.html#lineNumber88">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The render method invokes the formatted friend list loaded so that the user can select components.</p>
+</div>
 
   
 
@@ -498,7 +526,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>invokes formatted friend list</p>
+</td>
         </tr>
       </tbody>
     </table>

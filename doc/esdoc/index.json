@@ -2007,7 +2007,7 @@
     "__docId__": 130,
     "kind": "file",
     "name": "client/components/FriendManagement.js",
-    "content": "import React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from 'semantic-ui-react'\n\nconst style = {\n  marginTop: '5em',\n}\n\nclass FriendManagement extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      targetFriend: \"\",\n      value: \"\",\n      username: \"\",\n      friendList: []\n    }\n    this.handleSubmit = this.handleSubmit.bind(this)\n    this.handleChange = this.handleChange.bind(this)\n    this.handleDelete = this.handleDelete.bind(this)\n  }\n\n  componentDidMount() {\n    axios.post('/api/getUserEmail').then((response) => {\n      console.log(JSON.parse(response.data))\n      this.setState({\n        username: JSON.parse(response.data).username\n      })\n      axios.post('api/getFriendList').then((response) => {\n        this.setState({friendList: JSON.parse(response.data)});\n      });\n    });\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value,\n                   targetFriend: event.target.value\n    });\n  }\n\n  handleDelete(curr_friend, e) {\n    e.preventDefault();\n    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: \"delete\"}).then((response) => {\n      console.log(JSON.stringify(response.data));\n      this.setState({friendList: JSON.parse(response.data)})\n    });\n  }\n\n  handleSubmit(event) {\n    console.log(\"Submit\");\n    console.log(this.state.targetFriend)\n    if(this.state.friendList.includes(this.state.targetFriend)){\n      alert('He/she is already your friend!')\n    }\n    else{\n      axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {\n        const checkResult = response.data;\n        if(checkResult){\n          console.log(\"It exists\")\n          if(this.state.targetFriend === this.state.username){\n            alert('You cannot add yourself!')\n          }\n          else{\n            axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: \"add\"}).then((response) => {\n              console.log(JSON.stringify(response.data));\n              this.setState({friendList: JSON.parse(response.data)})\n              alert('Success');\n              this.setState({value: \"\"});\n            });\n          }\n        }\n        else{\n          console.log(\"It doesn't exist\")\n          alert('User doesn\\'t exist!');\n          this.setState({value: \"\"});\n        }\n      });\n    }\n  }\n\n  render(){\n\n    var currFriends = <div></div>\n\n    if(this.state.friendList.length != 0){\n      console.log(\"You have friends\")\n      console.log(this.state.friendList.length)\n      currFriends = this.state.friendList.map((friend) => (\n          <Card>\n            <Card.Content>\n              {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}\n              <Card.Header>{friend}</Card.Header>\n              <Card.Meta>Friend</Card.Meta>\n              <Card.Description>\n              </Card.Description>\n            </Card.Content>\n            <Card.Content extra>\n              <div className='ui two buttons'>\n                <Button basic color='red' onClick={this.handleDelete.bind(this, friend)}>\n                  Delete\n                </Button>\n              </div>\n            </Card.Content>\n          </Card>\n        )\n      );\n    }\n    else{\n      currFriends = <h3>You have no friends loser</h3>\n      console.log(\"You have no friends\")\n    }\n\n    return (\n      <div style={style}>\n        <Header as='h2' textAlign='left'>Add a friend</Header>\n        <Input icon='users' iconPosition='left' value={this.state.value}\n               onChange={this.handleChange} placeholder='Search users...' />\n        <Button icon labelPosition='right' onClick={this.handleSubmit}>\n          Add Friend\n          <Icon name='right arrow' />\n        </Button>\n        <Header as='h2' textAlign='left'>Manage friends</Header>\n        <Card.Group style={{marginTop: '3em'}}>\n          {currFriends}\n        </Card.Group>\n      </div>\n    );\n  }\n}\n\nexport default FriendManagement",
+    "content": "import React, {Component} from 'react';\nimport {Grid, Ref} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from 'semantic-ui-react'\n\n/**\n * The style uses CSS attributes for formatting purposes.\n * @type {{marginTop: string}}\n */\nconst style = {\n  marginTop: '5em',\n}\n\n/**\n * The FriendMangement class is meant to accomplish functionality that will allow the user the autonamy to manage\n * their friends.\n * @extends {Component}\n */\nclass FriendManagement extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n    /**\n     * State is susceptible to change and variability for react components.\n     * @type {{targetFriend: string, value: string, username: string, friendList: Object}}\n     */\n    this.state = {\n      targetFriend: \"\",\n      value: \"\",\n      username: \"\",\n      friendList: []\n    }\n    this.handleSubmit = this.handleSubmit.bind(this)\n    this.handleChange = this.handleChange.bind(this)\n    this.handleDelete = this.handleDelete.bind(this)\n  }\n\n  /**\n   * The componentDidMount method is meant to verify if the component was able successfully get the user's email\n   * and friend list.\n   * @type {Method}\n   */\n  componentDidMount() {\n    axios.post('/api/getUserEmail').then((response) => {\n      console.log(JSON.parse(response.data))\n      this.setState({\n        username: JSON.parse(response.data).username\n      })\n      axios.post('api/getFriendList').then((response) => {\n        this.setState({friendList: JSON.parse(response.data)});\n      });\n    });\n  }\n\n  /**\n   * The handleChange method is meant to fire when the event of a react component changes.\n   * @param {Object} event=react_event - modifies the state of the react element.\n   * @type {Method}\n   */\n  handleChange(event) {\n    this.setState({value: event.target.value,\n                   targetFriend: event.target.value\n    });\n  }\n\n  /**\n   * The handleDelete method is meant to fire when a user attemps to delete a friend from their social media app.\n   * @param {Object} curr_friend=friend_toBeDeleted - the friend that user attemps to delete.\n   * @param {Object} e=react_event - modifies the state of the react element.\n   * @type {Method}\n   */\n  handleDelete(curr_friend, e) {\n    e.preventDefault();\n    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: \"delete\"}).then((response) => {\n      console.log(JSON.stringify(response.data));\n      this.setState({friendList: JSON.parse(response.data)})\n    });\n  }\n\n  /**\n   * The handleSubmit method is meant to fire when user makes a request by submitting an action.\n   * @param {Object} event=react_event - modifies the state of the react element.\n   * @type {Method}\n   */\n  handleSubmit(event) {\n    console.log(\"Submit\");\n    console.log(this.state.targetFriend)\n    if(this.state.friendList.includes(this.state.targetFriend)){\n      alert('He/she is already your friend!')\n    }\n    else{\n      axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {\n        const checkResult = response.data;\n        if(checkResult){\n          console.log(\"It exists\")\n          if(this.state.targetFriend === this.state.username){\n            alert('You cannot add yourself!')\n          }\n          else{\n            axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: \"add\"}).then((response) => {\n              console.log(JSON.stringify(response.data));\n              this.setState({friendList: JSON.parse(response.data)})\n              alert('Success');\n              this.setState({value: \"\"});\n            });\n          }\n        }\n        else{\n          console.log(\"It doesn't exist\")\n          alert('User doesn\\'t exist!');\n          this.setState({value: \"\"});\n        }\n      });\n    }\n  }\n\n  /**\n   * The render method invokes the formatted list of friends and takes carer of modifications using the helper methods.\n   * @returns {*} - invokes formatted list of friends with changes\n   */\n  render(){\n\n    var currFriends = <div></div>\n\n    if(this.state.friendList.length != 0){\n      console.log(\"You have friends\")\n      console.log(this.state.friendList.length)\n      currFriends = this.state.friendList.map((friend) => (\n          <Card>\n            <Card.Content>\n              {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}\n              <Card.Header>{friend}</Card.Header>\n              <Card.Meta>Friend</Card.Meta>\n              <Card.Description>\n              </Card.Description>\n            </Card.Content>\n            <Card.Content extra>\n              <div className='ui two buttons'>\n                <Button basic color='red' onClick={this.handleDelete.bind(this, friend)}>\n                  Delete\n                </Button>\n              </div>\n            </Card.Content>\n          </Card>\n        )\n      );\n    }\n    else{\n      currFriends = <h3>You have no friends loser</h3>\n      console.log(\"You have no friends\")\n    }\n\n    return (\n      <div style={style}>\n        <Header as='h2' textAlign='left'>Add a friend</Header>\n        <Input icon='users' iconPosition='left' value={this.state.value}\n               onChange={this.handleChange} placeholder='Search users...' />\n        <Button icon labelPosition='right' onClick={this.handleSubmit}>\n          Add Friend\n          <Icon name='right arrow' />\n        </Button>\n        <Header as='h2' textAlign='left'>Manage friends</Header>\n        <Card.Group style={{marginTop: '3em'}}>\n          {currFriends}\n        </Card.Group>\n      </div>\n    );\n  }\n}\n\nexport default FriendManagement",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/FriendManagement.js",
     "access": "public",
@@ -2025,13 +2025,15 @@
     "export": false,
     "importPath": "web/client/components/FriendManagement.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "The style uses CSS attributes for formatting purposes.",
+    "lineNumber": 11,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"marginTop\": string}"
-      ]
+        "{marginTop: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -2047,7 +2049,7 @@
     "importPath": "web/client/components/FriendManagement.js",
     "importStyle": "FriendManagement",
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 20,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -2064,9 +2066,22 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 13,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 26,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 134,
@@ -2076,13 +2091,15 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 15,
-    "undocument": true,
+    "description": "State is susceptible to change and variability for react components.",
+    "lineNumber": 33,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"targetFriend\": *, \"value\": *, \"username\": *, \"friendList\": *}"
-      ]
+        "{targetFriend: string, value: string, username: string, friendList: Object}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2095,9 +2112,16 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#componentDidMount",
     "access": "public",
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
+    "description": "The componentDidMount method is meant to verify if the component was able successfully get the user's email\nand friend list.",
+    "lineNumber": 49,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -2111,17 +2135,30 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#handleChange",
     "access": "public",
-    "description": null,
-    "lineNumber": 38,
-    "undocument": true,
+    "description": "The handleChange method is meant to fire when the event of a react component changes.",
+    "lineNumber": 66,
     "params": [
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element."
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2134,23 +2171,42 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#handleDelete",
     "access": "public",
-    "description": null,
-    "lineNumber": 44,
-    "undocument": true,
+    "description": "The handleDelete method is meant to fire when a user attemps to delete a friend from their social media app.",
+    "lineNumber": 78,
     "params": [
       {
-        "name": "curr_friend",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "friend_toBeDeleted",
+        "defaultRaw": "friend_toBeDeleted",
+        "name": "curr_friend",
+        "description": "the friend that user attemps to delete."
       },
       {
-        "name": "e",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "e",
+        "description": "modifies the state of the react element."
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2163,17 +2219,30 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 52,
-    "undocument": true,
+    "description": "The handleSubmit method is meant to fire when user makes a request by submitting an action.",
+    "lineNumber": 91,
     "params": [
       {
-        "name": "event",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "event",
+        "description": "modifies the state of the react element."
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2186,15 +2255,23 @@
     "static": false,
     "longname": "client/components/FriendManagement.js~FriendManagement#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 84,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted list of friends and takes carer of modifications using the helper methods.",
+    "lineNumber": 127,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes formatted list of friends with changes"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes formatted list of friends with changes"
+    },
+    "params": []
   },
   {
     "__docId__": 143,
@@ -2843,7 +2920,7 @@
     "__docId__": 182,
     "kind": "file",
     "name": "client/components/Navbar.js",
-    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport '../css/App.css';\nimport axios from \"axios/index\";\nimport TechnicalSupport from \"./TechnicalSupport\"\n\nconst avatarStyle = {\n  width: '21.3vw',\n  paddingLeft: '6em',\n  paddingRight: '6em',\n}\n\nclass Navbar extends Component {\n  constructor(props) {\n    super(props);\n    this.state =\n      {\n        activeItem: 'posts',\n          username: 'Profile',\n          openSupport: 0,\n          subMsg: \"Not Subscribed\"\n      };\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.loadUsername = this.loadUsername.bind(this);\n\n    this.loadUsername()\n  }\n\n  handleItemClick(e, {name}) {\n    this.setState({activeItem: name})\n\n    if (name === 'posts') {\n      this.props.handlePosts();\n    }\n    else if (name === 'messages') {\n      this.props.handleMessages();\n    }\n    else if (name === 'friends'){\n      this.props.handleFriends();\n    }\n    else if (name === 'support'){\n      this.setState({openSupport:1});\n    }\n  }\n\n  loadUsername() {\n    axios.post('/api/getUserName').then((response) => {\n      this.setState({\n        username: JSON.parse(response.data).username\n      });\n\n      console.log(\"loading user name\");\n      console.log(JSON.parse(response.data).username)\n    });\n  }\n\n  render() {\n    this.state.subMsg = (this.props.sub === true) ? \"Subscribed\" : \"Not Subscribed\";\n\n    return (\n      <div>\n        <Menu pointing size='huge'>\n          <Menu.Item name='me' onClick={this.handleItemClick}>\n              <img src=\"../assets/avatar.jpg\" />\n            <Label as='a' color='blue' onClick={this.props.handleUnsub}>\n                  {this.state.username}\n                  <Label.Detail>{this.state.subMsg}</Label.Detail>\n              </Label>\n          </Menu.Item>\n          <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>\n          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>\n          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick}/>\n          <Menu.Menu position='right'>\n            <Menu.Item>\n              <Input icon='search' placeholder='Search...'/>\n            </Menu.Item>\n              <Menu.Item name='support' active={this.state.activeItem === 'support'} onClick={this.handleItemClick}/>\n            <Menu.Item name='logout' onClick={this.handleItemClick}/>\n          </Menu.Menu>\n        </Menu>\n        <TechnicalSupport open={this.state.openSupport === 1} onClose={()=> this.setState({openSupport: 0})}/>\n      </div>\n    );\n  }\n}\n\nexport default Navbar;",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport '../css/App.css';\nimport axios from \"axios/index\";\nimport TechnicalSupport from \"./TechnicalSupport\"\n\n/**\n * The avatarStyle uses CSS attributes for formatting the position of the avatar.\n * @type {{width: string, paddingLeft: string, paddingRight: string}}\n */\nconst avatarStyle = {\n  width: '21.3vw',\n  paddingLeft: '6em',\n  paddingRight: '6em',\n}\n\n/**\n * The Navbar is meant to accomplish functionality that will allow the user to use a navigation bar for their\n * social media web application.\n * @extends {Component}\n */\nclass Navbar extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * State is susceptible to change and variability for react components.\n         * @type {{activeItem: string, username: string, openSupport: number, subMsg: string}}\n         */\n    this.state =\n      {\n        activeItem: 'posts',\n          username: 'Profile',\n          openSupport: 0,\n          subMsg: \"Not Subscribed\"\n      };\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.loadUsername = this.loadUsername.bind(this);\n\n    this.loadUsername()\n  }\n\n    /**\n     * The handleItemClick method is meant to fire when a component is clicked on.\n     * @param {Object} e=react_event - modifies the state of the react element\n     * @param {string} name=name_string - the name string\n     */\n  handleItemClick(e, {name}) {\n    this.setState({activeItem: name})\n\n    if (name === 'posts') {\n      this.props.handlePosts();\n    }\n    else if (name === 'messages') {\n      this.props.handleMessages();\n    }\n    else if (name === 'friends'){\n      this.props.handleFriends();\n    }\n    else if (name === 'support'){\n      this.setState({openSupport:1});\n    }\n  }\n\n    /**\n     * The loadUsername method is meant to configure the users name and load it.\n     * @type {Method}\n     */\n  loadUsername() {\n    axios.post('/api/getUserName').then((response) => {\n      this.setState({\n        username: JSON.parse(response.data).username\n      });\n\n      console.log(\"loading user name\");\n      console.log(JSON.parse(response.data).username)\n    });\n  }\n\n    /**\n     * The render method invokes the formatted navigation bar for the user to interact with.\n     * @returns {*} - invokes the formatted navigation bar\n     */\n  render() {\n    this.state.subMsg = (this.props.sub === true) ? \"Subscribed\" : \"Not Subscribed\";\n\n    return (\n      <div>\n        <Menu pointing size='huge'>\n          <Menu.Item name='me' onClick={this.handleItemClick}>\n              <img src=\"../assets/avatar.jpg\" />\n            <Label as='a' color='blue' onClick={this.props.handleUnsub}>\n                  {this.state.username}\n                  <Label.Detail>{this.state.subMsg}</Label.Detail>\n              </Label>\n          </Menu.Item>\n          <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>\n          <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>\n          <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick}/>\n          <Menu.Menu position='right'>\n            <Menu.Item>\n              <Input icon='search' placeholder='Search...'/>\n            </Menu.Item>\n              <Menu.Item name='support' active={this.state.activeItem === 'support'} onClick={this.handleItemClick}/>\n            <Menu.Item name='logout' onClick={this.handleItemClick}/>\n          </Menu.Menu>\n        </Menu>\n        <TechnicalSupport open={this.state.openSupport === 1} onClose={()=> this.setState({openSupport: 0})}/>\n      </div>\n    );\n  }\n}\n\nexport default Navbar;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Navbar.js",
     "access": "public",
@@ -2861,13 +2938,15 @@
     "export": false,
     "importPath": "web/client/components/Navbar.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true,
+    "description": "The avatarStyle uses CSS attributes for formatting the position of the avatar.",
+    "lineNumber": 13,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"width\": string, \"paddingLeft\": string, \"paddingRight\": string}"
-      ]
+        "{width: string, paddingLeft: string, paddingRight: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -2883,7 +2962,7 @@
     "importPath": "web/client/components/Navbar.js",
     "importStyle": "Navbar",
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 24,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -2900,9 +2979,22 @@
     "static": false,
     "longname": "client/components/Navbar.js~Navbar#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 30,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 186,
@@ -2912,13 +3004,15 @@
     "static": false,
     "longname": "client/components/Navbar.js~Navbar#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "State is susceptible to change and variability for react components.",
+    "lineNumber": 37,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"activeItem\": string, \"username\": string, \"openSupport\": *, \"subMsg\": string}"
-      ]
+        "{activeItem: string, username: string, openSupport: number, subMsg: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2931,25 +3025,32 @@
     "static": false,
     "longname": "client/components/Navbar.js~Navbar#handleItemClick",
     "access": "public",
-    "description": null,
-    "lineNumber": 32,
-    "undocument": true,
+    "description": "The handleItemClick method is meant to fire when a component is clicked on.",
+    "lineNumber": 56,
     "params": [
       {
-        "name": "e",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "e",
+        "description": "modifies the state of the react element"
       },
       {
-        "name": "objectPattern1",
+        "nullable": null,
         "types": [
-          "{\"name\": *}"
+          "string"
         ],
-        "defaultRaw": {
-          "name": null
-        },
-        "defaultValue": "{\"name\":null}"
+        "spread": false,
+        "optional": false,
+        "defaultValue": "name_string",
+        "defaultRaw": "name_string",
+        "name": "name",
+        "description": "the name string"
       }
     ],
     "return": null
@@ -2964,9 +3065,16 @@
     "static": false,
     "longname": "client/components/Navbar.js~Navbar#loadUsername",
     "access": "public",
-    "description": null,
-    "lineNumber": 49,
-    "undocument": true,
+    "description": "The loadUsername method is meant to configure the users name and load it.",
+    "lineNumber": 77,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -2980,21 +3088,29 @@
     "static": false,
     "longname": "client/components/Navbar.js~Navbar#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 60,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted navigation bar for the user to interact with.",
+    "lineNumber": 92,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted navigation bar"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted navigation bar"
+    },
+    "params": []
   },
   {
     "__docId__": 192,
     "kind": "file",
     "name": "client/components/NewPost.js",
-    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\nconst styles = {\n    width: '33vw',\n    marginTop: '5vh',\n}\n\nclass NewPost extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state =\n            {\n                open: 0,\n                message: ''\n            };\n    }\n\n    render() {\n        return (\n            <div>\n                <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n                    <Button.Group>\n                        <Button>Clear</Button>\n                        <Button.Or/>\n                        <Button positive>Post</Button>\n                    </Button.Group>\n                </Form>\n                <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n            </div>\n        )\n    }\n}\n\nexport default NewPost",
+    "content": "import React, {Component} from 'react'\nimport {Button, Header, Image, Modal, Form, TextArea} from 'semantic-ui-react'\nimport PostPopup from './PostPopup'\n\n/**\n * The styles uses CSS attributes for formatting the position of the new post window.\n * @type {{width: string, marginTop: string}}\n */\nconst styles = {\n    width: '33vw',\n    marginTop: '5vh',\n}\n\n/**\n * The NewPost class is meant to accomplish functionality that will allow the user to create new posts.\n * @extends {Component}\n */\nclass NewPost extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * State is susceptible to change and variability for react components.\n         * @type {{open: number, message: string}}\n         */\n        this.state =\n            {\n                open: 0,\n                message: ''\n            };\n    }\n\n    /**\n     * The render method will invoke the new post feature so that the user can create a new post within their\n     * social media web application.\n     * @returns {*} - invokes the formatted new post functionality\n     */\n    render() {\n        return (\n            <div>\n                <Form style={styles} reply>\n          <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}\n                    style={{minHeight: 100}} onClick={() => this.setState({open: 1})}/>\n                    <Button.Group>\n                        <Button>Clear</Button>\n                        <Button.Or/>\n                        <Button positive>Post</Button>\n                    </Button.Group>\n                </Form>\n                <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})} createPost={this.props.createPost}/>\n            </div>\n        )\n    }\n}\n\nexport default NewPost",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/NewPost.js",
     "access": "public",
@@ -3012,13 +3128,15 @@
     "export": false,
     "importPath": "web/client/components/NewPost.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "The styles uses CSS attributes for formatting the position of the new post window.",
+    "lineNumber": 9,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"width\": string, \"marginTop\": string}"
-      ]
+        "{width: string, marginTop: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -3034,7 +3152,7 @@
     "importPath": "web/client/components/NewPost.js",
     "importStyle": "NewPost",
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 18,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -3051,9 +3169,22 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 24,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 196,
@@ -3063,13 +3194,15 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "State is susceptible to change and variability for react components.",
+    "lineNumber": 31,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"open\": *, \"message\": *}"
-      ]
+        "{open: number, message: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3082,15 +3215,23 @@
     "static": false,
     "longname": "client/components/NewPost.js~NewPost#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
-    "params": [],
+    "description": "The render method will invoke the new post feature so that the user can create a new post within their\nsocial media web application.",
+    "lineNumber": 43,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted new post functionality"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted new post functionality"
+    },
+    "params": []
   },
   {
     "__docId__": 198,
@@ -3386,7 +3527,7 @@
     "__docId__": 212,
     "kind": "file",
     "name": "client/components/Select.js",
-    "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport axios from \"axios\";\n\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\nclass Select extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeIndex: 0,\n      friendList: []\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n\n    // load friend list\n    this.loadFriendList = this.loadFriendList.bind(this);\n    this.loadFriendList();\n  }\n\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n    this.props.handleMessages(this.state.friendList[index].sid);\n  }\n\n  loadFriendList() {\n    axios.post('/api/getFriendList').then((response) => {\n      // this.setState({\n      //   friendList: JSON.parse(response.data)\n      // });\n      console.log(\"Load friend list\")\n\n      const friendIDs = JSON.parse(response.data)\n\n      axios.all(friendIDs.map(friendID => axios.post('/api/searchUser', {searchKey: friendID})))\n        .then(axios.spread((...results) => {\n          // all requests are now complete\n          const friendDetails = results.map(res => JSON.parse(res.data))\n          this.setState({\n            friendList: friendDetails\n          })\n        }));\n    })\n  }\n\n  render() {\n    const {activeIndex} = this.state;\n    var menuItems = []\n    for (var i = 0; i < this.state.friendList.length; i++) {\n      menuItems.push(\n        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i} onClick={this.handleItemClick}>\n          <img style={avatarStyle} className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          {this.state.friendList[i].username}\n          <Label color='red'>1</Label>\n        </Menu.Item>\n      )\n    }\n\n    return (\n      <div>\n        <Grid>\n          <Grid.Row >\n            <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='users' />\n              <Header.Content>\n                Friends\n              </Header.Content>\n            </Header>\n          </Grid.Row>\n          <Grid.Row>\n            <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n              {menuItems}\n            </Menu>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
+    "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport axios from \"axios\";\n\n/**\n * The avatarStyle uses CSS attributes to format social media app avatars\n * @type {{width: string, paddingLeft: string, paddingRight: string, marginLeft: string, marginRight: string}}\n */\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\n/**\n * The Select class is meant to accomplish functionality that will allow the user to select components in the\n * social media web application.\n * @extends {Component}\n */\nclass Select extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * State is susceptible to change and variability for react components.\n         * @type {{activeIndex: number, friendList: Array}}\n         */\n    this.state = {\n      activeIndex: 0,\n      friendList: []\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n\n    // load friend list\n    this.loadFriendList = this.loadFriendList.bind(this);\n    this.loadFriendList();\n  }\n\n    /**\n     * The handleItemClick method is meant to fire when a component is clicked on\n     * @param {Object} e=react_event - modifies the state of the react element\n     * @param index\n     * @type {Method}\n     */\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n    this.props.handleMessages(this.state.friendList[index].sid);\n  }\n\n    /**\n     * The loadFriendList method is meant configure and load the list of a user's friends\n     * @type {Method}\n     */\n  loadFriendList() {\n    axios.post('/api/getFriendList').then((response) => {\n      // this.setState({\n      //   friendList: JSON.parse(response.data)\n      // });\n      console.log(\"Load friend list\")\n\n      const friendIDs = JSON.parse(response.data)\n\n      axios.all(friendIDs.map(friendID => axios.post('/api/searchUser', {searchKey: friendID})))\n        .then(axios.spread((...results) => {\n          // all requests are now complete\n          const friendDetails = results.map(res => JSON.parse(res.data))\n          this.setState({\n            friendList: friendDetails\n          })\n        }));\n    })\n  }\n\n    /**\n     * The render method invokes the formatted friend list loaded so that the user can select components.\n     * @returns {*} - invokes formatted friend list\n     */\n  render() {\n    const {activeIndex} = this.state;\n    var menuItems = []\n    for (var i = 0; i < this.state.friendList.length; i++) {\n      menuItems.push(\n        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i} onClick={this.handleItemClick}>\n          <img style={avatarStyle} className=\"ui avatar image\" src=\"../assets/avatar.jpg\"/>\n          {this.state.friendList[i].username}\n          <Label color='red'>1</Label>\n        </Menu.Item>\n      )\n    }\n\n    return (\n      <div>\n        <Grid>\n          <Grid.Row >\n            <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='users' />\n              <Header.Content>\n                Friends\n              </Header.Content>\n            </Header>\n          </Grid.Row>\n          <Grid.Row>\n            <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n              {menuItems}\n            </Menu>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Select.js",
     "access": "public",
@@ -3404,13 +3545,15 @@
     "export": false,
     "importPath": "web/client/components/Select.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
+    "description": "The avatarStyle uses CSS attributes to format social media app avatars",
+    "lineNumber": 11,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"width\": string, \"paddingLeft\": string, \"paddingRight\": string, \"marginLeft\": string, \"marginRight\": string}"
-      ]
+        "{width: string, paddingLeft: string, paddingRight: string, marginLeft: string, marginRight: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -3426,7 +3569,7 @@
     "importPath": "web/client/components/Select.js",
     "importStyle": "Select",
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 24,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -3443,9 +3586,22 @@
     "static": false,
     "longname": "client/components/Select.js~Select#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 30,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 216,
@@ -3455,13 +3611,15 @@
     "static": false,
     "longname": "client/components/Select.js~Select#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
+    "description": "State is susceptible to change and variability for react components.",
+    "lineNumber": 37,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"activeIndex\": *, \"friendList\": *}"
-      ]
+        "{activeIndex: number, friendList: Array}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3474,27 +3632,40 @@
     "static": false,
     "longname": "client/components/Select.js~Select#handleItemClick",
     "access": "public",
-    "description": null,
-    "lineNumber": 31,
-    "undocument": true,
+    "description": "The handleItemClick method is meant to fire when a component is clicked on",
+    "lineNumber": 55,
     "params": [
       {
-        "name": "e",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "e",
+        "description": "modifies the state of the react element"
       },
       {
-        "name": "objectPattern1",
+        "nullable": null,
         "types": [
-          "{\"index\": *}"
+          "*"
         ],
-        "defaultRaw": {
-          "index": null
-        },
-        "defaultValue": "{\"index\":null}"
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": ""
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -3507,9 +3678,16 @@
     "static": false,
     "longname": "client/components/Select.js~Select#loadFriendList",
     "access": "public",
-    "description": null,
-    "lineNumber": 36,
-    "undocument": true,
+    "description": "The loadFriendList method is meant configure and load the list of a user's friends",
+    "lineNumber": 64,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -3523,15 +3701,23 @@
     "static": false,
     "longname": "client/components/Select.js~Select#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 56,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted friend list loaded so that the user can select components.",
+    "lineNumber": 88,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes formatted friend list"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes formatted friend list"
+    },
+    "params": []
   },
   {
     "__docId__": 222,
@@ -3760,7 +3946,7 @@
     "__docId__": 234,
     "kind": "file",
     "name": "client/components/TechnicalSupport.js",
-    "content": "import React, {Component} from 'react';\nimport { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nimport axios from \"axios/index\";\n\n/**\n * The public members incorporated to assist with technical support.\n * @type {{open: boolean, status: string, message: string}}\n */\nlet initialState = {\n    open: false,\n    status: \"default\",\n    message:\"\"\n};\n\n/**\n * The TechnicalSupport class is used to accomplish technical support functionality for users in need to support.\n * @extends {Component}\n */\nclass TechnicalSupport extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * State is susceptiable to change and variability for react components.\n         * @type {{open: boolean, status: string, message: string}}\n         */\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    /**\n     * The handleSubmit method is used for when an email request is submitted.\n     * @type {Method}\n     */\n    handleSubmit(){\n        //TODO: send message to backend\n        this.setState({status: \"default\"});\n        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {\n            alert(\"Success!\");\n            this.setState({open: false});\n        });\n    }\n\n    /**\n     * The render method invokes the formatted technical support window so that the user can interact the page\n     * to request support or submit an email form for support.\n     * @returns {*} - invokes the formatted technical support page\n     * @type {Method}\n     */\n    render() {\n        var body;\n        var button;\n        if(this.state.status===\"default\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body= (\n                <Grid columns={2} divided>\n                <Grid.Row>\n                    <Grid.Column>\n                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: \"email\"})}/>\n                    </Grid.Column>\n                    <Grid.Column>\n                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: \"FAQ\"})} />\n                    </Grid.Column>\n                </Grid.Row>\n            </Grid>\n            );\n        }\n        else if(this.state.status===\"email\"){\n            body=(\n                <Form size='huge'>\n                    <Form.TextArea fluid placeholder='Type in your message here'\n                        onChange={(e, {value})=> this.setState({message: value})}\n                    />\n                    <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n                    <Button positive icon='checkmark' content=\"Submit\" labelPosition='right' onClick={this.handleSubmit}/>\n                </Form>\n            );\n        }else if(this.state.status===\"FAQ\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body=(\n                <div>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                </div>\n            );\n        }\n        return (\n            <div>\n                <Modal size='small' className=\"scrolling\" style={{height: '60%'}} dimmer=\"blurring\"\n                       open={this.props.open} onClose={()=> {this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>\n                    {body}\n                    <Modal.Actions>\n                        {button}\n                    </Modal.Actions>\n                </Modal>\n            </div>\n        );\n    }\n}\nexport default TechnicalSupport;",
+    "content": "import React, {Component} from 'react';\nimport { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'\nimport ReactDOM from \"react-dom\";\nimport '../css/login.css'\nimport axios from \"axios/index\";\n\n/**\n * The public members incorporated to assist with technical support.\n * @type {{open: boolean, status: string, message: string}}\n */\nlet initialState = {\n    open: false,\n    status: \"default\",\n    message:\"\"\n};\n\n/**\n * The TechnicalSupport class is used to accomplish technical support functionality for users in need to support.\n * @extends {Component}\n */\nclass TechnicalSupport extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n    constructor(props) {\n        super(props);\n\n        /**\n         * State is susceptible to change and variability for react components.\n         * @type {{open: boolean, status: string, message: string}}\n         */\n        this.state = initialState;\n        this.handleSubmit = this.handleSubmit.bind(this);\n    }\n\n    /**\n     * The handleSubmit method is used for when an email request is submitted.\n     * @type {Method}\n     */\n    handleSubmit(){\n        //TODO: send message to backend\n        this.setState({status: \"default\"});\n        axios.post('/api/sendEmail', {content: this.state.message}).then((response)=> {\n            alert(\"Success!\");\n            this.setState({open: false});\n        });\n    }\n\n    /**\n     * The render method invokes the formatted technical support window so that the user can interact the page\n     * to request support or submit an email form for support.\n     * @returns {*} - invokes the formatted technical support page\n     * @type {Method}\n     */\n    render() {\n        var body;\n        var button;\n        if(this.state.status===\"default\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body= (\n                <Grid columns={2} divided>\n                <Grid.Row>\n                    <Grid.Column>\n                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: \"email\"})}/>\n                    </Grid.Column>\n                    <Grid.Column>\n                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: \"FAQ\"})} />\n                    </Grid.Column>\n                </Grid.Row>\n            </Grid>\n            );\n        }\n        else if(this.state.status===\"email\"){\n            body=(\n                <Form size='huge'>\n                    <Form.TextArea fluid placeholder='Type in your message here'\n                        onChange={(e, {value})=> this.setState({message: value})}\n                    />\n                    <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n                    <Button positive icon='checkmark' content=\"Submit\" labelPosition='right' onClick={this.handleSubmit}/>\n                </Form>\n            );\n        }else if(this.state.status===\"FAQ\"){\n            button=(\n                <Button color='black' icon='undo' content=\"Close\" labelPosition='right' onClick={()=> {this.setState({status: \"default\"}),this.props.onClose()}} />\n            );\n            body=(\n                <div>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                    <br/>\n                    Q:blablabla<br/>\n                    A:blablabla<br/>\n                </div>\n            );\n        }\n        return (\n            <div>\n                <Modal size='small' className=\"scrolling\" style={{height: '60%'}} dimmer=\"blurring\"\n                       open={this.props.open} onClose={()=> {this.props.onClose()}}>\n                    <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>\n                    {body}\n                    <Modal.Actions>\n                        {button}\n                    </Modal.Actions>\n                </Modal>\n            </div>\n        );\n    }\n}\nexport default TechnicalSupport;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/TechnicalSupport.js",
     "access": "public",
@@ -3843,7 +4029,7 @@
     "static": false,
     "longname": "client/components/TechnicalSupport.js~TechnicalSupport#state",
     "access": "public",
-    "description": "State is susceptiable to change and variability for react components.",
+    "description": "State is susceptible to change and variability for react components.",
     "lineNumber": 34,
     "type": {
       "nullable": null,
