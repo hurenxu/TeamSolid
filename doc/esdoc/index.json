@@ -2395,7 +2395,7 @@
     "__docId__": 154,
     "kind": "file",
     "name": "client/components/Main.js",
-    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Feed} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport Navbar from './Navbar'\nimport Select from './Select'\nimport MainFeed from './MainFeed'\nimport ChatWindow from './ChatWindow'\nimport FeedInfo from './FeedInfo'\nimport Aspect from './Aspect'\nimport FriendManagement from './FriendManagement'\nimport axios from \"axios/index\";\n\nclass Main extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      mode: 'posts',\n      targetUserID: \"\",\n      aspect: 'Others',\n      friendList: [],\n        sub: false,\n        loginBack: true\n    }\n\n    this.handlePosts = this.handlePosts.bind(this);\n    this.handleFriends = this.handleFriends.bind(this);\n    this.handleMessages = this.handleMessages.bind(this);\n    this.handlePost = this.handlePost.bind(this);\n    this.handleClick = this.handleClick.bind(this);\n    this.handleUnsub = this.handleUnsub.bind(this);\n  }\n\n  handlePosts() {\n    this.setState({\n      mode: 'posts'\n    })\n  }\n\n  handleFriends() {\n    this.setState({\n      mode: 'friends'\n    })\n  }\n\n  handleMessages(inputID = \"\") {\n    this.setState({\n      mode: 'messages',\n      targetUserID: inputID\n    })\n  }\n\n  handlePost(aspect) {\n    this.setState({\n      aspect: aspect\n    });\n    this.state.aspect = aspect;\n  }\n\n\n    handleClick() {\n        axios.post('/api/setsub', {sub: true});\n        this.setState({\n            sub: true,\n            loginBack: true\n        });\n        this.state.sub = true;\n        this.state.loginBack = true;\n    }\n\n    handleUnsub() {\n        var boolean = !this.state.sub;\n        axios.post('/api/setsub', {sub: boolean});\n        this.setState({\n            sub: boolean,\n            loginBack: true\n        });\n        this.state.sub = boolean;\n        this.state.loginBack = true;\n    }\n\n  render() {\n\n    const window = (this.state.mode === 'posts') ? <MainFeed/> :\n      (this.state.mode === 'messages' ?\n        <ChatWindow targetID={this.state.targetUserID} handleMessages={this.handleMessages}/> : <FriendManagement/>)\n\n    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :\n      (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)\n\n    if(this.state.loginBack === true) {\n        axios.post('/api/getsub').then((response) => {\n            this.setState({\n                sub: JSON.parse(response.data).sub\n            });\n            this.state.sub = JSON.parse(response.data).sub;\n        });\n        this.state.loginBack = false;\n    }\n\n    return (\n      <div>\n        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}\n                handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>\n        <Grid>\n          <Grid.Column width={4}>\n            {aspect}\n          </Grid.Column>\n          <Grid.Column width={8}>\n            {window}\n          </Grid.Column>\n          <Grid.Column width={4}>\n              {console.log(this.state.sub)}\n            <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>\n          </Grid.Column>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Main;",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Menu, Feed} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\nimport Navbar from './Navbar'\nimport Select from './Select'\nimport MainFeed from './MainFeed'\nimport ChatWindow from './ChatWindow'\nimport FeedInfo from './FeedInfo'\nimport Aspect from './Aspect'\nimport FriendManagement from './FriendManagement'\nimport axios from \"axios/index\";\n\n/**\n * The Main class is the main driver for the PeterBook Application.\n * @extends {Component}\n */\nclass Main extends Component {\n\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * The public members needed to update the state of the React component.\n         * @type {{mode: string, targetUserID: string, aspect: string, friendList: Array, sub: boolean, loginBack: boolean}}\n         */\n    this.state = {\n      mode: 'posts',\n      targetUserID: \"\",\n      aspect: 'Others',\n      friendList: [],\n        sub: false,\n        loginBack: true\n    }\n\n    this.handlePosts = this.handlePosts.bind(this);\n    this.handleFriends = this.handleFriends.bind(this);\n    this.handleMessages = this.handleMessages.bind(this);\n    this.handlePost = this.handlePost.bind(this);\n    this.handleClick = this.handleClick.bind(this);\n    this.handleUnsub = this.handleUnsub.bind(this);\n  }\n\n    /**\n     * The handlePosts method is meant to configure the posts for a user\n     * @type {Method}\n     */\n  handlePosts() {\n    this.setState({\n      mode: 'posts'\n    })\n  }\n\n    /**\n     * The handleFriends method is meant to configure the friends for a user\n     * @type {Method}\n     */\n  handleFriends() {\n    this.setState({\n      mode: 'friends'\n    })\n  }\n\n    /**\n     * The handleMessages method is meant to configue the messages for a user\n     * @param {string} inputID=id_string - the passed in string\n     * @type {Method}\n     */\n  handleMessages(inputID = \"\") {\n    this.setState({\n      mode: 'messages',\n      targetUserID: inputID\n    })\n  }\n\n    /**\n     * The handlePost method is meant to configure the posts for a user\n     * @param {Object} aspect=aspect - aspect modified the state of the React element\n     * @type {Method}\n     */\n  handlePost(aspect) {\n    this.setState({\n      aspect: aspect\n    });\n    this.state.aspect = aspect;\n  }\n\n\n    /**\n     * The handleClick method is meant to fire when the user attempts to click an element.\n     * @type {Method}\n     */\n    handleClick() {\n        axios.post('/api/setsub', {sub: true});\n        this.setState({\n            sub: true,\n            loginBack: true\n        });\n        this.state.sub = true;\n        this.state.loginBack = true;\n    }\n\n    /**\n     * The handleUnsub method is meant to configure when a user attempts to unsubscribe\n     */\n    handleUnsub() {\n        var boolean = !this.state.sub;\n        axios.post('/api/setsub', {sub: boolean});\n        this.setState({\n            sub: boolean,\n            loginBack: true\n        });\n        this.state.sub = boolean;\n        this.state.loginBack = true;\n    }\n\n    /**\n     * The render method invokes the formatted web page that utilizes all the methods listed in this class\n     * to provide an interactive page for the user.\n     * @returns {*} - invokes the formatted web page\n     */\n  render() {\n\n    const window = (this.state.mode === 'posts') ? <MainFeed/> :\n      (this.state.mode === 'messages' ?\n        <ChatWindow targetID={this.state.targetUserID} handleMessages={this.handleMessages}/> : <FriendManagement/>)\n\n    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :\n      (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}></Select> : <div></div>)\n\n    if(this.state.loginBack === true) {\n        axios.post('/api/getsub').then((response) => {\n            this.setState({\n                sub: JSON.parse(response.data).sub\n            });\n            this.state.sub = JSON.parse(response.data).sub;\n        });\n        this.state.loginBack = false;\n    }\n\n    return (\n      <div>\n        <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}\n                handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>\n        <Grid>\n          <Grid.Column width={4}>\n            {aspect}\n          </Grid.Column>\n          <Grid.Column width={8}>\n            {window}\n          </Grid.Column>\n          <Grid.Column width={4}>\n              {console.log(this.state.sub)}\n            <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>\n          </Grid.Column>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default Main;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Main.js",
     "access": "public",
@@ -2413,12 +2413,11 @@
     "export": true,
     "importPath": "web/client/components/Main.js",
     "importStyle": "Main",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "The Main class is the main driver for the PeterBook Application.",
+    "lineNumber": 18,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -2431,9 +2430,22 @@
     "static": false,
     "longname": "client/components/Main.js~Main#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 157,
@@ -2443,13 +2455,15 @@
     "static": false,
     "longname": "client/components/Main.js~Main#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "The public members needed to update the state of the React component.",
+    "lineNumber": 32,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"mode\": string, \"targetUserID\": *, \"aspect\": string, \"friendList\": *, \"sub\": *, \"loginBack\": boolean}"
-      ]
+        "{mode: string, targetUserID: string, aspect: string, friendList: Array, sub: boolean, loginBack: boolean}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2462,9 +2476,16 @@
     "static": false,
     "longname": "client/components/Main.js~Main#handlePosts",
     "access": "public",
-    "description": null,
-    "lineNumber": 35,
-    "undocument": true,
+    "description": "The handlePosts method is meant to configure the posts for a user",
+    "lineNumber": 53,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -2478,9 +2499,16 @@
     "static": false,
     "longname": "client/components/Main.js~Main#handleFriends",
     "access": "public",
-    "description": null,
-    "lineNumber": 41,
-    "undocument": true,
+    "description": "The handleFriends method is meant to configure the friends for a user",
+    "lineNumber": 63,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -2494,20 +2522,30 @@
     "static": false,
     "longname": "client/components/Main.js~Main#handleMessages",
     "access": "public",
-    "description": null,
-    "lineNumber": 47,
-    "undocument": true,
+    "description": "The handleMessages method is meant to configue the messages for a user",
+    "lineNumber": 74,
     "params": [
       {
-        "name": "inputID",
-        "optional": true,
+        "nullable": null,
         "types": [
           "string"
         ],
-        "defaultRaw": "",
-        "defaultValue": ""
+        "spread": false,
+        "optional": false,
+        "defaultValue": "id_string",
+        "defaultRaw": "id_string",
+        "name": "inputID",
+        "description": "the passed in string"
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2520,17 +2558,30 @@
     "static": false,
     "longname": "client/components/Main.js~Main#handlePost",
     "access": "public",
-    "description": null,
-    "lineNumber": 54,
-    "undocument": true,
+    "description": "The handlePost method is meant to configure the posts for a user",
+    "lineNumber": 86,
     "params": [
       {
-        "name": "aspect",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "aspect",
+        "defaultRaw": "aspect",
+        "name": "aspect",
+        "description": "aspect modified the state of the React element"
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2543,9 +2594,16 @@
     "static": false,
     "longname": "client/components/Main.js~Main#handleClick",
     "access": "public",
-    "description": null,
-    "lineNumber": 62,
-    "undocument": true,
+    "description": "The handleClick method is meant to fire when the user attempts to click an element.",
+    "lineNumber": 98,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -2559,9 +2617,8 @@
     "static": false,
     "longname": "client/components/Main.js~Main#handleUnsub",
     "access": "public",
-    "description": null,
-    "lineNumber": 72,
-    "undocument": true,
+    "description": "The handleUnsub method is meant to configure when a user attempts to unsubscribe",
+    "lineNumber": 111,
     "params": [],
     "return": null
   },
@@ -2575,21 +2632,29 @@
     "static": false,
     "longname": "client/components/Main.js~Main#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 83,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted web page that utilizes all the methods listed in this class\nto provide an interactive page for the user.",
+    "lineNumber": 127,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted web page"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted web page"
+    },
+    "params": []
   },
   {
     "__docId__": 171,
     "kind": "file",
     "name": "client/components/MainFeed.js",
-    "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Message} from 'semantic-ui-react'\nimport FeedEvent from './FeedEvent'\nimport NewPost from './NewPost'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\nclass MainFeed extends Component {\n\n  constructor(props) {\n    super(props)\n\n    this.state = {\n      feeds: []\n    }\n\n    this.loadPosts = this.loadPosts.bind(this)\n    this.createPost = this.createPost.bind(this)\n    this.loadPosts()\n      this.feedList = this.feedList.bind(this)\n  }\n\n  loadPosts() {\n    axios.post('/api/getPosts').then((response) => {\n      this.setState({\n        feeds: JSON.parse(response.data)\n      })\n      this.state.feeds = JSON.parse(response.data);\n      console.log(\"finish loading post\")\n    });\n  }\n\n  createPost(postObject) {\n    axios.post('/api/postPost', postObject).then((response) => {\n      this.loadPosts()\n    })\n  }\n\n  feedList() {\n    if(this.state.feeds == null) {\n        return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>\n            <Message.Header>There is no post</Message.Header>\n            <p>Do you want to post something?</p>\n        </Message>);\n    }\n    else {\n        return(this.state.feeds.map((feed, index) =>\n            <FeedEvent imageURL=\"\" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}\n                       date={feed.data}\n                       postid={feed.postid}/>\n        ));\n    }\n  }\n\n  render() {\n      return (\n      <div style={{marginTop: '5vh'}}>\n        <div>\n          <div>\n            <NewPost createPost={this.createPost}/>\n          </div>\n        </div>\n        <div>\n          <Feed size='large'>\n              {this.feedList()}\n          </Feed>\n        </div>\n      </div>\n    );\n  }\n}\n\nexport default MainFeed\n",
+    "content": "import React, {Component} from 'react'\nimport {Feed, Icon, Grid, Message} from 'semantic-ui-react'\nimport FeedEvent from './FeedEvent'\nimport NewPost from './NewPost'\nimport axios from \"axios/index\";\nimport moment from \"moment\";\n\n/**\n * The MainFeed class is meant to accomplish the functionality to provide the user with their main social media\n * feed.\n * @extends {Component}\n */\nclass MainFeed extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props)\n\n        /**\n         * The public members needed to update the state of the React component.\n         * @type {{feeds: Array}}\n         */\n    this.state = {\n      feeds: []\n    }\n\n    this.loadPosts = this.loadPosts.bind(this)\n    this.createPost = this.createPost.bind(this)\n    this.loadPosts()\n      this.feedList = this.feedList.bind(this)\n  }\n\n    /**\n     * The loadPosts method is meant to generate the posts that user views in his feed\n     * @type {Method}\n     */\n  loadPosts() {\n    axios.post('/api/getPosts').then((response) => {\n      this.setState({\n        feeds: JSON.parse(response.data)\n      })\n      this.state.feeds = JSON.parse(response.data);\n      console.log(\"finish loading post\")\n    });\n  }\n\n    /**\n     * The createPost method is meant to generate posts for when a user attempts to post something.\n     * @param {Object} postObject=post_object - the object that a user is trying to post\n     * @type {Method}\n     */\n  createPost(postObject) {\n    axios.post('/api/postPost', postObject).then((response) => {\n      this.loadPosts()\n    })\n  }\n\n    /**\n     * The feedList method is meant generate the feed that user experiences when navigating through his profile.\n     * @type {Method}\n     */\n  feedList() {\n    if(this.state.feeds == null) {\n        return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>\n            <Message.Header>There is no post</Message.Header>\n            <p>Do you want to post something?</p>\n        </Message>);\n    }\n    else {\n        return(this.state.feeds.map((feed, index) =>\n            <FeedEvent imageURL=\"\" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}\n                       date={feed.data}\n                       postid={feed.postid}/>\n        ));\n    }\n  }\n\n    /**\n     * The render method invokes the formatted feed that a user experiences in the social web application.\n     * @returns {*} - invokes the formatted feed\n     */\n  render() {\n      return (\n      <div style={{marginTop: '5vh'}}>\n        <div>\n          <div>\n            <NewPost createPost={this.createPost}/>\n          </div>\n        </div>\n        <div>\n          <Feed size='large'>\n              {this.feedList()}\n          </Feed>\n        </div>\n      </div>\n    );\n  }\n}\n\nexport default MainFeed\n",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/MainFeed.js",
     "access": "public",
@@ -2607,12 +2672,11 @@
     "export": true,
     "importPath": "web/client/components/MainFeed.js",
     "importStyle": "MainFeed",
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "The MainFeed class is meant to accomplish the functionality to provide the user with their main social media\nfeed.",
+    "lineNumber": 13,
     "interface": false,
     "extends": [
-      "react~Component"
+      "Component"
     ]
   },
   {
@@ -2625,9 +2689,22 @@
     "static": false,
     "longname": "client/components/MainFeed.js~MainFeed#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 10,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 174,
@@ -2637,13 +2714,15 @@
     "static": false,
     "longname": "client/components/MainFeed.js~MainFeed#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 13,
-    "undocument": true,
+    "description": "The public members needed to update the state of the React component.",
+    "lineNumber": 26,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"feeds\": *}"
-      ]
+        "{feeds: Array}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -2656,9 +2735,16 @@
     "static": false,
     "longname": "client/components/MainFeed.js~MainFeed#loadPosts",
     "access": "public",
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
+    "description": "The loadPosts method is meant to generate the posts that user views in his feed",
+    "lineNumber": 40,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -2672,17 +2758,30 @@
     "static": false,
     "longname": "client/components/MainFeed.js~MainFeed#createPost",
     "access": "public",
-    "description": null,
-    "lineNumber": 33,
-    "undocument": true,
+    "description": "The createPost method is meant to generate posts for when a user attempts to post something.",
+    "lineNumber": 55,
     "params": [
       {
-        "name": "postObject",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "post_object",
+        "defaultRaw": "post_object",
+        "name": "postObject",
+        "description": "the object that a user is trying to post"
       }
     ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "return": null
   },
   {
@@ -2695,9 +2794,16 @@
     "static": false,
     "longname": "client/components/MainFeed.js~MainFeed#feedList",
     "access": "public",
-    "description": null,
-    "lineNumber": 39,
-    "undocument": true,
+    "description": "The feedList method is meant generate the feed that user experiences when navigating through his profile.",
+    "lineNumber": 65,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": {
       "types": [
@@ -2715,15 +2821,23 @@
     "static": false,
     "longname": "client/components/MainFeed.js~MainFeed#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 55,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted feed that a user experiences in the social web application.",
+    "lineNumber": 85,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted feed"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted feed"
+    },
+    "params": []
   },
   {
     "__docId__": 182,
@@ -3243,7 +3357,7 @@
     "__docId__": 210,
     "kind": "file",
     "name": "client/components/Routes.js",
-    "content": "import React from \"react\";\r\nimport { BrowserRouter, Route } from \"react-router-dom\";\r\nimport App from './App';\r\nimport Login from './Login';\r\n\r\nconst Routes = () => (\r\n    <BrowserRouter>\r\n        <Main>\r\n            <Route exact path=\"/\" component={App} />\r\n            <Route path=\"/login\" component={Login} />\r\n        </Main>\r\n    </BrowserRouter>\r\n);\r\n\r\nexport default Routes;",
+    "content": "import React from \"react\";\r\nimport { BrowserRouter, Route } from \"react-router-dom\";\r\nimport App from './App';\r\nimport Login from './Login';\r\n\r\n/**\r\n * The Routes class is meant render the UI for when a location matches the route's path.\r\n */\r\nconst Routes = () => (\r\n    <BrowserRouter>\r\n        <Main>\r\n            <Route exact path=\"/\" component={App} />\r\n            <Route path=\"/login\" component={Login} />\r\n        </Main>\r\n    </BrowserRouter>\r\n);\r\n\r\nexport default Routes;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Routes.js",
     "access": "public",
@@ -3263,9 +3377,8 @@
     "export": true,
     "importPath": "web/client/components/Routes.js",
     "importStyle": "Routes",
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The Routes class is meant render the UI for when a location matches the route's path.",
+    "lineNumber": 9,
     "params": [],
     "return": null
   },
@@ -4047,7 +4160,7 @@
     "__docId__": 255,
     "kind": "file",
     "name": "client/index.js",
-    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './components/App';\nimport Tmp from './components/Tmp';\nimport Login from './components/Login';\nimport '../semantic/dist/semantic.min.css';\n\nvar el = document.getElementById('root');\nif (el.className == 'index') {\n    ReactDOM.render(<App />, document.getElementById('root'));\n} else {\n    ReactDOM.render(<Login redirect={false}/>, document.getElementById('root'));\n}\n",
+    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport App from './components/App';\nimport Tmp from './components/Tmp';\nimport Login from './components/Login';\nimport '../semantic/dist/semantic.min.css';\n\n/**\n * Returns the element whose id property matches the specified string\n * @type {HTMLElement | null}\n */\nvar el = document.getElementById('root');\nif (el.className == 'index') {\n    ReactDOM.render(<App />, document.getElementById('root'));\n} else {\n    ReactDOM.render(<Login redirect={false}/>, document.getElementById('root'));\n}\n",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/index.js",
     "access": "public",
@@ -4065,13 +4178,16 @@
     "export": false,
     "importPath": "web/client/index.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "Returns the element whose id property matches the specified string",
+    "lineNumber": 12,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "HTMLElement ",
+        " null"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -4079,7 +4195,7 @@
     "__docId__": 257,
     "kind": "file",
     "name": "client/service-worker-index.js",
-    "content": "// Set this to true for production\nvar doCache = false;\n\n// Name our cache\nconst VERSION = 'index-v1';\nvar urlsToCache = [\n    '/css/App.css',\n    '/components/App.js'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
+    "content": "// Set this to true for production\n\n/**\n * The cache that is meant to be set to true when app is ready for production.\n * @type {boolean} doCache=cache_bool - boolean for cache\n */\nvar doCache = false;\n\n// Name our cache\n/**\n * The version of the application.\n * @type {string} VERSION=app_version - The web application version.\n */\nconst VERSION = 'index-v1';\n\n/**\n * The urls used for caching.\n * @type {string[]}\n */\nvar urlsToCache = [\n    '/css/App.css',\n    '/components/App.js'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/service-worker-index.js",
     "access": "public",
@@ -4097,13 +4213,15 @@
     "export": false,
     "importPath": "web/client/service-worker-index.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
+    "description": "The cache that is meant to be set to true when app is ready for production.",
+    "lineNumber": 7,
     "type": {
+      "nullable": null,
       "types": [
         "boolean"
-      ]
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -4118,13 +4236,15 @@
     "export": false,
     "importPath": "web/client/service-worker-index.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "The version of the application.",
+    "lineNumber": 14,
     "type": {
+      "nullable": null,
       "types": [
         "string"
-      ]
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -4139,13 +4259,15 @@
     "export": false,
     "importPath": "web/client/service-worker-index.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The urls used for caching.",
+    "lineNumber": 20,
     "type": {
+      "nullable": null,
       "types": [
         "string[]"
-      ]
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -4153,7 +4275,7 @@
     "__docId__": 261,
     "kind": "file",
     "name": "client/service-worker.js",
-    "content": "// Set this to true for production\nvar doCache = false;\n\n// Name our cache\nconst VERSION = 'login-v1';\nvar urlsToCache = [\n    '/components/Login.js',\n    '/css/login.css'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
+    "content": "// Set this to true for production\n\n/**\n * The cache that is meant to be set to true when app is ready for production.\n * @type {boolean} doCache=cache_bool - boolean for cache\n */\nvar doCache = false;\n\n// Name our cache\n/**\n * The version of the application.\n * @type {string} VERSION=app_version - The web application version.\n */\nconst VERSION = 'login-v1';\n\n/**\n * The urls used for caching.\n * @type {string[]}\n */\nvar urlsToCache = [\n    '/components/Login.js',\n    '/css/login.css'\n];\n\n// Delete old caches that are not our current one!\nself.addEventListener(\"activate\", event => {\n    console.log(\"inside activate\");\n    const cacheWhitelist = [VERSION];\n    event.waitUntil(\n        caches.keys()\n            .then(keyList =>\n                Promise.all(keyList.map(key => {\n                    if (!cacheWhitelist.includes(key)) {\n                        console.log('Deleting cache: ' + key)\n                        return caches.delete(key);\n                    }\n                }))\n            )\n    );\n});\n\n// The first time the user starts up the PWA, 'install' is triggered.\nself.addEventListener('install', function(event) {\n    if (doCache) {\n        // Perform install steps\n        event.waitUntil(\n            caches.open(VERSION)\n                .then(function (cache) {\n                    console.log('opened cache');\n                    return cache.addAll(urlsToCache);\n                })\n        );\n    }\n});\n\n// When the webpage goes to fetch files, we intercept that request and serve up the matching files\n// if we have them\nself.addEventListener('fetch', function(event) {\n    if (doCache) {\n        event.respondWith(\n            caches.match(event.request).then(function(response) {\n                console.log('fetch cache and return response');\n                return response || fetch(event.request);\n            })\n        );\n    }\n});",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/service-worker.js",
     "access": "public",
@@ -4171,13 +4293,15 @@
     "export": false,
     "importPath": "web/client/service-worker.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
+    "description": "The cache that is meant to be set to true when app is ready for production.",
+    "lineNumber": 7,
     "type": {
+      "nullable": null,
       "types": [
         "boolean"
-      ]
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -4192,13 +4316,15 @@
     "export": false,
     "importPath": "web/client/service-worker.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "The version of the application.",
+    "lineNumber": 14,
     "type": {
+      "nullable": null,
       "types": [
         "string"
-      ]
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -4213,13 +4339,15 @@
     "export": false,
     "importPath": "web/client/service-worker.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The urls used for caching.",
+    "lineNumber": 20,
     "type": {
+      "nullable": null,
       "types": [
         "string[]"
-      ]
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },

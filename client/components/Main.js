@@ -11,10 +11,24 @@ import Aspect from './Aspect'
 import FriendManagement from './FriendManagement'
 import axios from "axios/index";
 
+/**
+ * The Main class is the main driver for the PeterBook Application.
+ * @extends {Component}
+ */
 class Main extends Component {
 
+
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
+
+        /**
+         * The public members needed to update the state of the React component.
+         * @type {{mode: string, targetUserID: string, aspect: string, friendList: Array, sub: boolean, loginBack: boolean}}
+         */
     this.state = {
       mode: 'posts',
       targetUserID: "",
@@ -32,18 +46,31 @@ class Main extends Component {
     this.handleUnsub = this.handleUnsub.bind(this);
   }
 
+    /**
+     * The handlePosts method is meant to configure the posts for a user
+     * @type {Method}
+     */
   handlePosts() {
     this.setState({
       mode: 'posts'
     })
   }
 
+    /**
+     * The handleFriends method is meant to configure the friends for a user
+     * @type {Method}
+     */
   handleFriends() {
     this.setState({
       mode: 'friends'
     })
   }
 
+    /**
+     * The handleMessages method is meant to configue the messages for a user
+     * @param {string} inputID=id_string - the passed in string
+     * @type {Method}
+     */
   handleMessages(inputID = "") {
     this.setState({
       mode: 'messages',
@@ -51,6 +78,11 @@ class Main extends Component {
     })
   }
 
+    /**
+     * The handlePost method is meant to configure the posts for a user
+     * @param {Object} aspect=aspect - aspect modified the state of the React element
+     * @type {Method}
+     */
   handlePost(aspect) {
     this.setState({
       aspect: aspect
@@ -59,6 +91,10 @@ class Main extends Component {
   }
 
 
+    /**
+     * The handleClick method is meant to fire when the user attempts to click an element.
+     * @type {Method}
+     */
     handleClick() {
         axios.post('/api/setsub', {sub: true});
         this.setState({
@@ -69,6 +105,9 @@ class Main extends Component {
         this.state.loginBack = true;
     }
 
+    /**
+     * The handleUnsub method is meant to configure when a user attempts to unsubscribe
+     */
     handleUnsub() {
         var boolean = !this.state.sub;
         axios.post('/api/setsub', {sub: boolean});
@@ -80,6 +119,11 @@ class Main extends Component {
         this.state.loginBack = true;
     }
 
+    /**
+     * The render method invokes the formatted web page that utilizes all the methods listed in this class
+     * to provide an interactive page for the user.
+     * @returns {*} - invokes the formatted web page
+     */
   render() {
 
     const window = (this.state.mode === 'posts') ? <MainFeed/> :

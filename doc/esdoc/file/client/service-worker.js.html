@@ -59,10 +59,24 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">client/service-worker.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// Set this to true for production
+
+/**
+ * The cache that is meant to be set to true when app is ready for production.
+ * @type {boolean} doCache=cache_bool - boolean for cache
+ */
 var doCache = false;
 
 // Name our cache
+/**
+ * The version of the application.
+ * @type {string} VERSION=app_version - The web application version.
+ */
 const VERSION = &apos;login-v1&apos;;
+
+/**
+ * The urls used for caching.
+ * @type {string[]}
+ */
 var urlsToCache = [
     &apos;/components/Login.js&apos;,
     &apos;/css/login.css&apos;

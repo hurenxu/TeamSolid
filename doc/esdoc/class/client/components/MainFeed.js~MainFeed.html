@@ -58,13 +58,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import MainFeed from &apos;<span><a href="file/client/components/MainFeed.js.html#lineNumber8">web/client/components/MainFeed.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import MainFeed from &apos;<span><a href="file/client/components/MainFeed.js.html#lineNumber13">web/client/components/MainFeed.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/client/components/MainFeed.js.html#lineNumber8">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/client/components/MainFeed.js.html#lineNumber13">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -74,7 +74,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>react~Component</span> &#x2192; MainFeed</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>Component</span> &#x2192; MainFeed</div></div>
   
   
   
@@ -84,7 +84,9 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>The MainFeed class is meant to accomplish the functionality to provide the user with their main social media
+feed.</p>
+</div>
   
 
   
@@ -116,13 +118,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The constructor passes a props object which is a react component that can be modified for use.</p>
+</div>
       </div>
     </td>
     <td>
@@ -151,13 +154,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {&quot;feeds&quot;: <span>*</span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-member-state">state</a></span></span><span class="code" data-ice="signature">: {feeds: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>}</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The public members needed to update the state of the React component.</p>
+</div>
       </div>
     </td>
     <td>
@@ -186,13 +190,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-method-createPost">createPost</a></span></span><span class="code" data-ice="signature">(postObject: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-method-createPost">createPost</a></span></span><span class="code" data-ice="signature">(postObject: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>Method</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The createPost method is meant to generate posts for when a user attempts to post something.</p>
+</div>
       </div>
     </td>
     <td>
@@ -214,13 +219,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-method-feedList">feedList</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-method-feedList">feedList</a></span></span><span class="code" data-ice="signature">(): <span>*</span>: <span>Method</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The feedList method is meant generate the feed that user experiences when navigating through his profile.</p>
+</div>
       </div>
     </td>
     <td>
@@ -242,13 +248,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-method-loadPosts">loadPosts</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/client/components/MainFeed.js~MainFeed.html#instance-method-loadPosts">loadPosts</a></span></span><span class="code" data-ice="signature">(): <span>Method</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>The loadPosts method is meant to generate the posts that user views in his feed</p>
+</div>
       </div>
     </td>
     <td>
@@ -276,7 +283,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>The render method invokes the formatted feed that a user experiences in the social web application.</p>
+</div>
       </div>
     </td>
     <td>
@@ -302,22 +310,40 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(props: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber19">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The constructor passes a props object which is a react component that can be modified for use.</p>
+</div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">props</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>default: react_component</li></ul></td>
+      <td data-ice="description"><p>a react component that can be modified</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -348,18 +374,19 @@
     
     
     
-    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {&quot;feeds&quot;: <span>*</span>}</span>
+    <span class="code" data-ice="name">state</span><span class="code" data-ice="signature">: {feeds: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The public members needed to update the state of the React component.</p>
+</div>
 
   
 
@@ -394,18 +421,19 @@
     
     
     
-    <span class="code" data-ice="name">createPost</span><span class="code" data-ice="signature">(postObject: <span>*</span>)</span>
+    <span class="code" data-ice="name">createPost</span><span class="code" data-ice="signature">(postObject: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>Method</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber33">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The createPost method is meant to generate posts for when a user attempts to post something.</p>
+</div>
 
   
 
@@ -419,9 +447,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">postObject</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>default: post_object</li></ul></td>
+      <td data-ice="description"><p>the object that a user is trying to post</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -453,18 +482,19 @@
     
     
     
-    <span class="code" data-ice="name">feedList</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">feedList</span><span class="code" data-ice="signature">(): <span>*</span>: <span>Method</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber39">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The feedList method is meant generate the feed that user experiences when navigating through his profile.</p>
+</div>
 
   
 
@@ -508,18 +538,19 @@
     
     
     
-    <span class="code" data-ice="name">loadPosts</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">loadPosts</span><span class="code" data-ice="signature">(): <span>Method</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber23">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber40">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The loadPosts method is meant to generate the posts that user views in his feed</p>
+</div>
 
   
 
@@ -555,14 +586,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/client/components/MainFeed.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The render method invokes the formatted feed that a user experiences in the social web application.</p>
+</div>
 
   
 
@@ -575,7 +607,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>invokes the formatted feed</p>
+</td>
         </tr>
       </tbody>
     </table>

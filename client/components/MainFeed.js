@@ -5,11 +5,24 @@ import NewPost from './NewPost'
 import axios from "axios/index";
 import moment from "moment";
 
+/**
+ * The MainFeed class is meant to accomplish the functionality to provide the user with their main social media
+ * feed.
+ * @extends {Component}
+ */
 class MainFeed extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props)
 
+        /**
+         * The public members needed to update the state of the React component.
+         * @type {{feeds: Array}}
+         */
     this.state = {
       feeds: []
     }
@@ -20,6 +33,10 @@ class MainFeed extends Component {
       this.feedList = this.feedList.bind(this)
   }
 
+    /**
+     * The loadPosts method is meant to generate the posts that user views in his feed
+     * @type {Method}
+     */
   loadPosts() {
     axios.post('/api/getPosts').then((response) => {
       this.setState({
@@ -30,12 +47,21 @@ class MainFeed extends Component {
     });
   }
 
+    /**
+     * The createPost method is meant to generate posts for when a user attempts to post something.
+     * @param {Object} postObject=post_object - the object that a user is trying to post
+     * @type {Method}
+     */
   createPost(postObject) {
     axios.post('/api/postPost', postObject).then((response) => {
       this.loadPosts()
     })
   }
 
+    /**
+     * The feedList method is meant generate the feed that user experiences when navigating through his profile.
+     * @type {Method}
+     */
   feedList() {
     if(this.state.feeds == null) {
         return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>
@@ -52,6 +78,10 @@ class MainFeed extends Component {
     }
   }
 
+    /**
+     * The render method invokes the formatted feed that a user experiences in the social web application.
+     * @returns {*} - invokes the formatted feed
+     */
   render() {
       return (
       <div style={{marginTop: '5vh'}}>

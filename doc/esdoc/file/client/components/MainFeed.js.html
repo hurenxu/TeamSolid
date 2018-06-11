@@ -65,11 +65,24 @@ import NewPost from &apos;./NewPost&apos;
 import axios from &quot;axios/index&quot;;
 import moment from &quot;moment&quot;;
 
+/**
+ * The MainFeed class is meant to accomplish the functionality to provide the user with their main social media
+ * feed.
+ * @extends {Component}
+ */
 class MainFeed extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props)
 
+        /**
+         * The public members needed to update the state of the React component.
+         * @type {{feeds: Array}}
+         */
     this.state = {
       feeds: []
     }
@@ -80,6 +93,10 @@ class MainFeed extends Component {
       this.feedList = this.feedList.bind(this)
   }
 
+    /**
+     * The loadPosts method is meant to generate the posts that user views in his feed
+     * @type {Method}
+     */
   loadPosts() {
     axios.post(&apos;/api/getPosts&apos;).then((response) =&gt; {
       this.setState({
@@ -90,12 +107,21 @@ class MainFeed extends Component {
     });
   }
 
+    /**
+     * The createPost method is meant to generate posts for when a user attempts to post something.
+     * @param {Object} postObject=post_object - the object that a user is trying to post
+     * @type {Method}
+     */
   createPost(postObject) {
     axios.post(&apos;/api/postPost&apos;, postObject).then((response) =&gt; {
       this.loadPosts()
     })
   }
 
+    /**
+     * The feedList method is meant generate the feed that user experiences when navigating through his profile.
+     * @type {Method}
+     */
   feedList() {
     if(this.state.feeds == null) {
         return(  &lt;Message style={{marginTop: &apos;10px&apos;, float: &apos;left&apos;, marginLeft: &apos;10px&apos;}} warning compact&gt;
@@ -112,6 +138,10 @@ class MainFeed extends Component {
     }
   }
 
+    /**
+     * The render method invokes the formatted feed that a user experiences in the social web application.
+     * @returns {*} - invokes the formatted feed
+     */
   render() {
       return (
       &lt;div style={{marginTop: &apos;5vh&apos;}}&gt;

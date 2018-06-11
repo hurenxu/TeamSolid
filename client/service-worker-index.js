@@ -1,8 +1,22 @@
 // Set this to true for production
+
+/**
+ * The cache that is meant to be set to true when app is ready for production.
+ * @type {boolean} doCache=cache_bool - boolean for cache
+ */
 var doCache = false;
 
 // Name our cache
+/**
+ * The version of the application.
+ * @type {string} VERSION=app_version - The web application version.
+ */
 const VERSION = 'index-v1';
+
+/**
+ * The urls used for caching.
+ * @type {string[]}
+ */
 var urlsToCache = [
     '/css/App.css',
     '/components/App.js'

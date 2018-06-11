@@ -1,7 +1,7 @@
 {
-  "coverage": "50.32%",
+  "coverage": "66.66%",
   "expectCount": 153,
-  "actualCount": 77,
+  "actualCount": 102,
   "files": {
     "client/components/Advertisement.js": {
       "expectCount": 3,
@@ -105,32 +105,13 @@
     },
     "client/components/Main.js": {
       "expectCount": 10,
-      "actualCount": 0,
-      "undocumentLines": [
-        14,
-        16,
-        18,
-        35,
-        41,
-        47,
-        54,
-        62,
-        72,
-        83
-      ]
+      "actualCount": 10,
+      "undocumentLines": []
     },
     "client/components/MainFeed.js": {
       "expectCount": 7,
-      "actualCount": 0,
-      "undocumentLines": [
-        8,
-        10,
-        13,
-        23,
-        33,
-        39,
-        55
-      ]
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "client/components/Navbar.js": {
       "expectCount": 7,
@@ -163,10 +144,8 @@
     },
     "client/components/Routes.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        6
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "client/components/Select.js": {
       "expectCount": 7,
@@ -203,28 +182,18 @@
     },
     "client/index.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        8
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "client/service-worker-index.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        2,
-        5,
-        6
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "client/service-worker.js": {
       "expectCount": 3,
-      "actualCount": 0,
-      "undocumentLines": [
-        2,
-        5,
-        6
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     }
   }
 }
