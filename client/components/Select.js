@@ -58,7 +58,8 @@ class Select extends Component {
     var menuItems = []
     for (var i = 0; i < this.state.friendList.length; i++) {
       menuItems.push(
-        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i} onClick={this.handleItemClick}>
+        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i}
+                   onClick={this.handleItemClick}>
           <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
           {this.state.friendList[i].username}
           <Label color='red'>1</Label>
@@ -68,15 +69,15 @@ class Select extends Component {
 
     return (
       <div>
-            <Header as='h2' floated='left'  style={{marginLeft: "1em"}}>
-              <Icon name='users' />
-              <Header.Content>
-                Friends
-              </Header.Content>
-            </Header>
-            <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
-              {menuItems}
-            </Menu>
+        <Header as='h2' style={{marginLeft: "1em", marginTop: "1.2em", marginBottom: "1.5em"}}>
+          <Icon name='users'/>
+          <Header.Content>
+            Friends
+          </Header.Content>
+        </Header>
+        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
+          {menuItems}
+        </Menu>
       </div>
     );
   }
