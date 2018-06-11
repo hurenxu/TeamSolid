@@ -809,7 +809,7 @@
     "__docId__": 61,
     "kind": "file",
     "name": "client/components/Aspect.js",
-    "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\n\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\nclass Select extends Component {\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      activeIndex: 0,\n      aspect: 'Others'\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.handleAspect = this.handleAspect.bind(this);\n  }\n\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n  }\n\n  handleAspect(aspect) {\n    this.setState({aspect: aspect});\n    this.props.handleAspect(aspect);\n  }\n\n  render() {\n    const {activeIndex} = this.state;\n\n    return (\n      <div>\n          <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='list layout' />\n              <Header.Content>\n                  Aspects\n              </Header.Content>\n          </Header>\n        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n          <Menu.Item>\n            <Input icon='search' placeholder='Search tag...'/>\n          </Menu.Item>\n          <Menu.Item name='0' index={0} value='Others' active={activeIndex === 0} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Others\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='0' index={1} value='Family' active={activeIndex === 1} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Family\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='1' index={2} value='Friends' active={activeIndex === 2} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Friends\n            <Label color='green'>12</Label>\n          </Menu.Item>\n\n          <Menu.Item name='2' index={3} value='Favorite' active={activeIndex === 3} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Favorite\n            <Label color='green'>1</Label>\n          </Menu.Item>\n\n        </Menu>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
+    "content": "import React, {Component} from 'react';\nimport {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport ReactDOM from \"react-dom\";\n\n/**\n * The avatarStyle uses CSS attributes for formatting purposes.\n * @type {{width: string, paddingLeft: string, paddingRight: string, marginLeft: string, marginRight: string}}\n */\nconst avatarStyle = {\n  width: '5vw',\n  paddingLeft: '1em',\n  paddingRight: '0.5em',\n  marginLeft: '0em',\n  marginRight: '1em'\n}\n\n/**\n * The Aspect class is meant to suplemment the Select class by accomplishing functionality so that the user\n * can interact with the social media app.\n * @extends {Component}\n */\nclass Select extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * State is susceptible to change and variability for react components.\n         * @type {{activeIndex: number, aspect: string}}\n         */\n    this.state = {\n      activeIndex: 0,\n      aspect: 'Others'\n    }\n\n    this.handleItemClick = this.handleItemClick.bind(this);\n    this.handleAspect = this.handleAspect.bind(this);\n  }\n\n    /**\n     * The handlItemClick method fires when the user attemps to click on a component.\n     *  @param {Object} e=react_event - modifies the state of the react element.\n     * @param {number} index=index - value to keep track of the indexing\n     */\n  handleItemClick(e, {index}) {\n    this.setState({activeIndex: index});\n  }\n\n    /**\n     * The handleAspect method is meant to configure the aspect that the user is requesting.\n     * @param {Object} aspect=react_event - modifies the state of the react element.\n     */\n  handleAspect(aspect) {\n    this.setState({aspect: aspect});\n    this.props.handleAspect(aspect);\n  }\n\n    /**\n     * The render method invokes the formatted social media web app aspect that the user requests.\n     * @returns {*} - invokes the formatted aspect\n     */\n  render() {\n    const {activeIndex} = this.state;\n\n    return (\n      <div>\n          <Header as='h2' floated='left'  style={{marginLeft: \"1em\"}}>\n              <Icon name='list layout' />\n              <Header.Content>\n                  Aspects\n              </Header.Content>\n          </Header>\n        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>\n          <Menu.Item>\n            <Input icon='search' placeholder='Search tag...'/>\n          </Menu.Item>\n          <Menu.Item name='0' index={0} value='Others' active={activeIndex === 0} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Others\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='0' index={1} value='Family' active={activeIndex === 1} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Family\n            <Label color='green'>1</Label>\n          </Menu.Item>\n          <Menu.Item name='1' index={2} value='Friends' active={activeIndex === 2} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Friends\n            <Label color='green'>12</Label>\n          </Menu.Item>\n\n          <Menu.Item name='2' index={3} value='Favorite' active={activeIndex === 3} onClick={(e, {value}) => {\n            this.handleAspect(value);\n            this.handleItemClick\n          }}>\n            Favorite\n            <Label color='green'>1</Label>\n          </Menu.Item>\n\n        </Menu>\n      </div>\n    );\n  }\n}\n\nexport default Select;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/Aspect.js",
     "access": "public",
@@ -827,13 +827,15 @@
     "export": false,
     "importPath": "web/client/components/Aspect.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
-    "undocument": true,
+    "description": "The avatarStyle uses CSS attributes for formatting purposes.",
+    "lineNumber": 10,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"width\": string, \"paddingLeft\": string, \"paddingRight\": string, \"marginLeft\": string, \"marginRight\": string}"
-      ]
+        "{width: string, paddingLeft: string, paddingRight: string, marginLeft: string, marginRight: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -849,7 +851,7 @@
     "importPath": "web/client/components/Aspect.js",
     "importStyle": "Select",
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 23,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -866,9 +868,22 @@
     "static": false,
     "longname": "client/components/Aspect.js~Select#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 29,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 65,
@@ -878,13 +893,15 @@
     "static": false,
     "longname": "client/components/Aspect.js~Select#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "State is susceptible to change and variability for react components.",
+    "lineNumber": 36,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"activeIndex\": *, \"aspect\": string}"
-      ]
+        "{activeIndex: number, aspect: string}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -897,25 +914,32 @@
     "static": false,
     "longname": "client/components/Aspect.js~Select#handleItemClick",
     "access": "public",
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
+    "description": "The handlItemClick method fires when the user attemps to click on a component.",
+    "lineNumber": 50,
     "params": [
       {
-        "name": "e",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "e",
+        "description": "modifies the state of the react element."
       },
       {
-        "name": "objectPattern1",
+        "nullable": null,
         "types": [
-          "{\"index\": *}"
+          "number"
         ],
-        "defaultRaw": {
-          "index": null
-        },
-        "defaultValue": "{\"index\":null}"
+        "spread": false,
+        "optional": false,
+        "defaultValue": "index",
+        "defaultRaw": "index",
+        "name": "index",
+        "description": "value to keep track of the indexing"
       }
     ],
     "return": null
@@ -930,15 +954,20 @@
     "static": false,
     "longname": "client/components/Aspect.js~Select#handleAspect",
     "access": "public",
-    "description": null,
-    "lineNumber": 31,
-    "undocument": true,
+    "description": "The handleAspect method is meant to configure the aspect that the user is requesting.",
+    "lineNumber": 58,
     "params": [
       {
-        "name": "aspect",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_event",
+        "defaultRaw": "react_event",
+        "name": "aspect",
+        "description": "modifies the state of the react element."
       }
     ],
     "return": null
@@ -953,15 +982,23 @@
     "static": false,
     "longname": "client/components/Aspect.js~Select#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 36,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted social media web app aspect that the user requests.",
+    "lineNumber": 67,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - invokes the formatted aspect"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "invokes the formatted aspect"
+    },
+    "params": []
   },
   {
     "__docId__": 71,
@@ -1051,7 +1088,7 @@
     "__docId__": 75,
     "kind": "file",
     "name": "client/components/ChatWindow.js",
-    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Header, Image, Form, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport ChatCell from \"./ChatCell\"\n\nconst overallStyle = {\n  padding: '2em',\n}\n\nconst messageStyle = {\n  height: '450px',\n  overflow: 'scroll',\n  overflowY: 'scroll',\n  overflowX: 'hidden'\n}\n\nconst inputStyle = {}\n\nconst headerStyle = {\n  borderBottomStyle: 'solid',\n  borderBottomWidth: '1px'\n}\n\nconst textareaStyle = {\n  marginTop: '1em',\n}\n\nclass ChatWindow extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      message: \"\",\n      // TODO: set id with the user\n      targetID: props.targetID,\n      targetUseName: \"\",\n      chatHistory: []\n    }\n\n    this.loadMessage(props.targetID)\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.loadMessage = this.loadMessage.bind(this);\n    this.postMessage = this.postMessage.bind(this);\n  }\n\n  componentDidMount() {\n    this.timerID = setInterval(\n      () => this.loadMessage(this.state.targetID),\n      1000\n    );\n  }\n\n  componentWillUnmount() {\n    clearInterval(this.timerID);\n  }\n\n  componentWillReceiveProps(nextProps) {\n    this.setState({\n      targetID: nextProps.targetID\n    })\n\n    this.loadMessage(nextProps.targetID)\n  }\n\n  handleSubmit = (event) => {\n    this.postMessage()\n  }\n\n  loadMessage(targetID) {\n    // get user name\n    if (targetID != \"\") {\n      axios.post('/api/searchUser', {searchKey: targetID}).then((response) => {\n        this.setState({\n          targetUserName: JSON.parse(response.data).username\n        });\n      });\n    }\n\n    axios.post('/api/switchChatTarget', {tid: targetID}).then((response) => {\n      var messages = JSON.parse(response.data)\n      messages.sort(function(a,b) {\n        return new Date(a.date) - new Date(b.date)\n      })\n\n      this.setState({\n        chatHistory: messages\n      });\n    });\n  }\n\n  postMessage() {\n    if (this.state.message === \"\") { return }\n\n    var currentDate = new Date()\n\n    axios.post('/api/postMessage', {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {\n      this.loadMessage(this.state.targetID)\n    })\n\n    this.setState({message: ''})\n  }\n\n  render() {\n    const {message} = this.state;\n\n    const chatcells = this.state.chatHistory.map((message) =>\n      <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);\n\n    return (\n      <div>\n        <Grid style={overallStyle}>\n          <Grid.Row style={headerStyle}>\n            <Grid.Column floated='left' width={5}>\n              <Header size='medium'>\n                <Image circular src='../assets/avatar.jpg'/>\n                {' '}{this.state.targetUserName}\n              </Header>\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={messageStyle}>\n            <Grid.Column>\n              {chatcells}\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={textareaStyle}>\n            <Grid.Column width={16}>\n              <Form reply style={inputStyle}>\n                <Grid>\n                  <Grid.Column width={12}><Form.TextArea name='message' value={message}\n                                                         onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>\n                  <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'\n                                                 labelPosition='left' icon='send' size='big'\n                                                 primary\n                                                 onClick={this.handleSubmit}/></Grid.Column>\n                </Grid>\n              </Form>\n            </Grid.Column>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default ChatWindow;",
+    "content": "import React, {Component} from 'react';\nimport {Button, Grid, Header, Image, Form, Icon} from 'semantic-ui-react'\nimport Responsive from 'react-responsive';\nimport axios from 'axios';\nimport ReactDOM from \"react-dom\";\nimport ChatCell from \"./ChatCell\"\n\n/**\n * The overallStyle uses CSS attributes for formatting purposes.\n * @type {{padding: string}}\n */\nconst overallStyle = {\n  padding: '2em',\n}\n\n/**\n * The messageStyle uses CSS attributes for formatting purposes.\n * @type {{height: string, overflow: string, overflowY: string, overflowX: string}}\n */\nconst messageStyle = {\n  height: '450px',\n  overflow: 'scroll',\n  overflowY: 'scroll',\n  overflowX: 'hidden'\n}\n\n/**\n * The inputStyle uses CSS attributes for formatting purposes.\n * @type {{}}\n */\nconst inputStyle = {}\n\n/**\n * The headerStyle uses CSS attributes for formatting purposes.\n * @type {{borderBottomStyle: string, borderBottomWidth: string}}\n */\nconst headerStyle = {\n  borderBottomStyle: 'solid',\n  borderBottomWidth: '1px'\n}\n\n/**\n * The textareaStyle uses CSS attributes for formatting purposes.\n * @type {{marginTop: string}}\n */\nconst textareaStyle = {\n  marginTop: '1em',\n}\n\n/**\n * The ChatWindow class is meant to accomplish functionality that will allow the user to interact with a chat window.\n * @extends {Component}\n */\nclass ChatWindow extends Component {\n\n    /**\n     * The constructor passes a props object which is a react component that can be modified for use.\n     * @param {Object} props=react_component - a react component that can be modified\n     */\n  constructor(props) {\n    super(props);\n\n        /**\n         * State is susceptible to change and variability for react components.\n         * @type {{message: string, targetID: *, targetUseName: string, chatHistory: Array}}\n         */\n    this.state = {\n      message: \"\",\n      // TODO: set id with the user\n      targetID: props.targetID,\n      targetUseName: \"\",\n      chatHistory: []\n    }\n\n    this.loadMessage(props.targetID)\n\n        /**\n         * The handleSubmit method is meant to fire when the user submits a component.\n         * @type {Method}\n         */\n    this.handleSubmit = this.handleSubmit.bind(this);\n    this.loadMessage = this.loadMessage.bind(this);\n    this.postMessage = this.postMessage.bind(this);\n  }\n\n    /**\n     * The componentDidMount method is meant to configure that it loads the correct message.\n     * @type {Method}\n     */\n  componentDidMount() {\n        /**\n         * The timerID is meant to be used to set the interval for loading the messages.\n         * @type {Method}\n         */\n    this.timerID = setInterval(\n      () => this.loadMessage(this.state.targetID),\n      1000\n    );\n  }\n\n    /**\n     * The componentWillUnmount method is meant to configure restarting the timerID.\n     * @type {Method}\n     */\n  componentWillUnmount() {\n    clearInterval(this.timerID);\n  }\n\n    /**\n     * The coponentWillReceiveProps method is meant to configure that the react component will receive the next\n     * react component.\n     * @param nextProps\n     */\n  componentWillReceiveProps(nextProps) {\n    this.setState({\n      targetID: nextProps.targetID\n    })\n\n    this.loadMessage(nextProps.targetID)\n  }\n\n    /**\n     * The handleSubmit method is meant to fire when the user submits a component.\n     * @param {Object} event=react_event - modifies the state of the react element.\n     */\n  handleSubmit = (event) => {\n    this.postMessage()\n  }\n\n    /**\n     * The loadMessage method is meant to load the message that the user has sent\n     * @param {string} targetID=message_string - the user message\n     */\n  loadMessage(targetID) {\n    // get user name\n    if (targetID != \"\") {\n      axios.post('/api/searchUser', {searchKey: targetID}).then((response) => {\n        this.setState({\n          targetUserName: JSON.parse(response.data).username\n        });\n      });\n    }\n\n    axios.post('/api/switchChatTarget', {tid: targetID}).then((response) => {\n      var messages = JSON.parse(response.data)\n      messages.sort(function(a,b) {\n        return new Date(a.date) - new Date(b.date)\n      })\n\n      this.setState({\n        chatHistory: messages\n      });\n    });\n  }\n\n    /**\n     * The postMessage method is meant handle posting the message that the user is receiving/sending.\n     * @type {Method}\n     */\n  postMessage() {\n    if (this.state.message === \"\") { return }\n\n    var currentDate = new Date()\n\n    axios.post('/api/postMessage', {msg: this.state.message, to: this.state.targetID, date: currentDate}).then((response) => {\n      this.loadMessage(this.state.targetID)\n    })\n\n    this.setState({message: ''})\n  }\n\n    /**\n     * The render method invokes the formatted ChatWindow for the user to interact with.\n     * @returns {*} - formatted chat window\n     */\n  render() {\n    const {message} = this.state;\n\n    const chatcells = this.state.chatHistory.map((message) =>\n      <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);\n\n    return (\n      <div>\n        <Grid style={overallStyle}>\n          <Grid.Row style={headerStyle}>\n            <Grid.Column floated='left' width={5}>\n              <Header size='medium'>\n                <Image circular src='../assets/avatar.jpg'/>\n                {' '}{this.state.targetUserName}\n              </Header>\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={messageStyle}>\n            <Grid.Column>\n              {chatcells}\n            </Grid.Column>\n          </Grid.Row>\n          <Grid.Row style={textareaStyle}>\n            <Grid.Column width={16}>\n              <Form reply style={inputStyle}>\n                <Grid>\n                  <Grid.Column width={12}><Form.TextArea name='message' value={message}\n                                                         onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>\n                  <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'\n                                                 labelPosition='left' icon='send' size='big'\n                                                 primary\n                                                 onClick={this.handleSubmit}/></Grid.Column>\n                </Grid>\n              </Form>\n            </Grid.Column>\n          </Grid.Row>\n        </Grid>\n      </div>\n    );\n  }\n}\n\nexport default ChatWindow;",
     "static": true,
     "longname": "/Users/idosuna/WebstormProjects/TeamSolid/client/components/ChatWindow.js",
     "access": "public",
@@ -1069,13 +1106,15 @@
     "export": false,
     "importPath": "web/client/components/ChatWindow.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "The overallStyle uses CSS attributes for formatting purposes.",
+    "lineNumber": 12,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"padding\": string}"
-      ]
+        "{padding: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -1091,7 +1130,7 @@
     "importPath": "web/client/components/ChatWindow.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
@@ -1112,7 +1151,7 @@
     "importPath": "web/client/components/ChatWindow.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 31,
     "undocument": true,
     "type": {
       "types": [
@@ -1132,13 +1171,15 @@
     "export": false,
     "importPath": "web/client/components/ChatWindow.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "description": "The headerStyle uses CSS attributes for formatting purposes.",
+    "lineNumber": 37,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"borderBottomStyle\": string, \"borderBottomWidth\": string}"
-      ]
+        "{borderBottomStyle: string, borderBottomWidth: string}"
+      ],
+      "spread": false,
+      "description": null
     },
     "ignore": true
   },
@@ -1154,7 +1195,7 @@
     "importPath": "web/client/components/ChatWindow.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 26,
+    "lineNumber": 46,
     "undocument": true,
     "type": {
       "types": [
@@ -1175,7 +1216,7 @@
     "importPath": "web/client/components/ChatWindow.js",
     "importStyle": "ChatWindow",
     "description": null,
-    "lineNumber": 30,
+    "lineNumber": 54,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -1192,9 +1233,22 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 31,
-    "undocument": true
+    "description": "The constructor passes a props object which is a react component that can be modified for use.",
+    "lineNumber": 60,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "react_component",
+        "defaultRaw": "react_component",
+        "name": "props",
+        "description": "a react component that can be modified"
+      }
+    ]
   },
   {
     "__docId__": 83,
@@ -1204,13 +1258,15 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#state",
     "access": "public",
-    "description": null,
-    "lineNumber": 33,
-    "undocument": true,
+    "description": "State is susceptible to change and variability for react components.",
+    "lineNumber": 67,
     "type": {
+      "nullable": null,
       "types": [
-        "{\"message\": *, \"targetID\": *, \"targetUseName\": *, \"chatHistory\": *}"
-      ]
+        "{message: string, targetID: *, targetUseName: string, chatHistory: Array}"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1221,13 +1277,15 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#handleSubmit",
     "access": "public",
-    "description": null,
-    "lineNumber": 42,
-    "undocument": true,
+    "description": "The handleSubmit method is meant to fire when the user submits a component.",
+    "lineNumber": 81,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Method"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1240,9 +1298,16 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#componentDidMount",
     "access": "public",
-    "description": null,
-    "lineNumber": 47,
-    "undocument": true,
+    "description": "The componentDidMount method is meant to configure that it loads the correct message.",
+    "lineNumber": 90,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -1254,13 +1319,15 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#timerID",
     "access": "public",
-    "description": null,
-    "lineNumber": 48,
-    "undocument": true,
+    "description": "The timerID is meant to be used to set the interval for loading the messages.",
+    "lineNumber": 95,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Method"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1273,9 +1340,16 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#componentWillUnmount",
     "access": "public",
-    "description": null,
-    "lineNumber": 54,
-    "undocument": true,
+    "description": "The componentWillUnmount method is meant to configure restarting the timerID.",
+    "lineNumber": 105,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -1289,15 +1363,18 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#componentWillReceiveProps",
     "access": "public",
-    "description": null,
-    "lineNumber": 58,
-    "undocument": true,
+    "description": "The coponentWillReceiveProps method is meant to configure that the react component will receive the next\nreact component.",
+    "lineNumber": 114,
     "params": [
       {
-        "name": "nextProps",
+        "nullable": null,
         "types": [
           "*"
-        ]
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "nextProps",
+        "description": ""
       }
     ],
     "return": null
@@ -1312,15 +1389,20 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#loadMessage",
     "access": "public",
-    "description": null,
-    "lineNumber": 70,
-    "undocument": true,
+    "description": "The loadMessage method is meant to load the message that the user has sent",
+    "lineNumber": 134,
     "params": [
       {
-        "name": "targetID",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "defaultValue": "message_string",
+        "defaultRaw": "message_string",
+        "name": "targetID",
+        "description": "the user message"
       }
     ],
     "return": null
@@ -1335,9 +1417,16 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#postMessage",
     "access": "public",
-    "description": null,
-    "lineNumber": 92,
-    "undocument": true,
+    "description": "The postMessage method is meant handle posting the message that the user is receiving/sending.",
+    "lineNumber": 160,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Method"
+      ],
+      "spread": false,
+      "description": null
+    },
     "params": [],
     "return": null
   },
@@ -1351,15 +1440,23 @@
     "static": false,
     "longname": "client/components/ChatWindow.js~ChatWindow#render",
     "access": "public",
-    "description": null,
-    "lineNumber": 104,
-    "undocument": true,
-    "params": [],
+    "description": "The render method invokes the formatted ChatWindow for the user to interact with.",
+    "lineNumber": 176,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{*} - formatted chat window"
+      }
+    ],
     "return": {
+      "nullable": null,
       "types": [
         "*"
-      ]
-    }
+      ],
+      "spread": false,
+      "description": "formatted chat window"
+    },
+    "params": []
   },
   {
     "__docId__": 95,

@@ -3,6 +3,10 @@ import {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} fr
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 
+/**
+ * The avatarStyle uses CSS attributes for formatting purposes.
+ * @type {{width: string, paddingLeft: string, paddingRight: string, marginLeft: string, marginRight: string}}
+ */
 const avatarStyle = {
   width: '5vw',
   paddingLeft: '1em',
@@ -11,10 +15,24 @@ const avatarStyle = {
   marginRight: '1em'
 }
 
+/**
+ * The Aspect class is meant to suplemment the Select class by accomplishing functionality so that the user
+ * can interact with the social media app.
+ * @extends {Component}
+ */
 class Select extends Component {
 
+    /**
+     * The constructor passes a props object which is a react component that can be modified for use.
+     * @param {Object} props=react_component - a react component that can be modified
+     */
   constructor(props) {
     super(props);
+
+        /**
+         * State is susceptible to change and variability for react components.
+         * @type {{activeIndex: number, aspect: string}}
+         */
     this.state = {
       activeIndex: 0,
       aspect: 'Others'
@@ -24,15 +42,28 @@ class Select extends Component {
     this.handleAspect = this.handleAspect.bind(this);
   }
 
+    /**
+     * The handlItemClick method fires when the user attemps to click on a component.
+     *  @param {Object} e=react_event - modifies the state of the react element.
+     * @param {number} index=index - value to keep track of the indexing
+     */
   handleItemClick(e, {index}) {
     this.setState({activeIndex: index});
   }
 
+    /**
+     * The handleAspect method is meant to configure the aspect that the user is requesting.
+     * @param {Object} aspect=react_event - modifies the state of the react element.
+     */
   handleAspect(aspect) {
     this.setState({aspect: aspect});
     this.props.handleAspect(aspect);
   }
 
+    /**
+     * The render method invokes the formatted social media web app aspect that the user requests.
+     * @returns {*} - invokes the formatted aspect
+     */
   render() {
     const {activeIndex} = this.state;
 

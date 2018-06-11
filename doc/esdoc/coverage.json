@@ -1,7 +1,7 @@
 {
-  "coverage": "82.35%",
+  "coverage": "94.11%",
   "expectCount": 153,
-  "actualCount": 126,
+  "actualCount": 144,
   "files": {
     "client/components/Advertisement.js": {
       "expectCount": 3,
@@ -15,15 +15,9 @@
     },
     "client/components/Aspect.js": {
       "expectCount": 7,
-      "actualCount": 0,
+      "actualCount": 6,
       "undocumentLines": [
-        6,
-        14,
-        16,
-        18,
-        27,
-        31,
-        36
+        23
       ]
     },
     "client/components/ChatCell.js": {
@@ -33,24 +27,12 @@
     },
     "client/components/ChatWindow.js": {
       "expectCount": 16,
-      "actualCount": 0,
+      "actualCount": 12,
       "undocumentLines": [
-        8,
-        12,
-        19,
-        21,
-        26,
-        30,
+        20,
         31,
-        33,
-        42,
-        47,
-        48,
-        54,
-        58,
-        70,
-        92,
-        104
+        46,
+        54
       ]
     },
     "client/components/Colorpicker.js": {
