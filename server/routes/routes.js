@@ -129,11 +129,20 @@ router.post('/api/getUserEmail',
   function (req, res, next) {
     res.json(JSON.stringify({"username": req.user.email}));
   });
+
 router.route('/api/signup').post(multerupload.any(),function (req, res, next) {
   var eml = req.body.email;
   var pwd = req.body.password;
   var sub = false;
   var usrname = req.body.username;
+  var sfiles = []
+
+  if ('files' in req) {
+    for (var i = 0; i < req.files.length; i++) {
+      sfiles.push({filename: req.files[i].filename, filetype: req.files[i].mimetype})
+    }
+  }
+
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
     var cl = db.collection('accounts');
@@ -145,7 +154,7 @@ router.route('/api/signup').post(multerupload.any(),function (req, res, next) {
           cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
             console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
+            db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: sfiles, friends: [], follow: [eml], sub: sub}, function() {
               res.json(JSON.stringify({result: "OK"}));
             })
           });
