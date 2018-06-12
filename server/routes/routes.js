@@ -1,5 +1,6 @@
 var express = require('express');
 let multer  = require('multer');
+var multerupload = multer({ dest: 'tarDirectory/' });
 var path =require('path');
 var router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
@@ -128,13 +129,11 @@ router.post('/api/getUserEmail',
   function (req, res, next) {
     res.json(JSON.stringify({"username": req.user.email}));
   });
-
-router.post('/api/signup', function (req, res, next) {
+router.route('/api/signup').post(multerupload.any(),function (req, res, next) {
   var eml = req.body.email;
   var pwd = req.body.password;
   var sub = false;
   var usrname = req.body.username;
-
   MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
     var cl = db.collection('accounts');
@@ -441,7 +440,6 @@ router.route('/resource/:id').get(require('connect-ensure-login').ensureLoggedIn
     res.sendFile(path.resolve(__dirname + '/../../tarDirectory/' + url))
   });
 
-var multerupload = multer({ dest: 'tarDirectory/' })
 router.route('/api/postPost').post(multerupload.any(),require('connect-ensure-login').ensureLoggedIn(),
   function (req, res, next) {
     var sourceid = req.user.email;
