@@ -44,6 +44,11 @@ class Navbar extends Component {
     else if (name === 'support'){
       this.setState({openSupport:1});
     }
+    else if(name === "logout"){
+        axios.post('/api/logout').then((response) => {
+            window.location.reload();
+        });
+    }
   }
 
   loadUsername() {
