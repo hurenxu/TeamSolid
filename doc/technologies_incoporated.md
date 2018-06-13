@@ -1,8 +1,8 @@
-#Technologies Incorporated
+# Technologies Incorporated
 
 The following document will layout the technologies adapted to make this project successful.
 
-##Component Libraries
+## Component Libraries
 
 The JavaScript Framework we used is React.JS 
 
@@ -15,7 +15,7 @@ Also since it will update the Virtual DOM before updating the actual DOM, it wil
 and update less frequently. Based on React, we can also use React Native which is super powerful for mobile web app 
 development.
 
-##Authentication Services  
+## Authentication Services  
 
 The API that we used is called Passport.
 
@@ -31,7 +31,7 @@ Passport essentially stores the credentials inside the Passport API, and make au
 it stores. It supports different kind of strategies including Username & Password, OpenID, OAuth, User Profile, 
 Facebook, Twitter, etc. (different kind of APIs and different kind of providers).
 
-##Encryption Services 
+## Encryption Services 
 
 The encryption service we used is Virgil Security.
 
@@ -39,7 +39,7 @@ Virgil Security is a stack of security libraries and all the necessary infrastru
 encryption for any application, platform or device. In a few simple steps you can encrypt communication, securely store 
 data, provide password-less login, and ensure data integrity.
 
-##Chat Services
+## Chat Services
 
 For this project we didn't adapt chat services.
 
@@ -48,7 +48,7 @@ and then we stored the messages in the database. We saw this a better opportunit
 idea rather than adapting one that was already build. This allowed us to practice resourcefullness without having to
 incorporate more API's than needed.
 
-##AD Services 
+## AD Services 
 
 The AD Service we use is Google AdSense
 
@@ -59,5 +59,3 @@ the ads.
 The advertisements are controlled and managed by Google and Web publishers simply need to create a free AdSense account 
 and copy and paste provided code to display the ads. Revenue using AdSense is generated on a per-click or per-impression 
 basis. It is free to become a verified website publisher in the Google AdSense program.
-
-
