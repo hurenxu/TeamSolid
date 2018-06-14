@@ -20,6 +20,7 @@ describe('Login Component', () => {
     it('should have header', () => {
         const wrapper = shallow(<Login/>);
         expect(wrapper.find('h3')).to.have.length(1);
+        expect(wrapper.find('header')).to.have.length(1);
         expect(wrapper.find('h3').text()).to.equal('Peterbook');
     });
 
