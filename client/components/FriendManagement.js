@@ -5,7 +5,7 @@ import axios from 'axios';
 import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card, Divider, Segment} from 'semantic-ui-react'
 
 const style = {
-  marginTop: '5em',
+  marginTop: '2em',
 }
 
 class FriendManagement extends Component {
@@ -187,18 +187,28 @@ class FriendManagement extends Component {
         <Header as='h2' textAlign='left'>Add a friend</Header>
         <Input icon='users' iconPosition='left' value={this.state.value}
                onChange={this.handleChange} placeholder='Search users...'/>
-        <Button icon labelPosition='right' onClick={this.handleSubmit} style={{marginTop: '3em', marginBottom: '3em'}}>
+        <Button icon labelPosition='right' onClick={this.handleSubmit}
+                style={{marginTop: '3em', marginBottom: '3em'}}>
           Add Friend
           <Icon name='right arrow'/>
         </Button>
         <Divider section/>
-        <Header as='h2' textAlign='left'>Manage friends</Header>
-        <Card.Group style={{marginTop: '3em', marginBottom: '3em'}}>
-          {pendingFriends}
-        </Card.Group>
-        <Card.Group style={{marginTop: '3em', marginBottom: '3em'}}>
-          {currFriends}
-        </Card.Group>
+        <Grid style={{marginTop: '3em'}}>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Header as='h2' textAlign='left'>Pending Requests</Header>
+              <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
+                {pendingFriends}
+              </Card.Group>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as='h2' textAlign='left'>Manage friends</Header>
+              <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
+                {currFriends}
+              </Card.Group>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
