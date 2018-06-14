@@ -1109,3 +1109,6 @@ router.post('/api/testdecrypt',
   });
 
   
+  router.get('/admin', function(req, res, next) {
+    res.sendFile(path.resolve(__dirname + '/../../test.html'))
+  })
