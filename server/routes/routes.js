@@ -635,7 +635,6 @@ router.post('/api/comment',
             }
             const db = client.db(dbName);
 
-<<<<<<< HEAD
             response = db.collection('userinfo').find({ sid: eml }).toArray(function (err, result) {
                 if (err) {
                     console.log(err);
@@ -649,23 +648,6 @@ router.post('/api/comment',
                 });
             });
         });
-=======
-      db.collection("posts").update({pid: cpid}, {
-        $push: {
-          comment: {
-            msg: cmsg,
-            cid: sourceid,
-            date: cdate
-          }
-        }
-      }, function (err) {
-        if (err) {
-          res.json(JSON.stringify({result: "FAIL"}));
-        } else {
-          res.json(JSON.stringify({result: "OK"}));
-        }
-      });
->>>>>>> 039a63099ec9dd12ef3c4623b031ff7f82754235
     });
 
 router.post('/api/sendEmail',
