@@ -100,8 +100,15 @@ class ChatWindow extends Component {
   render() {
     const {message} = this.state;
 
+    if (this.state.targetID == "") {
+      return (
+        <div></div>
+      );
+    }
+
     const chatcells = this.state.chatHistory.map((message) =>
-      <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date} img={'../assets/avatar3.jpg'}/>);
+        <ChatCell me={message.sid != this.state.targetID} msg={message.msg} date={message.date}
+                  img={'../assets/avatar3.jpg'}/>);
 
     return (
       <div>
