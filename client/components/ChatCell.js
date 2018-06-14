@@ -15,25 +15,25 @@ class ChatCell extends Component {
     if (this.props.me) {
       currMessage =
         <Grid>
-          <Grid.Column width={2}>
-            <img className="ui avatar image" src="../assets/avatar.jpg"/>
-          </Grid.Column>
-          <Grid.Column width={14} textAlign='left'>
+          <Grid.Column width={14} textAlign='right'>
             <Message compact color='green'>
               {this.props.msg}
             </Message>
+          </Grid.Column>
+          <Grid.Column width={2}>
+            <img className="ui avatar image" src="../assets/avatar.jpg"/>
           </Grid.Column>
         </Grid>
     } else {
       currMessage =
         <Grid>
-          <Grid.Column width={14} textAlign='right'>
+          <Grid.Column width={2}>
+            <img className="ui avatar image" src={this.props.img}/>
+          </Grid.Column>
+          <Grid.Column width={14} textAlign='left'>
             <Message compact>
               {this.props.msg}
             </Message>
-          </Grid.Column>
-          <Grid.Column width={2}>
-            <img className="ui avatar image" src={this.props.img}/>
           </Grid.Column>
         </Grid>
     }
