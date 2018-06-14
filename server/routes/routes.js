@@ -622,36 +622,33 @@ router.post('/api/getPosts',
   });
 
 router.post('/api/comment',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function (req, res, next) {
-    var sourceid = req.user.email;
-    var cmsg = req.body.comment;
-    var cpid = req.body.pid;
-    var cdate = req.body.date;
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var sourceid = req.user.email;
+        var cmsg = req.body.comment;
+        var cpid = req.body.pid;
+        var cdate = req.body.date;
 
-    MongoClient.connect(url, function (err, client) {
-      if (err) {
-        console.log(err);
-      }
-      const db = client.db(dbName);
+        MongoClient.connect(url, function (err, client) {
+            if (err) {
+                console.log(err);
+            }
+            const db = client.db(dbName);
 
-      db.collection("posts").update({pid: cpid}, {
-        $push: {
-          comment: {
-            msg: cmsg,
-            cid: sourceid,
-            date: cdate
-          }
-        }
-      }, function (err) {
-        if (err) {
-          res.json(JSON.stringify({result: "FAIL"}));
-        } else {
-          res.json(JSON.stringify({result: "OK"}));
-        }
-      });
+            response = db.collection('userinfo').find({ sid: eml }).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                db.collection("posts").update({ pid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate, userIconUrl: result[0].userIconUrl } } }, function (err) {
+                    if (err) {
+                        res.json(JSON.stringify({ result: "FAIL" }));
+                    } else {
+                        res.json(JSON.stringify({ result: "OK" }));
+                    }
+                });
+            });
+        });
     });
-  });
 
 router.post('/api/sendEmail',
   require('connect-ensure-login').ensureLoggedIn(),

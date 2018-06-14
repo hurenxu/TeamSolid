@@ -65,16 +65,14 @@ class Login extends Component {
   redirPage(response) {
     if (JSON.parse(response.data).islogined) {
       history.pushState(null, null, '/');
-      this.state.redirect = true;
-      this.setState(this.state);
+      this.setState({redirect: true});
     } else {
       alert('Incorrect email or password!');
     }
   }
 
   onclose(event) {
-    this.state.redirect = true;
-    this.setState({redirect: true});
+    //this.setState({redirect: true});
   }
 
   render() {
