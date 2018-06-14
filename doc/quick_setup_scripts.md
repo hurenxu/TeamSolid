@@ -5,9 +5,9 @@ install the ESDoc plugins to parse javascript code, and generate the ESDoc docum
 
 ## Running Shell Scripts
 
-First, `run ./setup_enviroment.sh` to install npm dependencies and install ESDoc plugins.
+First run , `./setup_enviroment.sh` to install npm dependencies and install ESDoc plugins.
 
-Second, `run ./generate_docs.sh` to generate ESDoc HTML documentation and open it in your browser.
+Second run, `./generate_docs.sh` to generate ESDoc HTML documentation and open it in your browser.
 
 ### Setup Environment Script 
 
