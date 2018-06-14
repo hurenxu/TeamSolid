@@ -27,13 +27,13 @@ class FriendManagement extends Component {
 
   loadRequests() {
     console.log("Loading...")
-    axios.post('api/getFriendList').then((response) => {
-      this.setState({friendList: JSON.parse(response.data)});
-      console.log(this.state.friendList)
-    });
     axios.post('api/getPendingList').then((response) => {
       this.setState({pendingList: JSON.parse(response.data)});
       console.log(this.state.pendingList)
+    });
+    axios.post('api/getFriendList').then((response) => {
+      this.setState({friendList: JSON.parse(response.data)});
+      console.log(this.state.friendList)
     });
   }
 
@@ -80,13 +80,11 @@ class FriendManagement extends Component {
 
   handleApprove(curr_friend, e) {
     e.preventDefault();
-    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: "add"}).then((response) => {
-      console.log(JSON.stringify(response.data));
-      this.setState({friendList: JSON.parse(response.data)})
-    });
     axios.post('api/getPendingList').then((response) => {
       this.setState({pendingList: JSON.parse(response.data)});
-      console.log(this.state.pendingList)
+    });
+    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: "add"}).then((response) => {
+      this.setState({friendList: JSON.parse(response.data)})
     });
   }
 
