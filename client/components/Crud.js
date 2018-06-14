@@ -19,7 +19,7 @@ class Crud extends Component {
   }
 
   handleDuplicate(dup_email, dup_password) {
-    console.log(this.props);
+    // console.log(this.props);
     this.props.onDuplicateClicked(dup_email, dup_password);
   }
 

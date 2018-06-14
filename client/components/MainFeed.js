@@ -17,7 +17,7 @@ class MainFeed extends Component {
     this.loadPosts = this.loadPosts.bind(this)
     this.createPost = this.createPost.bind(this)
     this.loadPosts()
-      this.feedList = this.feedList.bind(this)
+    this.feedList = this.feedList.bind(this)
   }
 
   loadPosts() {
@@ -26,7 +26,6 @@ class MainFeed extends Component {
         feeds: JSON.parse(response.data)
       })
       this.state.feeds = JSON.parse(response.data);
-      console.log("finish loading post")
     });
   }
 
@@ -37,34 +36,26 @@ class MainFeed extends Component {
   }
 
   feedList() {
-    if(this.state.feeds == null) {
-        return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>
-            <Message.Header>There is no post</Message.Header>
-            <p>Do you want to post something?</p>
-        </Message>);
+    if (this.state.feeds[0] == undefined) {
+      return (<Message style={{marginTop: '3em'}} warning compact>
+        <Message.Header>There is no post</Message.Header>
+        <p>Do you want to post something?</p>
+      </Message>);
     }
     else {
-        return(this.state.feeds.map((feed, index) =>
-            <FeedEvent imageURL="" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
-                       date={feed.data}
-                       postid={feed.postid}/>
-        ));
+      return (this.state.feeds.map((feed, index) =>
+        <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
+                   date={feed.data}
+                   postid={feed.postid}/>
+      ));
     }
   }
 
   render() {
-      return (
-      <div style={{marginTop: '5vh'}}>
-        <div>
-          <div>
-            <NewPost createPost={this.createPost}/>
-          </div>
-        </div>
-        <div>
-          <Feed size='large'>
-              {this.feedList()}
-          </Feed>
-        </div>
+    return (
+      <div>
+        <NewPost createPost={this.createPost}/>
+        <Feed size='large'>{this.feedList()}</Feed>
       </div>
     );
   }

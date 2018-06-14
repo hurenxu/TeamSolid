@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid, Ref} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import axios from 'axios';
-import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card} from 'semantic-ui-react'
+import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card, Divider, Segment} from 'semantic-ui-react'
 
 const style = {
   marginTop: '5em',
@@ -16,14 +16,32 @@ class FriendManagement extends Component {
       targetFriend: "",
       value: "",
       username: "",
+      pendingList: [],
       friendList: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.loadRequests = this.loadRequests.bind(this);
+  }
+
+  loadRequests() {
+    console.log("Loading...")
+    axios.post('api/getFriendList').then((response) => {
+      this.setState({friendList: JSON.parse(response.data)});
+      console.log(this.state.friendList)
+    });
+    axios.post('api/getPendingList').then((response) => {
+      this.setState({pendingList: JSON.parse(response.data)});
+      console.log(this.state.pendingList)
+    });
   }
 
   componentDidMount() {
+    this.timerID = setInterval(
+      () => this.loadRequests(),
+      3000
+    );
     axios.post('/api/getUserEmail').then((response) => {
       console.log(JSON.parse(response.data))
       this.setState({
@@ -31,13 +49,24 @@ class FriendManagement extends Component {
       })
       axios.post('api/getFriendList').then((response) => {
         this.setState({friendList: JSON.parse(response.data)});
+        console.log(this.state.friendList)
+      });
+      axios.post('api/getPendingList').then((response) => {
+        this.setState({pendingList: JSON.parse(response.data)});
+        console.log(this.state.pendingList)
       });
     });
   }
 
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   handleChange(event) {
-    this.setState({value: event.target.value,
-                   targetFriend: event.target.value
+    this.setState({
+      value: event.target.value,
+      targetFriend: event.target.value
     });
   }
 
@@ -49,30 +78,42 @@ class FriendManagement extends Component {
     });
   }
 
+  handleApprove(curr_friend, e) {
+    e.preventDefault();
+    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: "add"}).then((response) => {
+      console.log(JSON.stringify(response.data));
+      this.setState({friendList: JSON.parse(response.data)})
+    });
+    axios.post('api/getPendingList').then((response) => {
+      this.setState({pendingList: JSON.parse(response.data)});
+      console.log(this.state.pendingList)
+    });
+  }
+
   handleSubmit(event) {
     console.log("Submit");
     console.log(this.state.targetFriend)
-    if(this.state.friendList.includes(this.state.targetFriend)){
+    if (this.state.friendList.includes(this.state.targetFriend)) {
       alert('He/she is already your friend!')
     }
-    else{
+    else {
       axios.post('/api/searchUser', {searchKey: this.state.targetFriend}).then((response) => {
         const checkResult = response.data;
-        if(checkResult){
+        if (checkResult) {
           console.log("It exists")
-          if(this.state.targetFriend === this.state.username){
+          if (this.state.targetFriend === this.state.username) {
             alert('You cannot add yourself!')
           }
-          else{
-            axios.post('/api/updateFriendList', {tid: this.state.targetFriend, actionType: "add"}).then((response) => {
+          else {
+            axios.post('/api/addPendingList', {tid: this.state.targetFriend}).then((response) => {
               console.log(JSON.stringify(response.data));
               this.setState({friendList: JSON.parse(response.data)})
-              alert('Success');
+              alert('Your request is sent');
               this.setState({value: ""});
             });
           }
         }
-        else{
+        else {
           console.log("It doesn't exist")
           alert('User doesn\'t exist!');
           this.setState({value: ""});
@@ -81,11 +122,12 @@ class FriendManagement extends Component {
     }
   }
 
-  render(){
+  render() {
 
+    var pendingFriends = <div></div>
     var currFriends = <div></div>
 
-    if(this.state.friendList.length != 0){
+    if (this.state.friendList.length != 0) {
       console.log("You have friends")
       console.log(this.state.friendList.length)
       currFriends = this.state.friendList.map((friend) => (
@@ -108,22 +150,53 @@ class FriendManagement extends Component {
         )
       );
     }
-    else{
-      currFriends = <h3>You have no friends loser</h3>
+    else {
+      currFriends = <h3>You have no friends. Peter is always your friend.</h3>
       console.log("You have no friends")
+    }
+
+    if (this.state.pendingList.length != 0) {
+      console.log("You have friends")
+      console.log(this.state.friendList.length)
+      pendingFriends = this.state.pendingList.map((friend) => (
+          <Card>
+            <Card.Content>
+              {/*<Image floated='right' size='mini' src='/assets/images/avatar/large/molly.png' />*/}
+              <Card.Header>{friend}</Card.Header>
+              <Card.Meta>Friend</Card.Meta>
+              <Card.Description>
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <div className='ui two buttons'>
+                <Button basic color='green' onClick={this.handleApprove.bind(this, friend)}>
+                  Approve
+                </Button>
+              </div>
+            </Card.Content>
+          </Card>
+        )
+      );
+    }
+    else {
+      pendingFriends = <h3>You have no pending requests.</h3>
     }
 
     return (
       <div style={style}>
         <Header as='h2' textAlign='left'>Add a friend</Header>
         <Input icon='users' iconPosition='left' value={this.state.value}
-               onChange={this.handleChange} placeholder='Search users...' />
-        <Button icon labelPosition='right' onClick={this.handleSubmit}>
+               onChange={this.handleChange} placeholder='Search users...'/>
+        <Button icon labelPosition='right' onClick={this.handleSubmit} style={{marginTop: '3em', marginBottom: '3em'}}>
           Add Friend
-          <Icon name='right arrow' />
+          <Icon name='right arrow'/>
         </Button>
+        <Divider section/>
         <Header as='h2' textAlign='left'>Manage friends</Header>
-        <Card.Group style={{marginTop: '3em'}}>
+        <Card.Group style={{marginTop: '3em', marginBottom: '3em'}}>
+          {pendingFriends}
+        </Card.Group>
+        <Card.Group style={{marginTop: '3em', marginBottom: '3em'}}>
           {currFriends}
         </Card.Group>
       </div>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'
+import {Button, Grid, Menu, Segment, Input, Label, Image} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 import '../css/App.css';
@@ -44,6 +44,11 @@ class Navbar extends Component {
     else if (name === 'support'){
       this.setState({openSupport:1});
     }
+    else if(name === "logout"){
+        axios.post('/api/logout').then((response) => {
+            window.location.reload();
+        });
+    }
   }
 
   loadUsername() {
@@ -52,8 +57,8 @@ class Navbar extends Component {
         username: JSON.parse(response.data).username
       });
 
-      console.log("loading user name");
-      console.log(JSON.parse(response.data).username)
+      // console.log("loading user name");
+      // console.log(JSON.parse(response.data).username)
     });
   }
 
@@ -64,7 +69,7 @@ class Navbar extends Component {
       <div>
         <Menu pointing size='huge'>
           <Menu.Item name='me' onClick={this.handleItemClick}>
-              <img src="../assets/avatar.jpg" />
+              <Image size='mini' circular src="../assets/avatar.jpg" />
             <Label as='a' color='blue' onClick={this.props.handleUnsub}>
                   {this.state.username}
                   <Label.Detail>{this.state.subMsg}</Label.Detail>

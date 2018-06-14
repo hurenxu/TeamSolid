@@ -1,27 +1,23 @@
 import React, {Component} from 'react';
-import {Button, Grid, Header, Image, Form, Icon} from 'semantic-ui-react'
+import {Button, Grid, Header, Image, Form, Icon, Segment, Divider} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import axios from 'axios';
 import ReactDOM from "react-dom";
 import ChatCell from "./ChatCell"
+import '../css/ChatWindow.css'
 
 const overallStyle = {
   padding: '2em',
 }
 
 const messageStyle = {
-  height: '450px',
+  height: '47vh',
   overflow: 'scroll',
   overflowY: 'scroll',
   overflowX: 'hidden'
 }
 
 const inputStyle = {}
-
-const headerStyle = {
-  borderBottomStyle: 'solid',
-  borderBottomWidth: '1px'
-}
 
 const textareaStyle = {
   marginTop: '1em',
@@ -109,8 +105,9 @@ class ChatWindow extends Component {
 
     return (
       <div>
+        <Segment>
         <Grid style={overallStyle}>
-          <Grid.Row style={headerStyle}>
+          <Grid.Row className="nopadding">
             <Grid.Column floated='left' width={5}>
               <Header size='medium'>
                 <Image circular src='../assets/avatar.jpg'/>
@@ -118,6 +115,7 @@ class ChatWindow extends Component {
               </Header>
             </Grid.Column>
           </Grid.Row>
+          <Divider section/>
           <Grid.Row style={messageStyle}>
             <Grid.Column>
               {chatcells}
@@ -138,6 +136,7 @@ class ChatWindow extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        </Segment>
       </div>
     );
   }

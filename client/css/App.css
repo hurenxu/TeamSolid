@@ -7,6 +7,13 @@
   height: 80px;
 }
 
+.visible.transition {
+    margin-top: auto !important;
+    display: inline-block !important;
+    position: relative;
+    top: 20%;
+}
+
 .App-header {
   height: 80px;
   padding: 20px;
