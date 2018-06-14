@@ -93,7 +93,7 @@ class Login extends Component {
         <Grid style={{marginTop: '-80px'}} columns={16} divided='vertically' className="text_board">
           <MediaQuery query="(max-device-width: 1224px)">
             {/*Tablet or mobile phone*/}
-            <Grid.Column mobile={16} computer={5} verticalAlign='middle' className="login_box"
+            <Grid.Column mobile={16} verticalAlign='middle' className="login_box"
                          style={{height: '55%', marginTop: '20%'}}>
               <h2 className="ui form_header centered">
                 <div className="content mid_text">
@@ -118,7 +118,7 @@ class Login extends Component {
             </Grid.Column>
           </MediaQuery>
           <MediaQuery query="(min-device-width: 1224px)">
-            <Grid.Column mobile={14} computer={9} style={{height: '85%', marginTop: '7%'}}>
+            <Grid.Column computer={9} style={{height: '85%', marginTop: '7%'}}>
               <Grid.Row className='text_box text_font'>
                 <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>
               </Grid.Row>
@@ -129,7 +129,7 @@ class Login extends Component {
                 <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>
               </Grid.Row>
             </Grid.Column>
-            <Grid.Column mobile={14} computer={5} verticalAlign='middle' className="login_box"
+            <Grid.Column computer={5} verticalAlign='middle' className="login_box"
                          style={{height: '55%', marginTop: '14%'}}>
               <h2 className="ui form_header centered">
                 <div className="content mid_text">
