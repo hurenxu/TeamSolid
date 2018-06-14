@@ -5,7 +5,7 @@ All the instructions are tested in Ubuntu 16.04
 
 Ubuntu: `https://www.ubuntu.com/download/desktop`
 
-## 1. Getting source files from GitHub <a id="git"></a>
+## 1. Getting source files from GitHub
 Github: `https://github.com/hurenxu/TeamSolid`
 
 If you haven't installed git yet, run `sudo apt-get install git`
