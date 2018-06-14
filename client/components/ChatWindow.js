@@ -11,7 +11,7 @@ const overallStyle = {
 }
 
 const messageStyle = {
-  height: '45vh',
+  height: '47vh',
   overflow: 'scroll',
   overflowY: 'scroll',
   overflowX: 'hidden'
