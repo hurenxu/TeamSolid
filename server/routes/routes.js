@@ -166,6 +166,23 @@ router.route('/api/signup').post(multerupload.any(),function (req, res, next) {
   });
 });
 
+router.post('/api/getuserIconUrl',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res, next) {
+        var eml = req.user.email;
+
+        MongoClient.connect(url, function (err, client) {
+            const db = client.db(dbName);
+            response = db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+
+                res.json(JSON.stringify({userIconUrl: result[0].userIconUrl}));
+            });
+        });
+    });
+
 router.post('/api/getsub',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res, next) {
