@@ -3,6 +3,11 @@
 This description will assist developers in setting up ESDoc. We will be using ESDoc in this project for documentation 
 purposes. 
 
+`Note:` If you would like to skip this explicit explanation you can just run the shell scripts I have written 
+'setup_environment.sh' and 'generate_docs.sh'. You can find a description about these in the 
+'quick_setup_scripts.md' document under the doc folder.
+
+
 ESDoc is a good documentation generator for Javascript.
 
 ESDoc Website: `https://esdoc.org/`
