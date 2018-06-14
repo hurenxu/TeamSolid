@@ -24,15 +24,15 @@ describe('Login Component', () => {
         expect(wrapper.find('h3').text()).to.equal('Peterbook');
     });
 
-    // it('should have a valid signup button', () => {
-    //     const spy = sinon.spy(Login.prototype, 'handleSubmit');
-    //     const wrapper = mount(<Login />);
-    //     wrapper.find('Button').first().simulate('click', {
-    //         preventDefault: () => {
-    //         }
-    //     });
-    //     expect(spy.calledOnce).to.equal(true)
-    // });
+    it('should have a valid signup button', () => {
+        const spy = sinon.spy(Login.prototype, 'handleSubmit');
+        const wrapper = mount(<Login />);
+        wrapper.find('Button').first().simulate('click', {
+            preventDefault: () => {
+            }
+        });
+        expect(spy.calledOnce).to.equal(true)
+    });
 
     it('should have a valid login button', () => {
         const wrapper = shallow(<Login />);
