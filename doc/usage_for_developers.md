@@ -1,11 +1,11 @@
-# Environment Set Up <a name="env_set"></a>
+# Environment Set Up 
 This brief description will assist developers in setting up the environment.
 
 All the instructions are tested in Ubuntu 16.04
 
 Ubuntu: `https://www.ubuntu.com/download/desktop`
 
-## 1. Getting source files from GitHub <a name="git_hub"></a>
+## 1. Getting source files from GitHub <a id="git"></a>
 Github: `https://github.com/hurenxu/TeamSolid`
 
 If you haven't installed git yet, run `sudo apt-get install git`
