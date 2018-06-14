@@ -56,7 +56,7 @@ A user can request technical support which corresponds to the `TechnicalSupport.
 
 ![Screenshot](doc_pics/tech_support.png)
 
-## Higher Level DEscriptio of JavaScript Files
+## Higher Level Description of JavaScript Files
 
 `Note:` That simple_workflow.md is an oversimplified guide to describe some of the major components 
 of the PeterBook Web Application. 
