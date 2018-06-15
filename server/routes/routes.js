@@ -50,7 +50,8 @@ passport.use(new LocalStrategy({
         }
 
         var dec_password = decrypt(user.password, null);
-
+        console.log(dec_password);
+        console.log(password);
         if (dec_password != password) {
           return done(null, false, { message: 'Incorrect password.' });
         }
