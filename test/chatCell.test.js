@@ -7,6 +7,7 @@ const sinon = require('sinon');
 import ChatCell from '../client/components/ChatCell';
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+Enzyme.configure({ adapter: new Adapter() })
 
 describe('chatCell Component', () => {
    it('should have a currMessage that is set empty initally', () => {

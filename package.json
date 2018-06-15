@@ -45,7 +45,7 @@
     "webpack-manifest-plugin": "^2.0.3"
   },
   "scripts": {
-    "test": "mocha ./test/*.js --compilers js:babel-core/register --recursive  --require ignore-styles",
+    "test": "mocha ./test/*.test.js --compilers js:babel-core/register --recursive  --require ignore-styles",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./",
     "webpack": "webpack",
     "start": "npm run webpack --watch --hot && nodemon --exec babel-node -- bin/www",
