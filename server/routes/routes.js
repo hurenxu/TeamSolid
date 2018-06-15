@@ -193,7 +193,7 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
             // console.log("encrypted usrname: " + enc_usrname);
             // console.log("encrypted pwd: " + enc_pwd);
 
-            db.collection('userinfo').insertOne({ userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: "mengnan.jpg", friends: [], pendingRequests: [], follow: [eml], sub: sub }, function () {
+            db.collection('userinfo').insertOne({ userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: sfiles, friends: [], pendingRequests: [], follow: [eml], sub: sub }, function () {
               res.json(JSON.stringify({ result: "OK" }));
             })
           });
