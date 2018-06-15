@@ -795,17 +795,13 @@ router.post('/api/getPosts',
             // console.log("dealing post");
             // console.log(post);
             //TODO: fix filename when empty
-            decrypt(post.msg, (err, m) =>{
+            decrypt(post.msg, (err, dec_msg) =>{
               if(err) throw err;
-              decrypt(post.msg, (err, dec_msg) =>{
+              decrypt(post.date, (err, dec_date) =>{
                 if(err) throw err;
-                decrypt(post.date, (err, dec_date) =>{
-                  if(err) throw err;
-                  post.filename = '';
-                  post.msg = dec_msg;
-                  post.date = dec_date;
-                  callback();
-                });
+                post.msg = dec_msg;
+                post.date = dec_date;
+                callback();
               });
             });
           }, function(err) {
