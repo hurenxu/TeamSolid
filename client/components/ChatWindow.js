@@ -4,14 +4,26 @@ import Responsive from 'react-responsive';
 import axios from 'axios';
 import ReactDOM from "react-dom";
 import ChatCell from "./ChatCell"
+import MediaQuery from 'react-responsive';
 import '../css/ChatWindow.css'
 
 const overallStyle = {
-  padding: '2em',
+  padding: '2em'
+}
+
+const mobileOverallStyle = {
+  padding: '1em'
 }
 
 const messageStyle = {
   height: '47vh',
+  overflow: 'scroll',
+  overflowY: 'scroll',
+  overflowX: 'hidden'
+}
+
+const mobileMessageStyle = {
+  height: '45vh',
   overflow: 'scroll',
   overflowY: 'scroll',
   overflowX: 'hidden'
@@ -112,38 +124,81 @@ class ChatWindow extends Component {
 
     return (
       <div>
-        <Segment>
-        <Grid style={overallStyle}>
-          <Grid.Row className="nopadding">
-            <Grid.Column floated='left' width={5}>
-              <Header size='medium'>
-                <Image circular src='../assets/avatar.jpg'/>
-                {' '}{this.state.targetUserName}
-              </Header>
-            </Grid.Column>
-          </Grid.Row>
-          <Divider section/>
-          <Grid.Row style={messageStyle}>
-            <Grid.Column>
-              {chatcells}
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={textareaStyle}>
-            <Grid.Column width={16}>
-              <Form reply style={inputStyle}>
-                <Grid>
-                  <Grid.Column width={12}><Form.TextArea name='message' value={message}
-                                                         onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>
-                  <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'
-                                                 labelPosition='left' icon='send' size='big'
-                                                 primary
-                                                 onClick={this.handleSubmit}/></Grid.Column>
-                </Grid>
-              </Form>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        </Segment>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <Segment>
+            <Grid style={mobileOverallStyle}>
+              <Grid.Row className="nopadding">
+                <Grid.Column width={2}>
+                  <Icon name='angle left' onClick={()=>this.props.handleMobileChatClose()}/>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <Image circular src='../assets/avatar.jpg' size='mini'/>
+                </Grid.Column>
+                <Grid.Column width={2} textAlign='left' verticalAlign='middle'>
+                  <Header>{this.state.targetUserName}</Header>
+                </Grid.Column>
+                <Grid.Column width={9}></Grid.Column>
+              </Grid.Row>
+              <Divider section/>
+              <Grid.Row style={mobileMessageStyle}>
+                <Grid.Column>
+                  {chatcells}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row style={textareaStyle}>
+                <Grid.Column width={16}>
+                  <Form reply style={inputStyle}>
+                    <Grid>
+                      <Grid.Column widht={2}></Grid.Column>
+                      <Grid.Column width={10}><Form.TextArea name='message' value={message}
+                                                             onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>
+                      <Grid.Column width={2}><Button style={{marginTop: '1em'}} content='Send'
+                                                     labelPosition='left' icon='send' size='tiny'
+                                                     primary
+                                                     onClick={this.handleSubmit}/></Grid.Column>
+                      <Grid.Column widht={2}></Grid.Column>
+
+                    </Grid>
+                  </Form>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Segment>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <Segment>
+          <Grid style={overallStyle}>
+            <Grid.Row className="nopadding">
+              <Grid.Column floated='left' width={5}>
+                <Header size='medium'>
+                  <Image circular src='../assets/avatar.jpg'/>
+                  {' '}{this.state.targetUserName}
+                </Header>
+              </Grid.Column>
+            </Grid.Row>
+            <Divider section/>
+            <Grid.Row style={messageStyle}>
+              <Grid.Column>
+                {chatcells}
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row style={textareaStyle}>
+              <Grid.Column width={16}>
+                <Form reply style={inputStyle}>
+                  <Grid>
+                    <Grid.Column width={12}><Form.TextArea name='message' value={message}
+                                                           onChange={(e, {value}) => this.setState({message: value})}/></Grid.Column>
+                    <Grid.Column width={4}><Button style={{marginTop: '1em'}} content='Send'
+                                                   labelPosition='left' icon='send' size='big'
+                                                   primary
+                                                   onClick={this.handleSubmit}/></Grid.Column>
+                  </Grid>
+                </Form>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          </Segment>
+        </MediaQuery>
       </div>
     );
   }

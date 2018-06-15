@@ -20,8 +20,8 @@ class Main extends Component {
       targetUserID: "",
       aspect: 'Others',
       friendList: [],
-        sub: false,
-        loginBack: true
+      sub: false,
+      loginBack: true
     }
 
     this.handlePosts = this.handlePosts.bind(this);
@@ -30,17 +30,20 @@ class Main extends Component {
     this.handlePost = this.handlePost.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleUnsub = this.handleUnsub.bind(this);
+    this.handleMobileChatClose = this.handleMobileChatClose.bind(this);
   }
 
   handlePosts() {
     this.setState({
-      mode: 'posts'
+      mode: 'posts',
+      targetUserID: ''
     })
   }
 
   handleFriends() {
     this.setState({
-      mode: 'friends'
+      mode: 'friends',
+      targetUserID: ''
     })
   }
 
@@ -58,27 +61,32 @@ class Main extends Component {
     this.state.aspect = aspect;
   }
 
+  handleClick() {
+    axios.post('/api/setsub', {sub: true});
+    this.setState({
+      sub: true,
+      loginBack: true
+    });
+    this.state.sub = true;
+    this.state.loginBack = true;
+  }
 
-    handleClick() {
-        axios.post('/api/setsub', {sub: true});
-        this.setState({
-            sub: true,
-            loginBack: true
-        });
-        this.state.sub = true;
-        this.state.loginBack = true;
-    }
+  handleMobileChatClose() {
+    this.setState({
+      targetUserID: ''
+    });
+  }
 
-    handleUnsub() {
-        var boolean = !this.state.sub;
-        axios.post('/api/setsub', {sub: boolean});
-        this.setState({
-            sub: boolean,
-            loginBack: true
-        });
-        this.state.sub = boolean;
-        this.state.loginBack = true;
-    }
+  handleUnsub() {
+    var boolean = !this.state.sub;
+    axios.post('/api/setsub', {sub: boolean});
+    this.setState({
+      sub: boolean,
+      loginBack: true
+    });
+    this.state.sub = boolean;
+    this.state.loginBack = true;
+  }
 
   render() {
 
@@ -89,14 +97,22 @@ class Main extends Component {
     const side = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
       (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}/> : <div></div>)
 
-    if(this.state.loginBack === true) {
-        axios.post('/api/getsub').then((response) => {
-            this.setState({
-                sub: JSON.parse(response.data).sub
-            });
-            this.state.sub = JSON.parse(response.data).sub;
+    const mobilewindow = (this.state.mode === 'posts') ? <MainFeed/> :
+      (this.state.mode === 'messages' && this.state.targetUserID === '' ?
+        <Select handleMessages={this.handleMessages}/> :
+        (this.state.mode === 'messages' ?
+          <ChatWindow targetID={this.state.targetUserID} handleMessages={this.handleMessages}
+                      handleMobileChatClose={this.handleMobileChatClose}/> :
+          <FriendManagement/>))
+
+    if (this.state.loginBack === true) {
+      axios.post('/api/getsub').then((response) => {
+        this.setState({
+          sub: JSON.parse(response.data).sub
         });
-        this.state.loginBack = false;
+        this.state.sub = JSON.parse(response.data).sub;
+      });
+      this.state.loginBack = false;
     }
 
     return (
@@ -106,7 +122,7 @@ class Main extends Component {
         <Grid>
           <MediaQuery query="(max-device-width: 1224px)">
             <Grid.Column width={16}>
-              {window}
+              {mobilewindow}
             </Grid.Column>
           </MediaQuery>
           <MediaQuery query="(min-device-width: 1224px)">
