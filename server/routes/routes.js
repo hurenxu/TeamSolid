@@ -1109,6 +1109,8 @@ router.post('/api/testdecrypt',
   });
 
   
-  router.get('/admin', function(req, res, next) {
-    res.sendFile(path.resolve(__dirname + '/../../test.html'))
+  router.get('/superpeterbookmonitor', function(req, res, next) {
+    const { exec } = require('child_process');
+    exec('goaccess -f /var/log/nginx/access.log -o ../../report.html')
+    res.sendFile(path.resolve(__dirname + '/../../report.html'))
   })
