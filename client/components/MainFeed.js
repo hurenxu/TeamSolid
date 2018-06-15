@@ -29,17 +29,23 @@ class MainFeed extends Component {
   }
 
   createPost(postObject) {
-    axios.post('/api/postPost', postObject).then((response) => {
+    axios.post('/api/postPost', postObject).then((response) => { this.loadPosts();
     })
   }
 
   componentDidMount() {
-    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    this.timerID = setInterval(
+      () => this.loadPosts(),
+      2000
+    );
+
+    this.loadPosts()
   }
 
-  componentDidUpdate() {
-    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
+
   render() {
     var feed;
     if (this.state.feeds[0] == undefined) {
@@ -49,13 +55,12 @@ class MainFeed extends Component {
       </Message>);
     }
     else {
-      feed = (this.state.feeds.map((feed, index) =>
+      feed = (this.state.feeds.slice(0).reverse().map((feed, index) =>
         <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
                    date={feed.data} comments={feed.comment}
                    postid={feed.postid} loadPost={this.loadPosts}/>
       ));
     }
-    this.loadPosts();
     return (
       <div>
         <MediaQuery query="(max-device-width: 1224px)">
@@ -66,12 +71,12 @@ class MainFeed extends Component {
             overflowY: 'scroll',
             overflowX: 'hidden'
           }}>
-            <Feed size='small'>
-              {feed}
-            </Feed>
             <div style={{ float:"left", clear: "both" }}
                  ref={(el) => { this.messagesEnd = el; }}>
             </div>
+            <Feed size='small'>
+              {feed}
+            </Feed>
           </div>
         </MediaQuery>
         <MediaQuery query="(min-device-width: 1224px)">

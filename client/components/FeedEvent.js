@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Feed, Icon, Comment, Input  } from 'semantic-ui-react'
+import { Feed, Icon, Comment, Input, Divider } from 'semantic-ui-react'
 import moment from "moment";
 import axios from "axios/index";
 import '../css/feed.css'
@@ -105,15 +105,14 @@ class FeedEvent extends Component {
                                 {(this.state.showMore===true)?"less":"more"}
                             </Feed.Like>
                         </Feed.Meta>
-                    <Comment.Group>
-                        <Comment>
-                            <Comment.Group>
-                                {this.commentList()}
+                            <Comment.Group style={{marginLeft: "10%"}}>
+                                <Comment>
+                                    {this.commentList()}
+                                </Comment>
                             </Comment.Group>
-                        </Comment>
-                    </Comment.Group>
                     </Feed.Extra>
-                    <WriteComment comments={this.props.comments} name={this.props.username} collapsed={this.state.collapsed} toggle={this.toggle} username={this.props.postid}/>
+                    <WriteComment comments={this.props.comments} name={this.props.userName} collapsed={this.state.collapsed} toggle={this.toggle} username={this.props.postid}/>
+                    <Divider />
                 </Feed.Content>
             </Feed.Event>
         );
