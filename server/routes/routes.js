@@ -163,7 +163,7 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
                 cl.count(function (err, num) {
                     count = num;
 
-                    username = encrypt(username, null);
+                    usrname = encrypt(usrname, null);
                     pwd = encrypt(pwd, null);
                     cl.insertOne({_id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
                         console.log('insert!' + eml + ' ' + pwd);
