@@ -19,9 +19,6 @@ export default class CommentFeed extends Component {
                     <Comment.Text>
                         {this.props.msg}
                     </Comment.Text>
-                    <Comment.Actions>
-                        <a>reply</a>
-                    </Comment.Actions>
                 </Comment.Content>
             </Comment>
         )
