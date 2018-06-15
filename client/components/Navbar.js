@@ -91,7 +91,9 @@ class Navbar extends Component {
             <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>
             <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>
             <Menu.Item name='friends' active={this.state.activeItem === 'friends'} onClick={this.handleItemClick}/>
-            <Menu.Item name='logout' onClick={this.handleItemClick}/>
+            <Menu.Menu position='right'>
+              <Menu.Item name='logout' onClick={this.handleItemClick}/>
+            </Menu.Menu>
           </Menu>
         </MediaQuery>
         <MediaQuery query="(min-device-width: 1224px)">
