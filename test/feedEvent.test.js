@@ -40,5 +40,5 @@ describe('FeedEvent Component', () => {
         const wrapper = mount(<FeedEvent/>);
         expect(wrapper.find('[images]')).to.have.length(1);
     });
-    
+
 });
