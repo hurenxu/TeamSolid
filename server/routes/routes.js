@@ -185,7 +185,7 @@ router.post('/api/getuserIconUrl',
 
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
-            response = db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
+            db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -628,25 +628,19 @@ router.post('/api/comment',
         var cmsg = req.body.comment;
         var cpid = req.body.pid;
         var cdate = req.body.date;
-
         MongoClient.connect(url, function (err, client) {
             if (err) {
                 console.log(err);
             }
             const db = client.db(dbName);
 
-            response = db.collection('userinfo').find({ sid: eml }).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                db.collection("posts").update({ pid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate, userIconUrl: result[0].userIconUrl } } }, function (err) {
+                db.collection("posts").update({ sid: sourceid, postid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate } } }, function (err) {
                     if (err) {
                         res.json(JSON.stringify({ result: "FAIL" }));
                     } else {
                         res.json(JSON.stringify({ result: "OK" }));
                     }
                 });
-            });
         });
     });
 

@@ -17,21 +17,19 @@ class MainFeed extends Component {
 
     this.loadPosts = this.loadPosts.bind(this)
     this.createPost = this.createPost.bind(this)
-    this.loadPosts()
   }
 
   loadPosts() {
     axios.post('/api/getPosts').then((response) => {
-      this.setState({
+        this.state.feeds = JSON.parse(response.data);
+        this.setState({
         feeds: JSON.parse(response.data)
       })
-      this.state.feeds = JSON.parse(response.data);
     });
   }
 
   createPost(postObject) {
     axios.post('/api/postPost', postObject).then((response) => {
-      this.loadPosts()
     })
   }
 
@@ -43,7 +41,6 @@ class MainFeed extends Component {
     this.messagesEnd.scrollIntoView({behavior: "smooth"});
   }
   render() {
-
     var feed;
     if (this.state.feeds[0] == undefined) {
       feed = (<Message style={{marginTop: '3em'}} warning compact>
@@ -54,10 +51,11 @@ class MainFeed extends Component {
     else {
       feed = (this.state.feeds.map((feed, index) =>
         <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
-                   date={feed.data}
-                   postid={feed.postid}/>
+                   date={feed.data} comments={feed.comment}
+                   postid={feed.postid} loadPost={this.loadPosts}/>
       ));
     }
+    this.loadPosts();
     return (
       <div>
         <MediaQuery query="(max-device-width: 1224px)">
