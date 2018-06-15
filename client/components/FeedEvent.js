@@ -57,7 +57,7 @@ class FeedEvent extends Component {
                                 divid = <br />
                             }
                             return(
-                                <a class="imageContainer" width={200/col} href={"http://localhost:8000/resource/"+file.filename}>
+                                <a class="imageContainer" width={200/col} href={"/resource/"+file.filename}>
                                     {divid}
                                     <img width={200/col} height={200/col} src={"resource/"+file.filename}/></a>
                             );
@@ -68,7 +68,7 @@ class FeedEvent extends Component {
             }
             else{
                 body=(<a><video width={200} height={200} controls>
-                    <source src={"resource/"+this.props.files[0].filename} type={this.props.files[0].filetype}/>
+                    <source src={"/resource/"+this.props.files[0].filename} type={this.props.files[0].filetype}/>
                 </video></a>)
             }
         }

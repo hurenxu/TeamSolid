@@ -35,7 +35,7 @@ class PostPopup extends Component {
     for (var i = 0; i < this.state.imageFile.length; i++) {
       data.append('image', this.state.imageFile[i]);
     }
-    data.append('video', this.state.videoFile);
+    data.append('video', this.state.videoFile[0]);
     data.append('msg', this.state.message);
     data.append('date', date);
     this.props.createPost(data);
