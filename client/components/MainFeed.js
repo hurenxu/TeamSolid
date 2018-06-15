@@ -73,7 +73,7 @@ class MainFeed extends Component {
             overflowY: 'scroll',
             overflowX: 'hidden'
           }}>
-            <Feed size='small'>
+            <Feed size='large'>
               {feed}
             </Feed>
           </div>
