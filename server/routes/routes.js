@@ -722,15 +722,13 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
       db.collection("posts").count(function (err, num) {
         if(err) throw err;
 
-        encrypt(pfilename, (err, enc_pfilename) =>{
-          if(err) throw err;
           encrypt(pmsg, (err, enc_pmsg) =>{
             if(err) throw err;
             encrypt(pdate, (err, enc_pdate) =>{
               if(err) throw err;
               
               
-              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: enc_pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
+              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfiles, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
                 if (err) {
                   console.log(err);
                 }
@@ -748,7 +746,6 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
               });
             });
           });
-        });
 
 
 
