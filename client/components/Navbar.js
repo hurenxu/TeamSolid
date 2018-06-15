@@ -77,7 +77,6 @@ class Navbar extends Component {
   }
 
   render() {
-      console.log(this.state.userImgURL);
     this.state.subMsg = (this.props.sub === true) ? "Subscribed" : "Not Subscribed";
     const { visible } = this.state.visible
     return (

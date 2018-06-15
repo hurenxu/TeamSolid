@@ -35,13 +35,6 @@ class NewPost extends Component {
                           onClick={() => this.setState({open: 1})}/>
               </MediaQuery>
             </Grid.Row>
-            <Grid.Row>
-              <Button.Group>
-                <Button>Clear</Button>
-                <Button.Or/>
-                <Button positive>Post</Button>
-              </Button.Group>
-            </Grid.Row>
           </Grid>
         </Form>
         <PostPopup open={this.state.open === 1} onClose={() => this.setState({open: 0})}
