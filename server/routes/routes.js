@@ -8,6 +8,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var googleapi = require('googleapis');
 var async = require("async");
+const crypto = require('crypto');
 // Connection URL
 const url = 'mongodb://localhost';
 
@@ -48,16 +49,14 @@ passport.use(new LocalStrategy({
           return done(null, false, {message: 'Incorrect username.'});
         }
 
-        decrypt(user.password, (err, dec_password) =>{
-          if(err) throw err;
+        dec_password = decrypt(user.password, null);
 
-          if (dec_password != password) {
-            return done(null, false, { message: 'Incorrect password.' });
-          }
-  
-          console.log(username + ' success')
-          return done(null, user);
-        })
+        if (dec_password != password) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+
+        console.log(username + ' success')
+        return done(null, user);
         // if (user.password != password) {
         //   return done(null, false, { message: 'Incorrect password.' });
         // }
@@ -150,11 +149,9 @@ router.post('/api/getUserName',
           console.log(err);
         }
 
-        decrypt(result[0].username, (err, dec_usr) =>{
-          if(err) throw err;
+        dec_user = decrypt(result[0].username, null);
 
           res.json(JSON.stringify({"username": dec_usr}));
-        })
         // res.json(JSON.stringify({"username": result[0].username}));
       });
     });
@@ -188,19 +185,18 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
         cl.count(function (err, num) {
           count = num;
 
-          encrypt(usrname, (err, enc_usrname) =>{
-            encrypt(pwd, (err, enc_pwd) =>{
-              cl.insertOne({ _id: (count + 1), username: enc_usrname, email: eml, password: enc_pwd}, function () {
-                console.log('insert!' + eml + ' ' + pwd);
-                console.log("encrypted usrname: " + enc_usrname);
-                console.log("encrypted pwd: " + enc_pwd);
-    
-                db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: "mengnan.jpg", friends: [], pendingRequests: [], follow: [eml], sub: sub}, function() {
-                  res.json(JSON.stringify({result: "OK"}));
-                })
-              });
+          enc_usrname = encrypt(username, null);
+          enc_pwd = encrypt(pwd, null);
+
+          cl.insertOne({ _id: (count + 1), username: enc_usrname, email: eml, password: enc_pwd }, function () {
+            // console.log('insert!' + eml + ' ' + pwd);
+            // console.log("encrypted usrname: " + enc_usrname);
+            // console.log("encrypted pwd: " + enc_pwd);
+
+            db.collection('userinfo').insertOne({ userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: "mengnan.jpg", friends: [], pendingRequests: [], follow: [eml], sub: sub }, function () {
+              res.json(JSON.stringify({ result: "OK" }));
             })
-          })
+          });
           
           // cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
           //   console.log('insert!' + eml + ' ' + pwd);
@@ -281,38 +277,17 @@ router.post('/api/switchChatTarget',
             console.log(err);
           }
 
-          async.each(result1, function(msg1, callback){
-            console.log("???");
-            decrypt(msg1.msg, (err, dec_msg)=>{
-              if(err) throw err;
-              decrypt(msg1.date, (err, dec_date)=>{
-                if(err) throw err;
-                msg1.msg = dec_msg;
-                msg1.date = dec_date;
-                callback();
-              });
-            });
-          }, function(err){
-            if(err) throw err;
-            console.log("aaa");
-            
-            async.each(result2, function(msg2, callback){
-              console.log("...");
-              decrypt(msg2.msg, (err, dec_msg)=>{
-                if(err) throw err;
-                decrypt(msg2.date, (err, dec_date)=>{
-                  if(err) throw err;
-                  msg2.msg = dec_msg;
-                  msg2.date = dec_date;
-                  callback();
-                });
-              });
-            }, function(err){
-              if(err) throw err;
-              console.log("bbb");
-              res.json(JSON.stringify(result1.concat(result2)));
-            });
-          });
+          for (var i = 0; i < result1.length; i++) {
+            result1[i].mgs = decrypt(result1[i].mgs, null);
+            result1[i].date = decrypt(result1[i].date, null);
+          }
+
+          for (var i = 0; i < result2.length; i++) {
+            result2[i].mgs = decrypt(result2[i].mgs, null);
+            result2[i].date = decrypt(result2[i].date, null);
+          }
+
+          res.json(JSON.stringify(result1.concat(result2)));
 
           // res.json(JSON.stringify(result1.concat(result2)));
         });
@@ -337,12 +312,10 @@ router.post('/api/searchUser',
           console.log(err);
         }
 
-        decrypt(result[0].username, (err, dec_username) =>{
-          if(err) throw err;
+        dec_username = decrypt(result[0].username, null);
 
-          result[0].username = dec_username;
-          res.json(JSON.stringify(result[0]));
-        });
+        result[0].username = dec_username;
+        res.json(JSON.stringify(result[0]));
 
         // res.json(JSON.stringify(result[0]));
       });
@@ -505,28 +478,13 @@ router.post('/api/ChangeToPost',
             console.log(err);
           }
 
-          async.each(result, function(post, callback) {
-            // console.log("dealing post");
-            // console.log(post);
-            //TODO: fix filename when empty
-            decrypt(post.msg, (err, m) =>{
-              if(err) throw err;
-              decrypt(post.msg, (err, dec_msg) =>{
-                if(err) throw err;
-                decrypt(post.data, (err, dec_data) =>{
-                  if(err) throw err;
-                  post.filename = '';
-                  post.msg = dec_msg;
-                  post.data = dec_data;
-                  callback();
-                });
-              });
-            });
-          }, function(err) {
-            if(err) throw err;
+          for (var i = 0; i < result.length; i++) {
+            result[i].msg = decrypt(result[i].msg);
+            result[i].date = decrypt(result[i].date);
+          }
+
             // console.log("finish decrypting all data");
             res.json(JSON.stringify(result));
-          });
 
           // res.json(JSON.stringify(result));
         });
@@ -553,38 +511,17 @@ router.post('/api/ChangeToMessage',
           }
 
 
-          async.each(result1, function(msg1, callback){
-            console.log("???");
-            decrypt(msg1.msg, (err, dec_msg)=>{
-              if(err) throw err;
-              decrypt(msg1.date, (err, dec_date)=>{
-                if(err) throw err;
-                msg1.msg = dec_msg;
-                msg1.date = dec_date;
-                callback();
-              });
-            });
-          }, function(err){
-            if(err) throw err;
-            console.log("aaa");
-            
-            async.each(result2, function(msg2, callback){
-              console.log("...");
-              decrypt(msg2.msg, (err, dec_msg)=>{
-                if(err) throw err;
-                decrypt(msg2.date, (err, dec_date)=>{
-                  if(err) throw err;
-                  msg2.msg = dec_msg;
-                  msg2.date = dec_date;
-                  callback();
-                });
-              });
-            }, function(err){
-              if(err) throw err;
-              console.log("bbb");
-              res.json(JSON.stringify(result1.concat(result2)));
-            });
-          });
+          for (var i = 0; i < result1.length; i++) {
+            result1[i].mgs = decrypt(result1[i].mgs, null);
+            result1[i].date = decrypt(result1[i].date, null);
+          }
+
+          for (var i = 0; i < result2.length; i++) {
+            result2[i].mgs = decrypt(result2[i].mgs, null);
+            result2[i].date = decrypt(result2[i].date, null);
+          }
+
+          res.json(JSON.stringify(result1.concat(result2)));
 
           // res.json(JSON.stringify(result1.concat(result2)));
         });
@@ -660,19 +597,15 @@ router.post('/api/postMessage',
       }
       const db = client.db(dbName);
 
-      encrypt(mmsg, (err, enc_msg) => {
-        if(err) throw err;
-        encrypt(mdate, (err, enc_date) =>{
-          if(err) throw err;
+      enc_msg = encrypt(mmsg, null);
+      enc_date = encrypt(mdate, null);
+      
+      db.collection("messages").insertOne({ sid: sourceid, tid: targetid, msg: enc_msg, date: enc_date }, function (err) {
+        if (err) {
+          console.log(err);
+        }
 
-          db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: enc_msg, date: enc_date}, function (err) {
-            if (err) {
-              console.log(err);
-            }
-  
-            res.json(JSON.stringify({result: "OK"}));
-          });
-        });
+        res.json(JSON.stringify({ result: "OK" }));
       });
 
       // db.collection("posts").count(function(err, num) {
@@ -720,32 +653,27 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
       const db = client.db(dbName);
 
       db.collection("posts").count(function (err, num) {
-        if(err) throw err;
+        if (err) throw err;
 
-          encrypt(pmsg, (err, enc_pmsg) =>{
-            if(err) throw err;
-            encrypt(pdate, (err, enc_pdate) =>{
-              if(err) throw err;
-              
-              
-              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfiles, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
-                if (err) {
-                  console.log(err);
-                }
-      
-                db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
-                  var follows = result[0].follow;
-      
-                  db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
-                    if (err) {
-                      console.log(err);
-                    }
-                    res.json(JSON.stringify(result));
-                  });
-                });
-              });
+        enc_pmsg = encrypt(pmsg, null);
+        enc_pdate = encrypt(pdate, null);
+
+        db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfiles, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
+          if (err) {
+            console.log(err);
+          }
+
+          db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+            var follows = result[0].follow;
+
+            db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+              if (err) {
+                console.log(err);
+              }
+              res.json(JSON.stringify(result));
             });
           });
+        });
 
 
 
@@ -791,24 +719,13 @@ router.post('/api/getPosts',
           // console.log(result);
           // console.log("start getting post");
 
-          async.each(result, function(post, callback) {
-            // console.log("dealing post");
-            // console.log(post);
-            //TODO: fix filename when empty
-            decrypt(post.msg, (err, dec_msg) =>{
-              if(err) throw err;
-              decrypt(post.date, (err, dec_date) =>{
-                if(err) throw err;
-                post.msg = dec_msg;
-                post.date = dec_date;
-                callback();
-              });
-            });
-          }, function(err) {
-            if(err) throw err;
+          for (var i = 0; i < result.length; i++) {
+            result[i].msg = decrypt(result[i].msg);
+            result[i].date = decrypt(result[i].date);
+          }
+
             // console.log("finish decrypting all data");
             res.json(JSON.stringify(result));
-          });
 
           // res.json(JSON.stringify(result));
         });
@@ -974,8 +891,13 @@ const cryptoKeyId = 'user-key';
 
 
 function encrypt(msg, callback) {
+  var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
+  var mystr = mykey.update(msg, 'utf8', 'hex');
+  mystr += mykey.update.final('hex');
+
   // Imports the Google APIs client library
   const google = require('googleapis').google;
+  return mystr;
 
   // Acquires credentials
   google.auth.getApplicationDefault((err, authClient) => {
@@ -1025,9 +947,12 @@ function encrypt(msg, callback) {
 }
 
 function decrypt(msg, callback) {
+  var mykey = crypto.createDecipher('aes-128-cbc', 'mypassword');
+  var mystr = mykey.update(msg, 'hex', 'utf8');
+  mystr += mykey.update.final('utf8');
   // Imports the Google APIs client library
   const google = require('googleapis').google;
-
+  return mystr;
   // Acquires credentials
   google.auth.getApplicationDefault((err, authClient) => {
     if (err) {
