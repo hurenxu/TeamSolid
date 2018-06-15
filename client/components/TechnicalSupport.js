@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container, Form, Popup, Button, Header, Image, Modal,Grid } from 'semantic-ui-react'
+import { Container, Form, Popup, Button, Header, Image, Modal, Grid, Icon, Step } from 'semantic-ui-react'
 import ReactDOM from "react-dom";
 import '../css/login.css'
 import axios from "axios/index";
@@ -30,14 +30,26 @@ class TechnicalSupport extends Component {
                 <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.setState({status: "default"}),this.props.onClose()}} />
             );
             body= (
-                <Grid columns={2} divided>
+                <Grid columns={1}>
                 <Grid.Row>
-                    <Grid.Column>
-                        <img src='/assets/contacticon.png' onClick={()=>this.setState({status: "email"})}/>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <img src='/assets/image/faq.jpg' onClick={()=>this.setState({status: "FAQ"})} />
-                    </Grid.Column>
+                    <Step.Group style={{marginLeft: "10%"}}>
+                        <Step
+                            active='true'
+                            icon='question circle'
+                            link
+                            onClick={()=>this.setState({status: "FAQ"})}
+                            title='FAQ'
+                            description='Some frequent asked questions'
+                        />
+                        <Step
+                            active='true'
+                            icon='mail'
+                            link
+                            onClick={()=>this.setState({status: "email"})}
+                            title='Eamil Us'
+                            description='Send us your questions through Email'
+                        />
+                    </Step.Group>
                 </Grid.Row>
             </Grid>
             );
@@ -71,7 +83,7 @@ class TechnicalSupport extends Component {
         }
         return (
             <div>
-                <Modal size='small' className="scrolling" style={{height: '60%'}} dimmer="blurring"
+                <Modal size='small' className="scrolling" style={{height: 'auto'}} dimmer="blurring"
                        open={this.props.open} onClose={()=> {this.props.onClose()}}>
                     <Modal.Header as='h2' style={{textAlign: 'center'}}>Technical Supports</Modal.Header>
                     {body}
