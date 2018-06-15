@@ -7,6 +7,7 @@ const sinon = require('sinon');
 import FeedEvent from '../client/components/FeedEvent';
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import 'jsdom-global/register';
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -27,8 +28,17 @@ describe('FeedEvent Component', () => {
         const wrapper = shallow(<FeedEvent/>);
         expect(wrapper.find('[name="like"]')).to.have.length(1);
         //expect(wrapper.find({ prop: 'Likes' })).to.have.length(1);
+    });
 
+    it('should have a text for feed', () => {
+        const wrapper = mount(<FeedEvent/>);
+        expect(wrapper.find('[text]')).to.have.length(1);
     });
 
 
+    it('should have extra images for feed', () => {
+        const wrapper = mount(<FeedEvent/>);
+        expect(wrapper.find('[images]')).to.have.length(1);
+    });
+    
 });

@@ -17,4 +17,14 @@ describe('CrudRow Component', () => {
         expect(wrapper.find('Button')).to.have.length(1);
     });
 
+    it('should have a red button', () => {
+        const wrapper = shallow(<CrudRow/>);
+        expect(wrapper.find('[color="red"]')).to.have.length(1);
+    });
+
+    it('should have onClick event for button', () => {
+        const wrapper = shallow(<CrudRow/>);
+        expect(wrapper.find('[onClick]').text()).to.equal("<Button />");
+    });
+
 });
