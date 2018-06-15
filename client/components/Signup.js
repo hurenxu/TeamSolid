@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Form, Popup, Button, Header, Image, Modal, Icon} from 'semantic-ui-react'
 import axios from "axios/index";
 import App from './App';
+import MediaQuery from 'react-responsive'
 
 let initialState = {
     username: "",
@@ -94,35 +95,68 @@ class Signup extends Component {
         }
             return (
                 <div>
+                  <MediaQuery query="(max-device-width: 1224px)">
+                    <Modal size='fullscreen' className="scrolling" dimmer={dimmer}
+                           open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
+                      <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>
+                      <Container style={{marginTop: '2em', marginBottom: '2em'}}>
+                        <Form size='large'>
+                          {icon}
+                          <Form.Input
+                            fluid icon='user' iconPosition='left' placeholder='Username'
+                            onChange={(e, {value})=> this.setState({username: value})}
+                          />
+                          <Form.Input
+                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'
+                            onChange={(e, {value})=> this.setState({password: value})}
+                          />
+                          <Form.Input
+                            fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'
+                            onChange={(e, {value})=> this.setState({repeat: value})}
+                          />
+                          <Form.Input
+                            fluid icon='envelope' iconPosition='left' placeholder='Email'
+                            onChange={(e, {value})=> this.setState({email: value})}
+                          />
+                        </Form>
+                      </Container>
+                      <Modal.Actions>
+                        <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />
+                        <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />
+                      </Modal.Actions>
+                    </Modal>
+                  </MediaQuery>
+                  <MediaQuery query="(min-device-width: 1224px)">
                     <Modal size='tiny' className="scrolling" style={{height: '60%'}} dimmer={dimmer}
                            open={this.props.open} onClose={()=> {this.setState(initialState); this.props.onClose()}}>
-                        <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>
-                        <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>
-                            <Form size='large'>
-                                {icon}
-                                <Form.Input
-                                    fluid icon='user' iconPosition='left' placeholder='Username'
-                                    onChange={(e, {value})=> this.setState({username: value})}
-                                />
-                                <Form.Input
-                                    fluid icon='lock' iconPosition='left' placeholder='Password' type='password'
-                                    onChange={(e, {value})=> this.setState({password: value})}
-                                />
-                                <Form.Input
-                                    fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'
-                                    onChange={(e, {value})=> this.setState({repeat: value})}
-                                />
-                                <Form.Input
-                                    fluid icon='envelope' iconPosition='left' placeholder='Email'
-                                    onChange={(e, {value})=> this.setState({email: value})}
-                                />
-                            </Form>
-                        </Container>
-                        <Modal.Actions>
-                            <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />
-                            <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />
-                        </Modal.Actions>
+                      <Modal.Header as='h2' style={{textAlign: 'center'}}>Sign Up</Modal.Header>
+                      <Container style={{width: '400px', marginTop: '2em', marginBottom: 'auto'}}>
+                        <Form size='large'>
+                          {icon}
+                          <Form.Input
+                            fluid icon='user' iconPosition='left' placeholder='Username'
+                            onChange={(e, {value})=> this.setState({username: value})}
+                          />
+                          <Form.Input
+                            fluid icon='lock' iconPosition='left' placeholder='Password' type='password'
+                            onChange={(e, {value})=> this.setState({password: value})}
+                          />
+                          <Form.Input
+                            fluid icon='ellipsis horizontal' iconPosition='left' placeholder='Repeat Password' type='password'
+                            onChange={(e, {value})=> this.setState({repeat: value})}
+                          />
+                          <Form.Input
+                            fluid icon='envelope' iconPosition='left' placeholder='Email'
+                            onChange={(e, {value})=> this.setState({email: value})}
+                          />
+                        </Form>
+                      </Container>
+                      <Modal.Actions>
+                        <Button color='black' icon='undo' content="Close" labelPosition='right' onClick={()=> {this.close(); this.props.onClose()}} />
+                        <Button positive icon='checkmark' labelPosition='right' content="Sign Up" onClick={()=> {this.handleSubmit(); this.props.onClose(); }} />
+                      </Modal.Actions>
                     </Modal>
+                  </MediaQuery>
                 </div>
             )
     }

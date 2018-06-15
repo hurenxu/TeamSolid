@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Container, Form, Popup, Button, Header, Image, Modal, Icon} from 'semantic-ui-react'
 import axios from "axios/index";
 import moment from "moment";
+import MediaQuery from 'react-responsive'
 
 let initialState = {
   message: "",
@@ -76,51 +77,102 @@ class PostPopup extends Component {
       indication = <div>{numOfFile} files uploaded!</div>
     }
     return (
-      <Modal size='tiny' className="scrolling" style={{position: 'relative'}} dimmer="blurring" open={this.props.open}
-             onClose={() => {
-               this.setState(initialState);
-               this.props.onClose()
-             }}>
-        <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>
-        <Modal.Content>
-          <Container style={{width: '500', marginTop: '2em', marginBottom: '2em'}}>
-            <Form size='large'>
-              <Form.TextArea style={{height: "100%", width: "100%"}}
-                placeholder='What do you want to post?' name='message' value={message}
-                onChange={(e, {value}) => this.setState({message: value})}
-              />
-                <label htmlFor="image">
+      <div>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <Modal size='fullscreen' className="scrolling" style={{position: 'relative'}} dimmer="blurring"
+                 open={this.props.open}
+                 onClose={() => {
+                   this.setState(initialState);
+                   this.props.onClose()
+                 }}>
+            <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>
+            <Modal.Content>
+              <Container style={{width: '500', marginTop: '2em', marginBottom: '2em'}}>
+                <Form size='large'>
+                  <Form.TextArea style={{height: "35vh", width: "100%"}}
+                                 placeholder='What do you want to post?' name='message' value={message}
+                                 onChange={(e, {value}) => this.setState({message: value})}/>
+                  <label htmlFor="image">
                     <Icon.Group size='large'>
-                    <Icon name='images'/>
-                    <Icon corner name='add' />
+                      <Icon name='images'/>
+                      <Icon corner name='add'/>
                     </Icon.Group>
                     <Form.Input type="file" id="image" onChange={this.saveImage} style={{display: 'none'}}
                                 accept="image/*"/>
-                </label>
-                <label htmlFor="video" style={{marginLeft: "3%"}}>
+                  </label>
+                  <label htmlFor="video" style={{marginLeft: "3%"}}>
                     <Icon.Group size='large'>
-                    <Icon name='video'/>
-                    <Icon corner name='add' />
+                      <Icon name='video'/>
+                      <Icon corner name='add'/>
                     </Icon.Group>
                     <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}}
                                 accept="video/*"/>
-                </label>
-              {indication}
-              <Button.Group style={{float: 'right', marginRight: '0%'}}>
-                <Button onClick={() => {
-                  this.close();
-                  this.props.onClose()
-                }}>Clear</Button>
-                <Button.Or/>
-                <Button positive onClick={() => {
-                  this.handleSubmit();
-                  this.props.onClose()
-                }}>Post</Button>
-              </Button.Group>
-            </Form>
-          </Container>
-        </Modal.Content>
-      </Modal>
+                  </label>
+                  {indication}
+                  <Button.Group style={{float: 'right', marginRight: '0%'}}>
+                    <Button onClick={() => {
+                      this.close();
+                      this.props.onClose()
+                    }}>Clear</Button>
+                    <Button.Or/>
+                    <Button positive onClick={() => {
+                      this.handleSubmit();
+                      this.props.onClose()
+                    }}>Post</Button>
+                  </Button.Group>
+                </Form>
+              </Container>
+            </Modal.Content>
+          </Modal>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <Modal size='tiny' className="scrolling" style={{position: 'relative'}} dimmer="blurring"
+                 open={this.props.open}
+                 onClose={() => {
+                   this.setState(initialState);
+                   this.props.onClose()
+                 }}>
+            <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>
+            <Modal.Content>
+              <Container style={{width: '500', marginTop: '2em', marginBottom: '2em'}}>
+                <Form size='large'>
+                  <Form.TextArea style={{height: "100%", width: "100%"}}
+                                 placeholder='What do you want to post?' name='message' value={message}
+                                 onChange={(e, {value}) => this.setState({message: value})}/>
+                  <label htmlFor="image">
+                    <Icon.Group size='large'>
+                      <Icon name='images'/>
+                      <Icon corner name='add'/>
+                    </Icon.Group>
+                    <Form.Input type="file" id="image" onChange={this.saveImage} style={{display: 'none'}}
+                                accept="image/*"/>
+                  </label>
+                  <label htmlFor="video" style={{marginLeft: "3%"}}>
+                    <Icon.Group size='large'>
+                      <Icon name='video'/>
+                      <Icon corner name='add'/>
+                    </Icon.Group>
+                    <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}}
+                                accept="video/*"/>
+                  </label>
+                  {indication}
+                  <Button.Group style={{float: 'right', marginRight: '0%'}}>
+                    <Button onClick={() => {
+                      this.close();
+                      this.props.onClose()
+                    }}>Clear</Button>
+                    <Button.Or/>
+                    <Button positive onClick={() => {
+                      this.handleSubmit();
+                      this.props.onClose()
+                    }}>Post</Button>
+                  </Button.Group>
+                </Form>
+              </Container>
+            </Modal.Content>
+          </Modal>
+        </MediaQuery>
+      </div>
     )
   }
 }
