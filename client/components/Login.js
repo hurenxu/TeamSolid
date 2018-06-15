@@ -24,10 +24,8 @@ class Login extends Component {
         password: '',
         buttonText: 'Login',
         msg_link: 'Sign Up',
-        header_privacy: 'Decentralization',
         header_security: 'Security',
         header_freedom: 'Freedom',
-        msg_privacy: 'You choose who can see your data.',
         msg_security: 'All data are encrypted to make them safe.',
         msg_freedom: 'Your identity is not controlled and observed.',
         open: 0,
@@ -118,13 +116,10 @@ class Login extends Component {
           <MediaQuery query="(min-device-width: 1224px)">
             <Grid.Column computer={9} style={{height: '85%', marginTop: '7%'}}>
               <Grid.Row className='text_box text_font'>
-                <TextBox header={this.state.header_privacy} text={this.state.msg_privacy}/>
+                  <TextBox header={this.state.header_security} text={this.state.msg_security}/>
               </Grid.Row>
               <Grid.Row style={{height: '25%'}} className='text_font'>
-                <TextBox header={this.state.header_security} text={this.state.msg_security}/>
-              </Grid.Row>
-              <Grid.Row style={{height: '25%'}} className='text_font'>
-                <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>
+                  <TextBox header={this.state.header_freedom} text={this.state.msg_freedom}/>
               </Grid.Row>
             </Grid.Column>
             <Grid.Column computer={5} verticalAlign='middle' className="login_box"

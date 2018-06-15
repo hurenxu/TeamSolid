@@ -37,27 +37,23 @@ export default class WriteComment extends Component {
         else {
             return (
                 <div>
-                    <Comment.Group>
+                    <Comment.Group style={{marginLeft: "10%"}}>
                         <Comment>
-                            <Comment.Group>
-                                <Comment>
-                                    <Comment.Content>
-                                        <Comment.Author as='a'>{this.props.name}</Comment.Author>
-                                        <Comment.Metadata>
-                                            <span>commenting</span>
-                                        </Comment.Metadata>
-                                        <Comment.Text>
-                                            <Input transparent placeholder='Comment...'
-                                                   onChange={(e, {value}) => this.setState({comment: value})}/>
-                                        </Comment.Text>
-                                        <Comment.Actions onClick={() => {
-                                            this.handleSubmit()
-                                        }}>
-                                            <a>send</a>
-                                        </Comment.Actions>
-                                    </Comment.Content>
-                                </Comment>
-                            </Comment.Group>
+                            <Comment.Content>
+                                <Comment.Author as='a'>{this.props.name}</Comment.Author>
+                                <Comment.Metadata>
+                                    <span>commenting</span>
+                                </Comment.Metadata>
+                                <Comment.Text>
+                                    <Input transparent placeholder='Comment...'
+                                           onChange={(e, {value}) => this.setState({comment: value})}/>
+                                </Comment.Text>
+                                <Comment.Actions onClick={() => {
+                                    this.handleSubmit()
+                                }}>
+                                    <a>send</a>
+                                </Comment.Actions>
+                            </Comment.Content>
                         </Comment>
                     </Comment.Group>
                 </div>

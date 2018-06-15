@@ -83,24 +83,24 @@ class PostPopup extends Component {
              }}>
         <Modal.Header as='h2' style={{textAlign: 'center'}}>Post</Modal.Header>
         <Modal.Content>
-          <Container style={{width: '400px', marginTop: '2em', marginBottom: '2em'}}>
+          <Container style={{width: '500', marginTop: '2em', marginBottom: '2em'}}>
             <Form size='large'>
-              <Form.TextArea
+              <Form.TextArea style={{height: "100%", width: "100%"}}
                 placeholder='What do you want to post?' name='message' value={message}
                 onChange={(e, {value}) => this.setState({message: value})}
               />
               <label for="image">
-                <Icon size='big' name='picture'/>
+                  <Button icon='picture' content='Image' />
                 <Form.Input type="file" id="image" onChange={this.saveImage} style={{display: 'none'}}
                             accept="image/*"/>
               </label>
               <label htmlFor="video">
-                <Icon size='big' name='video camera'/>
-                <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}}
+                  <Button icon='video camera' content='Video' />
+                  <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}}
                             accept="video/*"/>
               </label>
               {indication}
-              <Button.Group style={{float: 'right', marginRight: '10%'}}>
+              <Button.Group style={{float: 'right', marginRight: '0%'}}>
                 <Button onClick={() => {
                   this.close();
                   this.props.onClose()

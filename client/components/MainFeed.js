@@ -42,7 +42,7 @@ class MainFeed extends Component {
       </Message>);
     }
     else {
-      feed = (this.state.feeds.map((feed, index) =>
+      feed = (this.state.feeds.slice(0).reverse().map((feed, index) =>
         <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
                    date={feed.data} comments={feed.comment}
                    postid={feed.postid} loadPost={this.loadPosts}/>
