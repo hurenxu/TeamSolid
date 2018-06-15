@@ -97,7 +97,7 @@ class Navbar extends Component {
         <MediaQuery query="(min-device-width: 1224px)">
           <Menu pointing size='huge'>
             <Menu.Item name='me' onClick={this.handleItemClick}>
-              <Image size='tiny' circular src={this.state.userImgURL} />
+              <Image size='mini' circular src={this.state.userImgURL} />
               <Label as='a' color='blue' onClick={this.props.handleUnsub}>
                 {this.state.username}
                 <Label.Detail>{this.state.subMsg}</Label.Detail>

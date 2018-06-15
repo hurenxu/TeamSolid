@@ -81,7 +81,7 @@ class MainFeed extends Component {
         </MediaQuery>
         <MediaQuery query="(min-device-width: 1224px)">
           <div style={{
-            maxHeight: '56vh',
+            height: '56vh',
             overflow: 'scroll',
             overflowY: 'scroll',
             overflowX: 'hidden'
