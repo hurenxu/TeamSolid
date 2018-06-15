@@ -48,7 +48,7 @@ and then we stored the messages in the database. We saw this a better opportunit
 idea rather than adapting one that was already build. This allowed us to practice resourcefullness without having to
 incorporate more API's than needed.
 
-## AD Services 
+## AD Services <a name="ad_serv"></a> 
 
 The AD Service we use is Google AdSense
 
