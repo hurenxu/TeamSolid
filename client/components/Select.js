@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon} from 'semantic-ui-react'
+import {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon, Divider} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
 import axios from "axios";
+import MediaQuery from 'react-responsive';
+
 
 const avatarStyle = {
   width: '5vw',
@@ -58,20 +60,40 @@ class Select extends Component {
     var menuItems = []
     for (var i = 0; i < this.state.friendList.length; i++) {
       menuItems.push(
-        <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i}
-                   onClick={this.handleItemClick}>
-          <Grid verticalAlign='middle' centered>
-            <Grid.Column width={3}>
-              <Image size='mini' circular src="../assets/avatar.jpg" />
-            </Grid.Column>
-            <Grid.Column textAlign="center" width={9}>
-              {this.state.friendList[i].username}
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <Label color='red'>1</Label>
-            </Grid.Column>
-          </Grid>
-        </Menu.Item>
+        <div>
+          <MediaQuery query="(max-device-width: 1224px)">
+            <Menu.Item name={this.state.friendList[i].username} index={i} active={true}
+                       onClick={this.handleItemClick} style={{marginBottom: '1em'}}>
+              <Grid verticalAlign='middle' centered>
+                <Grid.Column width={3}>
+                  <Image size='mini' circular src="../assets/avatar.jpg" />
+                </Grid.Column>
+                <Grid.Column textAlign="center" width={9}>
+                  {this.state.friendList[i].username}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  <Label color='red'>1</Label>
+                </Grid.Column>
+              </Grid>
+            </Menu.Item>
+          </MediaQuery>
+          <MediaQuery query="(min-device-width: 1224px)">
+            <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i}
+                       onClick={this.handleItemClick}>
+              <Grid verticalAlign='middle' centered>
+                <Grid.Column width={3}>
+                  <Image size='mini' circular src="../assets/avatar.jpg" />
+                </Grid.Column>
+                <Grid.Column textAlign="center" width={9}>
+                  {this.state.friendList[i].username}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  <Label color='red'>1</Label>
+                </Grid.Column>
+              </Grid>
+            </Menu.Item>
+          </MediaQuery>
+        </div>
       )
     }
 
@@ -83,9 +105,16 @@ class Select extends Component {
             Friends
           </Header.Content>
         </Header>
-        <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
-          {menuItems}
-        </Menu>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <Menu vertical style={{marginLeft: '1.8em'}} secondary vertical size='huge'>
+            {menuItems}
+          </Menu>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
+            {menuItems}
+          </Menu>
+        </MediaQuery>
       </div>
     );
   }
