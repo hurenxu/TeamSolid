@@ -1,4 +1,4 @@
-# Quick Setup Scripts
+# Quick Documentation Setup Scripts
 
 The shell scripts I have written 'setup_environment.sh' and 'generate_docs.sh' can be run to install npm dependencies,
 install the ESDoc plugins to parse javascript code, and generate the ESDoc documentation.
