@@ -730,7 +730,7 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
               if(err) throw err;
               
               
-              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: enc_pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], data: enc_pdate }, function (err) {
+              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: enc_pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
                 if (err) {
                   console.log(err);
                 }
@@ -802,11 +802,11 @@ router.post('/api/getPosts',
               if(err) throw err;
               decrypt(post.msg, (err, dec_msg) =>{
                 if(err) throw err;
-                decrypt(post.data, (err, dec_data) =>{
+                decrypt(post.date, (err, dec_date) =>{
                   if(err) throw err;
                   post.filename = '';
                   post.msg = dec_msg;
-                  post.data = dec_data;
+                  post.date = dec_date;
                   callback();
                 });
               });
