@@ -58,11 +58,16 @@ class ChatWindow extends Component {
       1000
     );
 
-    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    if(this.messagesEnd){
+      this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    }
+
   }
 
   componentDidUpdate() {
-    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    if(this.messageEnd){
+      this.messagesEnd.scrollIntoView({behavior: "smooth"});
+    }
   }
 
   componentWillUnmount() {
