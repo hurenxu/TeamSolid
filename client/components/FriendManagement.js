@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Grid, Ref} from 'semantic-ui-react'
-import Responsive from 'react-responsive';
+import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card, Divider, Segment} from 'semantic-ui-react'
 
 const style = {
-  marginTop: '5em',
+  marginTop: '2em',
+  marginLeft: '2em',
+  marginRight: '2em'
 }
 
 class FriendManagement extends Component {
@@ -27,13 +29,13 @@ class FriendManagement extends Component {
 
   loadRequests() {
     console.log("Loading...")
-    axios.post('api/getFriendList').then((response) => {
-      this.setState({friendList: JSON.parse(response.data)});
-      console.log(this.state.friendList)
-    });
     axios.post('api/getPendingList').then((response) => {
       this.setState({pendingList: JSON.parse(response.data)});
       console.log(this.state.pendingList)
+    });
+    axios.post('api/getFriendList').then((response) => {
+      this.setState({friendList: JSON.parse(response.data)});
+      console.log(this.state.friendList)
     });
   }
 
@@ -80,13 +82,11 @@ class FriendManagement extends Component {
 
   handleApprove(curr_friend, e) {
     e.preventDefault();
-    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: "add"}).then((response) => {
-      console.log(JSON.stringify(response.data));
-      this.setState({friendList: JSON.parse(response.data)})
-    });
     axios.post('api/getPendingList').then((response) => {
       this.setState({pendingList: JSON.parse(response.data)});
-      console.log(this.state.pendingList)
+    });
+    axios.post('/api/updateFriendList', {tid: curr_friend, actionType: "add"}).then((response) => {
+      this.setState({friendList: JSON.parse(response.data)})
     });
   }
 
@@ -107,7 +107,6 @@ class FriendManagement extends Component {
           else {
             axios.post('/api/addPendingList', {tid: this.state.targetFriend}).then((response) => {
               console.log(JSON.stringify(response.data));
-              this.setState({friendList: JSON.parse(response.data)})
               alert('Your request is sent');
               this.setState({value: ""});
             });
@@ -152,7 +151,6 @@ class FriendManagement extends Component {
     }
     else {
       currFriends = <h3>You have no friends. Peter is always your friend.</h3>
-      console.log("You have no friends")
     }
 
     if (this.state.pendingList.length != 0) {
@@ -184,21 +182,53 @@ class FriendManagement extends Component {
 
     return (
       <div style={style}>
-        <Header as='h2' textAlign='left'>Add a friend</Header>
-        <Input icon='users' iconPosition='left' value={this.state.value}
-               onChange={this.handleChange} placeholder='Search users...'/>
-        <Button icon labelPosition='right' onClick={this.handleSubmit} style={{marginTop: '3em', marginBottom: '3em'}}>
-          Add Friend
-          <Icon name='right arrow'/>
-        </Button>
-        <Divider section/>
-        <Header as='h2' textAlign='left'>Manage friends</Header>
-        <Card.Group style={{marginTop: '3em', marginBottom: '3em'}}>
-          {pendingFriends}
-        </Card.Group>
-        <Card.Group style={{marginTop: '3em', marginBottom: '3em'}}>
-          {currFriends}
-        </Card.Group>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <Header as='h3' textAlign='left'>Add a friend</Header>
+          <Input icon='users' iconPosition='left' value={this.state.value}
+                 onChange={this.handleChange} placeholder='Search users...'/>
+          <Button icon labelPosition='right' onClick={this.handleSubmit}
+                  style={{marginTop: '3em', marginBottom: '3em'}}>
+            Add Friend
+            <Icon name='right arrow'/>
+          </Button>
+          <Divider section/>
+          <Header as='h3' textAlign='left'>Pending Requests</Header>
+          <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={1}>
+            {pendingFriends}
+          </Card.Group>
+          <Divider section/>
+          <Header as='h3' textAlign='left'>Manage friends</Header>
+          <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={1}>
+            {currFriends}
+          </Card.Group>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <Header as='h2' textAlign='left'>Add a friend</Header>
+          <Input icon='users' iconPosition='left' value={this.state.value}
+                 onChange={this.handleChange} placeholder='Search users...'/>
+          <Button icon labelPosition='right' onClick={this.handleSubmit}
+                  style={{marginTop: '3em', marginBottom: '3em'}}>
+            Add Friend
+            <Icon name='right arrow'/>
+          </Button>
+          <Divider section/>
+          <Grid style={{marginTop: '3em'}}>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Header as='h2' textAlign='left'>Pending Requests</Header>
+                <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
+                  {pendingFriends}
+                </Card.Group>
+              </Grid.Column>
+              <Grid.Column>
+                <Header as='h2' textAlign='left'>Manage friends</Header>
+                <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
+                  {currFriends}
+                </Card.Group>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </MediaQuery>
       </div>
     );
   }
