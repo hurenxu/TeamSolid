@@ -7,6 +7,8 @@ const sinon = require('sinon');
 import ChatCell from '../client/components/ChatCell';
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import 'jsdom-global/register';
+
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('chatCell Component', () => {
@@ -25,5 +27,11 @@ describe('chatCell Component', () => {
     it('should have a message with defined color', () => {
         const wrapper = shallow(<ChatCell/>);
         expect(wrapper.find('Message')).to.have.length(1);
+    });
+
+    it('should have a Grid Column variable', () => {
+        const wrapper = mount(<ChatCell/>);
+        expect(wrapper.find('Grid')).to.have.length(1);
+        expect(wrapper.find('div')).to.have.length(5);
     });
 });
