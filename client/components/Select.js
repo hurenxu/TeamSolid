@@ -99,14 +99,14 @@ class Select extends Component {
 
     return (
       <div>
-        <Header as='h2' style={{marginLeft: "1em", marginTop: "1.2em", marginBottom: "1.5em"}}>
+        <Header as='h2' style={{marginLeft: "1em", marginTop: "0.8em", marginBottom: "1.5em"}}>
           <Icon name='users'/>
           <Header.Content>
             Friends
           </Header.Content>
         </Header>
         <MediaQuery query="(max-device-width: 1224px)">
-          <Menu vertical style={{marginLeft: '1.8em'}} secondary vertical size='huge'>
+          <Menu vertical style={{marginLeft: '13vw'}} secondary vertical size='huge'>
             {menuItems}
           </Menu>
         </MediaQuery>
