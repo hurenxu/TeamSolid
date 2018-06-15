@@ -14,14 +14,7 @@ Enzyme.configure({ adapter: new Adapter() })
 describe('NewPost Component', () => {
     it('should have two buttons', () => {
         const wrapper = shallow(<NewPost/>);
-        expect(wrapper.find('Button')).to.have.length(2);
-        //expect(wrapper.find('message')).to.have.length(1);
-
-    });
-
-    it('should have two buttons', () => {
-        const wrapper = shallow(<NewPost/>);
-        expect(wrapper.find('Button')).to.have.length(2);
+        expect(wrapper.find('Form')).to.have.length(1);
         //expect(wrapper.find('message')).to.have.length(1);
 
     });

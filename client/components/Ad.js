@@ -7,9 +7,6 @@ class Ad extends Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
-        (window.adsbygoogle = window.adsbygoogle || []).push({})
-    }
     render() {
         if(this.props.open === false) {
             return (

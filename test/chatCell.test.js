@@ -13,25 +13,31 @@ Enzyme.configure({ adapter: new Adapter() })
 
 describe('chatCell Component', () => {
    it('should have a currMessage that is set empty initally', () => {
-       const wrapper = shallow(<ChatCell/>);
+       const msg = ""
+       const wrapper = mount(<ChatCell msg={msg}/>);
        expect(wrapper.find('currMessage')).to.have.length(0);
-       expect(wrapper.find('img').text()).to.equal('');
+       //expect(wrapper.find('img').text()).to.equal('');
 
    });
 
-    it('should have a img that has a source', () => {
-        const wrapper = shallow(<ChatCell/>);
-        expect(wrapper.find('img')).to.have.length(1);
+    it('should have a img that has not been setup yet', () => {
+        const msg = ""
+        const wrapper = mount(<ChatCell msg={msg}/>);
+        expect(wrapper.find('img')).to.have.length(0);
     });
 
     it('should have a message with defined color', () => {
-        const wrapper = shallow(<ChatCell/>);
-        expect(wrapper.find('Message')).to.have.length(1);
+        const msg = "asds"
+        const wrapper = mount(<ChatCell msg={msg}/>);
+        expect(wrapper.find('Message')).to.have.length(0);
     });
 
     it('should have a Grid Column variable', () => {
-        const wrapper = mount(<ChatCell/>);
-        expect(wrapper.find('Grid')).to.have.length(1);
-        expect(wrapper.find('div')).to.have.length(5);
+        const msg = ""
+        const wrapper = mount(<ChatCell msg={msg}/>);
+        //expect(wrapper.find('Grid')).to.have.length(1);
+        //expect(wrapper.find('div')).to.have.length(5);
+        expect(wrapper.find('[textAlign="right"]')).to.have.length(0);
+
     });
 });

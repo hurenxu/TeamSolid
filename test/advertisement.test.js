@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import { mount, shallow } from 'enzyme';
 const sinon = require('sinon');
 
-import Advertisement from '../client/components/Advertisement';
+import Advertisement from '../client/components/Ad';
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 

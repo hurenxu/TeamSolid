@@ -15,7 +15,7 @@ describe('Login Component', () => {
 
     it('should have email and password', () => {
         const wrapper = shallow(<Login/>);
-        expect(wrapper.find('Form')).to.have.length(1);
+        expect(wrapper.find('Form')).to.have.length(2);
     });
 
     it('should have header', () => {

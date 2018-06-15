@@ -13,12 +13,12 @@ Enzyme.configure({ adapter: new Adapter() })
 describe('Signup Component', () => {
     it('should have email and password', () => {
         const wrapper = shallow(<Signup/>);
-        expect(wrapper.find('Form').first().children()).to.have.length(4);
+        expect(wrapper.find('Form').first().children()).to.have.length(5);
     });
 
     it('should have two buttons', () => {
         const wrapper = shallow(<Signup />);
-        expect(wrapper.find('Button')).to.have.length(2);
+        expect(wrapper.find('Button')).to.have.length(4);
     });
 
     it('should have a default dimmer state', () => {
