@@ -17,11 +17,12 @@ class ChatCell extends Component {
       currMessage =
         <Grid>
           <MediaQuery query="(max-device-width: 1224px)">
-            <Grid.Column width={8}></Grid.Column>
-            <Grid.Column width={4} textAlign='right'>
+            <Grid.Column width={4}></Grid.Column>
+            <Grid.Column width={8} textAlign='right'>
               <Message compact color='green' size='mini'>
-                {/*{this.props.msg.replace(/(.{10})/g, "$1\n")}*/}
-                {this.props.msg}
+                <div style={{textAlign: 'left'}}>
+                  {this.props.msg.replace(/(.{10})/g, "$1\n")}
+                </div>
               </Message>
             </Grid.Column>
             <Grid.Column width={4}>
@@ -46,12 +47,14 @@ class ChatCell extends Component {
             <Grid.Column width={4}>
               <img className="ui avatar image" src={this.props.img}/>
             </Grid.Column>
-            <Grid.Column width={4} textAlign='left'>
+            <Grid.Column width={8} textAlign='left'>
               <Message compact size='mini'>
-                {this.props.msg.replace(/(.{10})/g, "$1\n")}
+                <div style={{textAlign: 'right'}}>
+                  {this.props.msg.replace(/(.{10})/g, "$1\n")}
+                </div>
               </Message>
             </Grid.Column>
-            <Grid.Column width={8}></Grid.Column>
+            <Grid.Column width={4}></Grid.Column>
           </MediaQuery>
           <MediaQuery query="(min-device-width: 1224px)">
             <Grid.Column width={2}>

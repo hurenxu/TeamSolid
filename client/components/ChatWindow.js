@@ -57,6 +57,12 @@ class ChatWindow extends Component {
       () => this.loadMessage(this.state.targetID),
       1000
     );
+
+    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+  }
+
+  componentDidUpdate() {
+    this.messagesEnd.scrollIntoView({behavior: "smooth"});
   }
 
   componentWillUnmount() {
@@ -143,6 +149,9 @@ class ChatWindow extends Component {
               <Grid.Row style={mobileMessageStyle}>
                 <Grid.Column>
                   {chatcells}
+                  <div style={{ float:"left", clear: "both" }}
+                       ref={(el) => { this.messagesEnd = el; }}>
+                  </div>
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row style={textareaStyle}>
@@ -180,6 +189,9 @@ class ChatWindow extends Component {
             <Grid.Row style={messageStyle}>
               <Grid.Column>
                 {chatcells}
+                <div style={{ float:"left", clear: "both" }}
+                     ref={(el) => { this.messagesEnd = el; }}>
+                </div>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row style={textareaStyle}>
