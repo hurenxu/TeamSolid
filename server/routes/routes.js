@@ -122,12 +122,12 @@ router.post('/api/getUserName',
             }
 
             const db = client.db(dbName);
-            result[0].username  = decrypt(result[0].username, null);
 
             db.collection("userinfo").find({sid: eml}).toArray(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
+                result[0].username  = decrypt(result[0].username, null);
 
                 res.json(JSON.stringify({"username": result[0].username}));
             });
