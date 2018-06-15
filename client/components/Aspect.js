@@ -38,12 +38,12 @@ class Select extends Component {
 
     return (
       <div>
-          <Header as='h2' floated='left'  style={{marginLeft: "1em"}}>
-              <Icon name='list layout' />
-              <Header.Content>
-                  Aspects
-              </Header.Content>
-          </Header>
+        <Header as='h2' style={{marginLeft: "1em", marginTop: "1.2em", marginBottom: "1.5em"}}>
+          <Icon name='list layout'/>
+          <Header.Content>
+            Aspects
+          </Header.Content>
+        </Header>
         <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
           <Menu.Item>
             <Input icon='search' placeholder='Search tag...'/>

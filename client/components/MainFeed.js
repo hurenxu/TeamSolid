@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Feed, Icon, Grid, Message} from 'semantic-ui-react'
 import FeedEvent from './FeedEvent'
 import NewPost from './NewPost'
+import MediaQuery from 'react-responsive'
 import axios from "axios/index";
 import moment from "moment";
 
@@ -16,54 +17,85 @@ class MainFeed extends Component {
 
     this.loadPosts = this.loadPosts.bind(this)
     this.createPost = this.createPost.bind(this)
-    this.loadPosts()
-      this.feedList = this.feedList.bind(this)
   }
 
   loadPosts() {
     axios.post('/api/getPosts').then((response) => {
-      this.setState({
+        this.state.feeds = JSON.parse(response.data);
+        this.setState({
         feeds: JSON.parse(response.data)
       })
-      this.state.feeds = JSON.parse(response.data);
-      console.log("finish loading post")
     });
   }
 
   createPost(postObject) {
-    axios.post('/api/postPost', postObject).then((response) => {
-      this.loadPosts()
+    axios.post('/api/postPost', postObject).then((response) => { this.loadPosts();
     })
   }
 
-  feedList() {
-    if(this.state.feeds == null) {
-        return(  <Message style={{marginTop: '10px', float: 'left', marginLeft: '10px'}} warning compact>
-            <Message.Header>There is no post</Message.Header>
-            <p>Do you want to post something?</p>
-        </Message>);
-    }
-    else {
-        return(this.state.feeds.map((feed, index) =>
-            <FeedEvent imageURL="" userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
-                       date={feed.data}
-                       postid={feed.postid}/>
-        ));
-    }
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.loadPosts(),
+      2000
+    );
+
+    this.loadPosts()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   render() {
-      return (
-      <div style={{marginTop: '5vh'}}>
-        <div>
-          <div>
-            <NewPost createPost={this.createPost}/>
+    var feed;
+    if (this.state.feeds[0] == undefined) {
+      feed = (<Message style={{marginTop: '3em'}} warning compact>
+        <Message.Header>There is no post</Message.Header>
+        <p>Do you want to post something?</p>
+      </Message>);
+    }
+    else {
+      feed = (this.state.feeds.slice(0).reverse().map((feed, index) =>
+        <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
+                   date={feed.data} comments={feed.comment}
+                   postid={feed.postid} loadPost={this.loadPosts}/>
+      ));
+    }
+    return (
+      <div>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <div style={{
+            marginLeft: '10vw',
+            height: '54vh',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+            overflowX: 'hidden'
+          }}>
+            <div style={{ float:"left", clear: "both" }}
+                 ref={(el) => { this.messagesEnd = el; }}>
+            </div>
+            <Feed size='small'>
+              {feed}
+            </Feed>
           </div>
-        </div>
-        <div>
-          <Feed size='large'>
-              {this.feedList()}
-          </Feed>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <div style={{
+            height: '56vh',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+            overflowX: 'hidden'
+          }}>
+            <Feed size='large'>
+              {feed}
+            </Feed>
+            <div style={{ float:"left", clear: "both" }}
+                 ref={(el) => { this.messagesEnd = el; }}>
+            </div>
+          </div>
+        </MediaQuery>
+        <div style={{}}>
+          <NewPost createPost={this.createPost}/>
         </div>
       </div>
     );

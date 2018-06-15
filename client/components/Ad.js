@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
-import {Button} from 'semantic-ui-react'
-import GoogleAds from 'react-google-ads'
+import {Button, Advertisement} from 'semantic-ui-react'
 import axios from "axios/index";
 
-class Advertisement extends Component {
+class Ad extends Component {
 
     constructor(props) {
         super(props);
     }
-
+    componentDidMount() {
+        (window.adsbygoogle = window.adsbygoogle || []).push({})
+    }
     render() {
         if(this.props.open === false) {
             return (
@@ -18,11 +19,9 @@ class Advertisement extends Component {
         else {
             return (
                 <div>
-                    <GoogleAds
-                        client="ca-pub-7292810486004926"
-                        slot="7806394673"
-                        style={{display: 'inline-block', width: '100%',}}
-                    />
+                    <Advertisement unit='medium rectangle' test='My ads'>
+
+                    </Advertisement>
                     <Button positive onClick={this.props.handleClick}>
                         Subscribe to remove ads
                     </Button>
@@ -32,4 +31,4 @@ class Advertisement extends Component {
     }
 }
 
-export default Advertisement
+export default Ad
