@@ -259,12 +259,14 @@ router.post('/api/switchChatTarget',
                         console.log(err);
                     }
 
-                    for (var i = 0; i < result1.length; i++) {
+                    var i = 0;
+
+                    for (i = 0; i < result1.length; i++) {
                         result1[i].mgs = decrypt(result1[i].mgs, null);
                         result1[i].date = decrypt(result1[i].date, null);
                       }
             
-                      for (var i = 0; i < result2.length; i++) {
+                      for (i = 0; i < result2.length; i++) {
                         result2[i].mgs = decrypt(result2[i].mgs, null);
                         result2[i].date = decrypt(result2[i].date, null);
                       }
@@ -492,12 +494,13 @@ router.post('/api/ChangeToMessage',
                         console.log(err);
                     }
 
-                    for (var i = 0; i < result1.length; i++) {
+                    var i =0;
+                    for (i = 0; i < result1.length; i++) {
                         result1[i].mgs = decrypt(result1[i].mgs, null);
                         result1[i].date = decrypt(result1[i].date, null);
                       }
             
-                      for (var i = 0; i < result2.length; i++) {
+                      for (i = 0; i < result2.length; i++) {
                         result2[i].mgs = decrypt(result2[i].mgs, null);
                         result2[i].date = decrypt(result2[i].date, null);
                       }
@@ -580,8 +583,8 @@ router.post('/api/postMessage',
             }
             const db = client.db(dbName);
 
-            var mmsg = encrypt(mmsg, null);
-            var mdate = encrypt(mdate, null);
+            mmsg = encrypt(mmsg, null);
+            mdate = encrypt(mdate, null);
 
             db.collection("posts").count(function (err, num) {
                 db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
@@ -851,6 +854,8 @@ router.get('/delete', function (req, res) {
 });
 module.exports = router;
 
+const gopen = 0;
+
 // KMS service
 const projectId = 'superb-blend-201518';
 // The location of the new key ring, e.g. "global"
@@ -868,7 +873,10 @@ function encrypt(msg, callback) {
 
   // Imports the Google APIs client library
   const google = require('googleapis').google;
-  return crypted;
+
+  if (gopen == 0) {
+    return crypted;    
+  }
 
   // Acquires credentials
   google.auth.getApplicationDefault((err, authClient) => {
@@ -923,7 +931,10 @@ function decrypt(msg, callback) {
   decrypted += decipher.final('utf-8');
   // Imports the Google APIs client library
   const google = require('googleapis').google;
-  return decrypted;
+
+  if (gopen == 0) {
+    return decrypted;
+  }
   // Acquires credentials
   google.auth.getApplicationDefault((err, authClient) => {
     if (err) {
