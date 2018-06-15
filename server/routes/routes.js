@@ -7,6 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var googleapi = require('googleapis');
+var async = require("async");
 // Connection URL
 const url = 'mongodb://localhost';
 
@@ -26,7 +27,9 @@ passport.deserializeUser(function (id, done) {
     col.findOne({_id: id}, function (err, user) {
       done(err, user);
     });
-  })
+    client.close();
+
+  });
 });
 
 passport.use(new LocalStrategy({
@@ -47,13 +50,41 @@ passport.use(new LocalStrategy({
           return done(null, false, {message: 'Incorrect username.'});
         }
 
-        if (user.password != password) {
-          return done(null, false, {message: 'Incorrect password.'});
-        }
+        decrypt(user.password, (err, dec_password) =>{
+          if(err) throw err;
 
-        console.log(username + ' success')
-        return done(null, user);
+          if (dec_password != password) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+  
+          console.log(username + ' success')
+          return done(null, user);
+        })
+        // if (user.password != password) {
+        //   return done(null, false, { message: 'Incorrect password.' });
+        // }
+
+        // console.log(username + ' success')
+        // return done(null, user);
       });
+
+      // decrypt(username, (err, dec_username) => {
+      //   if(err) throw err;
+      //   col.findOne({ email: dec_username }, function (err, user) {
+      //     if (err) { return done(err); }
+      //     if (!user) {
+      //       return done(null, false, { message: 'Incorrect username.' });
+      //     }
+  
+      //     if (user.password != password) {
+      //       return done(null, false, { message: 'Incorrect password.' });
+      //     }
+  
+      //     console.log(username + ' success')
+      //     return done(null, user);
+      //   });
+      // });
+      client.close();
     })
   }
 ));
@@ -121,8 +152,15 @@ router.post('/api/getUserName',
           console.log(err);
         }
 
-        res.json(JSON.stringify({"username": result[0].username}));
+        decrypt(result[0].username, (err, dec_usr) =>{
+          if(err) throw err;
+
+          res.json(JSON.stringify({"username": dec_usr}));
+        })
+        // res.json(JSON.stringify({"username": result[0].username}));
       });
+
+      client.close();
     });
   });
 
@@ -153,28 +191,34 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
       if (result.length == 0) {
         cl.count(function (err, num) {
           count = num;
-          cl.insertOne({_id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
-            console.log('insert!' + eml + ' ' + pwd);
 
-            db.collection('userinfo').insertOne({
-              userid: (count + 1),
-              sid: eml,
-              email: eml,
-              username: usrname,
-              userIconUrl: sfiles,
-              friends: [],
-              pendingRequests: [],
-              follow: [eml],
-              sub: sub
-            }, function () {
-              res.json(JSON.stringify({result: "OK"}));
+          encrypt(usrname, (err, enc_usrname) =>{
+            encrypt(pwd, (err, enc_pwd) =>{
+              cl.insertOne({ _id: (count + 1), username: enc_usrname, email: eml, password: enc_pwd}, function () {
+                console.log('insert!' + eml + ' ' + pwd);
+                console.log("encrypted usrname: " + enc_usrname);
+                console.log("encrypted pwd: " + enc_pwd);
+    
+                db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: enc_usrname, userIconUrl: "mengnan.jpg", friends: [], pendingRequests: [], follow: [eml], sub: sub}, function() {
+                  res.json(JSON.stringify({result: "OK"}));
+                })
+              });
             })
-          });
+          })
+          
+          // cl.insertOne({ _id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
+          //   console.log('insert!' + eml + ' ' + pwd);
+
+          //   db.collection('userinfo').insertOne({userid: (count + 1), sid: eml, email: eml, username: usrname, userIconUrl: "mengnan.jpg", friends: [], follow: [eml], sub: sub}, function() {
+          //     res.json(JSON.stringify({result: "OK"}));
+          //   })
+          // });
         });
       } else {
         res.json(JSON.stringify({result: "DUP"}));
       }
     })
+    client.close();
   });
 });
 
@@ -185,13 +229,14 @@ router.post('/api/getuserIconUrl',
 
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
-            db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
+            response = db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
                 if (err) {
                     console.log(err);
                 }
 
                 res.json(JSON.stringify({userIconUrl: result[0].userIconUrl}));
             });
+            client.close();
         });
     });
 
@@ -209,6 +254,7 @@ router.post('/api/getsub',
 
         res.json(JSON.stringify({sub: result[0].sub}));
       });
+      client.close();
     });
   });
 
@@ -220,6 +266,7 @@ router.post('/api/setsub',
     MongoClient.connect(url, function (err, client) {
       const db = client.db(dbName);
       db.collection('userinfo').updateOne({sid: eml}, {$set: {"sub": sub}});
+      client.close();
     });
   });
 
@@ -241,9 +288,44 @@ router.post('/api/switchChatTarget',
           if (err) {
             console.log(err);
           }
-          res.json(JSON.stringify(result1.concat(result2)));
+
+          async.each(result1, function(msg1, callback){
+            console.log("???");
+            decrypt(msg1.msg, (err, dec_msg)=>{
+              if(err) throw err;
+              decrypt(msg1.date, (err, dec_date)=>{
+                if(err) throw err;
+                msg1.msg = dec_msg;
+                msg1.date = dec_date;
+                callback();
+              });
+            });
+          }, function(err){
+            if(err) throw err;
+            console.log("aaa");
+            
+            async.each(result2, function(msg2, callback){
+              console.log("...");
+              decrypt(msg2.msg, (err, dec_msg)=>{
+                if(err) throw err;
+                decrypt(msg2.date, (err, dec_date)=>{
+                  if(err) throw err;
+                  msg2.msg = dec_msg;
+                  msg2.date = dec_date;
+                  callback();
+                });
+              });
+            }, function(err){
+              if(err) throw err;
+              console.log("bbb");
+              res.json(JSON.stringify(result1.concat(result2)));
+            });
+          });
+
+          // res.json(JSON.stringify(result1.concat(result2)));
         });
       });
+      client.close();
     });
   });
 
@@ -264,8 +346,17 @@ router.post('/api/searchUser',
           console.log(err);
         }
 
-        res.json(JSON.stringify(result[0]));
+        decrypt(result[0].username, (err, dec_username) =>{
+          if(err) throw err;
+
+          result[0].username = dec_username;
+          res.json(JSON.stringify(result[0]));
+        });
+
+        // res.json(JSON.stringify(result[0]));
       });
+      client.close();
+
     });
   });
 
@@ -300,6 +391,7 @@ router.post('/api/addPendingList',
           });
         }
       });
+      client.close();
     });
   });
 
@@ -310,6 +402,8 @@ router.post('/api/updateFriendList',
     var sourceid = req.user.email;
     var targetid = req.body.tid;
     var actionType = req.body.actionType;
+
+    //TODO: add verification
 
     MongoClient.connect(url, function (err, client) {
       const db = client.db(dbName);
@@ -360,6 +454,7 @@ router.post('/api/updateFriendList',
           });
         });
       }
+      client.close();
     });
   });
 
@@ -381,6 +476,8 @@ router.post('/api/getPendingList',
         }
         res.json(JSON.stringify(result[0].pendingRequests));
       });
+      client.close();
+
     });
   });
 
@@ -401,6 +498,8 @@ router.post('/api/getFriendList',
         }
         res.json(JSON.stringify(result[0].friends));
       });
+      client.close();
+
     });
   });
 
@@ -414,7 +513,7 @@ router.post('/api/ChangeToPost',
         console.log(err);
       }
       const db = client.db(dbName);
-      db.collection("userinfo").find({sid: sourceid}).toArray(function (err, result) {
+      db.collection("userinfo").find({sid: sourceid}).toArray(function(err, result) {
         var follows = result[0].follow;
 
 
@@ -423,9 +522,34 @@ router.post('/api/ChangeToPost',
             console.log(err);
           }
 
-          res.json(JSON.stringify(result));
+          async.each(result, function(post, callback) {
+            // console.log("dealing post");
+            // console.log(post);
+            //TODO: fix filename when empty
+            decrypt(post.msg, (err, m) =>{
+              if(err) throw err;
+              decrypt(post.msg, (err, dec_msg) =>{
+                if(err) throw err;
+                decrypt(post.data, (err, dec_data) =>{
+                  if(err) throw err;
+                  post.filename = '';
+                  post.msg = dec_msg;
+                  post.data = dec_data;
+                  callback();
+                });
+              });
+            });
+          }, function(err) {
+            if(err) throw err;
+            // console.log("finish decrypting all data");
+            res.json(JSON.stringify(result));
+          });
+
+          // res.json(JSON.stringify(result));
         });
       })
+      client.close();
+
     });
   });
 
@@ -446,9 +570,46 @@ router.post('/api/ChangeToMessage',
           if (err) {
             console.log(err);
           }
-          res.json(JSON.stringify(result1.concat(result2)));
+
+
+          async.each(result1, function(msg1, callback){
+            console.log("???");
+            decrypt(msg1.msg, (err, dec_msg)=>{
+              if(err) throw err;
+              decrypt(msg1.date, (err, dec_date)=>{
+                if(err) throw err;
+                msg1.msg = dec_msg;
+                msg1.date = dec_date;
+                callback();
+              });
+            });
+          }, function(err){
+            if(err) throw err;
+            console.log("aaa");
+            
+            async.each(result2, function(msg2, callback){
+              console.log("...");
+              decrypt(msg2.msg, (err, dec_msg)=>{
+                if(err) throw err;
+                decrypt(msg2.date, (err, dec_date)=>{
+                  if(err) throw err;
+                  msg2.msg = dec_msg;
+                  msg2.date = dec_date;
+                  callback();
+                });
+              });
+            }, function(err){
+              if(err) throw err;
+              console.log("bbb");
+              res.json(JSON.stringify(result1.concat(result2)));
+            });
+          });
+
+          // res.json(JSON.stringify(result1.concat(result2)));
         });
       });
+      client.close();
+
     });
   });
 
@@ -503,6 +664,8 @@ router.post('/api/LikeAPost',
           });
         }
       });
+      client.close();
+
     });
   });
 
@@ -520,15 +683,32 @@ router.post('/api/postMessage',
       }
       const db = client.db(dbName);
 
-      db.collection("posts").count(function (err, num) {
-        db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
-          if (err) {
-            console.log(err);
-          }
+      encrypt(mmsg, (err, enc_msg) => {
+        if(err) throw err;
+        encrypt(mdate, (err, enc_date) =>{
+          if(err) throw err;
 
-          res.json(JSON.stringify({result: "OK"}));
+          db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: enc_msg, date: enc_date}, function (err) {
+            if (err) {
+              console.log(err);
+            }
+  
+            res.json(JSON.stringify({result: "OK"}));
+          });
         });
       });
+
+      // db.collection("posts").count(function(err, num) {
+      //   db.collection("messages").insertOne({sid: sourceid, tid: targetid, msg: mmsg, date: mdate}, function (err) {
+      //     if (err) {
+      //       console.log(err);
+      //     }
+
+      //     res.json(JSON.stringify({result: "OK"}));
+      //   });
+      // });
+      client.close();
+
     });
   });
 
@@ -565,33 +745,57 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
       const db = client.db(dbName);
 
       db.collection("posts").count(function (err, num) {
-        db.collection("posts").insertOne({
-          postid: (num + 1),
-          sid: sourceid,
-          files: pfiles,
-          aspect: paspect,
-          likedUsers: [],
-          likecount: 0,
-          msg: pmsg,
-          comment: [],
-          data: pdate
-        }, function (err) {
-          if (err) {
-            console.log(err);
-          }
+        if(err) throw err;
 
-          db.collection("userinfo").find({sid: sourceid}).toArray(function (err, result) {
-            var follows = result[0].follow;
-
-            db.collection("posts").find({sid: {$in: follows}}).toArray(function (err, result) {
-              if (err) {
-                console.log(err);
-              }
-              res.json(JSON.stringify(result));
+        encrypt(pfilename, (err, enc_pfilename) =>{
+          if(err) throw err;
+          encrypt(pmsg, (err, enc_pmsg) =>{
+            if(err) throw err;
+            encrypt(pdate, (err, enc_pdate) =>{
+              if(err) throw err;
+              
+              
+              db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: enc_pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
+                if (err) {
+                  console.log(err);
+                }
+      
+                db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+                  var follows = result[0].follow;
+      
+                  db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+                    if (err) {
+                      console.log(err);
+                    }
+                    res.json(JSON.stringify(result));
+                  });
+                });
+              });
             });
-          })
+          });
         });
+
+
+
+        // db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfilename, aspect: paspect, likedUsers: [], likecount: 0, msg: pmsg, comment: [], data: pdate }, function (err) {
+        //   if (err) {
+        //     console.log(err);
+        //   }
+
+        //   db.collection("userinfo").find({ sid: sourceid }).toArray(function (err, result) {
+        //     var follows = result[0].follow;
+
+        //     db.collection("posts").find({ sid: { $in: follows } }).toArray(function (err, result) {
+        //       if (err) {
+        //         console.log(err);
+        //       }
+        //       res.json(JSON.stringify(result));
+        //     });
+        //   })
+        // });
       });
+      client.close();
+
     });
   });
 
@@ -614,12 +818,40 @@ router.post('/api/getPosts',
           if (err) {
             console.log(err);
           }
+          // console.log(result);
+          // console.log("start getting post");
 
-          res.json(JSON.stringify(result));
+          async.each(result, function(post, callback) {
+            // console.log("dealing post");
+            // console.log(post);
+            //TODO: fix filename when empty
+            decrypt(post.msg, (err, m) =>{
+              if(err) throw err;
+              decrypt(post.msg, (err, dec_msg) =>{
+                if(err) throw err;
+                decrypt(post.date, (err, dec_date) =>{
+                  if(err) throw err;
+                  post.filename = '';
+                  post.msg = dec_msg;
+                  post.date = dec_date;
+                  callback();
+                });
+              });
+            });
+          }, function(err) {
+            if(err) throw err;
+            // console.log("finish decrypting all data");
+            res.json(JSON.stringify(result));
+          });
+
+          // res.json(JSON.stringify(result));
         });
       })
+      client.close();
+
     });
   });
+
 
 router.post('/api/comment',
     require('connect-ensure-login').ensureLoggedIn(),
@@ -628,19 +860,27 @@ router.post('/api/comment',
         var cmsg = req.body.comment;
         var cpid = req.body.pid;
         var cdate = req.body.date;
+
         MongoClient.connect(url, function (err, client) {
             if (err) {
                 console.log(err);
             }
             const db = client.db(dbName);
 
-                db.collection("posts").update({ sid: sourceid, postid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate } } }, function (err) {
+            response = db.collection('userinfo').find({ sid: eml }).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                db.collection("posts").update({ pid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate, userIconUrl: result[0].userIconUrl } } }, function (err) {
                     if (err) {
                         res.json(JSON.stringify({ result: "FAIL" }));
                     } else {
                         res.json(JSON.stringify({ result: "OK" }));
                     }
                 });
+            });
+          client.close();
+
         });
     });
 
@@ -698,6 +938,8 @@ router.post('/api/follow',
           });
         }
       });
+      client.close();
+
     });
   });
 
@@ -719,6 +961,7 @@ router.post('/api/unfollow',
           res.json(JSON.stringify({result: "OK"}));
         }
       });
+      client.close();
     });
   });
 
@@ -738,6 +981,7 @@ router.post('/insert', function (req, res, next) {
         res.send("insertion success!");
       });
     });
+    client.close();
   });
 });
 
@@ -750,6 +994,7 @@ router.get('/read', function (req, res) {
       if (err) throw err;
       res.send(JSON.stringify(list));
     });
+    client.close();
   });
 });
 
@@ -762,6 +1007,7 @@ router.get('/delete', function (req, res) {
       if (err) throw err;
       res.send("deletion success!");
     })
+    client.close();
   });
 });
 module.exports = router;
@@ -774,11 +1020,10 @@ const locationId = 'global';
 // The name of the new key ring, e.g. "my-new-key-ring"
 const keyRingId = 'user-keyring';
 
-const keyId = 'user-key';
+const cryptoKeyId = 'user-key';
 
 
-// connect to google kms api
-function buildAndAuthorizeService(callback) {
+function encrypt(msg, callback) {
   // Imports the Google APIs client library
   const google = require('googleapis').google;
 
@@ -801,16 +1046,7 @@ function buildAndAuthorizeService(callback) {
       auth: authClient
     });
 
-    callback(null, cloudkms);
-  });
-}
-
-function encrypt(msg) {
-  buildAndAuthorizeService((err, cloudkms) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
+    // callback(null, cloudkms);
 
     const request = {
       // This will be a path parameter in the request URL
@@ -821,7 +1057,7 @@ function encrypt(msg) {
       }
     };
 
-    console.log("encrypting" + msg);
+    console.log("encrypting " + msg);
 
     // Encrypts the file using the specified crypto key
     cloudkms.projects.locations.keyRings.cryptoKeys.encrypt(request, (err, response) => {
@@ -833,28 +1069,85 @@ function encrypt(msg) {
       // Writes the encrypted file to disk
       const result = response.data;
       console.log("encrypted data is: " + result.ciphertext);
-      return result.ciphertext;
+      callback(null, result.ciphertext);
     });
   });
 }
 
-router.post('/api/testencrypt',
-  function (req, res, next) {
-    console.log("encrypting post!");
-    var msg = encrypt(req.user.email);
-    console.log(msg);
-    console.log("aa");
-    MongoClient.connect(url, function (err, client) {
+function decrypt(msg, callback) {
+  // Imports the Google APIs client library
+  const google = require('googleapis').google;
+
+  // Acquires credentials
+  google.auth.getApplicationDefault((err, authClient) => {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+      authClient = authClient.createScoped([
+        'https://www.googleapis.com/auth/cloud-platform'
+      ]);
+    }
+
+    // Instantiates an authorized client
+    const cloudkms = google.cloudkms({
+      version: 'v1',
+      auth: authClient
+    });
+
+    const request = {
+      // This will be a path parameter in the request URL
+      name: `projects/${projectId}/locations/${locationId}/keyRings/${keyRingId}/cryptoKeys/${cryptoKeyId}`,
+      // This will be the request body
+      resource: {
+        ciphertext: msg
+      }
+    };
+
+    // Decrypts the file using the specified crypto key
+    cloudkms.projects.locations.keyRings.cryptoKeys.decrypt(request, (err, response) => {
       if (err) {
         console.log(err);
+        return;
       }
 
-      const db = client.db(dbName);
-
-      db.collection("test").insertOne(msg, function (err, res) {
-        if (err) throw err;
-        console.log("msg inserted: " + msg);
-        db.close();
-      })
+      // Writes the encrypted file to disk
+      const result = response.data;
+      var res = Buffer.from(result.plaintext, 'base64').toString('utf8');
+      // console.log("decrypted data is: " + res);
+      // res.send(res);
+      callback(null, res);
+      // return result.ciphertext;
     });
   });
+}
+
+
+router.post('/api/testdecrypt',
+  function (req, res, next) {
+    var msg = req.body.msg;
+
+    decrypt(msg, (err, m) => {
+      console.log("Decrpted: " + m);
+      res.send(m);
+    });
+  });
+
+  router.post('/api/testencrypt',
+  function (req, res, next) {
+    var msg = req.user.email;
+
+    encrypt(msg, (err, m) => {
+      console.log("encrypted: " + m);
+      res.send(m);
+    });
+  });
+
+  
+  router.get('/superpeterbookmonitor', function(req, res, next) {
+    const { exec } = require('child_process');
+    exec('goaccess -f /var/log/nginx/access.log -o ../../report.html')
+    res.sendFile(path.resolve(__dirname + '/../../report.html'))
+  })
