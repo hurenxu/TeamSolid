@@ -154,6 +154,7 @@ class ChatWindow extends Component {
                   </div>
                 </Grid.Column>
               </Grid.Row>
+              <Divider section/>
               <Grid.Row style={textareaStyle}>
                 <Grid.Column width={16}>
                   <Form reply style={inputStyle}>
