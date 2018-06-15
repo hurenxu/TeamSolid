@@ -6,6 +6,8 @@ const sinon = require('sinon');
 import Signup from '../client/components/Signup';
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import 'jsdom-global/register';
+
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('Signup Component', () => {
@@ -19,11 +21,23 @@ describe('Signup Component', () => {
         expect(wrapper.find('Button')).to.have.length(2);
     });
 
-    // it('should have a valid finish button', () => {
-    //     const wrapper = shallow(<Signup />);
-    //     wrapper.find('Button').last().simulate('click');
-    //     expect(wrapper.state('dimmer')).to.equal(false);
-    // });
+    it('should have a default dimmer state', () => {
+        const wrapper = mount(<Signup />);
+        expect(wrapper.state('dimmer')).to.equal("blurring");
+    });
 
+    it('should have a default username state', () => {
+        const wrapper = mount(<Signup />);
+        expect(wrapper.state('username')).to.equal("");
+    });
 
+    it('should have a default password state', () => {
+        const wrapper = mount(<Signup />);
+        expect(wrapper.state('password')).to.equal("");
+    });
+
+    it('should have a default email state', () => {
+        const wrapper = mount(<Signup />);
+        expect(wrapper.state('email')).to.equal("");
+    });
 });
