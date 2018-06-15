@@ -629,8 +629,8 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
             }
             const db = client.db(dbName);
 
-            var pmsg = encrypt(pmsg, null);
-            var pdate = encrypt(pdate, null);
+            pmsg = encrypt(pmsg, null);
+            pdate = encrypt(pdate, null);
 
             db.collection("posts").count(function (err, num) {
                 db.collection("posts").insertOne({
