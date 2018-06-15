@@ -33,6 +33,13 @@ class MainFeed extends Component {
     })
   }
 
+  componentDidMount() {
+    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+  }
+
+  componentDidUpdate() {
+    this.messagesEnd.scrollIntoView({behavior: "smooth"});
+  }
   render() {
     var feed;
     if (this.state.feeds[0] == undefined) {
@@ -62,6 +69,9 @@ class MainFeed extends Component {
             <Feed size='small'>
               {feed}
             </Feed>
+            <div style={{ float:"left", clear: "both" }}
+                 ref={(el) => { this.messagesEnd = el; }}>
+            </div>
           </div>
         </MediaQuery>
         <MediaQuery query="(min-device-width: 1224px)">
@@ -74,6 +84,9 @@ class MainFeed extends Component {
             <Feed size='large'>
               {feed}
             </Feed>
+            <div style={{ float:"left", clear: "both" }}
+                 ref={(el) => { this.messagesEnd = el; }}>
+            </div>
           </div>
         </MediaQuery>
         <div style={{}}>
