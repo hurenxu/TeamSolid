@@ -667,13 +667,13 @@ router.post('/api/comment',
         var cmsg = req.body.comment;
         var cpid = req.body.pid;
         var cdate = req.body.date;
+        var uname = req.body.uname;
         MongoClient.connect(url, function (err, client) {
             if (err) {
                 console.log(err);
             }
-            const db = client.db(dbName);
-
-            db.collection("posts").update({ sid: sourceid, postid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate } } }, function (err) {
+                const db = client.db(dbName);
+            db.collection("posts").update({ sid: uname, postid: cpid }, { $push: { comment: { msg: cmsg, cid: sourceid, date: cdate } } }, function (err) {
                 if (err) {
                     res.json(JSON.stringify({ result: "FAIL" }));
                 } else {
