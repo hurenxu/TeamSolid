@@ -5,7 +5,7 @@
 * Type `cd /home/reh011_ucsd_edu`.
 * Type `sudo java -jar jenkins.war --httpPort=9090 --prefix=/jenkins &` to run at background or `sudo java -jar jenkins.war --h
 ttpPort=9090 --prefix=/jenkins` without run at background.
-* Open a web browser, and either click this link **[jenkins][1]** or enter **`http://35.199.159.167/jenkins`** into your browser.
+* Open a web browser, and either click this link **[jenkins][1]** or enter **`35.233.201.139/jenkins`** into your browser.
 * After your enter the jenkins GUI, we currently have two pipelines, and what we need is the second one called **`test-pipeline`**.
 * Click the **`test-pipeline`**.
 ### If you want to build directly without github push
