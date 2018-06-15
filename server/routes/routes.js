@@ -895,12 +895,13 @@ const cryptoKeyId = 'user-key';
 
 
 function encrypt(msg, callback) {
-  var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
-  var mystr = mykey.update(msg, 'utf8', 'hex');
+  var cipher = crypto.createCipher('aes-256-cbc', 'password');
+  var crypted = cipher.update(msg, 'utf-8', 'hex');
+  crypted += cipher.final('hex');
 
   // Imports the Google APIs client library
   const google = require('googleapis').google;
-  return mystr;
+  return crypted;
 
   // Acquires credentials
   google.auth.getApplicationDefault((err, authClient) => {
@@ -950,11 +951,12 @@ function encrypt(msg, callback) {
 }
 
 function decrypt(msg, callback) {
-  var mykey = crypto.createDecipher('aes-128-cbc', 'mypassword');
-  var mystr = mykey.update(msg, 'hex', 'utf8');
+  var decipher = crypto.createDecipher('aes-256-cbc', 'password');
+  var decrypted = decipher.update(crypted, 'hex', 'utf-8');
+  decrypted += decipher.final('utf-8');
   // Imports the Google APIs client library
   const google = require('googleapis').google;
-  return mystr;
+  return decrypted;
   // Acquires credentials
   google.auth.getApplicationDefault((err, authClient) => {
     if (err) {
