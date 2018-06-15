@@ -23,7 +23,7 @@ class NewPost extends Component {
       <div>
         <Form reply>
           <Grid centered>
-            <Grid.Row style={{marginTop: '1.5em',}}>
+            <Grid.Row style={{marginTop: '1em',}}>
               <MediaQuery query="(max-device-width: 1224px)">
                 <TextArea placeholder='Click to Post' name='mesage' value={this.state.message}
                           style={{minHeight: 100, width: '80vw'}}
