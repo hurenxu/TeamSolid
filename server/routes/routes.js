@@ -376,6 +376,18 @@ router.post('/api/updateFriendList',
                         if (err) {
                             console.log(err);
                         }
+
+                        db.collection("userinfo").update({sid: targetid}, {$push: {follow: sourceid}}, function (err) {
+                            if (err) {
+                                console.log(err);
+                            }
+
+                            db.collection("userinfo").update({sid: sourceid}, {$push: {follow: targetid}}, function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                            });
+                        });
                     });
                     // Delete pending requests from both sides
                     db.collection("userinfo").update({sid: sourceid}, {$pullAll: {pendingRequests: [targetid]}}, function (err) {
