@@ -89,16 +89,22 @@ class PostPopup extends Component {
                 placeholder='What do you want to post?' name='message' value={message}
                 onChange={(e, {value}) => this.setState({message: value})}
               />
-              <label for="image">
-                  <Button icon='picture' content='Image' />
-                <Form.Input type="file" id="image" onChange={this.saveImage} style={{display: 'none'}}
-                            accept="image/*"/>
-              </label>
-              <label htmlFor="video">
-                  <Button icon='video camera' content='Video' />
-                  <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}}
-                            accept="video/*"/>
-              </label>
+                <label htmlFor="image">
+                    <Icon.Group size='large'>
+                    <Icon name='images'/>
+                    <Icon corner name='add' />
+                    </Icon.Group>
+                    <Form.Input type="file" id="image" onChange={this.saveImage} style={{display: 'none'}}
+                                accept="image/*"/>
+                </label>
+                <label htmlFor="video" style={{marginLeft: "3%"}}>
+                    <Icon.Group size='large'>
+                    <Icon name='video'/>
+                    <Icon corner name='add' />
+                    </Icon.Group>
+                    <Form.Input type="file" id="video" onChange={this.saveVideo} style={{display: 'none'}}
+                                accept="video/*"/>
+                </label>
               {indication}
               <Button.Group style={{float: 'right', marginRight: '0%'}}>
                 <Button onClick={() => {
