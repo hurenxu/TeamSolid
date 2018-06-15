@@ -17,7 +17,6 @@ class MainFeed extends Component {
 
     this.loadPosts = this.loadPosts.bind(this)
     this.createPost = this.createPost.bind(this)
-    this.feedList = this.feedList.bind(this)
   }
 
   loadPosts() {
@@ -34,7 +33,7 @@ class MainFeed extends Component {
     })
   }
 
-  feedList() {
+  render() {
     var feed;
     if (this.state.feeds[0] == undefined) {
       feed = (<Message style={{marginTop: '3em'}} warning compact>
@@ -49,9 +48,6 @@ class MainFeed extends Component {
                    postid={feed.postid} loadPost={this.loadPosts}/>
       ));
     }
-  }
-
-  render() {
     this.loadPosts();
     return (
       <div>
