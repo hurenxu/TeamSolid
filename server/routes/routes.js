@@ -185,7 +185,7 @@ router.post('/api/getuserIconUrl',
 
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
-            response = db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
+            db.collection('userinfo').find({sid: eml}).toArray(function (err, result) {
                 if (err) {
                     console.log(err);
                 }

@@ -21,7 +21,8 @@ class Navbar extends Component {
         username: 'Profile',
         openSupport: 0,
         subMsg: "Not Subscribed",
-        visible: false
+        visible: false,
+         userImgURL:""
       };
 
     this.handleItemClick = this.handleItemClick.bind(this);
@@ -56,16 +57,28 @@ class Navbar extends Component {
 
   loadUsername() {
     axios.post('/api/getUserName').then((response) => {
-      this.setState({
-        username: JSON.parse(response.data).username
-      });
-
-      // console.log("loading user name");
-      // console.log(JSON.parse(response.data).username)
-    });
+        this.setState({
+            username: JSON.parse(response.data).username
+        });
+    })
+    axios.post('/api/getUserIconUrl').then((response) => {
+        var url = JSON.parse(response.data).userIconUrl;
+        console.log(url[0].filename);
+        if (url === "") {
+            this.setState({
+                userImgURL: "../assets/avatar.jpg"
+            });
+        }
+        else {
+            this.setState({
+                userImgURL: ("/resource/" + url[0].filename)
+            });
+        }
+    })
   }
 
   render() {
+      console.log(this.state.userImgURL);
     this.state.subMsg = (this.props.sub === true) ? "Subscribed" : "Not Subscribed";
     const { visible } = this.state.visible
     return (
@@ -73,7 +86,7 @@ class Navbar extends Component {
         <MediaQuery query="(max-device-width: 1224px)">
           <Menu pointing size='small'>
             <Menu.Item name='me' onClick={this.handleItemClick}>
-              <Image size='mini' circular src="../assets/avatar.jpg" />
+                <Image size='mini' circular src="../assets/avatar.jpg" />
             </Menu.Item>
             <Menu.Item name='posts' active={this.state.activeItem === 'posts'} onClick={this.handleItemClick}/>
             <Menu.Item name='messages' active={this.state.activeItem === 'messages'} onClick={this.handleItemClick}/>
@@ -84,7 +97,7 @@ class Navbar extends Component {
         <MediaQuery query="(min-device-width: 1224px)">
           <Menu pointing size='huge'>
             <Menu.Item name='me' onClick={this.handleItemClick}>
-              <Image size='mini' circular src="../assets/avatar.jpg" />
+              <Image size='tiny' circular src={this.state.userImgURL} />
               <Label as='a' color='blue' onClick={this.props.handleUnsub}>
                 {this.state.username}
                 <Label.Detail>{this.state.subMsg}</Label.Detail>

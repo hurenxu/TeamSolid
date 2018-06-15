@@ -46,7 +46,6 @@ class FeedEvent extends Component {
     render() {
         var body;
         var write;
-        console.log(<CommentFeed/>);
         if(this.props.files.length >0){
             if(this.props.files[0].filetype.substring(0,1)==="i"){
                 var col = this.props.files.length>1?2:1;
