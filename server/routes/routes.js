@@ -49,7 +49,7 @@ passport.use(new LocalStrategy({
           return done(null, false, {message: 'Incorrect username.'});
         }
 
-        dec_password = decrypt(user.password, null);
+        var dec_password = decrypt(user.password, null);
 
         if (dec_password != password) {
           return done(null, false, { message: 'Incorrect password.' });
@@ -149,7 +149,7 @@ router.post('/api/getUserName',
           console.log(err);
         }
 
-        dec_user = decrypt(result[0].username, null);
+        var dec_user = decrypt(result[0].username, null);
 
           res.json(JSON.stringify({"username": dec_usr}));
         // res.json(JSON.stringify({"username": result[0].username}));
@@ -185,8 +185,8 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
         cl.count(function (err, num) {
           count = num;
 
-          enc_usrname = encrypt(username, null);
-          enc_pwd = encrypt(pwd, null);
+          var enc_usrname = encrypt(username, null);
+          var enc_pwd = encrypt(pwd, null);
 
           cl.insertOne({ _id: (count + 1), username: enc_usrname, email: eml, password: enc_pwd }, function () {
             // console.log('insert!' + eml + ' ' + pwd);
@@ -312,7 +312,7 @@ router.post('/api/searchUser',
           console.log(err);
         }
 
-        dec_username = decrypt(result[0].username, null);
+        var dec_username = decrypt(result[0].username, null);
 
         result[0].username = dec_username;
         res.json(JSON.stringify(result[0]));
@@ -597,8 +597,8 @@ router.post('/api/postMessage',
       }
       const db = client.db(dbName);
 
-      enc_msg = encrypt(mmsg, null);
-      enc_date = encrypt(mdate, null);
+      var enc_msg = encrypt(mmsg, null);
+      var enc_date = encrypt(mdate, null);
       
       db.collection("messages").insertOne({ sid: sourceid, tid: targetid, msg: enc_msg, date: enc_date }, function (err) {
         if (err) {
@@ -655,8 +655,8 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
       db.collection("posts").count(function (err, num) {
         if (err) throw err;
 
-        enc_pmsg = encrypt(pmsg, null);
-        enc_pdate = encrypt(pdate, null);
+        var enc_pmsg = encrypt(pmsg, null);
+        var enc_pdate = encrypt(pdate, null);
 
         db.collection("posts").insertOne({ postid: (num + 1), sid: sourceid, filename: pfiles, aspect: paspect, likedUsers: [], likecount: 0, msg: enc_pmsg, comment: [], date: enc_pdate }, function (err) {
           if (err) {
