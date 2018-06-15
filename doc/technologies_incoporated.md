@@ -33,11 +33,12 @@ Facebook, Twitter, etc. (different kind of APIs and different kind of providers)
 
 ## Encryption Services <a name="enSev"></a> 
 
-The encryption service we used is Virgil Security.
+The encryption service we used is Google KMS.
 
-Virgil Security is a stack of security libraries and all the necessary infrastructure to enable seamless, end-to-end 
-encryption for any application, platform or device. In a few simple steps you can encrypt communication, securely store 
-data, provide password-less login, and ensure data integrity.
+Cloud KMS is a cloud-hosted key management service that lets you manage encryption for your cloud services the same way you do 
+on-premises. You can generate, use, rotate and destroy AES256 encryption keys. Cloud KMS is integrated with IAM and Cloud 
+Audit Logging so that you can manage permissions on individual keys, and monitor how these are used. Use Cloud KMS to protect 
+secrets and other sensitive data which you need to store in Google Cloud Platform.
 
 ## Chat Services <a name="chSev"></a> 
 
