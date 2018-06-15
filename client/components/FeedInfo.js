@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Feed, Icon, Grid, Header} from 'semantic-ui-react'
-import Adv from './Advertisement'
+import Adv from './Ad'
 
 class FeedInfo extends Component {
 
