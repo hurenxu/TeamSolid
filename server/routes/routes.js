@@ -893,7 +893,6 @@ const cryptoKeyId = 'user-key';
 function encrypt(msg, callback) {
   var mykey = crypto.createCipher('aes-128-cbc', 'mypassword');
   var mystr = mykey.update(msg, 'utf8', 'hex');
-  mystr += mykey.update.digest('hex');
 
   // Imports the Google APIs client library
   const google = require('googleapis').google;
@@ -949,7 +948,6 @@ function encrypt(msg, callback) {
 function decrypt(msg, callback) {
   var mykey = crypto.createDecipher('aes-128-cbc', 'mypassword');
   var mystr = mykey.update(msg, 'hex', 'utf8');
-  mystr += mykey.update.digest('utf8');
   // Imports the Google APIs client library
   const google = require('googleapis').google;
   return mystr;
