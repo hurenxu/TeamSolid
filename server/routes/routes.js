@@ -685,6 +685,8 @@ router.post('/api/getPosts',
                         console.log(err);
                     }
 
+                    console.log(result);
+
                     for (var i = 0; i < result.length; i++) {
                         result[i].msg = decrypt(result[i].msg);
                         result[i].date = decrypt(result[i].date);
