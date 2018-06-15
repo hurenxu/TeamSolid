@@ -36,7 +36,7 @@ class MainFeed extends Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => this.loadPosts(),
-      5000
+      2000
     );
 
     this.loadPosts()
