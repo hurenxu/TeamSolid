@@ -262,12 +262,12 @@ router.post('/api/switchChatTarget',
                     var i = 0;
 
                     for (i = 0; i < result1.length; i++) {
-                        result1[i].mgs = decrypt(result1[i].mgs, null);
+                        result1[i].msg = decrypt(result1[i].msg, null);
                         result1[i].date = decrypt(result1[i].date, null);
                       }
             
                       for (i = 0; i < result2.length; i++) {
-                        result2[i].mgs = decrypt(result2[i].mgs, null);
+                        result2[i].msg = decrypt(result2[i].msg, null);
                         result2[i].date = decrypt(result2[i].date, null);
                       }
                     res.json(JSON.stringify(result1.concat(result2)));
