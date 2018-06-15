@@ -167,7 +167,7 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
   var eml = req.body.email;
   var pwd = req.body.password;
   var sub = false;
-  var usrname = req.body.username;
+  var username = req.body.username;
   var sfiles = []
 
   if ('files' in req) {
