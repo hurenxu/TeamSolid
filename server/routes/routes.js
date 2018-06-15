@@ -151,7 +151,7 @@ router.post('/api/getUserName',
           console.log(err);
         }
 
-        var dec_user = decrypt(result[0].username, null);
+        var dec_usr = decrypt(result[0].username, null);
 
           res.json(JSON.stringify({"username": dec_usr}));
         // res.json(JSON.stringify({"username": result[0].username}));
