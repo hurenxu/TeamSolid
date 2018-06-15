@@ -952,7 +952,7 @@ function encrypt(msg, callback) {
 
 function decrypt(msg, callback) {
   var decipher = crypto.createDecipher('aes-256-cbc', 'password');
-  var decrypted = decipher.update(crypted, 'hex', 'utf-8');
+  var decrypted = decipher.update(msg, 'hex', 'utf-8');
   decrypted += decipher.final('utf-8');
   // Imports the Google APIs client library
   const google = require('googleapis').google;
