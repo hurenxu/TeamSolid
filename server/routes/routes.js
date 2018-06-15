@@ -689,7 +689,7 @@ router.post('/api/getPosts',
 
                     for (var i = 0; i < result.length; i++) {
                         result[i].msg = decrypt(result[i].msg);
-                        result[i].date = decrypt(result[i].date);
+                        result[i].data = decrypt(result[i].data);
                       }
 
                     res.json(JSON.stringify(result));
