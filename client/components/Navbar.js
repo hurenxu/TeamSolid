@@ -71,7 +71,7 @@ class Navbar extends Component {
     return (
       <div>
         <MediaQuery query="(max-device-width: 1224px)">
-          <Menu pointing size='tiny'>
+          <Menu pointing size='small'>
             <Menu.Item name='me' onClick={this.handleItemClick}>
               <Image size='mini' circular src="../assets/avatar.jpg" />
             </Menu.Item>

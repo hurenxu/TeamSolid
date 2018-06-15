@@ -53,24 +53,31 @@ class MainFeed extends Component {
     }
     return (
       <div>
-        <div style={{
-          marginLeft: '10vw',
-          maxHeight: '50vh',
-          overflow: 'scroll',
-          overflowY: 'scroll',
-          overflowX: 'hidden'
+        <MediaQuery query="(max-device-width: 1224px)">
+          <div style={{
+            marginLeft: '10vw',
+            maxHeight: '50vh',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+            overflowX: 'hidden'
           }}>
-          <MediaQuery query="(max-device-width: 1224px)">
-            <Feed size='small' className='mobileFeed'>
-              {feed}
-            </Feed>
-          </MediaQuery>
-          <MediaQuery query="(min-device-width: 1224px)">
             <Feed size='small'>
               {feed}
             </Feed>
-          </MediaQuery>
-        </div>
+          </div>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <div style={{
+            maxHeight: '50vh',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+            overflowX: 'hidden'
+          }}>
+            <Feed size='small'>
+              {feed}
+            </Feed>
+          </div>
+        </MediaQuery>
         <div style={{}}>
           <NewPost createPost={this.createPost}/>
         </div>
