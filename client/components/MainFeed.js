@@ -16,22 +16,20 @@ class MainFeed extends Component {
 
     this.loadPosts = this.loadPosts.bind(this)
     this.createPost = this.createPost.bind(this)
-    this.loadPosts()
     this.feedList = this.feedList.bind(this)
   }
 
   loadPosts() {
     axios.post('/api/getPosts').then((response) => {
-      this.setState({
+        this.state.feeds = JSON.parse(response.data);
+        this.setState({
         feeds: JSON.parse(response.data)
       })
-      this.state.feeds = JSON.parse(response.data);
     });
   }
 
   createPost(postObject) {
     axios.post('/api/postPost', postObject).then((response) => {
-      this.loadPosts()
     })
   }
 
@@ -45,13 +43,14 @@ class MainFeed extends Component {
     else {
       return (this.state.feeds.map((feed, index) =>
         <FeedEvent files={feed.files} userName={feed.sid} mainText={feed.msg} numOfLikes={feed.likecount}
-                   date={feed.data}
-                   postid={feed.postid}/>
+                   date={feed.data} comments={feed.comment}
+                   postid={feed.postid} loadPost={this.loadPosts}/>
       ));
     }
   }
 
   render() {
+    this.loadPosts();
     return (
       <div>
         <NewPost createPost={this.createPost}/>
