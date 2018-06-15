@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Grid, Ref} from 'semantic-ui-react'
-import Responsive from 'react-responsive';
+import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import {Container, Form, Icon, Button, Header, Image, Modal, Input, Card, Divider, Segment} from 'semantic-ui-react'
 
 const style = {
   marginTop: '2em',
+  marginLeft: '2em',
+  marginRight: '2em'
 }
 
 class FriendManagement extends Component {
@@ -182,31 +184,53 @@ class FriendManagement extends Component {
 
     return (
       <div style={style}>
-        <Header as='h2' textAlign='left'>Add a friend</Header>
-        <Input icon='users' iconPosition='left' value={this.state.value}
-               onChange={this.handleChange} placeholder='Search users...'/>
-        <Button icon labelPosition='right' onClick={this.handleSubmit}
-                style={{marginTop: '3em', marginBottom: '3em'}}>
-          Add Friend
-          <Icon name='right arrow'/>
-        </Button>
-        <Divider section/>
-        <Grid style={{marginTop: '3em'}}>
-          <Grid.Row columns={2}>
-            <Grid.Column>
-              <Header as='h2' textAlign='left'>Pending Requests</Header>
-              <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
-                {pendingFriends}
-              </Card.Group>
-            </Grid.Column>
-            <Grid.Column>
-              <Header as='h2' textAlign='left'>Manage friends</Header>
-              <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
-                {currFriends}
-              </Card.Group>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <Header as='h3' textAlign='left'>Add a friend</Header>
+          <Input icon='users' iconPosition='left' value={this.state.value}
+                 onChange={this.handleChange} placeholder='Search users...'/>
+          <Button icon labelPosition='right' onClick={this.handleSubmit}
+                  style={{marginTop: '3em', marginBottom: '3em'}}>
+            Add Friend
+            <Icon name='right arrow'/>
+          </Button>
+          <Divider section/>
+          <Header as='h3' textAlign='left'>Pending Requests</Header>
+          <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={1}>
+            {pendingFriends}
+          </Card.Group>
+          <Divider section/>
+          <Header as='h3' textAlign='left'>Manage friends</Header>
+          <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={1}>
+            {currFriends}
+          </Card.Group>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <Header as='h2' textAlign='left'>Add a friend</Header>
+          <Input icon='users' iconPosition='left' value={this.state.value}
+                 onChange={this.handleChange} placeholder='Search users...'/>
+          <Button icon labelPosition='right' onClick={this.handleSubmit}
+                  style={{marginTop: '3em', marginBottom: '3em'}}>
+            Add Friend
+            <Icon name='right arrow'/>
+          </Button>
+          <Divider section/>
+          <Grid style={{marginTop: '3em'}}>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Header as='h2' textAlign='left'>Pending Requests</Header>
+                <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
+                  {pendingFriends}
+                </Card.Group>
+              </Grid.Column>
+              <Grid.Column>
+                <Header as='h2' textAlign='left'>Manage friends</Header>
+                <Card.Group style={{marginTop: '1em', marginBottom: '1em'}} itemsPerRow={2}>
+                  {currFriends}
+                </Card.Group>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </MediaQuery>
       </div>
     );
   }

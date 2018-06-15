@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Grid, Menu, Feed} from 'semantic-ui-react'
-import Responsive from 'react-responsive';
+import MediaQuery from 'react-responsive';
 import ReactDOM from "react-dom";
 import Navbar from './Navbar'
 import Select from './Select'
@@ -86,7 +86,7 @@ class Main extends Component {
       (this.state.mode === 'messages' ?
         <ChatWindow targetID={this.state.targetUserID} handleMessages={this.handleMessages}/> : <FriendManagement/>)
 
-    const aspect = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
+    const side = (this.state.mode === 'posts') ? <Aspect handleAspect={this.handlePost}/> :
       (this.state.mode === 'messages' ? <Select handleMessages={this.handleMessages}/> : <div></div>)
 
     if(this.state.loginBack === true) {
@@ -104,26 +104,33 @@ class Main extends Component {
         <Navbar handlePosts={this.handlePosts} handleFriends={this.handleFriends}
                 handleMessages={this.handleMessages} sub={this.state.sub} handleUnsub={this.handleUnsub}></Navbar>
         <Grid>
-          {this.state.mode === 'friends' &&
+          <MediaQuery query="(max-device-width: 1224px)">
+            <Grid.Column width={16}>
+              {window}
+            </Grid.Column>
+          </MediaQuery>
+          <MediaQuery query="(min-device-width: 1224px)">
+            {this.state.mode === 'friends' &&
             <Grid.Column width={1}>
             </Grid.Column>
-          }
-          {this.state.mode != 'friends' &&
+            }
+            {this.state.mode != 'friends' &&
             <Grid.Column width={4}>
-              {aspect}
+              {side}
             </Grid.Column>
-          }
-          <Grid.Column width={this.state.mode === 'friends' ? 10 : 8}>
-            {window}
-          </Grid.Column>
-          {this.state.mode === 'friends' &&
+            }
+            <Grid.Column width={this.state.mode === 'friends' ? 10 : 8}>
+              {window}
+            </Grid.Column>
+            {this.state.mode === 'friends' &&
             <Grid.Column width={1}>
             </Grid.Column>
-          }
-          <Grid.Column width={4}>
+            }
+            <Grid.Column width={4}>
               {console.log(this.state.sub)}
-            <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>
-          </Grid.Column>
+              <FeedInfo sub={this.state.sub} handleClick={this.handleClick}/>
+            </Grid.Column>
+          </MediaQuery>
         </Grid>
       </div>
     );
