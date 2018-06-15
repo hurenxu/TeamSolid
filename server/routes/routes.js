@@ -26,7 +26,7 @@ passport.deserializeUser(function (id, done) {
         col.findOne({_id: id}, function (err, user) {
             done(err, user);
         });
-        client.close();
+        //  client.close();
     })
 });
 
@@ -55,7 +55,7 @@ passport.use(new LocalStrategy({
                 console.log(username + ' success')
                 return done(null, user);
             });
-            client.close();
+            //  client.close();
         })
     }
 ));
@@ -125,7 +125,7 @@ router.post('/api/getUserName',
 
                 res.json(JSON.stringify({"username": result[0].username}));
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -178,7 +178,7 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
                 res.json(JSON.stringify({result: "DUP"}));
             }
         })
-        client.close();
+        //  client.close();
     });
 });
 
@@ -196,7 +196,7 @@ router.post('/api/getuserIconUrl',
 
                 res.json(JSON.stringify({userIconUrl: result[0].userIconUrl}));
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -214,7 +214,7 @@ router.post('/api/getsub',
 
                 res.json(JSON.stringify({sub: result[0].sub}));
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -226,7 +226,7 @@ router.post('/api/setsub',
         MongoClient.connect(url, function (err, client) {
             const db = client.db(dbName);
             db.collection('userinfo').updateOne({sid: eml}, {$set: {"sub": sub}});
-            client.close();
+            //  client.close();
         });
     });
 
@@ -251,7 +251,7 @@ router.post('/api/switchChatTarget',
                     res.json(JSON.stringify(result1.concat(result2)));
                 });
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -274,7 +274,7 @@ router.post('/api/searchUser',
 
                 res.json(JSON.stringify(result[0]));
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -310,7 +310,7 @@ router.post('/api/addPendingList',
                     });
                 }
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -372,7 +372,7 @@ router.post('/api/updateFriendList',
                     });
                 });
             }
-            client.close();
+            //  client.close();
         });
     });
 
@@ -394,7 +394,7 @@ router.post('/api/getPendingList',
                 }
                 res.json(JSON.stringify(result[0].pendingRequests));
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -415,7 +415,7 @@ router.post('/api/getFriendList',
                 }
                 res.json(JSON.stringify(result[0].friends));
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -442,7 +442,7 @@ router.post('/api/ChangeToPost',
                     res.json(JSON.stringify(result));
                 });
             })
-            client.close();
+            //  client.close();
 
         });
     });
@@ -467,7 +467,7 @@ router.post('/api/ChangeToMessage',
                     res.json(JSON.stringify(result1.concat(result2)));
                 });
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -523,7 +523,7 @@ router.post('/api/LikeAPost',
                     });
                 }
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -551,7 +551,7 @@ router.post('/api/postMessage',
                     res.json(JSON.stringify({result: "OK"}));
                 });
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -616,7 +616,7 @@ router.route('/api/postPost').post(multerupload.any(), require('connect-ensure-l
                     })
                 });
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -644,7 +644,7 @@ router.post('/api/getPosts',
                     res.json(JSON.stringify(result));
                 });
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -668,7 +668,7 @@ router.post('/api/comment',
                     res.json(JSON.stringify({ result: "OK" }));
                 }
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -726,7 +726,7 @@ router.post('/api/follow',
                     });
                 }
             });
-            client.close();
+            //  client.close();
         });
     });
 
@@ -748,7 +748,7 @@ router.post('/api/unfollow',
                     res.json(JSON.stringify({result: "OK"}));
                 }
             });
-            client.close();
+            //  client.close();
 
         });
     });
@@ -769,7 +769,7 @@ router.post('/insert', function (req, res, next) {
                 res.send("insertion success!");
             });
         });
-        client.close();
+        //  client.close();
     });
 });
 
@@ -782,7 +782,7 @@ router.get('/read', function (req, res) {
             if (err) throw err;
             res.send(JSON.stringify(list));
         });
-        client.close();
+        //  client.close();
     });
 });
 
@@ -795,7 +795,7 @@ router.get('/delete', function (req, res) {
             if (err) throw err;
             res.send("deletion success!");
         })
-        client.close();
+        //  client.close();
     });
 });
 module.exports = router;
@@ -890,6 +890,6 @@ router.post('/api/testencrypt',
                 console.log("msg inserted: " + msg);
                 db.close();
             })
-            client.close();
+            //  client.close();
         });
     });
