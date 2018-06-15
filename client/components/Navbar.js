@@ -63,7 +63,7 @@ class Navbar extends Component {
     })
     axios.post('/api/getUserIconUrl').then((response) => {
         var url = JSON.parse(response.data).userIconUrl;
-        if (url === "") {
+        if (url[0] === undefined) {
             this.setState({
                 userImgURL: "../assets/avatar.jpg"
             });
