@@ -163,8 +163,8 @@ router.route('/api/signup').post(multerupload.any(), function (req, res, next) {
                 cl.count(function (err, num) {
                     count = num;
 
-                    var username = encrypt(username, null);
-                    var pwd = encrypt(pwd, null);
+                    username = encrypt(username, null);
+                    pwd = encrypt(pwd, null);
                     cl.insertOne({_id: (count + 1), username: usrname, email: eml, password: pwd}, function () {
                         console.log('insert!' + eml + ' ' + pwd);
 
@@ -858,7 +858,6 @@ const locationId = 'global';
 const keyRingId = 'user-keyring';
 
 const cryptoKeyId = 'user-key';
-
 
 function encrypt(msg, callback) {
   var cipher = crypto.createCipher('aes-256-cbc', 'password');
