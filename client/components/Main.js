@@ -126,19 +126,19 @@ class Main extends Component {
             </Grid.Column>
           </MediaQuery>
           <MediaQuery query="(min-device-width: 1224px)">
-            {this.state.mode === 'friends' &&
+            {this.state.mode != 'messages' &&
             <Grid.Column width={1}>
             </Grid.Column>
             }
-            {this.state.mode != 'friends' &&
+            {this.state.mode == 'messages' &&
             <Grid.Column width={4}>
               {side}
             </Grid.Column>
             }
-            <Grid.Column width={this.state.mode === 'friends' ? 10 : 8}>
+            <Grid.Column width={this.state.mode != 'messages' ? 10 : 8}>
               {window}
             </Grid.Column>
-            {this.state.mode === 'friends' &&
+            {this.state.mode != 'messages' &&
             <Grid.Column width={1}>
             </Grid.Column>
             }

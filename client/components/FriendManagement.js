@@ -107,7 +107,6 @@ class FriendManagement extends Component {
           else {
             axios.post('/api/addPendingList', {tid: this.state.targetFriend}).then((response) => {
               console.log(JSON.stringify(response.data));
-              this.setState({friendList: JSON.parse(response.data)})
               alert('Your request is sent');
               this.setState({value: ""});
             });
@@ -152,7 +151,6 @@ class FriendManagement extends Component {
     }
     else {
       currFriends = <h3>You have no friends. Peter is always your friend.</h3>
-      console.log("You have no friends")
     }
 
     if (this.state.pendingList.length != 0) {
