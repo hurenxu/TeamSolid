@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Image, Item, Button, Grid, Menu, Segment, Input, Label} from 'semantic-ui-react'
+import {Image, Item, Button, Grid, Menu, Segment, Input, Label, Header, Icon, Divider} from 'semantic-ui-react'
 import Responsive from 'react-responsive';
 import ReactDOM from "react-dom";
+import axios from "axios";
+import MediaQuery from 'react-responsive';
 
 
 const avatarStyle = {
@@ -14,37 +16,105 @@ const avatarStyle = {
 
 class Select extends Component {
 
-  state = { activeIndex: 0}
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeIndex: 0,
+      friendList: []
+    }
 
-  handleItemClick = (e, { index }) => this.setState({ activeIndex: index })
+    this.handleItemClick = this.handleItemClick.bind(this);
 
-  render(){
-    const { activeIndex } = this.state;
+    // load friend list
+    this.loadFriendList = this.loadFriendList.bind(this);
+    this.loadFriendList();
+  }
+
+  handleItemClick(e, {index}) {
+    this.setState({activeIndex: index});
+    this.props.handleMessages(this.state.friendList[index].sid);
+  }
+
+  loadFriendList() {
+    axios.post('/api/getFriendList').then((response) => {
+      // this.setState({
+      //   friendList: JSON.parse(response.data)
+      // });
+      console.log("Load friend list")
+
+      const friendIDs = JSON.parse(response.data)
+
+      axios.all(friendIDs.map(friendID => axios.post('/api/searchUser', {searchKey: friendID})))
+        .then(axios.spread((...results) => {
+          // all requests are now complete
+          const friendDetails = results.map(res => JSON.parse(res.data))
+          this.setState({
+            friendList: friendDetails
+          })
+        }));
+    })
+  }
+
+  render() {
+    const {activeIndex} = this.state;
+    var menuItems = []
+    for (var i = 0; i < this.state.friendList.length; i++) {
+      menuItems.push(
+        <div>
+          <MediaQuery query="(max-device-width: 1224px)">
+            <Menu.Item name={this.state.friendList[i].username} index={i} active={true}
+                       onClick={this.handleItemClick} style={{marginBottom: '1em'}}>
+              <Grid verticalAlign='middle' centered>
+                <Grid.Column width={3}>
+                  <Image size='mini' circular src="../assets/avatar.jpg" />
+                </Grid.Column>
+                <Grid.Column textAlign="center" width={9}>
+                  {this.state.friendList[i].username}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  <Label color='red'>1</Label>
+                </Grid.Column>
+              </Grid>
+            </Menu.Item>
+          </MediaQuery>
+          <MediaQuery query="(min-device-width: 1224px)">
+            <Menu.Item name={this.state.friendList[i].username} index={i} active={activeIndex == i}
+                       onClick={this.handleItemClick}>
+              <Grid verticalAlign='middle' centered>
+                <Grid.Column width={3}>
+                  <Image size='mini' circular src="../assets/avatar.jpg" />
+                </Grid.Column>
+                <Grid.Column textAlign="center" width={9}>
+                  {this.state.friendList[i].username}
+                </Grid.Column>
+                <Grid.Column width={2}>
+                  <Label color='red'>1</Label>
+                </Grid.Column>
+              </Grid>
+            </Menu.Item>
+          </MediaQuery>
+        </div>
+      )
+    }
 
     return (
       <div>
-          <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
-              <Menu.Item>
-                  <Input icon='search' placeholder='Search tag...' />
-              </Menu.Item>
-              <Menu.Item  name='0' index={0} active={activeIndex === 0} onClick={this.handleItemClick}>
-                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-                Frank Qiao
-                <Label color='red'>1</Label>
-              </Menu.Item>
-              <Menu.Item name='1' index={1} active={activeIndex === 1} onClick={this.handleItemClick}>
-                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-                Jack Wang
-                <Label color='red'>12</Label>
-              </Menu.Item>
-
-              <Menu.Item name='2' index={2} active={activeIndex === 2} onClick={this.handleItemClick}>
-                <img style={avatarStyle} className="ui avatar image" src="../assets/avatar.jpg"/>
-                John Snow
-                <Label color='red'>1</Label>
-              </Menu.Item>
-
+        <Header as='h2' style={{marginLeft: "1em", marginTop: "0.8em", marginBottom: "1.5em"}}>
+          <Icon name='users'/>
+          <Header.Content>
+            Friends
+          </Header.Content>
+        </Header>
+        <MediaQuery query="(max-device-width: 1224px)">
+          <Menu vertical style={{marginLeft: '13vw'}} secondary vertical size='huge'>
+            {menuItems}
           </Menu>
+        </MediaQuery>
+        <MediaQuery query="(min-device-width: 1224px)">
+          <Menu vertical style={{marginTop: '5vh'}} pointing secondary vertical size='huge'>
+            {menuItems}
+          </Menu>
+        </MediaQuery>
       </div>
     );
   }
