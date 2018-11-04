@@ -6,25 +6,24 @@ pipeline {
     stages {
         stage('Build') {
 	    agent {
-                docker {
-                    image 'node:6-alpine'
-                    args '-p 3000:8000'
+        	docker {
+                image 'node:6-alpine'
+                args '-p 3000:8000'
                 }
             }
             steps {
-                sh 'npm install babel-cli -S'
                 sh 'npm install'
             }
         }
         stage('Test') {
             agent {
-        	    docker {
-                    image 'node:6-alpine'
-                    args '-p 3000:8000'
+        	docker {
+                image 'node:6-alpine'
+                args '-p 3000:8000'
                 }
             }
 	    steps {
-            sh 'chmod 777 ./jenkins/scripts/test.sh'
+		sh 'chmod 777 ./jenkins/scripts/test.sh'
                 sh './jenkins/scripts/test.sh'
             }
         }
